@@ -1,0 +1,11 @@
+{
+  "name": "shader-consumer-fixture",
+  "private": true,
+  "dependencies": {
+    "@repo/web": "0.0.0",
+    "@repo/design": "0.0.0",
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  }
+}

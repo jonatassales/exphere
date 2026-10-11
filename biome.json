@@ -34,7 +34,7 @@
   },
   "overrides": [
     {
-      "includes": ["apps/website/**/*.css"],
+      "includes": ["apps/website/**/*.css", "packages/web/**/*.css"],
       "css": {
         "parser": {
           "tailwindDirectives": true

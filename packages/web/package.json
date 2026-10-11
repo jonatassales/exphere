@@ -2,6 +2,28 @@
   "name": "@repo/web",
   "version": "0.0.0",
   "private": false,
+  "type": "module",
+  "exports": {
+    "./react/exphere-shader": {
+      "types": "./dist/react/exphere-shader/exphere-shader.d.ts",
+      "import": "./dist/react/exphere-shader/exphere-shader.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "build": "sh scripts/build.sh",
+    "typecheck": "sh scripts/typecheck.sh",
+    "test": "sh scripts/test.sh"
+  },
+  "peerDependencies": {
+    "react": "^19.3.0"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -9,6 +31,19 @@
     "node": ">=22.22.1"
   },
   "devDependencies": {
-    "smoothui-cli": "1.1.3"
+    "@playwright/test": "1.64.0",
+    "@tailwindcss/cli": "4.3.3",
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "smoothui-cli": "1.1.3",
+    "tailwindcss": "4.3.3",
+    "typescript": "7.0.2"
+  },
+  "dependencies": {
+    "@repo/design": "workspace:*"
   }
 }

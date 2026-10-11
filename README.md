@@ -7,8 +7,8 @@ Exphere explores developer experience, agent-assisted delivery, and consumer-com
 | `packages/sdk/` | Private `@exphere/sdk`; TypeScript API remains empty. |
 | `packages/cli/` | Private `@exphere/cli`; owns the `ex` shell CLI. |
 | `packages/design/` | Public-intent `@repo/design`; basic light-palette tokens with generated CSS/JSON exports. |
-| `packages/web/` | Public-intent `@repo/web`; source placeholders and SmoothUI CLI dependency only. |
-| `apps/website/` | Minimal private Next.js application consuming design tokens. |
+| `packages/web/` | Public-intent `@repo/web`; the children-only `ExphereShader` React motion surface, with public design tokens and generated styles. |
+| `apps/website/` | Minimal private Next.js application consuming design tokens and the shared `ExphereShader` in its root layout. |
 | `.exphere/runtimes/<id>/` | Consumer v2 configuration created on demand; not a workspace. Existing `.micro-runtime/<id>/` descriptors remain legacy v1. |
 | `.agents/` | Context, rules, guardrails, skills, and templates. |
 | `.exphere/workflows/` | Common SDD lifecycle and the Dev, design, operations, SRE, and FinOps workflow documents. |
@@ -17,7 +17,7 @@ Exphere explores developer experience, agent-assisted delivery, and consumer-com
 
 The tree has no API or protobuf workspace. The SDK API remains empty. Design and web use versioned public-intent metadata; no package has been published by this work. See the [design contract](packages/design/README.md), [web boundary](packages/web/README.md), and [website commands](apps/website/README.md).
 
-Run `pnpm dev --filter=website` for the website after dependency installation. Turborepo builds its design dependency first. Use `pnpm --filter @repo/design dev` separately when editing tokens. `pnpm build` prepares production outputs; `pnpm start --filter=website` runs the application. Browser appearance, deployment, and production readiness require separate evidence.
+Run `pnpm dev --filter=website` for the website after dependency installation. Turborepo builds its design and web dependencies first. Use `pnpm --filter @repo/design dev` separately when editing tokens. `pnpm build` prepares production outputs; `pnpm start --filter=website` runs the application. Browser appearance, deployment, and production readiness require separate evidence.
 
 ## Microruntime CLI
 
