@@ -11,10 +11,12 @@
 5. Perform only relevant authorized checks. For documents, inspect structure, links, anchors, paths, terminology, and applicable JSON. For code, select available formatting or compilation checks if appropriate. Inspect manifest commands before using them; do not repair absent helper scripts outside the ticket's scope.
 6. Make the final changed scope available for [review](02-review.md), including relevant uncommitted and newly created files. Record checks performed, failures, skipped verification, and limitations.
 
-The current test prohibition overrides testing defaults in implementation skills. Do not load or execute TDD to evade it, add tests, run existing tests, or substitute smoke checks or HTTP probes. No commit, publication, provisioning, or production action is implied by completing local work.
+Use TDD at the authorized hook-contract seam for SPEC-GIT-HOOKS-SDD. The build/test push gate is authorized; unrelated tests and service probes still need corresponding authorization. No commit, publication, provisioning, or production action is implied by completing local work.
 
 **Output:** the implemented deliverable, updated artifacts, and a reviewable snapshot with a concise verification record.
 
 **Completion:** the authorized changes are ready for technical review. Advance the ticket to `in-review`; review and audit determine whether its criteria are satisfied.
 
 **Return condition:** a scope change returns to planning; an implementation defect remains execution work. Record any external dependency or unavailable mandatory check instead of declaring success.
+
+For an authorized commit, use a Conventional Commit message with one `Ticket:` trailer under the [SDD rule](../../rules/sdd.md). Pre-commit checks staged eligible content and reports harness-score without a target; commit-msg resolves staged artifact IDs. Keep warnings visible without masking blocking lint or message errors.

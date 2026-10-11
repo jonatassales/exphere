@@ -2,7 +2,7 @@
 
 ## Current scope
 
-Exphere is an experimental project for developer experience and agent-assisted software delivery. The current tree contains a pnpm/Turborepo workspace and the SDK in `packages/exphere/`. The SDK includes the shell CLI `ex`, microruntime descriptors, Terraform/Kubernetes adapters, and explicit consumer `.sh` hooks; its TypeScript API remains empty. There is no workflow engine, automated quality-contract enforcement, or demonstrated production integration. Documents and adapters do not prove execution or outcomes.
+Exphere is an experimental project for developer experience and agent-assisted software delivery. The current tree contains a pnpm/Turborepo workspace and the SDK in `packages/exphere/`. The SDK includes the shell CLI `ex`, microruntime descriptors, Terraform/Kubernetes adapters, and explicit consumer `.sh` hooks; its TypeScript API remains empty. Local hooks implement selected developer checks and advisory SDD traceability. There is no workflow engine, comprehensive quality-contract enforcement, or demonstrated production integration. Documents and adapters do not prove execution or outcomes.
 
 The previously described application and protobuf workspaces are absent. Do not restore removed components or advertise unavailable commands as working. The root [README](README.md) describes the current tree and its limitations.
 
@@ -34,7 +34,7 @@ Create only artifacts required for the authorized phase. Preserve stable IDs whe
 
 ## Local guardrails
 
-FinOps and Twelve-Factor are local working and review policies adopted October 10, 2026. For changes to resources, costs, or AI consumption, load [FinOps rules](.agents/rules/finops.md). For services, configuration, dependencies, delivery, or lifecycle, load [Twelve-Factor rules](.agents/rules/twelve-factor.md). Criteria and evidence requirements are in [guardrails](.agents/guardrails/README.md). No CLI/CI enforcement is implemented. Preserve the current test restriction and valid authorizations.
+FinOps and Twelve-Factor are local working and review policies adopted October 10, 2026. For changes to resources, costs, or AI consumption, load [FinOps rules](.agents/rules/finops.md). For services, configuration, dependencies, delivery, or lifecycle, load [Twelve-Factor rules](.agents/rules/twelve-factor.md). Criteria and evidence requirements are in [guardrails](.agents/guardrails/README.md). Load the [SDD rule](.exphere/rules/sdd.md) and [SDD guardrail](.exphere/guardrails/sdd.md) for commits, reviews, and PR delivery. The SDD rule requires two-axis code review before completion, commit, or push, feature-branch delivery from main, and no force pushes. SDD identity findings warn for now; missing evidence is not compliance and this exception does not weaken other policies or quality failures. Local hook behavior is documented in the root README; no CLI/CI policy engine is implemented. Preserve scoped test authorization and unrelated restrictions.
 
 ## Workflow proposal
 
@@ -76,6 +76,17 @@ Distinguish drafts, authorized decisions, implementations, and observed outcomes
 
 - YAGNI: add only what the request requires, without speculative abstractions, endpoints, or integrations.
 - Automation scripts must be `.sh` files; package manifest scripts invoke those files. Application code and framework configuration are not helper scripts.
-- Do not create or run tests for now. Installation, formatting, static inspection, and compilation may verify authorized changes; smoke checks and HTTP probes are not substitutes for this restriction.
+- SPEC-GIT-HOOKS-SDD authorizes build/test in pre-push and scoped hook-contract tests in disposable local Git repositories, including a local bare remote. The owner authorized implementation on October 11, 2026 after that seam was presented. Unrelated application tests, service probes, project commits, and remote publication still require corresponding authorization.
 - Use pnpm pinned in the manifest and Turborepo for workspace tasks. Workspaces own their dependencies; actual internal dependencies use `workspace:*`.
 - Preserve the existing SDK and consumer boundaries. Do not recreate removed applications or contracts without a separate request.
+
+<!-- BEGIN:turborepo-agent-rules -->
+
+# This is NOT the Turborepo you know
+
+Turborepo configuration, task behavior, and CLI commands can vary between installed versions and may differ from your training data. Resolve the `turbo` package from this file's directory or relevant workspace; in monorepos, it may not be visible from the repository root. For example, run `node -p "require.resolve('turbo/package.json')"` from a workspace that depends on `turbo`.
+
+Read `docs/README.md` inside that installed package first, then read the relevant pages from its `docs/` directory before changing Turborepo configuration or commands. Heed deprecation notices. These bundled docs match the installed package version and are available without network access.
+
+This block is written and re-added by `turbo` before repository-scoped commands when an AI agent is detected. In the Turborepo source repository, its template is defined in `crates/turborepo-cli/src/cli/agent_guidance.rs`. Removing the managed block while updates are enabled means a later qualifying invocation will add it again. Set `"agentGuidance": false` in the root `turbo.json` or `turbo.jsonc` to opt out; this does not remove an existing block. Keep the block committed with your work to avoid an uncommitted change on the next agent invocation.
+<!-- END:turborepo-agent-rules -->

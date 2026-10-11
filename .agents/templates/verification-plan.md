@@ -8,7 +8,7 @@ Use this format as a section of the relevant spec or DD, following the [artifact
 - Execution profile: `<components, versions, resources, data, and environment>`
 - Affected guardrails: `<FIN/12F IDs and version; required method and evidence>` according to the [policies](../guardrails/README.md).
 
-This template does not authorize execution. While tests remain prohibited in the scaffold, record behavioral checks as pending and limit work to authorized inspection.
+This template does not authorize execution. Respect the scoped build/test and hook-contract authorization in root AGENTS. For unrelated behavior without test authorization, record checks as pending and limit work to authorized inspection.
 
 ## Coverage and evidence
 

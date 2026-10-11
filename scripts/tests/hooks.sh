@@ -164,6 +164,7 @@ EOF
   expect 0 git push origin main
   [ "$(cat .checks/order)" = "$(printf 'build\ntest')" ]
   [ "$(git --git-dir="$test_repo-remote" rev-parse refs/heads/main)" = "$(git rev-parse HEAD)" ]
+  contains 'PR-to-spec verification unavailable'
   # Deletion-only updates do not run quality commands.
   rm .checks/order
   expect 0 git push origin :main
@@ -191,12 +192,88 @@ EOF
   # Inspect a non-fast-forward ref update without performing a force push.
   printf 'refs/heads/main %s refs/heads/main %s\n' "$previous" "$(git rev-parse refs/remotes/origin/main)" >"$test_area/non-fast-forward"
   expect 0 sh .husky/_/pre-push origin "$test_repo-remote" <"$test_area/non-fast-forward"
+  contains 'inspecting refs/heads/main' 
   # A missing test command must fail instead of becoming an empty success.
   printf '{"name":"push-fixture","private":true,"scripts":{"build":"sh fixture-check.sh build"}}\n' >package.json
   git add package.json
   git -c core.hooksPath=/dev/null commit -qm 'chore: missing test fixture'
   expect 1 git push origin HEAD:refs/heads/missing-test
   printf 'PASS: push quality gates, missing command, deletion, tags, multiple refs, non-fast-forward inspection, and revision scope\n' 
+}
+
+traceability() {
+  fixture
+  expect 0 sh scripts/hooks/install.sh
+  printf 'feat: fixture\n' >"$test_area/message"
+  expect 0 sh .husky/_/commit-msg "$test_area/message"
+  contains 'SDD WARN'
+  contains 'exactly one Ticket'
+  mkdir -p .artifacts/tickets .artifacts/specs
+  printf '# TEST-01: Fixture ticket\n\n**Spec:** [SPEC-TEST v1](../specs/0099-SPEC-test.spec.md).\n' >.artifacts/tickets/0098-TICKET-test.ticket.md
+  printf '# Fixture spec\n\n- ID: `SPEC-TEST`\n' >.artifacts/specs/0099-SPEC-test.spec.md
+  printf 'feat: fixture\n\nTicket: TEST-01\n' >"$test_area/message"
+  expect 0 sh .husky/_/commit-msg "$test_area/message"
+  contains 'ticket TEST-01 resolves to 0 artifacts'
+  git add .artifacts
+  expect 0 sh .husky/_/commit-msg "$test_area/message"
+  contains 'TEST-01 -> SPEC-TEST'
+  printf '# Changed only in working tree\n' >.artifacts/tickets/0098-TICKET-test.ticket.md
+  expect 0 sh .husky/_/commit-msg "$test_area/message"
+  contains 'TEST-01 -> SPEC-TEST'
+  printf 'Ticket: TEST-02\n' >>"$test_area/message"
+  expect 0 sh .husky/_/commit-msg "$test_area/message"
+  contains 'exactly one Ticket'
+  printf 'feat: fixture\n\nTicket: TEST-01\n' >"$test_area/message"
+  git checkout -- .artifacts/tickets/0098-TICKET-test.ticket.md
+  cp .artifacts/tickets/0098-TICKET-test.ticket.md .artifacts/tickets/0100-TICKET-duplicate.ticket.md
+  git add .artifacts
+  expect 0 sh .husky/_/commit-msg "$test_area/message"
+  contains 'resolves to 2 artifacts'
+  git rm -fq .artifacts/tickets/0100-TICKET-duplicate.ticket.md
+  printf '\n**Spec:** [SPEC-OTHER v1](other.md).\n' >>.artifacts/tickets/0098-TICKET-test.ticket.md
+  git add .artifacts/tickets/0098-TICKET-test.ticket.md
+  expect 0 sh .husky/_/commit-msg "$test_area/message"
+  contains 'must declare one parent Spec'
+  printf '# TEST-01: Fixture ticket\n\n**Spec:** [SPEC-TEST v1](../specs/0099-SPEC-test.spec.md).\n' >.artifacts/tickets/0098-TICKET-test.ticket.md
+  git add .artifacts/tickets/0098-TICKET-test.ticket.md
+  cp .artifacts/specs/0099-SPEC-test.spec.md .artifacts/specs/0100-SPEC-duplicate.spec.md
+  git add .artifacts/specs/0100-SPEC-duplicate.spec.md
+  expect 0 sh .husky/_/commit-msg "$test_area/message"
+  contains 'parent spec SPEC-TEST resolves to 2 artifacts'
+  git rm -fq .artifacts/specs/0100-SPEC-duplicate.spec.md
+  git rm --cached -q .artifacts/specs/0099-SPEC-test.spec.md
+  expect 0 sh .husky/_/commit-msg "$test_area/message"
+  contains 'parent spec SPEC-TEST resolves to 0 artifacts'
+  git add .
+  git -c core.hooksPath=/dev/null commit -qm "$(cat "$test_area/message")"
+  first=$(git rev-parse HEAD)
+  printf '# Working-tree artifact is not evidence\n' >.artifacts/tickets/0098-TICKET-test.ticket.md
+  zero=0000000000000000000000000000000000000000
+  printf 'refs/heads/main %s refs/heads/main %s\n' "$first" "$zero" >"$test_area/updates"
+  expect 0 sh scripts/hooks/sdd.sh push origin "$test_area/updates"
+  contains "$first: TEST-01 -> SPEC-TEST"
+  contains 'PR-to-spec verification unavailable'
+  git checkout -- .artifacts/tickets/0098-TICKET-test.ticket.md
+  printf '# TEST-02: Another ticket\n\n- Spec: [SPEC-OTHER v1](../specs/0100-SPEC-other.spec.md).\n' >.artifacts/tickets/0100-TICKET-other.ticket.md
+  printf '# Another spec\n\n- ID: `SPEC-OTHER`\n' >.artifacts/specs/0100-SPEC-other.spec.md
+  git add .artifacts
+  git -c core.hooksPath=/dev/null commit -qm "$(printf 'feat: next fixture\n\nTicket: TEST-02')"
+  second=$(git rev-parse HEAD)
+  printf 'refs/heads/main %s refs/heads/main %s\nrefs/heads/other %s refs/heads/other %s\n' "$second" "$zero" "$second" "$zero" >"$test_area/updates"
+  expect 0 sh scripts/hooks/sdd.sh push origin "$test_area/updates"
+  contains 'outgoing associations span multiple specs'
+  [ "$(grep -c 'identity only' "$test_area/output")" = 2 ]
+  printf 'refs/heads/main %s refs/heads/main %s\n' "$second" "$first" >"$test_area/updates"
+  expect 0 sh scripts/hooks/sdd.sh push origin "$test_area/updates"
+  [ "$(grep -c 'identity only' "$test_area/output")" = 1 ]
+  printf 'refs/heads/main %s refs/heads/main %s\n' "$second" 1111111111111111111111111111111111111111 >"$test_area/updates"
+  expect 0 sh scripts/hooks/sdd.sh push origin "$test_area/updates"
+  contains 'remote base unavailable'
+  git clone -q --depth=1 "file://$test_repo" "$test_repo-shallow"
+  cd "$test_repo-shallow"
+  expect 0 sh scripts/hooks/sdd.sh push origin "$test_area/updates"
+  contains 'shallow history'
+  printf 'PASS: advisory SDD, index/tree identities, duplicates, outgoing ranges, deduplication, and coverage warnings\n' 
 }
 
 deletion_without_head() {
@@ -212,7 +289,8 @@ case "${1:-all}" in
   installation) installation ;;
   staged) staged ;;
   push) push_gate ;;
+  sdd) traceability ;;
   unborn) deletion_without_head ;;
-  all) installation; staged; push_gate; deletion_without_head ;;
+  all) installation; staged; push_gate; traceability; deletion_without_head ;;
   *) printf 'Unknown hook test group: %s\n' "$1" >&2; exit 2 ;;
 esac

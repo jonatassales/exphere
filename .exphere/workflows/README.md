@@ -35,7 +35,7 @@ The skill and template associations below and in the JSON are initial references
 | Delivery | Future integration | Environment-specific authorization and policy |
 | Learning | retro | Results and proposals for adjusting the next cycle |
 
-Associated contracts: [guardrails](../../.agents/guardrails/README.md). The current prohibition on creating or running tests in the scaffold remains in force.
+Associated contracts: [guardrails](../../.agents/guardrails/README.md). SPEC-GIT-HOOKS-SDD authorizes the local build/test push gate and bounded hook-contract tests. Unrelated tests and service probes retain their authorization boundary; see [AGENTS.md](../../AGENTS.md). SDD associations follow the advisory [rule](../rules/sdd.md) and [guardrail](../guardrails/sdd.md).
 
 ## Domain adaptations
 

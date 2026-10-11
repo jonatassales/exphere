@@ -2,7 +2,7 @@
 
 **Document number:** `TICKET-0010`
 
-**Spec:** [SPEC-GIT-HOOKS-SDD v1](../specs/0002-SPEC-git-hooks-sdd-traceability.spec.md).
+**Spec:** [SPEC-GIT-HOOKS-SDD v2](../specs/0002-SPEC-git-hooks-sdd-traceability.spec.md).
 
 **Requirements:** REQ-HOOK-06, REQ-HOOK-07, and the SDD/review portion of REQ-HOOK-08.
 
@@ -10,9 +10,9 @@
 
 **Blocked by:** HOOK-03 — Gate code pushes on real build and test results. This ticket integrates warnings with that live gate and must preserve its blocking outcomes; HOOK-01 is already a transitive prerequisite. HOOK-02 is not required to resolve SDD associations.
 
-**Status:** draft
+**Status:** in-review
 
-**Approval:** Not recorded for this breakdown or implementation. Trailer notation and the verification seam remain proposed decisions in the source spec; drafting is not their acceptance.
+**Approval:** The project owner explicitly invoked `implement` on October 11, 2026 for SPEC-GIT-HOOKS-SDD v1 and this breakdown, after presentation of the disposable Git verification seam. Scoped implementation, dependencies, and hook tests are authorized; project commits and remote publication are not.
 
 ## Acceptance criteria
 
@@ -32,3 +32,7 @@
 Extend `VER-GIT-HOOKS-SDD` at the proposed public hook boundary after confirmation and implementation authorization. Use disposable artifacts and Git fixtures for failures; no live PR API is required. Review actual PR evidence separately when a PR exists, without making remote publication a completion condition for this local-tooling ticket.
 
 Integrate documentation with the existing SDD cycle instead of creating a final documentation-only ticket. Each predecessor owns its own command and verification evidence; this ticket owns traceability and its interaction with the push gate. Score targets, CI enforcement, application features, unrelated tests, and remote actions remain outside scope.
+
+## Implementation record
+
+Implemented under the explicit owner authorization. See [VER-GIT-HOOKS-SDD and REV-GIT-HOOKS-SDD](../specs/0002-SPEC-git-hooks-sdd-traceability.spec.md#implementation-evidence--ver-git-hooks-sdd) for the source snapshot, installed versions, real versus controlled fixture outcomes, and limits. Technical review is in progress. The owner subsequently authorized commits and normal pushes through HOOK-05; force pushes are prohibited. Publication evidence is recorded after execution.

@@ -24,5 +24,3 @@
 ## Evidence
 
 The remote was inspected with `git ls-remote` and was empty. The task-start source snapshot is retained locally as the baseline for the initial import. Detailed implementation and review evidence belongs to [VER-GIT-HOOKS-SDD](../specs/0002-SPEC-git-hooks-sdd-traceability.spec.md#implementation-evidence--ver-git-hooks-sdd).
-
-Baseline review: Standards and Spec reviewers independently verified the same 130-file initial-import snapshot on October 11, 2026. Both reported zero findings. Compared with the captured task-start tree, only this ticket, the spec publication authorization, and formatting-only commitlint/workflow configuration differ. Temporary verification tools remain outside the index. Final commit identity and publication evidence will be recorded on the feature branch.

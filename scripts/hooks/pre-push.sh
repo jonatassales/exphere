@@ -32,6 +32,7 @@ while read -r local_ref local_oid remote_ref remote_oid; do
   fi
 done <"$push_updates"
 
+sh scripts/hooks/sdd.sh push "$1" "$push_updates" || printf 'SDD WARN: traceability checker unavailable.\n' >&2
 [ -z "$push_error" ] || { printf 'exphere: push verification scope error: %s.\n' "$push_error" >&2; exit 1; }
 [ "$push_build" -ne 0 ] || { printf 'exphere: no outgoing source build required.\n'; exit 0; }
 if ! git diff --quiet || ! git diff --cached --quiet; then

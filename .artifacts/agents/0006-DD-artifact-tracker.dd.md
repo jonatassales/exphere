@@ -33,4 +33,4 @@ Ticket states are `draft`, `ready-for-agent`, `in-progress`, `in-review`, `done`
 
 Existing explicit authorization remains valid for the same scope. Do not invent identities, dates, approvals, or commitments. Prioritization is a human decision recorded with the relevant PRD, spec, ticket, or design document.
 
-Git can provide history when available and commits are authorized. The current directory has no Git metadata. Local Markdown does not authenticate signatures, control access, or enforce transitions.
+Git can provide history when available and commits are authorized. The owner authorized initializing this repository on October 11, 2026; commits and remote publication still require their corresponding authorization. Local Markdown does not authenticate signatures, control access, or enforce transitions.

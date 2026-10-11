@@ -11,8 +11,8 @@
     "check": "sh scripts/biome.sh check .",
     "lint": "sh scripts/biome.sh lint .",
     "format": "sh scripts/biome.sh format --write .",
-    "test": "sh scripts/test.sh",
-    "harness:score": "sh scripts/harness-score.sh"
+    "harness:score": "sh scripts/harness-score.sh",
+    "test": "sh scripts/test.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",

@@ -41,7 +41,7 @@ There are no automatic updates or global installations. A future update must ins
 | `to-spec` | Conversation or discovery to synthesize | None. |
 | `to-tickets` | Spec or plan to decompose | None. |
 | `implement` | Authorized implementation scope | `tdd` only when permitted; `code-review` for the result. |
-| `tdd` | Agreed behavior and verification seam | `codebase-design` as needed; currently subject to the test prohibition. |
+| `tdd` | Agreed behavior and verification seam | `codebase-design` as needed; subject to scoped authorization in root AGENTS; hook-contract testing is authorized, unrelated testing remains restricted. |
 | `codebase-design` | Module or interface design question | None. |
 | `code-review` | Scoped changes and comparison | Separate standards and spec review. |
 | `retro` | Session to evaluate | `writing-for-agents`. |

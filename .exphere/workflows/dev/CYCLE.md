@@ -36,6 +36,8 @@ Passing a review does not authorize commits, pushes, remote tickets, pull reques
 
 Load only the skills required for the authorized phase. Explicit-invocation skills retain that boundary; a link or sequence does not trigger them. Apply dependency skills according to the invoked skill and project rules. Do not require grilling when the user requests synthesis or provides sufficient decisions.
 
-The project currently prohibits creating or running tests, including unit, integration, end-to-end, smoke, and HTTP probes. Use relevant authorized static inspection, formatting, or compilation; do not run an unavailable task wrapper to simulate verification. If a criterion requires behavior that cannot be observed within the authorization, record it as `inconclusive` and do not treat missing mandatory evidence as a pass.
+SPEC-GIT-HOOKS-SDD authorizes build/test before push and the scoped hook-contract suite in disposable repositories, including a local bare remote. Unrelated application tests and service probes remain outside that authorization. Use relevant authorized static inspection, formatting, or compilation; do not run an unavailable task wrapper to simulate verification. If a criterion requires behavior that cannot be observed within the authorization, record it as `inconclusive` and do not treat missing mandatory evidence as a pass.
 
 Review the exact changed scope, including uncommitted work. Without Git, record a file manifest and content hashes instead of inventing commits or initializing a repository. Reuse review only while that snapshot and its applicable criteria remain valid.
+
+Local [SDD traceability](../../rules/sdd.md) warns for now. Missing SDD evidence remains `not-verified` or `non-compliant`, with an advisory exception to delivery blocking. Other mandatory evidence and blocking quality failures retain their existing effect.

@@ -2,7 +2,7 @@
 
 **Document number:** `TICKET-0009`
 
-**Spec:** [SPEC-GIT-HOOKS-SDD v1](../specs/0002-SPEC-git-hooks-sdd-traceability.spec.md).
+**Spec:** [SPEC-GIT-HOOKS-SDD v2](../specs/0002-SPEC-git-hooks-sdd-traceability.spec.md).
 
 **Requirements:** REQ-HOOK-05 and the build/test and push-verification portion of REQ-HOOK-08.
 
@@ -10,9 +10,9 @@
 
 **Blocked by:** HOOK-01 — Activate Conventional Commits through local installation, which provides hook activation and a meaningful hook contract suite. HOOK-02 is not a prerequisite for building or verifying a push.
 
-**Status:** draft
+**Status:** in-review
 
-**Approval:** Not recorded for this breakdown or implementation. The current `to-tickets` invocation does not confirm the proposed test seam or authorize execution.
+**Approval:** The project owner explicitly invoked `implement` on October 11, 2026 for SPEC-GIT-HOOKS-SDD v1 and this breakdown, after presentation of the disposable Git verification seam. Scoped implementation, dependencies, and hook tests are authorized; project commits and remote publication are not.
 
 ## Acceptance criteria
 
@@ -31,3 +31,7 @@
 Use the proposed `VER-GIT-HOOKS-SDD` boundary after confirmation, keeping installation side effects and commits/pushes inside disposable fixtures. This does not require initializing Git in the current workspace or publishing a real branch. Ticket creation performs no build, test, installation, commit, or push.
 
 The resulting pre-push entry exposes a working blocking quality sequence that HOOK-04 can extend with advisory diagnostics. SDD warnings must later preserve this gate's failures. Staged linting and scoring can be delivered independently by HOOK-02; they are not artificial blocking edges here.
+
+## Implementation record
+
+Implemented under the explicit owner authorization. See [VER-GIT-HOOKS-SDD and REV-GIT-HOOKS-SDD](../specs/0002-SPEC-git-hooks-sdd-traceability.spec.md#implementation-evidence--ver-git-hooks-sdd) for the source snapshot, installed versions, real versus controlled fixture outcomes, and limits. Technical review is in progress. The owner subsequently authorized commits and normal pushes through HOOK-05; force pushes are prohibited. Publication evidence is recorded after execution.
