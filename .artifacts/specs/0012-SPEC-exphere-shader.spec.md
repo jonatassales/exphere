@@ -1,12 +1,13 @@
 # Exphere shader motion surface
 
 - ID: `SPEC-EXPHERE-SHADER`
-- Version: `1`
+- Version: `2`
 - State: `approved`
 - PRD: No approved PRD version covers this component. The owner's October 11, 2026 request is the direct requirement source.
 - Technical owners: Exphere owner for visual acceptance and consumer composition; implementation ownership remains with the shared web package.
 - Authorization: Following review of this v1 specification, the owner's October 11, 2026 combined `to-tickets` and `implement` request authorizes its implementation and the proposed VER-SHADER-01 consumer/browser seam. SHADER-01 preserves the scope as one complete vertical slice. The later instruction to proceed directly to a PR authorizes the shader commit, push, and PR; it also removes preview-video delivery from this cycle. Visual acceptance of the resulting implementation remains separate.
 - Related specifications: [design tokens](0003-SPEC-design-token-foundation.spec.md), [web foundation](0004-SPEC-web-package-foundation.spec.md), [website foundation](0005-SPEC-website-foundation.spec.md), and [basic palette](0011-SPEC-design-basic-palette.spec.md).
+- v2 scope authorization: The owner's subsequent October 11, 2026 request to import the component into the `apps/website` layout extends SHADER-01 to that consumer integration. Keep the existing root layout and page server-rendered, import the public component, and wrap layout children once. Declare the actual workspace dependency. This supersedes v1's website-integration exclusion without authorizing deployment or page-content changes.
 
 ## Contract and composition
 
@@ -34,6 +35,7 @@ The [SmoothUI Aurora Curtain](https://smoothui.dev/docs/components/aurora-curtai
 | REQ-SHADER-06 | Work from a Next.js App Router page or layout, including server-rendered children passed to the client wrapper. Loading the package or rendering on the server must not access browser-only APIs. |
 | REQ-SHADER-07 | Respect initial and changing reduced-motion preferences, suspend continuous rendering while hidden or outside the visible presentation, and release animation and graphics resources on unmount. Missing or failed WebGL must leave a static background and usable children. |
 | REQ-SHADER-08 | Deliver an explicit public package export, required generated styles, types, and minimal build/dependency support. The consumer must not need a deep source import, renderer initialization, token duplication, or an undocumented Tailwind source-scanning change. |
+| REQ-SHADER-09 | Integrate the public `ExphereShader` component into the existing `apps/website` root layout around its children. Preserve the server layout, document attributes, body styles, and page content; declare `@repo/web` as a `workspace:*` application dependency. |
 
 ### Requested location and package boundary
 
@@ -91,7 +93,7 @@ These are draft technical choices to validate during an authorized implementatio
 
 ### Out of scope
 
-Dark-mode design, changing canonical tokens, importing the reference video or SmoothUI implementation, visible grain, branding/content replication, pointer-reactive effects, animation controls, general component-library work, website content changes, and wiring the production website are outside this component specification. Remote deployment, package publication, and new project-wide test infrastructure are also outside this drafting cycle.
+Dark-mode design, changing canonical tokens, importing the reference video or SmoothUI implementation, visible grain, branding/content replication, pointer-reactive effects, animation controls, general component-library work, and website page-content changes are outside this component specification. Remote deployment, package publication, and new project-wide test infrastructure are also outside this cycle. The v2 scope adds only the existing website's root-layout integration.
 
 ## Verification and decisions
 
@@ -157,3 +159,10 @@ Good tests assert what the package consumer and visitor observe. Do not mirror s
 - Spec: Independent reviewer `palette_inspection` reported zero actionable findings after comparing all three final desktop samples and the narrow capture with REF-SHADER-01. Opposed lighting across the inward-facing upper-right fold, a distinct lower-right volume, the bowed diagonal opening, and retained narrow-screen composition resolve the earlier missing-curvature finding. The smoother procedural treatment, pastel palette, omitted texture, and nonidentical reference phase remain explicit adaptations or limits, not evidence of pixel-identical reproduction.
 - Final verification: All eight public-consumer browser checks, type checking, Biome, and patch-whitespace checks passed on the final shader revision. The ignored `review-curvature-test.log` and `review-curvature-sha256.txt` record that snapshot. Timed still captures support qualitative composition and deformation review; they do not prove every intermediate motion characteristic or owner acceptance.
 - Delivery outcome: Implementation and local review are complete for the existing PR. SHADER-01 remains in-review for owner visual acceptance and PR disposition. No merge, deployment, package publication, or video-preview delivery is included.
+
+### v2 website integration — October 11, 2026
+
+- Implemented the owner's follow-up through the public `@repo/web/react/exphere-shader` entry in the existing server root layout. `ExphereShader` wraps layout children once; document attributes, body classes, and page content are preserved. The website declares its actual `workspace:*` dependency, and pnpm updates the corresponding workspace link and deduplicates the existing Next.js peer snapshot without downloading packages.
+- Verification: The website and its dependency build/type-check tasks passed. Generated production HTML includes one decorative canvas, the wrapper, the original heading, and the existing document attributes. Bundled CSS includes the component's prefixed fixed-position and isolation utilities. Biome and patch-whitespace checks passed after import ordering. No application browser probe, new test infrastructure, or deployment was added; the unchanged component retains the preceding eight-check consumer evidence.
+- Review scope: Follow-up to reviewed commit `f9f7baef6304ccc1c8c8bdad684824c8a3b5907f`, with the complete PR still compared against main base `d2aefe91915906da846e2940ee13b23e28309976`. The v2 contract extension is the owner's explicit layout request, not an inferred change to the component API or visual target.
+- Review outcome: Standards (`palette_standards_review`) and Spec (`palette_inspection`) each reported zero actionable findings after verifying all 31 file hashes in manifest `ea38d274a157f5848b3aa9d1e8b4bb2f0c84166381dfcda59d5838dc4cd40bdc`. The component source is unchanged from the prior review. This outcome record is appended afterward without altering the implementation; owner visual acceptance and deployment remain separate.
