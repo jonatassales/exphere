@@ -7,7 +7,7 @@ Exphere explores developer experience, agent-assisted delivery, and consumer-com
 | `packages/sdk/` | Private `@exphere/sdk`; TypeScript API remains empty. |
 | `packages/cli/` | Private `@exphere/cli`; owns the `ex` shell CLI. |
 | `packages/design/` | Public-intent `@repo/design`; basic light-palette tokens with generated CSS/JSON exports. |
-| `packages/web/` | Public-intent `@repo/web`; source placeholders and SmoothUI CLI dependency only. |
+| `packages/web/` | Public-intent `@repo/web`; the children-only `ExphereShader` React motion surface, with public design tokens and generated styles. |
 | `apps/website/` | Minimal private Next.js application consuming design tokens. |
 | `.exphere/runtimes/<id>/` | Consumer v2 configuration created on demand; not a workspace. Existing `.micro-runtime/<id>/` descriptors remain legacy v1. |
 | `.agents/` | Context, rules, guardrails, skills, and templates. |

@@ -3,6 +3,9 @@ packages:
   - 'apps/*'
   - 'packages/*'
 
+allowBuilds:
+  '@parcel/watcher': false
+
 minimumReleaseAgeStrict: true
 
 # Hooks and scripts must not install dependencies implicitly.
