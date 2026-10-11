@@ -81,6 +81,7 @@ Distinguish drafts, authorized decisions, implementations, and observed outcomes
 - SPEC-SDK-CLI-SEPARATION authorizes isolated package-consumer and CLI setup fixtures under the owner's October 11, 2026 implementation request. Use disposable installation directories; real user shell/profile changes and infrastructure execution remain outside verification.
 - Preserve the existing SDK and consumer boundaries. Do not recreate removed applications or contracts without a separate request.
 - SPEC-MICRORUNTIME-CONFIGURATION authorizes disposable public-CLI configuration fixtures under the owner's October 11, 2026 `implement` request. Consumer files and real shell profiles remain outside those fixtures.
+- SPEC-MICRORUNTIME-LIFECYCLE authorizes harmless public-CLI fixtures with controlled native tools under that same request. For v2 operations, state, ownership, evidence, and cleanup, read the [local lifecycle contract](packages/cli/README.md). Real cluster execution needs an identified consumer image and environment; fixture passes do not establish the live pilot.
 
 <!-- BEGIN:turborepo-agent-rules -->
 

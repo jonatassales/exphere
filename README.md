@@ -35,6 +35,8 @@ The root `postinstall` preserves local CLI setup, which installs the command und
 
 See the [CLI contract](packages/cli/cli/README.md) for commands, descriptors, and consumer responsibilities. No deployable example microruntime is included.
 
+The [local lifecycle contract](packages/cli/README.md) documents v2 preflight, Terraform namespace/quota preparation, workload application/readiness, inspection, explicit logs/forwarding/hooks, and cleanup. It accepts a bounded Docker/kind pilot with preloaded consumer images, records private state and sanitized evidence, and refuses cleanup when resource ownership is uncertain. Public CLI fixtures pass against controlled tools; real Kubernetes/Terraform pilot execution remains unverified.
+
 ## Project documents
 
 - [PRD-0001](.artifacts/prd/0001-PRD-exphere.prd.md): product problem, intended outcomes, scope, and unmeasured hypotheses.
