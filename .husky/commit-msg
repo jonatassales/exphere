@@ -1,0 +1,1 @@
+sh scripts/hooks/commit-msg.sh "$@"
