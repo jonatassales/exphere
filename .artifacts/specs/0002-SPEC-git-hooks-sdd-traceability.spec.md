@@ -3,14 +3,14 @@
 - ID: `SPEC-GIT-HOOKS-SDD`
 - Document number: `SPEC-0002`
 - Version: `2`
-- State: `in-review`
+- State: `done`
 - PRD: [PRD-0001 v1](../prd/0001-PRD-exphere.prd.md), draft; no broader product approval is inferred.
 - Technical owners: the project owner decides scope and policy; the implementation agent prepares the local tooling. Other owners are unassigned.
-- Authorization: on October 11, 2026, the owner requested this specification through `to-spec`. The requested direction includes hooks, build/test before push, an informational harness score, and advisory SDD traceability. On October 11, 2026, the owner subsequently invoked `implement` for this spec and HOOK-01 through HOOK-04 after the fixture seam and breakdown were presented. This authorizes scoped implementation, dependency installation, and fixture-based build/test verification; project commits and remote publication remain unauthorized.
+- Authorization: on October 11, 2026, the owner requested this specification through `to-spec`. The requested direction includes hooks, build/test before push, an informational harness score, and advisory SDD traceability. On October 11, 2026, the owner subsequently invoked `implement` for this spec and HOOK-01 through HOOK-04 after the fixture seam and breakdown were presented. This authorizes scoped implementation, dependency installation, and fixture-based build/test verification; project commits and remote publication were not authorized at that stage; revision 2 below records the subsequent authorization.
 
 ## Revision 2 authorization
 
-On October 11, 2026, the owner authorized fixing review findings, creating a feature branch from main, committing and pushing according to the rules, and making code-review mandatory under `.exphere/`. Force pushes are explicitly prohibited. HOOK-05 records this bounded addition. The supplied origin is empty; baseline preparation preserves the task-start project before publishing the hook implementation. PR creation and deployment remain outside this request.
+On October 11, 2026, the owner authorized fixing review findings, creating a feature branch from main, committing and pushing according to the rules, and making code-review mandatory under `.exphere/`. Force pushes are explicitly prohibited. HOOK-05 records this bounded addition. The supplied origin was empty when inspected; baseline preparation preserved the task-start project before publishing the hook implementation. PR creation and deployment remain outside this request.
 
 ## Contract and composition
 
@@ -101,7 +101,7 @@ The Dev workflow explains pre-commit, commit-msg, and pre-push in execution and 
 - Decisions: the owner subsequently authorized Git initialization on `main` with the supplied SSH origin. Implementation adopts the presented trailer notation and disposable fixture seam; these are new local conventions. Actual versions and remaining verification limits are recorded below.
 - Verification plan: `VER-GIT-HOOKS-SDD`, below.
 - Trade-offs: fast blocking lint and Conventional Commits checks; more expensive build/test before push; informational scoring and advisory traceability while conventions are adopted. PR evidence is checked where it exists, with an honest local limitation before the PR is created.
-- Technical review: in progress against the implementation snapshot below; no human delivery approval is inferred.
+- Technical review: completed on HOOKS-02 and the four-commit series, with zero remaining Standards or Spec findings; no broader human acceptance is inferred.
 
 ### VER-GIT-HOOKS-SDD
 
@@ -155,9 +155,9 @@ The initial fixture suite exercised a local force-update before the owner prohib
 ### REV-GIT-HOOKS-SDD
 
 - Scope: SPEC-GIT-HOOKS-SDD v1 and HOOK-01..04, including task-owned modified and new files. Exclude dependency trees, generated Husky shims, build/cache output, unrelated existing files, and Git internals.
-- Reviewers: separate Standards and Spec agents under the code-review skill, examining one frozen snapshot. Findings and final disposition pending.
+- Reviewers: separate Standards and Spec agents under the code-review skill examined the same frozen HOOKS-02 snapshot and the cumulative four-commit series. Both axes reported zero remaining findings. The initial P2 finding and correction are recorded below.
 - 12F-01/02/05/12 v1: local tooling evidence is `compliant` within the identified snapshot for source identity, declared dependencies, separation of build from delivery, and shell entry points. This is not application or production certification. Local CPU/time and install traffic are unmeasured; paid-resource FIN criteria and service networking/capacity criteria are `not-applicable` to this change.
-- SDD v1: local hook behavior has the fixture evidence above. Actual project commit-to-ticket semantic evidence and an actual PR declaration remain `not-verified`; there are no project commits or PRs. This advisory limitation does not block completion of the local-tooling deliverable or authorize creating those external artifacts.
+- SDD v1: local hook behavior has the fixture evidence above. The reviewed project commits each declare their owning ticket and resolve to this spec. Actual PR declaration remains `not-verified`: no PR was created, and pre-push reports that limitation as an advisory warning.
 - Human decision: implementation and local Git setup were authorized by the owner. The later user request explicitly authorizes commits and normal pushes to origin. Final artifact acceptance, a remote PR, and deployment remain separate; no broader approval is inferred.
 
 ### Review correction and delivery preparation
@@ -165,3 +165,22 @@ The initial fixture suite exercised a local force-update before the owner prohib
 HOOKS-01 review found no Standards violations or actionable smells. The Spec reviewer found one P2 defect: deletion-only pre-push input resolved HEAD before determining whether source verification was needed, so an unborn HEAD incorrectly failed. The regression fixture observed exit 128 before the correction and exit 0 afterward. HEAD resolution now occurs only for outgoing commit source. The refreshed review includes that correction, the mandatory review/no-force-push rule, and HOOK-05 delivery scope.
 
 Refreshed implementation snapshot: `HOOKS-02`, source manifest SHA-256 `72e24690de2361c5320b65d6a3b90d13e9b2452165a258451efd55cdef1f599e` using the same algorithm, excluding spec/ticket bookkeeping. The full suite now passes five groups, including unborn-HEAD deletion; no force push is executed by the current suite. Formatting-only fixes to commitlint configuration and the workflow definition make the initial project import pass the existing Biome checks.
+
+### Publication evidence — HOOK-05
+
+On October 11, 2026, the owner explicitly approved the first commit directly on main. The separately reviewed initial baseline is `1b21c03753ca9d7614c34254631f593eaf6ce926`, with trailer `Ticket: HOOK-05`. It preserves the task-start source, adding publication scope metadata and formatting-only corrections to commitlint configuration and the workflow definition. Its bootstrap commit passed the installed pre-commit and commit-msg checks. Main predates the versioned hook implementation; its clean baseline checkout had no pre-push gate, and no baseline build/test pass is claimed.
+
+The feature branch `codex/git-hooks-sdd` starts at that main commit:
+
+| Commit | Ticket | Delivery |
+| --- | --- | --- |
+| `78f330b9f42c44c2a2063c9750e8d3e8ad95a7e0` | HOOK-01 | Hook installation and Conventional Commits |
+| `a75aac48358986f3a4a5828c1de3e99d4c6a248a` | HOOK-02 | Staged checks and informational harness score |
+| `e49493708b802ace33017493b63d6994768f7c5a` | HOOK-03 | Build/test before push |
+| `31485d595690b47bcd4a613a8ae6a81ef04fa092` | HOOK-04 | Advisory SDD checks and mandatory review procedure |
+
+All commits use the configured author and committer, Jonatas Sales <6073626+jonatassales@users.noreply.github.com>, Conventional Commit subjects, and one ticket trailer. Both review axes inspected the cumulative commit slices before commit; intermediate installation, staged-check, and push suites passed. The final source matches HOOKS-02. Each actual feature commit passed the active local commit hooks.
+
+Normal pushes published main and the feature to `git@github.com:jonatassales/exphere.git`. `git ls-remote` independently confirmed both full revisions above. The feature's active pre-push ran `pnpm build` successfully (unchanged SDK build reused Turbo cache) and `pnpm test`, passing all five contract groups; Turbo separately reported no workspace application test tasks. SDD associations resolved and unavailable PR metadata remained a warning. No force push, remote PR, merge, deployment, or package publication was performed during this delivery.
+
+HOOK-01 through HOOK-05 are complete for this bounded implementation and publication scope. This completion record is a follow-up documentation change under HOOK-05; it does not change executable source or imply broader product acceptance. The future ADR-0002 and CTX drafts are separate local planning artifacts and are excluded from this publication.

@@ -10,21 +10,21 @@
 
 **Blocked by:** HOOK-01 — Activate Conventional Commits through local installation, which provides hook activation and a meaningful hook contract suite. HOOK-02 is not a prerequisite for building or verifying a push.
 
-**Status:** in-review
+**Status:** done
 
 **Approval:** The project owner explicitly invoked `implement` on October 11, 2026 for SPEC-GIT-HOOKS-SDD v1 and this breakdown, after presentation of the disposable Git verification seam. Scoped implementation, dependencies, and hook tests are authorized; project commits and remote publication are not.
 
 ## Acceptance criteria
 
-- [ ] The root build command has its required shell adapter and runs declared workspace builds through Turborepo, retaining the SDK's existing build behavior. Missing root automation is repaired only as required by this ticket.
-- [ ] The root test command runs the meaningful hook contract suite and declared workspace tests through the appropriate shell/Turborepo entry points. No empty runner, unconditional success, missing task, or recursive root dispatch substitutes for testing.
-- [ ] Pre-push runs `pnpm build` followed by `pnpm test`. Build failure stops the sequence; either command's failure or absence prevents the code push and remains visible in the exit status and output.
-- [ ] The gate identifies proposed ref updates and the checked revision. Its initial build/test support requires the checked-out commit and a clean tracked source state; pushing other source revisions fails with an actionable scope error rather than claiming they were tested.
-- [ ] Multiple updates, new branches, force-updates, deletion-only updates, and tags receive the spec's explicit scope treatment. Deletion-only updates need no source build; tags are identified separately from branch work.
-- [ ] The hook does not silently stash, switch branches, discard changes, fetch remote objects, or bypass failed checks. Temporary verification resources belong to the task and are cleaned without touching user data.
-- [ ] Dev execution, audit, and delivery guidance describes the commands, exact-revision limits, blocking failure behavior, and scoped permission for these tests, without turning other restrictions into blanket permission.
-- [ ] The shared contract suite exercises successful and failed commands, missing tooling, dirty tracked state, non-checked-out revisions, and the supported ref-update cases. Push fixtures use a local bare remote and avoid recursively invoking the suite.
-- [ ] Final evidence includes an actual build and meaningful test result at the identified revision when authorized, distinguishing these from controlled command-failure fixtures. Unavailable mandatory evidence stays explicit and cannot close the ticket as successfully verified.
+- [x] The root build command has its required shell adapter and runs declared workspace builds through Turborepo, retaining the SDK's existing build behavior. Missing root automation is repaired only as required by this ticket.
+- [x] The root test command runs the meaningful hook contract suite and declared workspace tests through the appropriate shell/Turborepo entry points. No empty runner, unconditional success, missing task, or recursive root dispatch substitutes for testing.
+- [x] Pre-push runs `pnpm build` followed by `pnpm test`. Build failure stops the sequence; either command's failure or absence prevents the code push and remains visible in the exit status and output.
+- [x] The gate identifies proposed ref updates and the checked revision. Its initial build/test support requires the checked-out commit and a clean tracked source state; pushing other source revisions fails with an actionable scope error rather than claiming they were tested.
+- [x] Multiple updates, new branches, force-updates, deletion-only updates, and tags receive the spec's explicit scope treatment. Deletion-only updates need no source build; tags are identified separately from branch work.
+- [x] The hook does not silently stash, switch branches, discard changes, fetch remote objects, or bypass failed checks. Temporary verification resources belong to the task and are cleaned without touching user data.
+- [x] Dev execution, audit, and delivery guidance describes the commands, exact-revision limits, blocking failure behavior, and scoped permission for these tests, without turning other restrictions into blanket permission.
+- [x] The shared contract suite exercises successful and failed commands, missing tooling, dirty tracked state, non-checked-out revisions, and the supported ref-update cases. Push fixtures use a local bare remote and avoid recursively invoking the suite.
+- [x] Final evidence includes an actual build and meaningful test result at the identified revision when authorized, distinguishing these from controlled command-failure fixtures. Unavailable mandatory evidence stays explicit and cannot close the ticket as successfully verified.
 
 ## Verification and handoff
 
@@ -34,4 +34,4 @@ The resulting pre-push entry exposes a working blocking quality sequence that HO
 
 ## Implementation record
 
-Implemented under the explicit owner authorization. See [VER-GIT-HOOKS-SDD and REV-GIT-HOOKS-SDD](../specs/0002-SPEC-git-hooks-sdd-traceability.spec.md#implementation-evidence--ver-git-hooks-sdd) for the source snapshot, installed versions, real versus controlled fixture outcomes, and limits. Technical review is in progress. The owner subsequently authorized commits and normal pushes through HOOK-05; force pushes are prohibited. Publication evidence is recorded after execution.
+Implemented under the explicit owner authorization. See [VER-GIT-HOOKS-SDD and REV-GIT-HOOKS-SDD](../specs/0002-SPEC-git-hooks-sdd-traceability.spec.md#implementation-evidence--ver-git-hooks-sdd) for the source snapshot, installed versions, real versus controlled fixture outcomes, and limits. Technical review passed on both Standards and Spec axes with no remaining findings. The owner subsequently authorized commits and normal pushes through HOOK-05; force pushes are prohibited. Publication completed through HOOK-05; the spec records verified remote revisions and the actual pre-push outcome.
