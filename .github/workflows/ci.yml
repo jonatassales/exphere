@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, reopened, synchronize, ready_for_review, converted_to_draft, edited]
+
+permissions: {}
+
+jobs:
+  review-scope:
+    name: Select review concurrency scope
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      group: ${{ steps.scope.outputs.group }}
+    steps:
+      - name: Check out trusted workflow revision
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Select concurrency group from event metadata
+        id: scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: sh scripts/agent-review/scope.sh
+
+  agent-review:
+    name: Agent review
+    needs: review-scope
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    concurrency:
+      group: ${{ needs.review-scope.outputs.group }}
+      cancel-in-progress: true
+    permissions:
+      contents: read
+      pull-requests: read
+    env:
+      AGENT_REVIEW_ENABLED: ${{ vars.AGENT_REVIEW_ENABLED }}
+      AGENT_REVIEW_MODEL: ${{ vars.AGENT_REVIEW_MODEL }}
+      AGENT_REVIEW_OWNER: ${{ vars.AGENT_REVIEW_OWNER }}
+      AGENT_REVIEW_BUDGET_REF: ${{ vars.AGENT_REVIEW_BUDGET_REF }}
+      AGENT_REVIEW_BUDGET_EXPIRES: ${{ vars.AGENT_REVIEW_BUDGET_EXPIRES }}
+      OPENAI_PROJECT_ID: ${{ vars.OPENAI_PROJECT_ID }}
+    steps:
+      - name: Check out trusted workflow revision
+        id: checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Collect immutable review source
+        id: intake
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: sh scripts/agent-review/intake.sh
+
+      - name: Run independent Standards and Spec reviews
+        if: ${{ !cancelled() && steps.checkout.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          INTAKE_OUTCOME: ${{ steps.intake.outcome }}
+        run: sh scripts/agent-review/run.sh "$RUNNER_TEMP/agent-review-report"
+
+      - name: Retain sanitized review reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: agent-review-${{ github.event.pull_request.number }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/agent-review-report/report.md
+            ${{ runner.temp }}/agent-review-report/report.json
+          retention-days: 7
+          if-no-files-found: warn
