@@ -23,14 +23,35 @@ try {
   const jsonText = readFileSync(consumer.resolve('@repo/design/tokens.json'), 'utf8');
   const json = JSON.parse(jsonText);
   assert.match(css, /--design-dimensions-space-4: 1rem;/);
-  assert.match(css, /\[data-theme="light"\]/);
-  assert.match(css, /--design-color-background: var\(--design-color-gray-50\);/);
-  assert.equal(json.themes.light.color.background.$value, '{color.gray.50}');
+  const lightCss = css.match(/\[data-theme="light"\] \{([^}]+)\}/)?.[1];
+  assert.ok(lightCss, 'the public CSS export must include the light theme');
+  const palette = [
+    ['primary', 'primary', '#6D0AD6'],
+    ['primaryHover', 'primary-hover', '#5408A5'],
+    ['background', 'background', '#FFFFFF'],
+    ['surface', 'surface', '#F9F9F9'],
+    ['text', 'text', '#27262A'],
+    ['textSecondary', 'text-secondary', '#535257'],
+    ['border', 'border', '#DDDDDD'],
+  ];
+  for (const [role, cssName, value] of palette) {
+    assert.equal(json.themes.light.color[role]?.$value, value, `${role} must expose the supplied palette value`);
+    assert.ok(lightCss.includes(`--design-color-${cssName}: ${value};`), `${role} must reach the light CSS export`);
+  }
+  assert.equal(json.themes.light.color.$type, 'color');
+  assert.equal(json.themes.light.color.foreground.$value, '{themes.light.color.text}');
+  assert.match(lightCss, /--design-color-foreground: var\(--design-color-text\);/);
+  const darkCss = css.match(/\[data-theme="dark"\] \{([^}]+)\}/)?.[1];
+  assert.ok(darkCss, 'the public CSS export must retain the dark theme');
+  for (const [role, shade] of [['background', '950'], ['foreground', '50'], ['surface', '900'], ['border', '800']]) {
+    assert.equal(json.themes.dark.color[role].$value, `{color.gray.${shade}}`);
+    assert.ok(darkCss.includes(`--design-color-${role}: var(--design-color-gray-${shade});`));
+  }
   assert.equal(json.color.$type, 'color');
   assert.equal(build().status, 0);
   assert.equal(readFileSync(consumer.resolve('@repo/design/tokens.css'), 'utf8'), css);
   assert.equal(readFileSync(consumer.resolve('@repo/design/tokens.json'), 'utf8'), jsonText);
-  console.log('PASS: package exports preserve token references and deterministic values');
+  console.log('PASS: public exports expose the basic light palette, foreground alias, unchanged dark roles, and deterministic values');
   const colorFile = join(pkg, 'tokens/color.json');
   const originalColor = readFileSync(colorFile, 'utf8');
   const cyclic = JSON.parse(originalColor);
@@ -81,16 +102,23 @@ try {
   watcher.stderr.on('data', (data) => { log += data; });
   await waitFor(() => log.includes('watching'), 'watch must remain active');
   const changed = JSON.parse(originalColor);
-  changed.color.gray['50'].$value = '#eeeeee';
+  changed.themes.light.color.primary.$value = '#7A20E0';
   writeFileSync(colorFile, JSON.stringify(changed));
   await waitFor(() => {
-    try { return readFileSync(consumer.resolve('@repo/design/tokens.css'), 'utf8').includes('--design-color-gray-50: #eeeeee;'); }
+    try {
+      const watchedCss = readFileSync(consumer.resolve('@repo/design/tokens.css'), 'utf8');
+      const watchedJson = JSON.parse(readFileSync(consumer.resolve('@repo/design/tokens.json'), 'utf8'));
+      return watchedCss.includes('--design-color-primary: #7A20E0;') && watchedJson.themes.light.color.primary.$value === '#7A20E0';
+    }
     catch { return false; }
   }, 'watch must regenerate consumer outputs after an edit');
-  changed.color.gray['50'].$value = '{absent.target}';
+  const validWatchedCss = readFileSync(consumer.resolve('@repo/design/tokens.css'), 'utf8');
+  const validWatchedJson = readFileSync(consumer.resolve('@repo/design/tokens.json'), 'utf8');
+  changed.themes.light.color.primary.$value = '{absent.target}';
   writeFileSync(colorFile, JSON.stringify(changed));
   await waitFor(() => log.includes('missing alias target'), 'watch must report invalid input');
-  assert.match(readFileSync(consumer.resolve('@repo/design/tokens.css'), 'utf8'), /--design-color-gray-50: #eeeeee;/);
+  assert.equal(readFileSync(consumer.resolve('@repo/design/tokens.css'), 'utf8'), validWatchedCss);
+  assert.equal(readFileSync(consumer.resolve('@repo/design/tokens.json'), 'utf8'), validWatchedJson);
   const stopped = new Promise((resolve) => watcher.once('exit', (code, signal) => resolve({ code, signal })));
   watcher.kill('SIGTERM');
   const deadline = setTimeout(() => watcher.kill('SIGKILL'), 3000);
