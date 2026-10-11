@@ -3,24 +3,28 @@
 - ID: `SPEC-GIT-HOOKS-SDD`
 - Document number: `SPEC-0002`
 - Version: `2`
-- State: `draft`
+- State: `done`
 - PRD: [PRD-0001 v1](../prd/0001-PRD-exphere.prd.md), draft; no broader product approval is inferred.
 - Technical owners: the project owner decides scope and policy; the implementation agent prepares the local tooling. Other owners are unassigned.
-- Authorization: on October 11, 2026, the owner requested this specification through `to-spec`. The requested direction includes hooks, build/test before push, an informational harness score, and advisory SDD traceability. Implementation, dependency installation, commits, and remote publication have not been authorized by this specification's creation.
+- Authorization: on October 11, 2026, the owner requested this specification through `to-spec`. The requested direction includes hooks, build/test before push, an informational harness score, and advisory SDD traceability. On October 11, 2026, the owner subsequently invoked `implement` for this spec and HOOK-01 through HOOK-04 after the fixture seam and breakdown were presented. This authorizes scoped implementation, dependency installation, and fixture-based build/test verification; project commits and remote publication were not authorized at that stage; revision 2 below records the subsequent authorization.
+
+## Revision 2 authorization
+
+On October 11, 2026, the owner authorized fixing review findings, creating a feature branch from main, committing and pushing according to the rules, and making code-review mandatory under `.exphere/`. Force pushes are explicitly prohibited. HOOK-05 records this bounded addition. The supplied origin was empty when inspected; baseline preparation preserved the task-start project before publishing the hook implementation. PR creation and deployment remain outside this request.
 
 ## Contract and composition
 
-- Requirements addressed: `REQ-HOOK-01` through `REQ-HOOK-08`, below.
+- Requirements addressed: `REQ-HOOK-01` through `REQ-HOOK-09`, below.
 - Components selected by the consumer: pnpm and Turborepo already used by this repository; Husky, lint-staged, commitlint with its conventional configuration, and harness-score. Reuse Biome for supported staged files. Resolve compatible maintained dependency versions at implementation time, record Node requirements, and pin resolutions in the pnpm lockfile without unrelated upgrades or bypassing package-age policy.
 - Environment and executor: local developer Git operations through POSIX shell adapters. The existing pnpm version remains authoritative. No CI service, hosted PR integration, or workflow engine is introduced.
 - Extension points and lifecycle: installation configures hooks; pre-commit checks staged changes and reports the harness score; commit-msg validates the message; pre-push checks build/test and emits SDD warnings. The existing SDD lifecycle remains unchanged.
 - Configuration, secrets, and ownership: configuration and rule documents belong to the project. Local hooks require no new credentials. Ticket and spec identities come from the existing [artifact tracker](../agents/0006-DD-artifact-tracker.dd.md), not branch-name guesses or a new tracker.
 
-### Problem and current evidence
+### Problem and planning baseline
 
-The repository has no installed hook chain connecting local quality checks, Conventional Commits, and ticket/spec traceability. The existing commitlint configuration extends a dependency that is not declared. Root build and Biome commands refer to unavailable shell helpers. There is no root test command, Turbo test task, or existing test suite. The SDK has a build command, but its availability is not evidence of a successful build.
+At specification time, the repository had no installed hook chain connecting local quality checks, Conventional Commits, and ticket/spec traceability. At that baseline, the commitlint configuration extended an undeclared dependency, root build and Biome commands referred to unavailable shell helpers, and no root test command, Turbo test task, or test suite existed. The SDK has a build command, but its availability is not evidence of a successful build.
 
-The current postinstall invokes the existing Exphere user-local command setup. Adding Husky must preserve that behavior. This directory currently has no Git metadata, so installation must distinguish an archive or non-Git checkout from a developer repository; hook presence cannot be reported as active enforcement here.
+The current postinstall invokes the existing Exphere user-local command setup. Adding Husky must preserve that behavior. At that baseline this directory had no Git metadata, so installation must distinguish an archive or non-Git checkout from a developer repository; hook presence cannot be reported as active enforcement here.
 
 The owner now wants build and test in pre-push. That is a scoped change from the earlier blanket test prohibition for the requested hook workflow. During implementation, update conflicting agent and Dev workflow instructions to record that exception. It does not authorize running tests while drafting this spec or adding unrelated application test coverage.
 
@@ -36,6 +40,7 @@ The owner now wants build and test in pre-push. That is a scoped change from the
 | REQ-HOOK-06 | As a contributor, I want each commit associated with one ticket and each PR with one spec, so SDD work stays traceable. Missing, conflicting, or unresolved associations warn for now and do not by themselves block commits or pushes. |
 | REQ-HOOK-07 | As an agent or reviewer, I want an SDD operating rule and an evidence-based guardrail under `.exphere/`, so the same advisory policy governs the workflow and hooks, including pre-push. |
 | REQ-HOOK-08 | As a maintainer, I want the Dev workflow and agent instructions to explain checks, warning behavior, bypass limitations, and the scoped test-policy change, so documentation matches the implemented local controls. |
+| REQ-HOOK-09 | As the owner, I want mandatory two-axis code review in an Exphere rule, correction of review findings, a feature branch from main, ticket-associated commits, and normal pushes to the supplied origin. An empty remote needs an initial project baseline before feature delivery. Force pushes are prohibited. |
 
 ### Hook and command behavior
 
@@ -91,16 +96,16 @@ The Dev workflow explains pre-commit, commit-msg, and pre-push in execution and 
 ## Verification and decisions
 
 - Affected guardrails: proposed SDD v1 criteria above; existing 12F-01 for revision identity, 12F-02 for declared tools, 12F-05 for build versus delivery, and 12F-12 for versioned local automation. Existing [policy criteria](../../.agents/guardrails/README.md) remain authoritative outside the explicit SDD warning scope.
-- Applicability and planned evidence: review manifests/lockfile and shell entry points; observe hook outcomes at the selected revision; retain skip reasons and warnings. Service networking, persistence, capacity, scaling, and availability are not applicable to this local tooling change. All behavioral evidence is currently `not-verified`.
+- Applicability and planned evidence: review manifests/lockfile and shell entry points; observe hook outcomes at the selected revision; retain skip reasons and warnings. Service networking, persistence, capacity, scaling, and availability are not applicable to this local tooling change. The planning baseline was `not-verified`; implementation evidence and remaining limitations are recorded below.
 - Cost/consumption impact: local checks add unmeasured developer CPU/time and dependency installation traffic. The scanner documents local static analysis; installation may still need network access. No paid service or AI execution is introduced, and no savings or zero-cost claim is made. FIN paid-resource criteria are not applicable to this scope; reassess if it expands.
-- Open issues and exceptions: no Git metadata exists in the working directory; do not initialize it as a drafting side effect. Exact dependency versions and Node compatibility remain implementation-time verification. The proposed trailer notation and test mechanism are draft decisions, not historical conventions.
+- Decisions: the owner subsequently authorized Git initialization on `main` with the supplied SSH origin. Implementation adopts the presented trailer notation and disposable fixture seam; these are new local conventions. Actual versions and remaining verification limits are recorded below.
 - Verification plan: `VER-GIT-HOOKS-SDD`, below.
 - Trade-offs: fast blocking lint and Conventional Commits checks; more expensive build/test before push; informational scoring and advisory traceability while conventions are adopted. PR evidence is checked where it exists, with an honest local limitation before the PR is created.
-- Technical review: pending; reviewers, examined revision, and evidence to be recorded after authorized implementation.
+- Technical review: completed on HOOKS-02 and the four-commit series, with zero remaining Standards or Spec findings; no broader human acceptance is inferred.
 
 ### VER-GIT-HOOKS-SDD
 
-**Proposed primary seam:** the externally visible Git-hook lifecycle in a disposable local repository, through the same shell entry points used by developers. Use a local bare remote for push scenarios; no hosted repository or real project commit is required. The current project has no prior equivalent test suite. Confirmation of this proposed seam is required before implementation under the invoked skill; drafting does not execute it.
+**Proposed primary seam:** the externally visible Git-hook lifecycle in a disposable local repository, through the same shell entry points used by developers. Use a local bare remote for push scenarios; no hosted repository or real project commit is required. The planning baseline had no equivalent test suite. The subsequent explicit implementation request accepts this presented seam for the bounded hook initiative. Fixture Git operations do not authorize commits or pushes in the project.
 
 Good tests assert accepted/rejected operations, warning content, preserved staging, and artifact associations. They do not mirror helper internals. Use controlled tool outcomes for failure cases, and record real installed-tool integration separately. Fixture operations must not recursively invoke the verification suite. No production or service probes are needed.
 
@@ -116,7 +121,7 @@ Good tests assert accepted/rejected operations, warning content, preserved stagi
 | New branch, multiple refs, deletion, force-update, incomplete history, and non-checked-out source | Range and verification scope are correct or explicitly limited; no unrelated revision is declared tested. |
 | PR missing or unavailable before push; later PR references the wrong spec | Pre-push warns without claiming remote verification; delivery review records the actual mismatch when metadata is available. |
 
-Drafting verification is limited to source inspection, primary-source research, and this document's consistency. No dependency was installed and no hook, build, test, score scan, commit, or push was executed to produce this spec.
+Drafting verification was limited to source inspection, primary-source research, and document consistency. Installation and executable verification occurred only after the subsequent implementation request, as recorded below.
 
 ### Primary-source notes
 
@@ -128,8 +133,54 @@ Consulted October 11, 2026. Project requirements and proposals above are local d
 - [Git hooks](https://git-scm.com/docs/githooks) defines pre-push arguments, ref-update input, and nonzero rejection behavior. It does not supply PR metadata.
 - [harness-score](https://github.com/paladini/harness-score) documents local scanning, a reusable development dependency, and optional minimum-level gating. This project requests no such threshold.
 
-## Revision 2 — reviewed publication authorization
+## Implementation evidence — VER-GIT-HOOKS-SDD
 
-On October 11, 2026, the owner authorized Git initialization on main, supplied origin, and then requested correction of review findings, a feature branch from main, commits and normal pushes, and mandatory code-review in an Exphere rule or guardrail. Force pushes are prohibited. HOOK-05 records this delivery work; a remote PR and deployment are not authorized.
+- Date and executor: October 11, 2026; implementation agent, with owner authorization for this bounded scope.
+- Revision: `HOOKS-01`, the task-owned source manifest SHA-256 `2571bf8d3c9290ac4df664f726bbdcc9e13d25e4cd481a7ddac6e61053a87c0f`. The manifest sorts `path<TAB>sha256(file)<LF>` for changed implementation/guidance files, excluding this spec and HOOK-01..04 completion records. Review captures the full file contents separately. Baseline copies were captured before implementation; no historical Git commit exists.
+- Git follow-up: the owner explicitly authorized repository initialization. `main` is initialized, `origin` is `git@github.com:jonatassales/exphere.git`, and `core.hooksPath` is `.husky/_`. Activation was observed through `EXPHERE_SKIP_USER_SETUP=1 sh scripts/postinstall.sh`; personal PATH setup was deliberately skipped. At the first implementation review, no project commit, hosted push, fetch, or PR had been performed. The owner subsequently authorized feature-branch commits and normal pushes; delivery evidence is recorded after execution.
+- Installed environment: Node v26.9.0, pnpm 12.4.2, Husky 9.1.7, lint-staged 17.6.0, commitlint CLI/config 21.2.3, harness-score 1.8.1. Node >=22.22.1 is declared for the dependency requirements; execution on that minimum version and other operating systems was not observed. Existing Biome 2.5.15, Turbo 2.11.7, and TypeScript 7.0.2 were retained.
+- Installation: exact development dependencies and lockfile resolved under the existing package-age policy. Lifecycle scripts were initially disabled to protect personal setup. An observed pnpm 12 implicit install during script execution led to `verifyDepsBeforeRun: false`; hooks also disable that behavior for build/test. Dependencies were restored successfully from the task-local store with an offline, script-disabled install.
 
-REQ-HOOK-09: establish the initial project baseline, require Standards and Spec review before completion/commit/push, preserve one ticket per commit, and publish the reviewed feature branch through normal pushes to the supplied origin. The hook implementation and its execution evidence will be delivered on the feature branch. This baseline imports the project state captured before that implementation; it does not claim the planned hook behavior is already present.
+| Requirement / observation | Result and evidence |
+| --- | --- |
+| REQ-HOOK-01 and REQ-HOOK-03 | `passed`: real Husky/commitlint fixture integration; repeated activation, worktree support, custom-path conflict, missing Husky, valid/invalid messages, no-Git/CI/production/HUSKY skips, and disabled install scripts. Controlled Exphere setup verifies orchestration without writing to a real user's shell configuration. Root activation also observed after authorized Git initialization. |
+| REQ-HOOK-02 and REQ-HOOK-04 | `passed`: real lint-staged/Biome rejects staged formatting errors, preserves partial edits and index hashes, and handles spaces, deletion, and no matches. A low fixture scanner result remains successful; an unavailable scanner fails manually but warns in pre-commit. `pnpm harness:score` exited 0 at 67/105 (64%), L2, without a target. This is a local diagnostic, not acceptance or a measurement goal. |
+| REQ-HOOK-05 | `passed`: actual `pnpm build` compiled the SDK; later unchanged builds reused the Turbo cache. Actual `pnpm test` passed the original four nonempty shell groups, then Turbo reported no declared workspace test tasks. The root contract suite supplies the real test evidence; no application suite is claimed. |
+| Push behavior | `passed`: disposable bare-remote pushes reject build/test failures, a missing test command, dirty tracked source, and another source revision; permit controlled success; handle new refs, multiple refs, deletion, non-fast-forward input, and tags. Quality commands in push fixtures have controlled outcomes and do not recursively run the suite. |
+| REQ-HOOK-06 | `passed` at the local seam: missing/duplicate ticket and spec IDs, conflicting parents, staged versus unstaged evidence, outgoing commit-tree resolution, deduplication, incremental ranges, inaccessible bases, shallow history, multi-spec warnings, and unavailable PR metadata. Real commitlint and push failures remain blocking alongside SDD warnings. |
+| REQ-HOOK-07 and REQ-HOOK-08 | Local rule/guardrail, agent pointers, setup/command documentation, Dev phases, and the scoped test exception are implemented. Local Markdown target inspection found no missing paths in changed documents; selected JSON passes Biome. Semantic ticket/PR scope remains a review responsibility. |
+
+The initial fixture suite exercised a local force-update before the owner prohibited force pushes. Subsequent runs inspect equivalent hook input without any force push. The red/green fixture cycles observed missing installation, staged checking, push blocking, and SDD diagnostics before their implementation. A later full-suite run exposed a fixture-only symlink ignore issue; the fixture now excludes the dependency symlink from Git and the full suite passed afterward. Temporary fixture repositories and bare remotes are task-owned and cleaned on exit. No service probes or unrelated application tests were run.
+
+### REV-GIT-HOOKS-SDD
+
+- Scope: SPEC-GIT-HOOKS-SDD v1 and HOOK-01..04, including task-owned modified and new files. Exclude dependency trees, generated Husky shims, build/cache output, unrelated existing files, and Git internals.
+- Reviewers: separate Standards and Spec agents under the code-review skill examined the same frozen HOOKS-02 snapshot and the cumulative four-commit series. Both axes reported zero remaining findings. The initial P2 finding and correction are recorded below.
+- 12F-01/02/05/12 v1: local tooling evidence is `compliant` within the identified snapshot for source identity, declared dependencies, separation of build from delivery, and shell entry points. This is not application or production certification. Local CPU/time and install traffic are unmeasured; paid-resource FIN criteria and service networking/capacity criteria are `not-applicable` to this change.
+- SDD v1: local hook behavior has the fixture evidence above. The reviewed project commits each declare their owning ticket and resolve to this spec. Actual PR declaration remains `not-verified`: no PR was created, and pre-push reports that limitation as an advisory warning.
+- Human decision: implementation and local Git setup were authorized by the owner. The later user request explicitly authorizes commits and normal pushes to origin. Final artifact acceptance, a remote PR, and deployment remain separate; no broader approval is inferred.
+
+### Review correction and delivery preparation
+
+HOOKS-01 review found no Standards violations or actionable smells. The Spec reviewer found one P2 defect: deletion-only pre-push input resolved HEAD before determining whether source verification was needed, so an unborn HEAD incorrectly failed. The regression fixture observed exit 128 before the correction and exit 0 afterward. HEAD resolution now occurs only for outgoing commit source. The refreshed review includes that correction, the mandatory review/no-force-push rule, and HOOK-05 delivery scope.
+
+Refreshed implementation snapshot: `HOOKS-02`, source manifest SHA-256 `72e24690de2361c5320b65d6a3b90d13e9b2452165a258451efd55cdef1f599e` using the same algorithm, excluding spec/ticket bookkeeping. The full suite now passes five groups, including unborn-HEAD deletion; no force push is executed by the current suite. Formatting-only fixes to commitlint configuration and the workflow definition make the initial project import pass the existing Biome checks.
+
+### Publication evidence — HOOK-05
+
+On October 11, 2026, the owner explicitly approved the first commit directly on main. The separately reviewed initial baseline is `1b21c03753ca9d7614c34254631f593eaf6ce926`, with trailer `Ticket: HOOK-05`. It preserves the task-start source, adding publication scope metadata and formatting-only corrections to commitlint configuration and the workflow definition. Its bootstrap commit passed the installed pre-commit and commit-msg checks. Main predates the versioned hook implementation; its clean baseline checkout had no pre-push gate, and no baseline build/test pass is claimed.
+
+The feature branch `codex/git-hooks-sdd` starts at that main commit:
+
+| Commit | Ticket | Delivery |
+| --- | --- | --- |
+| `78f330b9f42c44c2a2063c9750e8d3e8ad95a7e0` | HOOK-01 | Hook installation and Conventional Commits |
+| `a75aac48358986f3a4a5828c1de3e99d4c6a248a` | HOOK-02 | Staged checks and informational harness score |
+| `e49493708b802ace33017493b63d6994768f7c5a` | HOOK-03 | Build/test before push |
+| `31485d595690b47bcd4a613a8ae6a81ef04fa092` | HOOK-04 | Advisory SDD checks and mandatory review procedure |
+
+All commits use the configured author and committer, Jonatas Sales <6073626+jonatassales@users.noreply.github.com>, Conventional Commit subjects, and one ticket trailer. Both review axes inspected the cumulative commit slices before commit; intermediate installation, staged-check, and push suites passed. The final source matches HOOKS-02. Each actual feature commit passed the active local commit hooks.
+
+Normal pushes published main and the feature to `git@github.com:jonatassales/exphere.git`. `git ls-remote` independently confirmed both full revisions above. The feature's active pre-push ran `pnpm build` successfully (unchanged SDK build reused Turbo cache) and `pnpm test`, passing all five contract groups; Turbo separately reported no workspace application test tasks. SDD associations resolved and unavailable PR metadata remained a warning. No force push, remote PR, merge, deployment, or package publication was performed during this delivery.
+
+HOOK-01 through HOOK-05 are complete for this bounded implementation and publication scope. This completion record is a follow-up documentation change under HOOK-05; it does not change executable source or imply broader product acceptance. The future ADR-0002 and CTX drafts are separate local planning artifacts and are excluded from this publication.

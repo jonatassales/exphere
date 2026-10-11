@@ -1,0 +1,48 @@
+#!/bin/sh
+set -eu
+cd "$(dirname "$0")/../.."
+[ "$#" -eq 2 ] || { printf 'Usage: pre-push REMOTE LOCATION\n' >&2; exit 2; }
+push_updates=$(mktemp "${TMPDIR:-/tmp}/exphere-push.XXXXXX")
+trap 'rm -f "$push_updates"' EXIT
+trap 'exit 130' INT TERM
+cat >"$push_updates"
+push_head=''
+push_build=0
+push_error=''
+while read -r local_ref local_oid remote_ref remote_oid; do
+  [ -n "$local_oid" ] || continue
+  case "$local_oid" in *[!0]*) ;; *) continue ;; esac
+  case "$remote_ref" in
+    refs/tags/*) printf 'exphere: tag update %s is assessed separately.\n' "$remote_ref" ;;
+  esac
+  if push_commit=$(git rev-parse --verify "$local_oid^{commit}" 2>/dev/null); then
+    push_build=1
+    if [ -z "$push_head" ]; then
+      push_head=$(git rev-parse --verify HEAD 2>/dev/null) || {
+        push_error='checked-out HEAD has no commit to verify'
+        continue
+      }
+    fi
+    [ "$push_commit" = "$push_head" ] || push_error='outgoing source differs from checked-out HEAD'
+  else
+    case "$remote_ref" in
+      refs/tags/*) printf 'exphere: non-commit tag has no source build.\n' ;;
+      *) push_error='cannot resolve outgoing source commit' ;;
+    esac
+  fi
+done <"$push_updates"
+
+sh scripts/hooks/sdd.sh push "$1" "$push_updates" || printf 'SDD WARN: traceability checker unavailable.\n' >&2
+[ -z "$push_error" ] || { printf 'exphere: push verification scope error: %s.\n' "$push_error" >&2; exit 1; }
+[ "$push_build" -ne 0 ] || { printf 'exphere: no outgoing source build required.\n'; exit 0; }
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  push_error='tracked source is dirty; build/test must verify the outgoing revision'
+fi
+if [ -n "$push_error" ]; then
+  printf 'exphere: push verification scope error: %s.\n' "$push_error" >&2
+  exit 1
+fi
+printf 'exphere: verifying outgoing revision %s.\n' "$push_head"
+PNPM_CONFIG_VERIFY_DEPS_BEFORE_RUN=false pnpm run build
+PNPM_CONFIG_VERIFY_DEPS_BEFORE_RUN=false pnpm run test
+printf 'exphere: build and test passed for %s.\n' "$push_head"

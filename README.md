@@ -12,7 +12,7 @@ Exphere explores developer experience, agent-assisted delivery, and consumer-com
 | `.artifacts/` | Typed PRDs, specs, tickets, research, and design documents in en-US. |
 | `.audits/evidence/` | Contract for evidence from authorized execution. |
 
-The tree has no API, web application, or protobuf workspace. Root development, build, start, and lint/format commands still refer to absent helper scripts. They are not verified working commands for this checkout; no missing workspace or helper script is restored by the documentation updates.
+The tree has no API, web application, or protobuf workspace. Root build, test, and Biome adapters are available. The SDK build compiles its current empty TypeScript API; development/start tasks have no application to run.
 
 ## Microruntime CLI
 
@@ -26,7 +26,7 @@ pnpm ex --root /path/to/consumer runtime list
 
 `init` creates only `.micro-runtime/<id>/schema.json`, with identity and an empty `components` object. It refuses to overwrite an existing directory. Consumers provide Terraform configuration, Kubernetes manifests, and explicit `.sh` hooks. The CLI validates descriptors and dispatches selected commands; it does not choose the stack or composition.
 
-The root `postinstall` invokes local CLI setup, which installs the command under `~/.local/share/exphere/bin` and configures the zsh or bash PATH. Setup is skipped in CI and with `pnpm install --ignore-scripts`. The source provides `pnpm ex setup` for manual setup; these documentation updates do not execute installation or modify shell configuration.
+The root `postinstall` preserves local CLI setup, which installs the command under `~/.local/share/exphere/bin` and configures the zsh or bash PATH, then configures repository-local Husky hooks. CLI setup skips CI; `EXPHERE_SKIP_USER_SETUP=1` explicitly skips the user PATH step while retaining hook setup. `pnpm install --ignore-scripts` runs neither step. Use `pnpm ex setup` for manual CLI setup.
 
 See the [CLI contract](packages/exphere/cli/README.md) for commands, descriptors, and consumer responsibilities. No deployable example microruntime is included.
 
@@ -38,8 +38,26 @@ See the [CLI contract](packages/exphere/cli/README.md) for commands, descriptors
 - [Artifact tracker](.artifacts/agents/0006-DD-artifact-tracker.dd.md): typed filenames, directories, numbering, and states.
 - [Harness](.agents/README.md) and [current workflows](.exphere/workflows/README.md).
 
+## Developer checks
+
+Use Node.js **22.22.1 or newer**, the pinned pnpm version, Git, and a POSIX shell. Run `pnpm install` to install the declared developer tools and execute postinstall. Husky activation is idempotent, supports linked worktrees, and skips CI, `HUSKY=0`, production-only installs, and directories without Git metadata. A missing development tool in a normal development install or a conflicting `core.hooksPath` is an error. Existing custom hook configuration is not overwritten. Dependency consumers do not receive this repository's root hooks as an SDK install side effect.
+
+| Command or hook | Behavior |
+| --- | --- |
+| `pnpm build` | Run declared workspace builds through Turborepo, including the SDK's TypeScript compilation. |
+| `pnpm test` | Run the real shell hook-contract suite in disposable Git repositories with a local bare remote, then declared workspace test tasks through Turborepo. No application suite exists yet. |
+| `pnpm check`, `pnpm lint`, `pnpm format` | Run the existing Biome configuration; `format` writes fixes explicitly. |
+| `pnpm harness:score` | Invoke locally installed `npx harness-score` from the root, without a target or threshold. Execution errors remain nonzero. |
+| pre-commit | Check eligible staged files with lint-staged/Biome, preserving partial edits; report one project-wide harness scan and a ticket reminder. Lint failures block; score findings or scanner failures do not. |
+| commit-msg | Validate the proposed message with commitlint's conventional configuration and emit advisory ticket/spec findings from the index. |
+| pre-push | Report outgoing SDD associations and PR-metadata limitations, then run build followed by test for the clean tracked, checked-out outgoing revision. Quality errors and unsupported source revisions block. |
+
+Biome checks supported JS/TS variants, JSON/JSONC, and CSS using the staged configuration. Shell, Markdown, and other unsupported formats are outside this linter's coverage. Existing agent, artifact, and evidence exclusions remain. The harness scanner reads the project working tree; its diagnostic is not staged-content validation. A low score is not a failure or an instruction to expand project scope.
+
+`verifyDepsBeforeRun: false` disables pnpm's implicit installation before run/exec. Hooks require tools already installed; the scanner uses offline npx with installation disabled. Missing tools produce explicit failures/warnings according to the table. Commitlint retains its upstream ignored-message behavior, including merge/revert and fixup/squash messages; ticket associations are evaluated separately.
+
+Follow the [SDD rule](.exphere/rules/sdd.md) and [guardrail](.exphere/guardrails/sdd.md): `Ticket: HOOK-01` is a commit trailer; `Spec: SPEC-GIT-HOOKS-SDD` belongs in the actual PR body. Stable artifact IDs are independent of filename numbers. Unavailable PR metadata warns locally; review must inspect the real PR declaration when it exists. Hooks can be bypassed and do not constitute CI enforcement or authorization to publish.
+
 ## Current limits
 
-YAGNI. No tests, infrastructure provisioning, deployment, or production integration are included in the current work. The CLI adapters do not execute the agent workflow or enforce the proposed quality, resource, and observability contracts. Their presence does not prove successful Terraform or Kubernetes execution.
-
-Biome is declared in the root manifest. Its configuration excludes agent, artifact, and evidence directories. The root lint/format helper is absent, so those task wrappers remain unavailable. Static documentation inspection is not evidence of application behavior.
+YAGNI. The hook initiative authorizes its bounded fixture tests and build/test push gate; unrelated application tests and service probes remain outside that authorization. No infrastructure provisioning, deployment, or production integration is included. The CLI adapters do not execute the agent workflow or enforce the proposed resource and observability contracts. Their presence does not prove successful Terraform or Kubernetes execution.

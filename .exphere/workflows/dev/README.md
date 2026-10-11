@@ -18,7 +18,7 @@ The [cycle and authorization contract](CYCLE.md) owns the stage mapping, ticket-
 
 ## Project contracts
 
-- [AGENTS.md](../../../AGENTS.md) and [working rules](../../../.agents/rules/README.md): scope, authorization, language, and the current prohibition on tests.
+- [AGENTS.md](../../../AGENTS.md) and [working rules](../../../.agents/rules/README.md): scope, authorization, language, and scoped hook-test authorization and restrictions on unrelated tests.
 - [Context](../../../.agents/CONTEXT.md) and [domain configuration](../../../.artifacts/agents/0007-DD-domain-model.dd.md): consumer boundaries and available vocabulary.
 - [Artifact tracker](../../../.artifacts/agents/0006-DD-artifact-tracker.dd.md): typed filenames, numbering, directories, ticket states, and decision records.
 - [Guardrails](../../../.agents/guardrails/README.md): applicable local policies and evidence criteria.
@@ -41,6 +41,10 @@ These links locate the relevant instructions; they do not invoke skills or autho
 | Technical review | [code-review](../../../.agents/skills/code-review/SKILL.md) |
 | Explicit retrospective | [retro](../../../.agents/skills/retro/SKILL.md) |
 | Agent-facing documents | [writing-for-agents](../../../.agents/skills/writing-for-agents/SKILL.md) |
-| Test-first development, only if the test prohibition is explicitly lifted for the scope | [tdd](../../../.agents/skills/tdd/SKILL.md) |
+| Test-first development at an authorized seam, including the hook-contract suite | [tdd](../../../.agents/skills/tdd/SKILL.md) |
 
 Skill availability does not authorize a later phase. Current project restrictions override skill defaults, including automatic tests or commits. The installed versions and their limitations remain in the [skill configuration](../../../.artifacts/agents/0008-DD-agent-skills.dd.md).
+
+## Local developer checks
+
+The [command contract](../../../README.md#developer-checks) configures Husky in postinstall while preserving Exphere setup. Pre-commit blocks staged lint failures and reports an informational harness score; commit-msg blocks invalid Conventional Commits and warns about ticket links; pre-push reports SDD findings before blocking build/test checks. Apply the [SDD rule](../../rules/sdd.md) and [guardrail](../../guardrails/sdd.md). Review checks actual ticket/spec scope; audit records unavailable evidence and bypass limitations.

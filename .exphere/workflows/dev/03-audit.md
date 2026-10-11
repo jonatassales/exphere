@@ -10,13 +10,15 @@
 4. Record what was inspected, the examined revision or hashes, actual outcomes, unresolved limitations, and the responsible role. Keep authorization records separate from observations. Do not invent human acceptance, metrics, or production outcomes.
 5. Use the [evidence contract](../../../.audits/evidence/README.md) for authorized execution records. Its `runs/<run-id>/` directory is the specific location excluded by the root ignore configuration; do not claim that all audit files are ignored or that an ignore rule proves Git history.
 
-For documentation-only work, link inspection, document reading, and JSON syntax checks can support documentary criteria. They do not demonstrate application, skill, or workflow execution. Do not create or run tests, smoke checks, HTTP probes, or examples as part of this audit while the prohibition remains active.
+For documentation-only work, link inspection, document reading, and JSON syntax checks can support documentary criteria. They do not demonstrate application, skill, or workflow execution. Reuse authorized hook-contract/build evidence for SPEC-GIT-HOOKS-SDD; unrelated tests, service probes, and examples require their own authorization.
 
 ## Delivery handoff
 
 Local completion requires the ticket's actual deliverable, satisfied applicable criteria, and a recorded review. A production deployment is not a prerequisite for a documentation ticket that excludes deployment.
 
 Before a commit, push, pull request, remote issue, deployment, provisioned resource, or paid action, verify authorization for that effect and destination. Reuse an existing authorization that covers them. If it is absent, report the ready local result and the pending action; do not perform it because the review passed.
+
+Before an authorized code push, pre-push examines outgoing ref updates and runs build/test against the clean tracked, checked-out source. Another source revision fails with a scope error. Record missing history and unavailable actual PR metadata; no implicit fetch or PR creation is required. For a real PR, inspect its `Spec:` declaration and all ticket relationships before describing SDD evidence as verified. The [SDD guardrail](../../guardrails/sdd.md) makes these findings advisory without weakening quality gates or other policies.
 
 Mark a ticket `done` only when its own acceptance criteria are met. Keep unresolved delivery work pending when delivery is part of its scope. This record does not grant an organization-wide approval.
 

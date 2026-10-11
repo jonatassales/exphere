@@ -10,10 +10,14 @@
 4. Keep the two findings lists separate. Standards review evaluates documented rules and applicable design concerns; spec review evaluates missing behavior, incorrect implementation, and unrequested scope. Cite actual locations and distinguish defects from suggestions.
 5. Resolve actionable findings, then refresh the affected snapshot and review. Reuse an earlier review only when its evidence, criteria, and examined files still apply; do not repeat identical review without a reason.
 
-Use the [review format](../../../.agents/templates/review.md) within the relevant typed artifact. Record the reviewer role, spec version, inspected scope, findings, verification limits, and outcome. The project still prohibits tests; a reviewer must not run them merely because a skill mentions them.
+Use the [review format](../../../.agents/templates/review.md) within the relevant typed artifact. Record the reviewer role, spec version, inspected scope, findings, verification limits, and outcome. The hook-contract suite is authorized under SPEC-GIT-HOOKS-SDD; unrelated tests remain restricted. Review existing evidence before repeating checks.
 
 **Output:** separate standards and spec assessments tied to the same snapshot, with remaining defects and evidence gaps visible.
 
 **Completion:** applicable findings are resolved or their blocking impact is explicitly recorded. Hand the reviewed scope to [audit](03-audit.md); a review is advisory evidence, not human acceptance or delivery permission.
 
 **Return condition:** implementation defects return to execution; changed requirements or criteria return to planning. Missing mandatory evidence keeps the dependent conclusion inconclusive.
+
+Apply [SDD-01 through SDD-03](../../guardrails/sdd.md): inspect each commit’s ticket and semantic scope. When an actual PR is available, inspect its `Spec:` declaration and compare every included ticket’s parent spec. A mismatched PR is advisory `non-compliant`; absent PR metadata is `not-verified`. A local candidate or a successful hook cannot prove PR association or grant approval.
+
+The [SDD review rule](../../rules/sdd.md#required-code-review-and-publication) requires this two-axis review before completion, commit, or push. Record the examined snapshot; rerun affected review after material changes. Publication uses a feature branch from main and a normal push; force pushes are prohibited.

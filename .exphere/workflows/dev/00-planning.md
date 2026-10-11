@@ -9,7 +9,7 @@
 3. Record consequential domain decisions with [domain-modeling](../../../.agents/skills/domain-modeling/SKILL.md). Use the available domain context; an absent glossary is not an instruction to recreate a deleted file.
 4. When authorized, synthesize the agreed scope with [to-spec](../../../.agents/skills/to-spec/SKILL.md), using the [PRD](../../../.agents/templates/prd.md) and [spec](../../../.agents/templates/spec.md) formats where applicable. Record unknown owners, baselines, and targets as unknown. Use [writing-for-agents](../../../.agents/skills/writing-for-agents/SKILL.md) for agent-facing content.
 5. When ticket preparation is authorized, use [to-tickets](../../../.agents/skills/to-tickets/SKILL.md). Give each ticket a complete, bounded deliverable, criteria, and genuine blocking edges. Keep stable IDs and the configured artifact paths and naming.
-6. Identify the highest useful verification surface and the applicable guardrails. Preserve the current prohibition on tests; documenting a future verification option does not authorize executing it. Record scope acceptance and execution authorization separately from artifact creation.
+6. Identify the highest useful verification surface and the applicable guardrails. Respect scoped test authorization and restrictions on unrelated tests; documenting a future verification option does not authorize executing it. Record scope acceptance and execution authorization separately from artifact creation.
 
 **Output:** only the requested typed artifacts, with source context, decisions, acceptance criteria, dependencies, verification approach, and remaining uncertainty. New proposals remain drafts unless actual authorization covers their scope and revision.
 

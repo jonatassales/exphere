@@ -25,7 +25,7 @@ Apply to modified services and processes and their configuration, builds, and ex
 
 ## Completion criteria
 
-Use the [common states and exceptions](README.md), citing affected IDs in the spec/review. Inspection can demonstrate declared configuration; behavior, capacity, and recovery require execution evidence. The current prohibition on creating or running tests remains in force: record pending verification and its impact without inventing approval.
+Use the [common states and exceptions](README.md), citing affected IDs in the spec/review. Inspection can demonstrate declared configuration; behavior, capacity, and recovery require execution evidence. The scoped hook initiative permits its contract suite and build/test push gate; unrelated tests remain subject to the authorization rules in root AGENTS.
 
 New services assess all 12 factors. Incremental changes assess affected factors; do not expand a task into rewriting the entire repository. Preexisting differences outside the scope are separate findings. An adapter or skill that does not perform verification must state that limitation.
 

@@ -4,7 +4,7 @@ Load the [12F guardrails](../guardrails/twelve-factor.md) when creating or chang
 
 1. Identify whether the target is an application, library, job, or stateful dependency. Select the affected factors; assess all 12 for a new service.
 2. Record the necessary contracts and adaptations in the [spec](../templates/spec.md), preserving consumer stack and composition choices. Consult the existing schema and adapters before proposing fields or capabilities.
-3. Inspect files and configuration relevant to the scope. Perform only authorized checks; respect the current prohibition on tests. Static review does not prove runtime behavior.
+3. Inspect files and configuration relevant to the scope. Perform only authorized checks; respect the scoped hook-test authorization and remaining restrictions in root AGENTS. Static review does not prove runtime behavior.
 4. Use the [common states and exceptions](../guardrails/README.md) in the [review](../templates/review.md), linking findings to 12F IDs and the versions assessed. Record preexisting failures outside the scope separately.
 5. External skills are references; 15-factor extensions do not silently replace these 12 criteria. Markdown and the current CLI do not constitute a Twelve-Factor certification system.
 
