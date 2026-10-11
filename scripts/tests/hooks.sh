@@ -138,9 +138,81 @@ staged() {
   printf 'PASS: staged boundaries, lint failure, deletions, no matches, and unavailable scanner\n' 
 }
 
+push_gate() {
+  fixture
+  printf '.checks/\n' >>.gitignore
+  mkdir .checks
+  cat >fixture-check.sh <<'EOF'
+#!/bin/sh
+printf '%s\n' "$1" >>.checks/order
+[ ! -f ".checks/fail-$1" ]
+EOF
+  printf '{"name":"push-fixture","private":true,"scripts":{"build":"sh fixture-check.sh build","test":"sh fixture-check.sh test"}}\n' >package.json
+  git add .
+  git -c core.hooksPath=/dev/null commit -qm 'chore: fixture'
+  git init --bare -q "$test_repo-remote"
+  git remote add origin "$test_repo-remote"
+  expect 0 sh scripts/hooks/install.sh
+  touch .checks/fail-build
+  expect 1 git push origin main
+  [ "$(cat .checks/order)" = build ]
+  rm .checks/fail-build .checks/order
+  touch .checks/fail-test
+  expect 1 git push origin main
+  [ "$(cat .checks/order)" = "$(printf 'build\ntest')" ]
+  rm .checks/fail-test .checks/order
+  expect 0 git push origin main
+  [ "$(cat .checks/order)" = "$(printf 'build\ntest')" ]
+  [ "$(git --git-dir="$test_repo-remote" rev-parse refs/heads/main)" = "$(git rev-parse HEAD)" ]
+  # Deletion-only updates do not run quality commands.
+  rm .checks/order
+  expect 0 git push origin :main
+  [ ! -e .checks/order ]
+  contains 'no outgoing source build required'
+  expect 0 git push origin main
+  git tag fixture-tag
+  expect 0 git push origin fixture-tag
+  contains 'tag update'
+  git branch second
+  expect 0 git push origin main second
+  printf '# dirty\n' >>fixture-check.sh
+  git branch dirty
+  expect 1 git push origin dirty
+  contains 'tracked source is dirty'
+  git checkout -- fixture-check.sh
+  previous=$(git rev-parse HEAD)
+  printf '# next revision\n' >>fixture-check.sh
+  git add fixture-check.sh
+  git -c core.hooksPath=/dev/null commit -qm 'chore: next fixture'
+  expect 1 git push origin "$previous:refs/heads/old-source"
+  contains 'outgoing source differs'
+  expect 0 git push origin main
+  git reset --hard -q "$previous"
+  # Inspect a non-fast-forward ref update without performing a force push.
+  printf 'refs/heads/main %s refs/heads/main %s\n' "$previous" "$(git rev-parse refs/remotes/origin/main)" >"$test_area/non-fast-forward"
+  expect 0 sh .husky/_/pre-push origin "$test_repo-remote" <"$test_area/non-fast-forward"
+  # A missing test command must fail instead of becoming an empty success.
+  printf '{"name":"push-fixture","private":true,"scripts":{"build":"sh fixture-check.sh build"}}\n' >package.json
+  git add package.json
+  git -c core.hooksPath=/dev/null commit -qm 'chore: missing test fixture'
+  expect 1 git push origin HEAD:refs/heads/missing-test
+  printf 'PASS: push quality gates, missing command, deletion, tags, multiple refs, non-fast-forward inspection, and revision scope\n' 
+}
+
+deletion_without_head() {
+  fixture
+  expect 0 sh scripts/hooks/install.sh
+  printf '(delete) 0000000000000000000000000000000000000000 refs/heads/obsolete 1111111111111111111111111111111111111111\n' >"$test_area/deletion"
+  expect 0 sh .husky/_/pre-push origin unused-local-remote <"$test_area/deletion"
+  contains 'no outgoing source build required'
+  printf 'PASS: deletion-only hook input works without a HEAD commit\n'
+}
+
 case "${1:-all}" in
   installation) installation ;;
   staged) staged ;;
-  all) installation; staged ;;
+  push) push_gate ;;
+  unborn) deletion_without_head ;;
+  all) installation; staged; push_gate; deletion_without_head ;;
   *) printf 'Unknown hook test group: %s\n' "$1" >&2; exit 2 ;;
 esac
