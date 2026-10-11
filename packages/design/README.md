@@ -1,6 +1,6 @@
 # Design tokens
 
-`@repo/design` is a versioned package intended for public distribution. Its current neutral values are provisional: edit the JSON source to establish a future visual identity. No registry release is performed by installation or build.
+`@repo/design` is a versioned package intended for public distribution. Its light theme supplies Exphere's basic palette from one editable JSON source. Shared grayscale foundations and the existing dark theme retain their original values. No registry release is performed by installation or build.
 
 ## Consumer interface
 
@@ -8,12 +8,18 @@ The explicit exports are `@repo/design/tokens.css` and `@repo/design/tokens.json
 
 Foundation variables belong to `:root`. Semantic colors belong to `[data-theme="light"]` or `[data-theme="dark"]`; consumers set the attribute explicitly. The package implements no theme detection, toggle, or persistence. The initial website uses light mode.
 
-| Variable | Initial value or meaning |
+The seven basic palette roles are available in light mode. `foreground` remains a compatibility alias of light `text`. The dark theme retains its four existing roles; no dark primary, primary-hover, text, or text-secondary values are defined.
+
+| Variable | Value or meaning |
 | --- | --- |
-| `--design-color-background` | Light: gray 50; dark: gray 950. |
-| `--design-color-foreground` | Light: gray 900; dark: gray 50. |
-| `--design-color-surface` | Light: gray 100; dark: gray 900. |
-| `--design-color-border` | Light: gray 200; dark: gray 800. |
+| `--design-color-primary` | Light: `#6D0AD6`. |
+| `--design-color-primary-hover` | Light: `#5408A5`. |
+| `--design-color-background` | Light: `#FFFFFF`; dark: gray 950. |
+| `--design-color-surface` | Light: `#F9F9F9`; dark: gray 900. |
+| `--design-color-text` | Light: `#27262A`. |
+| `--design-color-text-secondary` | Light: `#535257`. |
+| `--design-color-border` | Light: `#DDDDDD`; dark: gray 800. |
+| `--design-color-foreground` | Light: alias of `text` (`#27262A`); dark: gray 50. |
 | `--design-typography-font-body` | `system-ui, sans-serif` |
 | `--design-typography-size-body` | `1rem` |
 | `--design-typography-size-heading` | `2rem` |
@@ -46,4 +52,4 @@ Build validates the complete token graph before preparing both outputs. A tempor
 
 Development watch polls only the four source files every 200ms, debounces changes, and regenerates after valid edits. Invalid edits report diagnostics while retaining the last valid outputs. SIGINT or SIGTERM clears pending work and removes watchers. Polling avoids platform-specific native watcher limits and follows files replaced by editors.
 
-The shell contract suite builds an isolated package and resolves both public exports from a disposable consumer. It checks known neutral values, preserved aliases, deterministic rebuilds, rejected invalid graphs and unsafe values, unchanged outputs after failures, edited-source regeneration, and clean watcher shutdown. It does not claim browser rendering, registry availability, or production readiness.
+The shell contract suite builds an isolated package and resolves both public exports from a disposable consumer. It checks the seven supplied light-palette values, the foreground compatibility alias, preserved dark roles, deterministic rebuilds, rejected invalid graphs and unsafe values, unchanged outputs after failures, light-token regeneration in both exports, and clean watcher shutdown. It does not claim browser rendering, registry availability, or production readiness.

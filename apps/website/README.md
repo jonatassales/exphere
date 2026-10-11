@@ -1,7 +1,7 @@
 # Website
 
 The initial Exphere website has one en-US page at `/`. It displays the project
-name using the provisional neutral colors, system font, and spacing supplied by
+name using the basic light palette, system font, and spacing supplied by
 `@repo/design`. It has no marketing sections, authentication, API, integrations,
 or persistent state. This application is private and has no deployed release.
 

@@ -6,7 +6,7 @@ Exphere explores developer experience, agent-assisted delivery, and consumer-com
 | --- | --- |
 | `packages/sdk/` | Private `@exphere/sdk`; TypeScript API remains empty. |
 | `packages/cli/` | Private `@exphere/cli`; owns the `ex` shell CLI. |
-| `packages/design/` | Public-intent `@repo/design`; neutral tokens with generated CSS/JSON exports. |
+| `packages/design/` | Public-intent `@repo/design`; basic light-palette tokens with generated CSS/JSON exports. |
 | `packages/web/` | Public-intent `@repo/web`; source placeholders and SmoothUI CLI dependency only. |
 | `apps/website/` | Minimal private Next.js application consuming design tokens. |
 | `.micro-runtime/<id>/` | Consumer configuration created on demand by the CLI; not a workspace. |

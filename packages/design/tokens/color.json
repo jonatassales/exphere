@@ -14,10 +14,14 @@
     "light": {
       "color": {
         "$type": "color",
-        "background": { "$value": "{color.gray.50}" },
-        "foreground": { "$value": "{color.gray.900}" },
-        "surface": { "$value": "{color.gray.100}" },
-        "border": { "$value": "{color.gray.200}" }
+        "primary": { "$value": "#6D0AD6" },
+        "primaryHover": { "$value": "#5408A5" },
+        "background": { "$value": "#FFFFFF" },
+        "surface": { "$value": "#F9F9F9" },
+        "text": { "$value": "#27262A" },
+        "textSecondary": { "$value": "#535257" },
+        "border": { "$value": "#DDDDDD" },
+        "foreground": { "$value": "{themes.light.color.text}" }
       }
     },
     "dark": {
