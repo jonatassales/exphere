@@ -100,8 +100,47 @@ installation() {
   printf 'PASS: installation, lifecycle skips, preserved setup, worktree, and Conventional Commits\n' 
 }
 
+staged() {
+  fixture
+  git add .
+  git -c core.hooksPath=/dev/null commit -qm 'chore: fixture'
+  expect 0 sh scripts/hooks/install.sh
+  printf 'export const value = 1;\n' >'staged file.js'
+  git add 'staged file.js'
+  printf 'export const unstaged=2\n' >>'staged file.js'
+  before_worktree=$(git hash-object 'staged file.js')
+  before_index=$(git rev-parse ':staged file.js')
+  expect 0 sh .husky/_/pre-commit
+  [ "$(git hash-object 'staged file.js')" = "$before_worktree" ]
+  [ "$(git rev-parse ':staged file.js')" = "$before_index" ]
+  git add 'staged file.js'
+  expect 1 sh .husky/_/pre-commit
+  contains 'staged checks failed'
+  git reset -q HEAD -- 'staged file.js'
+  rm 'staged file.js'
+  printf 'Documentation only.\n' >notes.md
+  git add notes.md
+  expect 0 sh .husky/_/pre-commit
+  contains 'could not find any staged files matching'
+  git -c core.hooksPath=/dev/null commit -qm 'docs: fixture'
+  git rm -q notes.md
+  expect 0 sh .husky/_/pre-commit
+  contains 'could not find any staged files'
+  # Remove only the fixture symlink, retaining the real installed tools.
+  rm node_modules
+  mkdir -p node_modules/.bin
+  printf '#!/bin/sh\nexec "%s/node_modules/.bin/lint-staged" "$@"\n' "$test_source" >node_modules/.bin/lint-staged
+  chmod +x node_modules/.bin/lint-staged
+  expect 1 sh scripts/harness-score.sh
+  contains 'harness-score is unavailable'
+  expect 0 sh .husky/_/pre-commit
+  contains 'harness score unavailable'
+  printf 'PASS: staged boundaries, lint failure, deletions, no matches, and unavailable scanner\n' 
+}
+
 case "${1:-all}" in
   installation) installation ;;
-  all) installation ;;
+  staged) staged ;;
+  all) installation; staged ;;
   *) printf 'Unknown hook test group: %s\n' "$1" >&2; exit 2 ;;
 esac

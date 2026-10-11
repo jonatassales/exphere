@@ -1,0 +1,19 @@
+#!/bin/sh
+set -eu
+cd "$(dirname "$0")/../.."
+lint_status=0
+if [ -x node_modules/.bin/lint-staged ]; then
+  node_modules/.bin/lint-staged || lint_status=$?
+else
+  printf 'exphere: lint-staged is missing; install development dependencies.\n' >&2
+  lint_status=1
+fi
+printf 'exphere: project-wide harness diagnostic; no score target.\n'
+if ! sh scripts/harness-score.sh; then
+  printf 'WARN: harness score unavailable; no score gate is applied.\n' >&2
+fi
+printf 'SDD reminder: declare one Ticket: <stable-id> in the commit message.\n'
+if [ "$lint_status" -ne 0 ]; then
+  printf 'exphere: staged checks failed.\n' >&2
+fi
+exit "$lint_status"
