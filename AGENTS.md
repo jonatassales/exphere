@@ -75,7 +75,7 @@ Project rules and explicit user instructions take precedence over skill defaults
 Distinguish drafts, authorized decisions, implementations, and observed outcomes. Skills guide behavior; authenticated approvals, enforced transitions, CI gates, and production policies are not implemented. Review the actual changed scope, including uncommitted files. Missing required evidence is not approval. Acceptance identifies the reviewed revision; material changes require reassessment.
 
 - YAGNI: add only what the request requires, without speculative abstractions, endpoints, or integrations.
-- Automation scripts must be `.sh` files; package manifest scripts invoke those files. Application code and framework configuration are not helper scripts.
+- Automation scripts must be `.sh` files; package manifest scripts invoke those files. Application code and framework configuration are not helper scripts. SPEC-DESIGN-TOKENS has a scoped exception for its TypeScript token compiler behind shell build/watch entry points, recorded under the owner's October 11, 2026 implementation request.
 - SPEC-GIT-HOOKS-SDD authorizes build/test in pre-push and scoped hook-contract tests in disposable local Git repositories, including a local bare remote. The owner authorized implementation on October 11, 2026 after that seam was presented. Unrelated application tests, service probes, project commits, and remote publication still require corresponding authorization.
 - Use pnpm pinned in the manifest and Turborepo for workspace tasks. Workspaces own their dependencies; actual internal dependencies use `workspace:*`.
 - SPEC-SDK-CLI-SEPARATION authorizes isolated package-consumer and CLI setup fixtures under the owner's October 11, 2026 implementation request. Use disposable installation directories; real user shell/profile changes and infrastructure execution remain outside verification.
@@ -91,3 +91,5 @@ Read `docs/README.md` inside that installed package first, then read the relevan
 
 This block is written and re-added by `turbo` before repository-scoped commands when an AI agent is detected. In the Turborepo source repository, its template is defined in `crates/turborepo-cli/src/cli/agent_guidance.rs`. Removing the managed block while updates are enabled means a later qualifying invocation will add it again. Set `"agentGuidance": false` in the root `turbo.json` or `turbo.jsonc` to opt out; this does not remove an existing block. Keep the block committed with your work to avoid an uncommitted change on the next agent invocation.
 <!-- END:turborepo-agent-rules -->
+
+- SPEC-DESIGN-TOKENS authorizes isolated public-export and watch contract fixtures under the October 11, 2026 implementation request.

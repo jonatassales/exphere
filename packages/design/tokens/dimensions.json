@@ -1,0 +1,13 @@
+{
+  "dimensions": {
+    "$type": "dimension",
+    "space": {
+      "2": { "$value": "0.5rem" },
+      "4": { "$value": "1rem" },
+      "6": { "$value": "1.5rem" },
+      "8": { "$value": "2rem" }
+    },
+    "radius": { "md": { "$value": "0.5rem" } },
+    "content": { "max": { "$value": "64rem" } }
+  }
+}

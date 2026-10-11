@@ -3,7 +3,7 @@
 - ID: `SPEC-DESIGN-TOKENS`
 - Document number: `SPEC-0003`
 - Version: `1`
-- State: `in-progress`
+- State: `implemented; reviewed local scope`
 - PRD: [PRD-0001 v1](../prd/0001-PRD-exphere.prd.md), still a draft; no approved PRD version covers this package delivery.
 - Technical owners: project owner for visual decisions and consumer composition; package maintainers for implementation and verification, not yet assigned.
 - Source: [DD-0009](../design/0009-DD-web-foundation.dd.md) and the owner's package, naming, and neutral-token decisions on October 11, 2026.
@@ -76,9 +76,9 @@ Brand identity, final token values, implemented React or Custom Element componen
 - Cost/consumption impact: local developer/build compute only; no provisioned resources, new AI consumption, budget commitment, or measured savings are proposed.
 - Open issues and exceptions: `DEC-DESIGN-01` records the limited TypeScript compiler exception. Final visual identity and release policy remain open; the implementation decisions and consumer seam below are resolved for this cycle.
 - Verification plan: `VER-DESIGN-01` below is authorized by the current implementation request. Outcomes remain `not-verified` until evidence is recorded.
-- Execution evidence: [DESIGN-01 evidence](../tickets/0016-TICKET-design-token-foundation.ticket.md#evidence) records current command outcomes; review and acceptance of the examined source remain pending. This authorization update does not independently certify those results.
+- Execution evidence: [DESIGN-01 evidence](../tickets/0016-TICKET-design-token-foundation.ticket.md#evidence) records current command outcomes; the final technical review is recorded below. Technical review does not establish organizational adoption or release acceptance.
 - Trade-offs, decisions, and blocking questions: central generated outputs simplify consumer imports but require a validated build; placeholder values accelerate integration without settling visual identity. See the decision register below.
-- Technical review: pending; owners and the reviewed source/document version must be recorded before completion, commit, or push.
+- Technical review: Standards and Spec reviews passed for snapshot `c5f15b459bfc415172764c4aa16d39fb9ac437207a709e11c0ae471751d3f63d` after correction of the missing CLI environment-asset check. See linked ticket evidence for methods, red/green verification, and limits.
 
 ### VER-DESIGN-01 — package-consumer seam
 
@@ -94,3 +94,7 @@ The shell-based SDK build and disposable hook fixtures provide prior art for iso
 | DEC-DESIGN-02 | Foundation `:root` variables and explicit light/dark data-theme selectors. | Consumers select modes; the website selects light with no toggle or persistence. |
 | DEC-DESIGN-03 | `--design-`, public CSS/JSON exports, limited typed schema, and JSON alias preservation. | Values remain provisional; no full external token-standard compliance claim or runtime API. |
 | DEC-DESIGN-04 | Focused public consumer tests, installation, type checking, and build. | Authorized for this cycle; results require separate evidence and unrelated tests remain excluded. |
+
+### Delivery verification
+
+The linked ticket records the completed local implementation and its observed evidence on October 11, 2026. The earlier verification sections describe the planned criteria; results are limited to the installed dependency graph, static review, compilation, and expressly authorized fixture or generated-artifact checks. Production and browser/runtime criteria without execution evidence remain not-verified. No blanket policy compliance or release availability is claimed.
