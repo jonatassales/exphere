@@ -1,0 +1,14 @@
+{
+  "name": "@exphere/cli",
+  "version": "0.0.0",
+  "private": true,
+  "bin": {
+    "ex": "./cli/ex.sh"
+  },
+  "files": [
+    "cli"
+  ],
+  "scripts": {
+    "test": "sh scripts/test.sh"
+  }
+}

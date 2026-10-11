@@ -1,6 +1,6 @@
-# ex — Exphere SDK CLI
+# ex — Exphere CLI
 
-Shell CLI for the private `@factory/exphere` package. The `ex` binary points to `cli/ex.sh`; the SDK's TypeScript API remains empty. The consumer supplies components, configuration, and hooks. The CLI selects the microruntime and invokes the requested tool.
+Shell CLI for the private, versioned `@exphere/cli` package. The `ex` binary points to `cli/ex.sh` and reports this package's version. The separate `@exphere/sdk` package owns the currently empty TypeScript API; the CLI does not depend on it. The consumer supplies components, configuration, and hooks. The CLI selects the microruntime and invokes the requested tool.
 
 Requirements: `sh` and `jq` on PATH. `terraform` or `kubectl` is required only for the selected adapter. The CLI does not install tools or load environment files.
 
@@ -14,9 +14,9 @@ Open a new terminal, or activate it in the current terminal:
 . "$HOME/.local/share/exphere/env.sh"
 ```
 
-Then use `ex` directly. Running `pnpm ex setup` again keeps the same links and does not duplicate the configuration line. If you move the checkout, remove both old links before running setup again. Other shells require manual PATH configuration.
+Then use `ex` directly. Running `pnpm ex setup` again keeps the same links and does not duplicate the configuration line. Setup can migrate links whose exact destinations point to this same checkout's former `packages/exphere/cli/` paths, including dangling links after the package move. It checks both links before changing either, refuses directory targets and unrelated files or installations, and restores changed links when an update fails or is interrupted. If recovery itself fails, setup reports the retained recovery directory for inspection. If you move the checkout itself, remove both old links before running setup again. Other shells require manual PATH configuration.
 
-The hook belongs to this monorepo's root; installing the SDK as a dependency does not automatically change the consumer's shell. Automatic setup is skipped in CI and with `pnpm install --ignore-scripts`; `pnpm ex setup` remains available as an explicit command.
+The hook belongs to this monorepo's root; installing either package as a dependency does not automatically change the consumer's shell. Automatic setup is skipped in CI and with `pnpm install --ignore-scripts`; `pnpm ex setup` remains available as an explicit command.
 
 ## Commands
 
@@ -76,7 +76,7 @@ Native exit codes are preserved: `terraform plan -detailed-exitcode` can return 
 | `EX_RUNTIME_DIR` | Microruntime directory |
 | `EX_RUNTIME_ID` | Microruntime identifier |
 | `EX_RUNTIME_SCHEMA` | Descriptor path |
-| `EX_CLI_PATH` | Path to `cli/ex.sh` in the SDK |
+| `EX_CLI_PATH` | Path to `cli/ex.sh` in the CLI package |
 
 The consumer decides composition and order. A hook can delegate to the CLI using:
 
@@ -88,4 +88,4 @@ Hooks are trusted consumer code and run with the process's permissions. The CLI 
 
 ## Current state
 
-No deployable microruntime is included. No tests, hooks, or infrastructure commands were run for this delivery; the presence of adapters does not demonstrate operation against Terraform or Kubernetes.
+No deployable microruntime is included. The package test command exercises CLI entry points, isolated setup and recovery, consumer descriptors and hooks, and controlled external-tool outcomes in disposable directories. These fixtures do not modify personal shell configuration, provision infrastructure, or demonstrate operation against real Terraform or Kubernetes services.

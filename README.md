@@ -1,22 +1,27 @@
 # Exphere
 
-Exphere explores developer experience, agent-assisted delivery, and consumer-composed microruntimes. The current workspace uses **Turborepo + pnpm** and contains the SDK with its shell CLI. Workflow contracts and organizational adoption remain proposals.
+Exphere explores developer experience, agent-assisted delivery, and consumer-composed microruntimes. The current workspace uses **Turborepo + pnpm** and contains separate private, versioned SDK and CLI packages. Workflow contracts and organizational adoption remain proposals.
 
 | Path | Current state |
 | --- | --- |
-| `packages/exphere/` | SDK with the `ex` shell CLI; TypeScript API remains empty. |
-| `apps/` | Placeholder directory; no application is present. |
+| `packages/sdk/` | Private `@exphere/sdk`; TypeScript API remains empty. |
+| `packages/cli/` | Private `@exphere/cli`; owns the `ex` shell CLI. |
+| `packages/design/` | Public-intent `@repo/design`; neutral tokens with generated CSS/JSON exports. |
+| `packages/web/` | Public-intent `@repo/web`; source placeholders and SmoothUI CLI dependency only. |
+| `apps/website/` | Minimal private Next.js application consuming design tokens. |
 | `.micro-runtime/<id>/` | Consumer configuration created on demand by the CLI; not a workspace. |
 | `.agents/` | Context, rules, guardrails, skills, and templates. |
 | `.exphere/workflows/` | Common SDD lifecycle and the Dev, design, operations, SRE, and FinOps workflow documents. |
 | `.artifacts/` | Typed PRDs, specs, tickets, research, and design documents in en-US. |
 | `.audits/evidence/` | Contract for evidence from authorized execution. |
 
-The tree has no API, web application, or protobuf workspace. Root build, test, and Biome adapters are available. The SDK build compiles its current empty TypeScript API; development/start tasks have no application to run.
+The tree has no API or protobuf workspace. The SDK API remains empty. Design and web use versioned public-intent metadata; no package has been published by this work. See the [design contract](packages/design/README.md), [web boundary](packages/web/README.md), and [website commands](apps/website/README.md).
+
+Run `pnpm dev --filter=website` for the website after dependency installation. Turborepo builds its design dependency first. Use `pnpm --filter @repo/design dev` separately when editing tokens. `pnpm build` prepares production outputs; `pnpm start --filter=website` runs the application. Browser appearance, deployment, and production readiness require separate evidence.
 
 ## Microruntime CLI
 
-The CLI belongs to `packages/exphere/cli/`. The root manifest pins pnpm **12.4.2** and exposes `pnpm ex`. The CLI requires `sh` and `jq`; individual adapters require `terraform` or `kubectl` only when selected.
+The CLI belongs to `packages/cli/cli/`. The root manifest pins pnpm **12.4.2** and exposes `pnpm ex`. The CLI requires `sh` and `jq`; individual adapters require `terraform` or `kubectl` only when selected.
 
 ```sh
 pnpm ex runtime list
@@ -28,7 +33,7 @@ pnpm ex --root /path/to/consumer runtime list
 
 The root `postinstall` preserves local CLI setup, which installs the command under `~/.local/share/exphere/bin` and configures the zsh or bash PATH, then configures repository-local Husky hooks. CLI setup skips CI; `EXPHERE_SKIP_USER_SETUP=1` explicitly skips the user PATH step while retaining hook setup. `pnpm install --ignore-scripts` runs neither step. Use `pnpm ex setup` for manual CLI setup.
 
-See the [CLI contract](packages/exphere/cli/README.md) for commands, descriptors, and consumer responsibilities. No deployable example microruntime is included.
+See the [CLI contract](packages/cli/cli/README.md) for commands, descriptors, and consumer responsibilities. No deployable example microruntime is included.
 
 ## Project documents
 
@@ -44,8 +49,9 @@ Use Node.js **22.22.1 or newer**, the pinned pnpm version, Git, and a POSIX shel
 
 | Command or hook | Behavior |
 | --- | --- |
-| `pnpm build` | Run declared workspace builds through Turborepo, including the SDK's TypeScript compilation. |
-| `pnpm test` | Run shell hook-contract and agent-review contract suites in disposable Git repositories, then declared workspace test tasks through Turborepo. No application suite exists yet. |
+| `pnpm build` | Run declared workspace builds through Turborepo, including SDK compilation, token generation, and the website production build. |
+| `pnpm test` | Run shell hook-contract and agent-review contract suites in disposable Git repositories, then declared workspace test tasks through Turborepo. CLI fixtures verify public command/setup behavior; design fixtures verify generated exports and watch behavior. No application suite is added. |
+| `pnpm typecheck` | Run declared workspace type checks through Turborepo after dependency builds. |
 | `pnpm check`, `pnpm lint`, `pnpm format` | Run the existing Biome configuration; `format` writes fixes explicitly. |
 | `pnpm harness:score` | Invoke locally installed `npx harness-score` from the root, without a target or threshold. Execution errors remain nonzero. |
 | pre-commit | Check eligible staged files with lint-staged/Biome, preserving partial edits; report one project-wide harness scan and a ticket reminder. Lint failures block; score findings or scanner failures do not. |
@@ -66,4 +72,4 @@ The authorized local fixtures run with `sh scripts/tests/agent-review.sh` and ar
 
 ## Current limits
 
-YAGNI. The hook initiative authorizes its bounded fixture tests and build/test push gate; unrelated application tests and service probes remain outside that authorization. No infrastructure provisioning, deployment, or production integration is included. The CLI adapters do not execute the agent workflow or enforce the proposed resource and observability contracts. Their presence does not prove successful Terraform or Kubernetes execution.
+YAGNI. The hook initiative authorizes its bounded fixture tests and build/test push gate. The package initiative additionally authorizes isolated SDK/CLI and design-token consumer checks plus website type checking, compilation, and generated-artifact inspection. Browser probes and application test infrastructure remain outside this cycle. No infrastructure provisioning, deployment, or production integration is included. The CLI adapters do not execute the agent workflow or enforce the proposed resource and observability contracts. Their presence does not prove successful Terraform or Kubernetes execution.

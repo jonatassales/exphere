@@ -3,7 +3,7 @@
 - ID: `SPEC-GITHUB-AGENT-REVIEW`
 - Document: `SPEC-0008`
 - Version: `2`
-- State: `in-review`
+- State: `implemented`
 - PRD: [PRD-0001 v1](../prd/0001-PRD-exphere.prd.md); product scope approval remains unrecorded.
 - Technical owners: project owner as repository consumer; the CI and AI billing operator must be identified before activation.
 - Approval: on October 11, 2026, the owner requested the original specification, then explicitly invoked `to-tickets` and `implement` together and authorized a separate branch, commits, push, and PR creation. That request authorizes this complete delivery slice and its presented `VER-CI-01` fixture seam. Version 2 records implementation choices within the same requirements. Paid provider calls, service provisioning, billing changes, and secret configuration remain outside this delivery.
@@ -14,7 +14,7 @@
 - Entry point: GitHub Actions `.github/workflows/ci.yml`, with the review job identified as `agent-review` and a small `review-scope` job that resolves its concurrency group before scheduling. The installed `code-review` skill defines the review procedure; `to-spec` produces this artifact.
 - Execution: a repository-owned `.sh` adapter collects an immutable PR snapshot, loads trusted instructions, starts independent Standards and Spec model invocations in parallel, validates output, and publishes a combined report. There is no general workflow engine or new SDK/CLI command.
 - Provider: OpenAI Responses API, with no model tools and separate request contexts. Runner, permissions, operator configuration, and limits are specified below. Credentials remain secret references and are excluded from prompts and reports.
-- Delivery: one vertical ticket, [CI-01](../tickets/0020-TICKET-github-agent-review.ticket.md), covers the PR-event-to-report path and local contract verification. Implementation and local verification are prepared; this specification does not prove execution.
+- Delivery: one vertical ticket, [CI-01](../tickets/0020-TICKET-github-agent-review.ticket.md), covers the PR-event-to-report path and local contract verification. Implementation and local verification are complete, with evidence recorded in CI-01; hosted execution and provider behavior remain unverified.
 
 ### Problem and intended result
 
@@ -122,7 +122,7 @@ The 18-group local contract suite and actionlint v1.7.11 have passed. Both imple
 | 12F-07 | Outbound API client job with no listening service. | `not-applicable`; no port-binding contract. |
 | 12F-10 | Local controlled transport versus hosted runner/live API; fixtures prove neither model quality nor platform parity. | `not-verified`; differences declared, live pilot excluded. |
 | 12F-11 / 12F-12 | Sanitized correlated reports, versioned shell entry points, separately authorized operator actions. | `compliant` for sanitized fixture reports and scoped shell entry points; hosted observability remains `not-verified`. |
-| SDD v1 SDD-01 / SDD-02 / SDD-03 | CI-01 relation per contributor commit, actual PR declaration, outgoing-range evidence, and independent code-review axes before completion/commit/push. | Both mandatory review axes are complete with zero unresolved findings; commit, outgoing-range, and actual PR evidence remain `not-verified` until publication. |
+| SDD v1 SDD-01 / SDD-02 / SDD-03 | CI-01 relation per contributor commit, actual PR declaration, outgoing-range evidence, and independent code-review axes before completion/commit/push. | `compliant` for implementation commit `33cfeaf3`, its CI-01 relationship, [PR #4](https://github.com/jonatassales/exphere/pull/4) and its actual Spec declaration, and observed pre-push inspection. Historical warnings are disclosed in CI-01. Main reconciliation received independent Standards and Spec reassessment with zero findings on the identified snapshot recorded in CI-01 before commit. |
 
 Update these states with identified evidence rather than inferring compliance from YAML syntax or green fixtures. No policy exception is requested. Unknown spend is not zero; local implementation can proceed while paid activation remains disabled.
 

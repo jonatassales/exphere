@@ -46,4 +46,4 @@ FinOps and Twelve-Factor were adopted locally on October 10, 2026; advisory SDD 
 
 ## Current user restrictions
 
-YAGNI. Automation scripts must be `.sh` files invoked by manifests. The hook initiative authorizes scoped fixture tests and the build/test push gate as recorded in root AGENTS. Unrelated tests still require authorization. These restrictions take precedence over skill suggestions to test or expand the scope.
+YAGNI. Automation scripts must be `.sh` files invoked by manifests. The design token compiler has the narrow TypeScript-behind-shell exception recorded in root AGENTS. Authorized hook, CLI, design-token, and website verification boundaries are recorded in root AGENTS, including the build/test push gate. Unrelated tests still require authorization. These restrictions take precedence over skill suggestions to test or expand the scope.

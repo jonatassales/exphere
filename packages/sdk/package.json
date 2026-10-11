@@ -1,11 +1,8 @@
 {
-  "name": "@factory/exphere",
+  "name": "@exphere/sdk",
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "bin": {
-    "ex": "./cli/ex.sh"
-  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -13,8 +10,7 @@
     }
   },
   "files": [
-    "dist",
-    "cli"
+    "dist"
   ],
   "scripts": {
     "build": "sh scripts/build.sh"
