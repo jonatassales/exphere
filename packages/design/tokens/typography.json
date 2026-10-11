@@ -1,0 +1,13 @@
+{
+  "typography": {
+    "font": {
+      "$type": "fontFamily",
+      "body": { "$value": "system-ui, sans-serif" }
+    },
+    "size": {
+      "$type": "dimension",
+      "body": { "$value": "1rem" },
+      "heading": { "$value": "2rem" }
+    }
+  }
+}

@@ -3,12 +3,12 @@ set -eu
 . "$EX_CLI_DIR/core/common.sh"
 [ "$#" -eq 0 ] || ex_die 'Help does not accept arguments.' 2
 cat <<'EOF'
-ex — microruntimes CLI, distributed with the exphere SDK
+ex — Exphere microruntimes CLI
 
 Usage: ex [--root DIRECTORY] <command>
 
   --help                              Show this help
-  --version                           Show the SDK version
+  --version                           Show the CLI version
   setup                               Install ex in your user PATH
   runtime list                        List consumer microruntimes
   runtime <id> init                   Create .micro-runtime/<id>/schema.json

@@ -1,0 +1,14 @@
+{
+  "name": "@repo/web",
+  "version": "0.0.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22.22.1"
+  },
+  "devDependencies": {
+    "smoothui-cli": "1.1.3"
+  }
+}

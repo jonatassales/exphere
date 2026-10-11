@@ -73,8 +73,8 @@ installation() {
   expect 1 sh scripts/hooks/install.sh
   contains 'Husky is missing'
   ln -s "$test_source/node_modules" node_modules
-  mkdir -p packages/exphere/cli .checks
-  printf '#!/bin/sh\nprintf "%%s\\n" "$*" >>.checks/setup\n' >packages/exphere/cli/ex.sh
+  mkdir -p packages/cli/cli .checks
+  printf '#!/bin/sh\nprintf "%%s\\n" "$*" >>.checks/setup\n' >packages/cli/cli/ex.sh
   expect 0 sh scripts/postinstall.sh
   [ "$(cat .checks/setup)" = setup ]
   contains 'hooks activated'

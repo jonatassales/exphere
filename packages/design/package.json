@@ -1,0 +1,33 @@
+{
+  "name": "@repo/design",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "exports": {
+    "./tokens.css": "./dist/tokens.css",
+    "./tokens.json": "./dist/tokens.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "engines": {
+    "node": ">=22.22.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "sh scripts/build.sh",
+    "dev": "sh scripts/dev.sh",
+    "typecheck": "sh scripts/typecheck.sh",
+    "test": "sh scripts/test.sh"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "typescript": "7.0.2"
+  }
+}

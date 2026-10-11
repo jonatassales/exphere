@@ -11,7 +11,7 @@ This directory contains the generic, reusable part of the harness. The intended 
 | [templates/](templates/) | Reusable artifact formats |
 | [Workflows](../.exphere/workflows/README.md) | Common SDD architecture and five domain workflows, maintained outside this directory |
 
-The harness also includes workflow documents in `.exphere/workflows/` and relies on context and contracts in `.artifacts/`, evidence in `.audits/`, the CLI in `packages/exphere/cli/`, and consumer configuration in `.micro-runtime/`, created on demand. `.agents/` is not the entire harness. The boundary between distributable content and consumer configuration still needs to be defined.
+The harness also includes workflow documents in `.exphere/workflows/` and relies on context and contracts in `.artifacts/`, evidence in `.audits/`, the CLI in `packages/cli/cli/`, and consumer configuration in `.micro-runtime/`, created on demand. `.agents/` is not the entire harness. The boundary between distributable content and consumer configuration still needs to be defined.
 
 The previous FinOps synthesis and local Pocock license file are absent. Consult the [skill provenance and limitations](../.artifacts/agents/0008-DD-agent-skills.dd.md); the lock records provenance but does not prove that deleted files remain available. The current FinOps policies are in rules and guardrails. The [SDD rule](../.exphere/rules/sdd.md) and [SDD guardrail](../.exphere/guardrails/sdd.md) live under `.exphere/` and provide advisory commit/ticket and PR/spec traceability. Local checks and their limits are in the [developer commands](../README.md#developer-checks).
 

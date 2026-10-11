@@ -4,7 +4,7 @@
   "packageManager": "pnpm@12.4.2",
   "scripts": {
     "postinstall": "sh scripts/postinstall.sh",
-    "ex": "sh packages/exphere/cli/ex.sh",
+    "ex": "sh packages/cli/cli/ex.sh",
     "dev": "sh scripts/turbo.sh dev",
     "build": "sh scripts/turbo.sh build",
     "start": "sh scripts/turbo.sh start",
@@ -12,13 +12,14 @@
     "lint": "sh scripts/biome.sh lint .",
     "format": "sh scripts/biome.sh format --write .",
     "harness:score": "sh scripts/harness-score.sh",
-    "test": "sh scripts/test.sh"
+    "test": "sh scripts/test.sh",
+    "typecheck": "sh scripts/turbo.sh typecheck"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
     "@commitlint/cli": "21.2.3",
     "@commitlint/config-conventional": "21.2.3",
-    "@factory/exphere": "workspace:*",
+    "@exphere/cli": "workspace:*",
     "harness-score": "1.8.1",
     "husky": "9.1.7",
     "lint-staged": "17.6.0",
