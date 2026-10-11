@@ -6,7 +6,7 @@
 
 **Blocked by:** None.
 
-**Status:** in-review
+**Status:** done
 **Approval:** on October 11, 2026, the owner requested `to-tickets`, `implement`, and commit/push on a separate branch after receiving SPEC-AGENT-RULE-IMPORT v1. This single ticket delivers that same complete scope and its static verification seam; there are no added slices, dependencies, or product decisions requiring separate approval.
 
 - [x] All ten source rules and the source index are accounted for at one pinned revision.
@@ -15,7 +15,7 @@
 - [x] Local shell, configuration, stack ownership, evidence, and test-authorization contracts remain authoritative; every substantive source adaptation is visible.
 - [x] The index preserves existing FinOps, Twelve-Factor, SDD, and authorization guidance; unrelated files remain unchanged.
 - [x] Standards and Spec reviews assess the same complete snapshot and actionable findings are resolved.
-- [ ] The authorized branch is committed under the configured identity and pushed after required local gates pass.
+- [x] The authorized branch is committed under the configured identity and pushed after required local gates pass.
 
 ## Verification and delivery
 
@@ -25,4 +25,4 @@ Branch: `codex/agent-rule-import`, based on `origin/main` at `300c25cd77f5acfda5
 
 Implementation review: Standards — 0 findings; Spec — 0 findings. Both reviewed all fifteen scoped files against the same hash manifest (`cbe9befa82ed6d90e8de41c34c03ebc453e25928e904d0a99e229425f149a2e3`). Static coverage, naming, local links/anchors, and preservation checks passed. The parent specification records the reviewed source, corpus digest, and limitations. Subsequent edits to this record only report evidence and state.
 
-Delivery evidence: commit and push pending; the ticket remains in review until publication succeeds.
+Delivery evidence: implementation commit `6d9a544f429074682db3fdc87aea43ec576f1db0` was pushed to `origin/codex/agent-rule-import` on October 11, 2026. Author and committer are `Jonatas Sales <6073626+jonatassales@users.noreply.github.com>`. Conventional Commit/SDD identity checks, the workspace build gate (cached SDK build), and all five hook-contract groups passed. No package test tasks exist at this baseline. The parent specification records advisory warnings and execution limits. This evidence-only follow-up retains the reviewed corpus unchanged.

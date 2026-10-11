@@ -121,7 +121,7 @@ Application/package implementation, frontend scaffolding, dependency upgrades, S
 ## Verification and decisions
 
 - Affected guardrails: Twelve-Factor v1 policy compatibility, particularly `12F-02`, `12F-03`, `12F-05`, and `12F-12`, because the imported prose discusses dependencies, configuration, commands, and automation. Runtime criteria are `not-applicable` to this document-only change. See the [local policy index](../../.agents/guardrails/README.md).
-- Applicability, criteria, owners, and planned evidence: the project owner owns policy choices; later Standards and Spec reviewers assess the actual imported corpus. Static review must establish that imported prose preserves existing local policies. Import acceptance remains `not-verified` until the destination corpus exists and is reviewed; no service compliance claim follows.
+- Applicability, criteria, owners, and planned evidence: the project owner owns policy choices; Standards and Spec reviewers assessed the actual imported corpus. The implementation record establishes static acceptance and compatibility with existing local policies. No service compliance claim follows.
 - Cost/consumption impact: no resource configuration, paid service, or AI consumption policy changes are proposed. FinOps v1 operational criteria are `not-applicable` to the rule import; no cost or savings measurements are claimed.
 - Open issues and exceptions: `DEC-RULE-01`, the numbering/supplemental-rule allocation, and `VER-RULE-01` are covered by the recorded implementation authorization. No exception to local policy is requested. New material scope requires reassessment.
 - Verification plan: `VER-RULE-01`, below.
@@ -175,3 +175,15 @@ Summary: Standards — 0 findings; Spec — 0 findings. Static inspection also f
 - Delivery preparation: SSH authentication identifies `jonatassales`; configured author and committer identity is `Jonatas Sales <6073626+jonatassales@users.noreply.github.com>`. Commit and push remain subject to their existing hooks. No PR is requested, so SDD-02 is not verified; this is not a publication blocker under advisory SDD v1.
 
 The implementation review covers static rule behavior as read by contributors. It does not establish automatic loading, policy enforcement, runtime correctness, or organizational adoption. Commit/push results are recorded separately after they occur.
+
+### Delivery evidence — October 11, 2026
+
+Implementation commit `6d9a544f429074682db3fdc87aea43ec576f1db0` was pushed to `origin/codex/agent-rule-import` through the existing hooks. Author and committer both match the configured Jonatas Sales identity recorded above, and the commit declares `Ticket: RULE-01`.
+
+- Pre-commit: lint-staged found no configured tasks for Markdown. The advisory harness diagnostic completed at 67/105; its frontmatter recommendation reflects the deliberate plain-Markdown applicability contract. No automatic attachment or score-based compliance is claimed. Other harness recommendations did not expand this scope.
+- Commit-msg: Conventional Commit validation passed and SDD resolved RULE-01 to SPEC-AGENT-RULE-IMPORT from the index.
+- Pre-push: validated the clean outgoing revision, then passed the workspace build gate (one cached SDK build) and all five shell hook-contract groups. The subsequent Turbo test phase had zero package test tasks, which does not represent application test coverage.
+- SDD: RULE-01 resolved in the outgoing commit. For a new branch the hook inspected all reachable history, reporting an existing merge without a ticket trailer and historical associations spanning specs. These warnings remain advisory. Actual PR metadata is unavailable because no PR was requested or created.
+- Publication: the remote accepted the new branch and its upstream tracking was configured. This follow-up evidence record leaves the reviewed rule/index corpus unchanged; its own publication uses the same hooks.
+
+RULE-01 is complete for this authorized import and branch publication. No force push, merge, deployment, source-checkout edit, or unrelated artifact publication was performed.
