@@ -45,7 +45,7 @@ Use Node.js **22.22.1 or newer**, the pinned pnpm version, Git, and a POSIX shel
 | Command or hook | Behavior |
 | --- | --- |
 | `pnpm build` | Run declared workspace builds through Turborepo, including the SDK's TypeScript compilation. |
-| `pnpm test` | Run the real shell hook-contract suite in disposable Git repositories with a local bare remote, then declared workspace test tasks through Turborepo. No application suite exists yet. |
+| `pnpm test` | Run shell hook-contract and agent-review contract suites in disposable Git repositories, then declared workspace test tasks through Turborepo. No application suite exists yet. |
 | `pnpm check`, `pnpm lint`, `pnpm format` | Run the existing Biome configuration; `format` writes fixes explicitly. |
 | `pnpm harness:score` | Invoke locally installed `npx harness-score` from the root, without a target or threshold. Execution errors remain nonzero. |
 | pre-commit | Check eligible staged files with lint-staged/Biome, preserving partial edits; report one project-wide harness scan and a ticket reminder. Lint failures block; score findings or scanner failures do not. |
@@ -57,6 +57,12 @@ Biome checks supported JS/TS variants, JSON/JSONC, and CSS using the staged conf
 `verifyDepsBeforeRun: false` disables pnpm's implicit installation before run/exec. Hooks require tools already installed; the scanner uses offline npx with installation disabled. Missing tools produce explicit failures/warnings according to the table. Commitlint retains its upstream ignored-message behavior, including merge/revert and fixup/squash messages; ticket associations are evaluated separately.
 
 Follow the [SDD rule](.exphere/rules/sdd.md) and [guardrail](.exphere/guardrails/sdd.md): `Ticket: HOOK-01` is a commit trailer; `Spec: SPEC-GIT-HOOKS-SDD` belongs in the actual PR body. Stable artifact IDs are independent of filename numbers. Unavailable PR metadata warns locally; review must inspect the real PR declaration when it exists. Hooks can be bypassed and do not constitute CI enforcement or authorization to publish.
+
+## GitHub agent review
+
+The [agent-review workflow](scripts/agent-review/README.md) reviews immutable PR snapshots against the trusted code-review skill using separate Standards and Spec model requests. It publishes a job summary and report artifact, with explicit skipped, incomplete, stale, and failed outcomes. Findings are informational; provider execution is disabled until its documented model, credentials, owner, and budget configuration is supplied.
+
+The authorized local fixtures run with `sh scripts/tests/agent-review.sh` and are included in `pnpm test`. They use controlled responses with no paid API calls. Hosted event delivery and real model behavior remain unverified until a separately authorized pilot.
 
 ## Current limits
 
