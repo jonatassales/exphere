@@ -3,7 +3,7 @@
 - ID: `SPEC-WEB-PACKAGE`
 - Document number: `SPEC-0004`
 - Version: `1`
-- State: `in-progress`
+- State: `implemented; reviewed local scope`
 - PRD: [PRD-0001 v1](../prd/0001-PRD-exphere.prd.md), also draft; no approved PRD version covers this addition.
 - Technical owners: project owner for consumer composition and package direction; platform maintainer for workspace and delivery policy. Named implementation owners remain unassigned.
 - Source: owner decisions captured in [DD-0009](../design/0009-DD-web-foundation.dd.md) and the October 11, 2026 specification request.
@@ -68,7 +68,7 @@ Component or utility code, barrel files, placeholder APIs, CSS, Custom Elements,
 - Verification plan: `VER-WEB-01` below, within this artifact.
 - Execution evidence: [WEB-01 evidence](../tickets/0017-TICKET-web-package-foundation.ticket.md#evidence) records the current inspection/install outcomes; review of the examined source remains pending. No runtime component behavior is claimed.
 - Trade-offs, decisions, and blocking questions: placeholders preserve the selected organization with no usable API; the development CLI provides no runtime components. Release decisions must be resolved before any separately authorized publication.
-- Technical review: `pending; owners and version to be recorded`. Implementation follows the [required two-axis review procedure](../../.exphere/rules/sdd.md#required-code-review-and-publication); this authorization record is not completed code review evidence.
+- Technical review: Standards and Spec reviews passed for snapshot `c5f15b459bfc415172764c4aa16d39fb9ac437207a709e11c0ae471751d3f63d` after correction of the missing CLI environment-asset check. See linked ticket evidence for methods, red/green verification, and limits.
 
 ### VER-WEB-01 — Workspace inspection seam
 
@@ -79,3 +79,7 @@ The implementation request authorizes this inspection seam and dependency instal
 ### Approval record
 
 The owner authorized specification synthesis, then ticket preparation, bounded implementation, and separate-branch commit/push on October 11, 2026. Package identity, public direction, placeholder boundaries, and the absence of component implementation remain unchanged. This execution record is not a human acceptance of this exact revision, completed technical review, or a registry-release approval.
+
+### Delivery verification
+
+The linked ticket records the completed local implementation and its observed evidence on October 11, 2026. The earlier verification sections describe the planned criteria; results are limited to the installed dependency graph, static review, compilation, and expressly authorized fixture or generated-artifact checks. Production and browser/runtime criteria without execution evidence remain not-verified. No blanket policy compliance or release availability is claimed.
