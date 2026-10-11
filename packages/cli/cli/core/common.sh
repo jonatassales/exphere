@@ -25,7 +25,8 @@ ex_find_project() {
     EX_PROJECT_ROOT=$(pwd -P)
     ex_project_candidate=$EX_PROJECT_ROOT
     while :; do
-      if [ -d "$ex_project_candidate/.micro-runtime" ] ||
+      if [ -d "$ex_project_candidate/.exphere/runtimes" ] ||
+         [ -d "$ex_project_candidate/.micro-runtime" ] ||
          [ -f "$ex_project_candidate/pnpm-workspace.yaml" ] ||
          [ -e "$ex_project_candidate/.git" ]; then
         EX_PROJECT_ROOT=$ex_project_candidate

@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Exphere local microruntime descriptor v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "id",
+    "environment",
+    "owner",
+    "units",
+    "terraform",
+    "kubernetes"
+  ],
+  "properties": {
+    "version": { "const": 2 },
+    "id": { "$ref": "#/$defs/identifier" },
+    "environment": { "const": "local" },
+    "owner": { "$ref": "#/$defs/text" },
+    "units": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/identifier" },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["component", "kubernetes"],
+        "properties": {
+          "component": { "$ref": "#/$defs/relative" },
+          "kubernetes": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["manifests"],
+            "properties": { "manifests": { "$ref": "#/$defs/relative" } }
+          }
+        }
+      }
+    },
+    "terraform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["directory"],
+      "properties": { "directory": { "$ref": "#/$defs/relative" } }
+    },
+    "kubernetes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["context", "namespace"],
+      "properties": {
+        "context": { "$ref": "#/$defs/text" },
+        "namespace": {
+          "type": "string",
+          "maxLength": 63,
+          "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        }
+      }
+    },
+    "hooks": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/identifier" },
+      "additionalProperties": {
+        "allOf": [{ "$ref": "#/$defs/relative" }, { "pattern": "\\.sh$" }]
+      }
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "allOf": [
+        { "pattern": "\\S" },
+        { "not": { "pattern": "[\\u0000-\\u001f\\u007f]" } }
+      ]
+    },
+    "identifier": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "relative": {
+      "allOf": [
+        { "$ref": "#/$defs/text" },
+        { "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*//)(?!.*[/]$).+$" }
+      ]
+    }
+  },
+  "$comment": "The CLI also checks the directory-matching id, component basename, existing readable targets, project/runtime canonical path boundaries, and version/location compatibility. Manual init creates an incomplete descriptor that intentionally does not satisfy this complete configuration schema. Native Terraform and Kubernetes semantics are checked by lifecycle preflight."
+}

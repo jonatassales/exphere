@@ -1,91 +1,65 @@
 # ex — Exphere CLI
 
-Shell CLI for the private, versioned `@exphere/cli` package. The `ex` binary points to `cli/ex.sh` and reports this package's version. The separate `@exphere/sdk` package owns the currently empty TypeScript API; the CLI does not depend on it. The consumer supplies components, configuration, and hooks. The CLI selects the microruntime and invokes the requested tool.
+The private, versioned `@exphere/cli` package owns `ex`. The separate SDK TypeScript API remains empty. Consumer applications keep their source; microruntimes reference their directories and native configuration.
 
-Requirements: `sh` and `jq` on PATH. `terraform` or `kubectl` is required only for the selected adapter. The CLI does not install tools or load environment files.
+## Installation
 
-## Local installation
+The root `postinstall` links this checkout under `~/.local/share/exphere/`, adds its command directory to the supported zsh/bash profiles, and configures repository hooks. Existing unrelated files/links are preserved. `EXPHERE_SKIP_USER_SETUP=1` skips personal setup while retaining repository hooks. CI skips personal setup; `pnpm install --ignore-scripts` skips both. Explicit setup remains `pnpm ex setup`. Dependency installation of this private package does not run the monorepo's root hook.
 
-The root `postinstall` hook invokes local setup after `pnpm install`. Setup creates links to this checkout at `~/.local/share/exphere/bin/ex` and `~/.local/share/exphere/env.sh`, then adds a line to the zsh or bash configuration to prioritize the command on PATH. It does not modify the system's `ex` and refuses to replace links or files from another installation.
-
-Open a new terminal, or activate it in the current terminal:
-
-```sh
-. "$HOME/.local/share/exphere/env.sh"
-```
-
-Then use `ex` directly. Running `pnpm ex setup` again keeps the same links and does not duplicate the configuration line. Setup can migrate links whose exact destinations point to this same checkout's former `packages/exphere/cli/` paths, including dangling links after the package move. It checks both links before changing either, refuses directory targets and unrelated files or installations, and restores changed links when an update fails or is interrupted. If recovery itself fails, setup reports the retained recovery directory for inspection. If you move the checkout itself, remove both old links before running setup again. Other shells require manual PATH configuration.
-
-The hook belongs to this monorepo's root; installing either package as a dependency does not automatically change the consumer's shell. Automatic setup is skipped in CI and with `pnpm install --ignore-scripts`; `pnpm ex setup` remains available as an explicit command.
-
-## Commands
+## Version 2 configuration
 
 ```text
-ex [--root DIR] --help|--version
-ex setup
 ex [--root DIR] runtime list
 ex [--root DIR] runtime ID init
+ex [--root DIR] runtime ID init --guided
 ex [--root DIR] runtime ID validate
-ex [--root DIR] runtime ID terraform COMMAND [--] [ARGS...]
-ex [--root DIR] runtime ID kubernetes diff|apply|delete|status
-ex [--root DIR] runtime ID run HOOK [--] [ARGS...]
 ```
 
-The CLI discovers the project root by walking up from the current directory until it finds `.micro-runtime`, `pnpm-workspace.yaml`, or `.git`; without those markers, it uses the current directory. `--root` explicitly selects another project.
+Configuration needs `sh` and `jq`. Project discovery recognizes `.exphere`, `.micro-runtime`, `pnpm-workspace.yaml`, and `.git`; `--root` selects a consumer explicitly. New output goes to `.exphere/runtimes/<id>/`. Both entry points refuse existing output, including partial configuration and an ID present in the legacy location. They never execute hooks or infrastructure tools.
 
-`init` creates only `.micro-runtime/<id>/schema.json`, containing `version: 1`, the identifier, and `components: {}`. It refuses an existing microruntime directory and does not generate infrastructure. `list` creates no files and returns an empty list when `.micro-runtime` does not exist. `validate` checks the descriptor and its local paths; it does not validate providers, connectivity, or operational readiness.
+Manual `init` creates a descriptor with identity and empty units, deliberately invalid until the consumer fills in owner, target, and references. It creates no placeholder Terraform, units, or hooks directories. Guided initialization gathers owner, explicit context/namespace, native quota values, component paths, prebuilt images, container/service ports, replicas, resources, and readiness probes. It collects all input before publishing. Empty component input ends unit selection; optional hook selection copies only supplied `.sh` files. Interrupted publication removes only its own new output and reports failed recovery.
 
-## Consumer descriptor
-
-Location: `.micro-runtime/<id>/schema.json`. This is a documentation example; the consumer must supply the declared files and directories:
+Example descriptor (the referenced files/directories must exist):
 
 ```json
 {
-  "version": 1,
-  "id": "billing",
-  "components": { "api": { "kind": "go-service" } },
-  "terraform": { "directory": "terraform" },
-  "kubernetes": {
-    "context": "my-explicit-context",
-    "namespace": "billing",
-    "manifests": "kubernetes"
+  "version": 2,
+  "id": "demo",
+  "environment": "local",
+  "owner": "consumer-team",
+  "units": {
+    "website": {
+      "component": "apps/website",
+      "kubernetes": { "manifests": "units/website/kubernetes" }
+    }
   },
-  "hooks": { "prepare": "hooks/prepare.sh" }
+  "terraform": { "directory": "terraform" },
+  "kubernetes": { "context": "kind-pilot", "namespace": "demo" }
 }
 ```
 
-`version`, `id`, and `components` are required; `id` matches the directory name. `terraform`, `kubernetes`, and `hooks` are optional. Keys outside the contract are rejected, except within the opaque objects in `components`. Hooks have simple lowercase names and point to `.sh` files.
+The packaged [JSON Schema](schemas/runtime-v2.schema.json) describes structural constraints. The CLI additionally checks identities, component basenames, canonical containment, symlinks, and existing references. Unit keys equal their component directory basenames. Component references are project-relative; native and optional hook references are runtime-relative. Unknown fields, ambiguous IDs, duplicate JSON keys, unsupported versions, invalid paths, and unresolved references fail with diagnostics. Validation reads data; it never sources descriptor values as shell code.
 
-The objects in `components` belong to the consumer: the CLI does not render or inject them, or interpret them as CPU, memory, or quality policies. Declared paths are relative to the microruntime directory and must remain within it; target files cannot be symbolic links. Descriptors are JSON data, never shell code loaded with `source`.
+Kubernetes files own images, ports, requests/limits, replicas, and probes. Terraform owns namespace and quotas. Guided output uses native JSON forms, a pinned Terraform 1.16.5 / Kubernetes provider 3.2.1 namespace/quota root, and Deployment/ClusterIP Service workloads with consumer values. The root's four variables bind the selected context, namespace, private kubeconfig, and runtime owner token during later operation. Generated images use `Never`, so a consumer must explicitly preload them for the local pilot. Native files remain editable; validation does not regenerate or overwrite edits. The descriptor carries references and target selection without duplicating those settings.
 
-## Adapters
+Configuration validation does not check native tool schemas, image availability, access, readiness, resource enforcement, or cleanup. Those checks belong to `SPEC-MICRORUNTIME-LIFECYCLE`. A generated runtime is not evidence of an executed journey.
 
-**Terraform:** supports `init`, `validate`, `plan`, `apply`, `destroy`, `output`, `show`, `fmt`, and `workspace`. It runs in the declared directory and forwards native arguments. State, workspaces, providers, credentials, and variables remain under the consumer's and Terraform's configuration, including inherited `TF_VAR_*` and `TF_WORKSPACE` values. There is no implicit initialization, apply, destroy, or `-auto-approve`.
+## Legacy transition
 
-**Kubernetes:** requires `context`, `namespace`, and `manifests`. `diff`, `apply`, and `delete` use the declared file or directory with `-f`; `status` uses `get -f`. This version does not accept additional Kubernetes arguments or offer Kustomize. Context and namespace are explicit; a namespace is not a sandbox and does not block cluster-scoped resources.
+Existing `.micro-runtime/<id>/schema.json` version 1 files are never moved or rewritten automatically. `init --legacy` explicitly creates their identity and empty `components` map. `list` reports both versions and locations; selecting an ID present in both locations fails before mutation. There is no implicit migration or announced v1 removal date.
 
-Native exit codes are preserved: `terraform plan -detailed-exitcode` can return `2` when there are changes; `kubectl diff` can return `1` when there are differences.
+Only v1 exposes the earlier raw adapters:
 
-## Inversion of control
-
-`run HOOK` runs only the selected `.sh` hook, with the microruntime directory as its working directory. Arguments and environment are inherited, with these additional variables:
-
-| Variable | Content |
-| --- | --- |
-| `EX_PROJECT_ROOT` | Consumer project root |
-| `EX_RUNTIME_DIR` | Microruntime directory |
-| `EX_RUNTIME_ID` | Microruntime identifier |
-| `EX_RUNTIME_SCHEMA` | Descriptor path |
-| `EX_CLI_PATH` | Path to `cli/ex.sh` in the CLI package |
-
-The consumer decides composition and order. A hook can delegate to the CLI using:
-
-```sh
-sh "$EX_CLI_PATH" --root "$EX_PROJECT_ROOT" runtime "$EX_RUNTIME_ID" terraform plan
+```text
+ex runtime ID terraform COMMAND [--] [ARGS...]
+ex runtime ID kubernetes diff|apply|delete|status
+ex runtime ID run HOOK [--] [ARGS...]
 ```
 
-Hooks are trusted consumer code and run with the process's permissions. The CLI does not impose a lifecycle sequence, automatic rollback, or a sandbox. The proposed testing, observability, resource, and evidence contracts remain under development: see [the requirements](../../../.artifacts/design/0002-DD-microruntimes.dd.md) and [the proposed architecture decision](../../../.artifacts/design/0005-DD-microruntime-architecture.dd.md), which retains the legacy ID `ADR-0001`.
+Terraform forwards supported native commands and arguments in the declared directory, preserving native exit codes and inherited backend/workspace/environment behavior. Kubernetes uses explicit context, namespace, and manifest path. These adapters do not acquire the v2 lifecycle's scope controls. A namespace flag is not a sandbox.
 
-## Current state
+V1 `run` executes only the named declared `.sh` script, in its runtime directory, preserving arguments and process environment. It exports `EX_PROJECT_ROOT`, `EX_RUNTIME_DIR`, `EX_RUNTIME_ID`, `EX_RUNTIME_SCHEMA`, and `EX_CLI_PATH`. Hooks are trusted consumer code running with process permissions. V2 raw Terraform/Kubernetes forwarding is rejected; optional hooks remain explicit and follow the separate lifecycle contract.
 
-No deployable microruntime is included. The package test command exercises CLI entry points, isolated setup and recovery, consumer descriptors and hooks, and controlled external-tool outcomes in disposable directories. These fixtures do not modify personal shell configuration, provision infrastructure, or demonstrate operation against real Terraform or Kubernetes services.
+## Verification boundary
+
+Package-owned `.sh` fixtures invoke public CLI commands in disposable consumer directories. They cover manual/guided equivalence, legacy compatibility, path protection, native-file preservation, collisions, failure, and cancellation. Controlled tools and harmless hooks do not demonstrate a real cluster, provider, workload, production integration, or measured economic benefit. No deployable consumer runtime is bundled.
