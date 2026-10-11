@@ -2,7 +2,7 @@
 
 ## Current scope
 
-Exphere is an experimental project for developer experience and agent-assisted software delivery. The current tree contains a pnpm/Turborepo workspace and the SDK in `packages/exphere/`. The SDK includes the shell CLI `ex`, microruntime descriptors, Terraform/Kubernetes adapters, and explicit consumer `.sh` hooks; its TypeScript API remains empty. Local hooks implement selected developer checks and advisory SDD traceability. There is no workflow engine, comprehensive quality-contract enforcement, or demonstrated production integration. Documents and adapters do not prove execution or outcomes.
+Exphere is an experimental project for developer experience and agent-assisted software delivery. The current tree contains a pnpm/Turborepo workspace and the private, versioned SDK in `packages/sdk/` and CLI in `packages/cli/`. The SDK TypeScript API remains empty. The CLI owns `ex`, microruntime descriptors, Terraform/Kubernetes adapters, and explicit consumer `.sh` hooks. Local hooks implement selected developer checks and advisory SDD traceability. There is no workflow engine, comprehensive quality-contract enforcement, or demonstrated production integration. Documents and adapters do not prove execution or outcomes.
 
 The previously described application and protobuf workspaces are absent. Do not restore removed components or advertise unavailable commands as working. The root [README](README.md) describes the current tree and its limitations.
 
@@ -58,9 +58,9 @@ The [workflow profiles](.artifacts/design/0004-DD-workflow-profiles.dd.md) are a
 - [Proposed architecture](.artifacts/design/0005-DD-microruntime-architecture.dd.md), retaining decision ID `ADR-0001`.
 - [Templates](.agents/templates/) and [evidence contract](.audits/evidence/README.md).
 
-`.agents/` contains agent guidance, rules, guardrails, skills, and templates. Workflow documents live separately in `.exphere/workflows/`. The harness also includes project artifacts, evidence, the SDK CLI, and consumer configuration created on demand. `.agents/` is not the entire harness. The [project context](.agents/CONTEXT.md) records the intended CLI installation and development workflow; project-directory generation is not implemented.
+`.agents/` contains agent guidance, rules, guardrails, skills, and templates. Workflow documents live separately in `.exphere/workflows/`. The harness also includes project artifacts, evidence, the SDK and CLI, and consumer configuration created on demand. `.agents/` is not the entire harness. The [project context](.agents/CONTEXT.md) records the intended CLI installation and development workflow; project-directory generation is not implemented.
 
-The SDK stays in `packages/exphere/`. `ex runtime <id> init` creates `.micro-runtime/<id>/schema.json` on demand, with no predefined infrastructure or components. Create no speculative directory trees.
+The SDK and CLI are separate `@exphere/sdk` and `@exphere/cli` packages. `ex runtime <id> init` creates `.micro-runtime/<id>/schema.json` on demand, with no predefined infrastructure or components. Create no speculative directory trees.
 
 ## Agent skills
 
@@ -78,6 +78,7 @@ Distinguish drafts, authorized decisions, implementations, and observed outcomes
 - Automation scripts must be `.sh` files; package manifest scripts invoke those files. Application code and framework configuration are not helper scripts.
 - SPEC-GIT-HOOKS-SDD authorizes build/test in pre-push and scoped hook-contract tests in disposable local Git repositories, including a local bare remote. The owner authorized implementation on October 11, 2026 after that seam was presented. Unrelated application tests, service probes, project commits, and remote publication still require corresponding authorization.
 - Use pnpm pinned in the manifest and Turborepo for workspace tasks. Workspaces own their dependencies; actual internal dependencies use `workspace:*`.
+- SPEC-SDK-CLI-SEPARATION authorizes isolated package-consumer and CLI setup fixtures under the owner's October 11, 2026 implementation request. Use disposable installation directories; real user shell/profile changes and infrastructure execution remain outside verification.
 - Preserve the existing SDK and consumer boundaries. Do not recreate removed applications or contracts without a separate request.
 
 <!-- BEGIN:turborepo-agent-rules -->

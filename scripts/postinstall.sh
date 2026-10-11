@@ -5,6 +5,6 @@ cd "$(dirname "$0")/.."
 if [ "${EXPHERE_SKIP_USER_SETUP:-}" = 1 ]; then
   printf 'exphere: user PATH setup explicitly skipped.\n'
 else
-  sh packages/exphere/cli/ex.sh setup
+  sh packages/cli/cli/ex.sh setup
 fi
 exec sh scripts/hooks/install.sh

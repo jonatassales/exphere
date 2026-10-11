@@ -175,9 +175,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: 21.2.3
         version: 21.2.3
-      '@factory/exphere':
+      '@exphere/cli':
         specifier: workspace:*
-        version: link:packages/exphere
+        version: link:packages/cli
       harness-score:
         specifier: 1.8.1
         version: 1.8.1
@@ -191,7 +191,9 @@ importers:
         specifier: 2.11.7
         version: 2.11.7
 
-  packages/exphere:
+  packages/cli: {}
+
+  packages/sdk:
     devDependencies:
       typescript:
         specifier: 7.0.2

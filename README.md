@@ -1,10 +1,11 @@
 # Exphere
 
-Exphere explores developer experience, agent-assisted delivery, and consumer-composed microruntimes. The current workspace uses **Turborepo + pnpm** and contains the SDK with its shell CLI. Workflow contracts and organizational adoption remain proposals.
+Exphere explores developer experience, agent-assisted delivery, and consumer-composed microruntimes. The current workspace uses **Turborepo + pnpm** and contains separate private, versioned SDK and CLI packages. Workflow contracts and organizational adoption remain proposals.
 
 | Path | Current state |
 | --- | --- |
-| `packages/exphere/` | SDK with the `ex` shell CLI; TypeScript API remains empty. |
+| `packages/sdk/` | Private `@exphere/sdk`; TypeScript API remains empty. |
+| `packages/cli/` | Private `@exphere/cli`; owns the `ex` shell CLI. |
 | `apps/` | Placeholder directory; no application is present. |
 | `.micro-runtime/<id>/` | Consumer configuration created on demand by the CLI; not a workspace. |
 | `.agents/` | Context, rules, guardrails, skills, and templates. |
@@ -16,7 +17,7 @@ The tree has no API, web application, or protobuf workspace. Root build, test, a
 
 ## Microruntime CLI
 
-The CLI belongs to `packages/exphere/cli/`. The root manifest pins pnpm **12.4.2** and exposes `pnpm ex`. The CLI requires `sh` and `jq`; individual adapters require `terraform` or `kubectl` only when selected.
+The CLI belongs to `packages/cli/cli/`. The root manifest pins pnpm **12.4.2** and exposes `pnpm ex`. The CLI requires `sh` and `jq`; individual adapters require `terraform` or `kubectl` only when selected.
 
 ```sh
 pnpm ex runtime list
@@ -28,7 +29,7 @@ pnpm ex --root /path/to/consumer runtime list
 
 The root `postinstall` preserves local CLI setup, which installs the command under `~/.local/share/exphere/bin` and configures the zsh or bash PATH, then configures repository-local Husky hooks. CLI setup skips CI; `EXPHERE_SKIP_USER_SETUP=1` explicitly skips the user PATH step while retaining hook setup. `pnpm install --ignore-scripts` runs neither step. Use `pnpm ex setup` for manual CLI setup.
 
-See the [CLI contract](packages/exphere/cli/README.md) for commands, descriptors, and consumer responsibilities. No deployable example microruntime is included.
+See the [CLI contract](packages/cli/cli/README.md) for commands, descriptors, and consumer responsibilities. No deployable example microruntime is included.
 
 ## Project documents
 
@@ -45,7 +46,7 @@ Use Node.js **22.22.1 or newer**, the pinned pnpm version, Git, and a POSIX shel
 | Command or hook | Behavior |
 | --- | --- |
 | `pnpm build` | Run declared workspace builds through Turborepo, including the SDK's TypeScript compilation. |
-| `pnpm test` | Run the real shell hook-contract suite in disposable Git repositories with a local bare remote, then declared workspace test tasks through Turborepo. No application suite exists yet. |
+| `pnpm test` | Run the real shell hook-contract suite in disposable Git repositories with a local bare remote, then declared workspace test tasks through Turborepo. The CLI package also verifies its public command and setup contract in disposable installation directories. No application suite exists yet. |
 | `pnpm check`, `pnpm lint`, `pnpm format` | Run the existing Biome configuration; `format` writes fixes explicitly. |
 | `pnpm harness:score` | Invoke locally installed `npx harness-score` from the root, without a target or threshold. Execution errors remain nonzero. |
 | pre-commit | Check eligible staged files with lint-staged/Biome, preserving partial edits; report one project-wide harness scan and a ticket reminder. Lint failures block; score findings or scanner failures do not. |
@@ -60,4 +61,4 @@ Follow the [SDD rule](.exphere/rules/sdd.md) and [guardrail](.exphere/guardrails
 
 ## Current limits
 
-YAGNI. The hook initiative authorizes its bounded fixture tests and build/test push gate; unrelated application tests and service probes remain outside that authorization. No infrastructure provisioning, deployment, or production integration is included. The CLI adapters do not execute the agent workflow or enforce the proposed resource and observability contracts. Their presence does not prove successful Terraform or Kubernetes execution.
+YAGNI. The hook initiative authorizes its bounded fixture tests and build/test push gate. The package split additionally authorizes isolated SDK/CLI consumer checks; unrelated application tests and service probes remain outside that authorization. No infrastructure provisioning, deployment, or production integration is included. The CLI adapters do not execute the agent workflow or enforce the proposed resource and observability contracts. Their presence does not prove successful Terraform or Kubernetes execution.

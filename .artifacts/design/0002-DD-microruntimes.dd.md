@@ -4,7 +4,7 @@ Consolidated from discussions with the user. **Evolving draft.** The SDK contain
 
 The architecture proposal is consolidated in [the microruntime architecture decision](0005-DD-microruntime-architecture.dd.md), which retains the legacy decision ID `ADR-0001` and the `proposed` state. This document records requirements and measurement details.
 
-**Implementation status:** `packages/exphere/cli/` reads local descriptors, forwards explicit commands to Terraform or Kubernetes, and runs consumer-provided `.sh` hooks. The `components` map is opaque: it does not generate infrastructure, inject resources, or enforce policies. The quality, observability, evidence, distribution, and complete lifecycle contracts below remain requirements or proposals. The existence of the CLI does not establish any operational result. See [the initial CLI contract](../../packages/exphere/cli/README.md).
+**Implementation status:** `packages/cli/cli/` reads local descriptors, forwards explicit commands to Terraform or Kubernetes, and runs consumer-provided `.sh` hooks. The `components` map is opaque: it does not generate infrastructure, inject resources, or enforce policies. The quality, observability, evidence, distribution, and complete lifecycle contracts below remain requirements or proposals. The existence of the CLI does not establish any operational result. See [the initial CLI contract](../../packages/cli/cli/README.md).
 
 ## Intent and requirements expressed by the user
 
