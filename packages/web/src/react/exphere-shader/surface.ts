@@ -229,6 +229,7 @@ export function mountSurface(canvas: HTMLCanvasElement) {
     document.removeEventListener("visibilitychange", reconcile);
     window.removeEventListener("resize", resize);
     canvas.removeEventListener("webglcontextlost", contextLost);
+    gl.useProgram(null);
     gl.deleteProgram(program);
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);

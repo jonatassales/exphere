@@ -4,7 +4,7 @@ void main() {
   gl_Position = vec4(position * 2.0 - 1.0, 0.0, 1.0);
 }`;
 
-// Broad petal silhouettes and flowing gaps, without texture or per-pixel grain.
+// Layered, translucent petal surfaces; all detail is smooth geometry, not grain.
 export const fragmentSource = `#version 300 es
 precision highp float;
 uniform vec2 resolution;
@@ -15,84 +15,108 @@ uniform vec3 background;
 uniform vec3 surface;
 out vec4 outputColor;
 
-float petal(vec2 point, vec2 center, vec2 radius, float angle) {
-  vec2 offset = point - center;
+float softBand(float distance, float width) {
+  float scaled = distance / width;
+  return exp(-scaled * scaled);
+}
+
+vec2 petalCoordinates(vec2 point, vec2 center, vec2 radius, float angle) {
   mat2 rotation = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
-  vec2 local = rotation * offset / radius;
-  return dot(local, local);
+  return rotation * (point - center) / radius;
 }
 
 vec3 curledPetal(vec3 underneath, vec2 point, vec2 center, vec2 radius,
-                 float angle, float phase, vec3 lightColor, vec3 ink) {
-  mat2 rotation = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
-  vec2 local = rotation * (point - center) / radius;
-  local.x += 0.20 * local.y * local.y - 0.12 * sin(local.y * 2.6 + phase);
-  float distance = length(local);
-  float coverage = 1.0 - smoothstep(0.88, 1.12, distance);
+                 float angle, float phase, vec3 lightColor, vec3 ink, float opacity) {
+  vec2 local = petalCoordinates(point, center, radius, angle);
+  local.x += 0.24 * local.y * local.y + 0.08 * sin(local.y * 2.8 + phase);
+  local.y += 0.12 * sin(local.x * 2.2 - phase);
+  float edge = length(local * vec2(1.0, 1.0 + 0.09 * local.x));
+  float coverage = 1.0 - smoothstep(0.90, 1.13, edge);
 
-  // A bowed face rolls away from the light, then turns back along its thin rim.
-  float bowl = sqrt(max(0.02, 1.0 - min(distance * distance, 0.98)));
-  vec3 normal = normalize(vec3(local.x * 0.7, local.y * 0.9, bowl));
-  float lighting = clamp(dot(normal, normalize(vec3(-0.55, -0.65, 1.0))), 0.0, 1.0);
-  float rolledEdge = exp(-pow((distance - 0.88) / 0.15, 2.0));
-  float underside = smoothstep(-0.2, 0.85, local.y) * (1.0 - lighting);
-  float pigment = 0.37 + 0.22 * (1.0 - lighting) + 0.14 * underside;
+  // The face bends through the light; its shading varies inside the silhouette.
+  float curl = local.y + 0.25 * local.x * local.x;
+  vec3 normal = normalize(vec3(
+    0.65 * local.x + 0.22 * sin(local.y * 3.0 + phase),
+    0.90 * curl,
+    0.72 + 0.30 * cos(local.x * 2.1)
+  ));
+  float lighting = max(0.0, dot(normal, normalize(vec3(-0.70, -0.45, 1.0))));
+  float turnedFace = softBand(curl - 0.35, 0.46);
+  float pigment = 0.15 + 0.40 * (1.0 - lighting) + 0.20 * turnedFace;
   vec3 face = mix(lightColor, ink, pigment);
-  face = mix(face, lightColor, rolledEdge * (0.32 + 0.36 * lighting));
 
-  // A soft contact shadow separates this sheet from the one beneath it.
-  float shadow = exp(-pow((distance - 1.06) / 0.23, 2.0));
-  underneath = mix(underneath, mix(lightColor, ink, 0.30), shadow * 0.22);
-  return mix(underneath, face, coverage);
+  // A curled sheet has two faces meeting along a bent lip. Broad opposing
+  // light and shadow bands give that turn depth independently of its outline.
+  float fold = local.y + 0.38 * local.x + 0.32 * local.x * local.x;
+  fold += 0.08 * sin(local.x * 3.0 + phase);
+  float rolledFace = softBand(fold - 0.12, 0.27);
+  float litFace = softBand(fold + 0.28, 0.24);
+  face = mix(face, mix(lightColor, ink, 0.65), rolledFace * 0.62);
+  face = mix(face, lightColor, litFace * 0.68);
+
+  // Transmitted light belongs to the upper/left lip, not an outline of the oval.
+  float backlitEdge = softBand(edge - 0.91, 0.21);
+  backlitEdge *= 1.0 - smoothstep(-0.30, 0.65, local.x + local.y);
+  face = mix(face, lightColor, backlitEdge * 0.64);
+  float innerCrease = softBand(curl - 0.62, 0.19);
+  face = mix(face, mix(lightColor, ink, 0.56), innerCrease * 0.20);
+
+  float contact = softBand(edge - 1.09, 0.30);
+  contact *= smoothstep(-0.45, 0.65, local.y);
+  underneath = mix(underneath, mix(lightColor, ink, 0.49), contact * opacity * 0.28);
+  return mix(underneath, face, coverage * opacity);
 }
 
 void main() {
   vec2 point = gl_FragCoord.xy / resolution;
   point.y = 1.0 - point.y;
   float aspect = resolution.x / resolution.y;
-  point.x = (point.x - 0.5) * clamp(aspect / 2.23, 0.60, 1.3) + 0.5;
-  float phase = elapsed * 0.88;
-  vec2 drift = vec2(sin(phase) * 0.07, cos(phase * 0.8) * 0.06);
+  point.x = (point.x - 0.5) * clamp(aspect / 2.23, 0.90, 1.3) + 0.5;
+  float phase = elapsed * 1.04719755;
+  float opening = 0.5 + 0.5 * cos(phase);
   point += vec2(
-    0.055 * sin(point.y * 5.2 + phase * 0.9),
-    0.04 * sin(point.x * 4.0 - phase * 0.7)
+    0.025 * sin(point.y * 4.5 + phase),
+    0.018 * sin(point.x * 4.0 - phase)
   );
 
   vec3 pale = mix(background, surface, 0.24);
-  vec3 lavender = mix(pale, primary, 0.38);
-  float leftShade = 1.0 - smoothstep(-0.28, 0.56, point.x);
-  vec3 color = mix(pale, lavender, leftShade * 0.90 + 0.14);
+  float leftBend = point.x + 0.08 * sin(point.y * 3.8 - phase);
+  float leftShade = 1.0 - smoothstep(-0.15, 0.57, leftBend);
+  vec3 color = mix(pale, primary, 0.10 + leftShade * 0.33);
 
-  // A second translucent sheet curls up from the lower-right edge.
-  float lowerPetal = petal(point, vec2(1.01, 1.25) - drift * 0.8, vec2(0.68, 0.48), 0.36);
-  color = mix(color, lavender, (1.0 - smoothstep(0.25, 1.75, lowerPetal)) * 0.92);
+  // Far petals remain soft behind the foreground, with independent bending phases.
+  color = curledPetal(color, point, vec2(0.88, 0.95), vec2(0.43, 0.52),
+                     -0.38, phase + 1.4, pale, primaryHover, 0.96);
+  color = curledPetal(color, point, vec2(0.97, -0.24), vec2(0.50, 0.37),
+                     0.18, phase + 2.2, pale, primary, 0.58);
 
-  // A diagonal sheet rises from the lower-left, with its own shaded face and lip.
-  float sheetCoordinate = point.x + point.y * 0.47;
-  float sheetEdge = 0.72 + 0.055 * sin(point.y * 4.2 - phase);
-  float sheetDistance = sheetCoordinate - sheetEdge;
-  float sheetCoverage = 1.0 - smoothstep(-0.04, 0.09, sheetDistance);
-  float sheetBend = exp(-pow((sheetDistance + 0.13) / 0.16, 2.0));
-  vec3 sheetColor = mix(pale, primary, 0.18 + 0.24 * sheetBend);
-  float sheetLip = exp(-pow((sheetDistance + 0.015) / 0.037, 2.0));
-  sheetColor = mix(sheetColor, background, sheetLip * 0.65);
-  color = mix(color, sheetColor, sheetCoverage * smoothstep(0.0, 0.75, point.y));
+  // A broad diagonal sheet enters from the lower-left. Its bow catches light
+  // across a surface, while a separate soft trough supplies overlap and depth.
+  float sheetDistance = point.x + point.y * 0.58 - 0.71;
+  sheetDistance += 0.075 * sin(point.y * 3.7 - phase);
+  float sheetCoverage = 1.0 - smoothstep(-0.035, 0.11, sheetDistance);
+  float sheetBend = softBand(sheetDistance + 0.21, 0.13);
+  float sheetLight = softBand(sheetDistance + 0.055, 0.11);
+  vec3 sheetColor = mix(pale, primary, 0.12 + sheetBend * 0.37);
+  sheetColor = mix(sheetColor, pale, sheetLight * (0.46 + opening * 0.30));
+  float trailingFold = softBand(sheetDistance + 0.40, 0.10);
+  sheetColor = mix(sheetColor, mix(pale, primaryHover, 0.40), trailingFold * 0.24);
+  color = mix(color, sheetColor, sheetCoverage * smoothstep(0.02, 0.40, point.y));
 
-  // The top-right petal rolls across that sheet. Independent curvature gives depth.
-  color = curledPetal(color, point, vec2(0.94, 0.25) + drift,
-                     vec2(0.43, 0.30), -0.45, phase * 0.65, pale, primaryHover);
+  // The luminous opening changes width as the sheets turn, rather than sliding
+  // a rigid white stripe over the completed composition.
+  float transmittedLight = softBand(sheetDistance - 0.075, 0.13 + opening * 0.05);
+  color = mix(color, background, transmittedLight * (0.38 + opening * 0.40));
 
-  // Wide diagonal light flowing between the folds; no repeated curtain stripes.
-  float diagonal = point.x - 0.65 + point.y * 0.44;
-  diagonal += sin(point.y * 5.0 - phase) * 0.075;
-  float light = exp(-pow(diagonal / (0.15 + 0.025 * sin(phase)), 2.0));
-  float veil = exp(-pow((diagonal + 0.22) / 0.18, 2.0));
-  color = mix(color, pale, light * 0.46);
-  color = mix(color, mix(pale, primary, 0.12), veil * 0.38);
-  float sheen = exp(-pow((diagonal + 0.18 + 0.025 * sin(point.y * 11.0 - phase)) / 0.045, 2.0));
-  color = mix(color, pale, sheen * smoothstep(0.25, 0.9, point.y) * 0.22);
+  vec2 frontCenter = vec2(0.94 + 0.025 * sin(phase), 0.13 + 0.025 * cos(phase));
+  vec2 frontRadius = vec2(0.28 + 0.020 * cos(phase), 0.51 + 0.020 * sin(phase));
+  color = curledPetal(color, point, frontCenter, frontRadius,
+                     0.50 + 0.07 * sin(phase), phase, pale, primaryHover, 0.96);
 
-  float topLight = exp(-petal(point, vec2(0.57, -0.12) + drift * 0.4, vec2(0.30, 0.50), -0.25));
-  color = mix(color, background, topLight * 0.62);
+  // Diffuse light at the crown and base joins the separate layers without grain.
+  vec2 crown = (point - vec2(0.52, -0.05)) / vec2(0.27, 0.50);
+  color = mix(color, background, exp(-dot(crown, crown)) * 0.48);
+  vec2 lowerLight = (point - vec2(0.68, 0.86)) / vec2(0.22, 0.34);
+  color = mix(color, pale, exp(-dot(lowerLight, lowerLight)) * (0.10 + opening * 0.08));
   outputColor = vec4(color, 1.0);
 }`;

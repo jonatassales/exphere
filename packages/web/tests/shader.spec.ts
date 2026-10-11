@@ -13,6 +13,11 @@ test("public wrapper renders server children and remains interactive", async ({
 }) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
+  page.on("console", (message) => {
+    if (message.type() === "error") {
+      errors.push(message.text());
+    }
+  });
 
   await page.goto("/");
 
@@ -33,6 +38,64 @@ test("public wrapper renders server children and remains interactive", async ({
   await expect(page.getByRole("textbox")).toBeFocused();
 
   expect(errors).toEqual([]);
+});
+
+test("children are present before JavaScript or hydration runs", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+
+  const page = await context.newPage();
+
+  await page.goto("http://127.0.0.1:3067/");
+
+  await expect(
+    page.getByRole("heading", { name: "Build what comes next." }),
+  ).toBeVisible();
+
+  await expect(page.getByRole("textbox")).toBeVisible();
+
+  await context.close();
+});
+
+test("unmount releases the bound WebGL program immediately", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  await expect(page.locator("canvas")).toBeVisible();
+
+  const resources = await page
+    .locator("canvas")
+    .evaluateHandle((canvas: HTMLCanvasElement) => {
+      const context = canvas.getContext("webgl2");
+
+      if (!context) {
+        throw new Error("The test requires WebGL2");
+      }
+
+      return {
+        context,
+        program: context.getParameter(context.CURRENT_PROGRAM) as WebGLProgram,
+      };
+    });
+
+  const initiallyAlive = await resources.evaluate(({ context, program }) =>
+    context.isProgram(program),
+  );
+
+  expect(initiallyAlive).toBe(true);
+
+  await page.getByRole("button", { name: "Unmount surface" }).click();
+
+  const disposed = await resources.evaluate(({ context, program }) => ({
+    current: context.getParameter(context.CURRENT_PROGRAM),
+    alive: context.isProgram(program),
+  }));
+
+  expect(disposed).toEqual({ current: null, alive: false });
+
+  await resources.dispose();
 });
 
 test("decoration preserves empty, short and long document geometry through resize", async ({

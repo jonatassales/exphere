@@ -24,7 +24,7 @@ Reduced motion uses a still frame, including preference changes after mounting. 
 
 ## Local verification
 
-From the repository root, use `pnpm build --filter=@repo/web` and `pnpm typecheck --filter=@repo/web`. For the browser suite, install the pinned browser once with `pnpm --dir packages/web exec playwright install chromium`, then run `sh scripts/turbo.sh test --filter=@repo/web`. The package test expects built web/design artifacts; build them first. `pnpm test` runs the full repository suite, including its existing hook checks, and does not implicitly install browsers.
+From the repository root, use `pnpm build --filter=@repo/web` and `pnpm typecheck --filter=@repo/web`. For the browser suite, install the pinned browser once with `pnpm --dir packages/web exec playwright install chromium`, then run `sh scripts/turbo.sh test --filter=@repo/web`. This Turbo task builds the web/design artifacts before testing their public exports. `pnpm test` runs the full repository suite, including its existing hook checks, and does not implicitly install browsers.
 
 The package shell entry point constructs a disposable Next.js app from the public manifests and build outputs, compiles it, runs Playwright, and removes it. It does not change the website app. Chromium verification covers SSR/hydration, interaction, dimensions/scrolling, motion preferences, visibility, context loss, cleanup/remount, and the buffer cap. Timed desktop/mobile screenshots are written to the ignored evidence directory for visual review. A frame difference proves animation, not fidelity; fidelity requires comparing the captures with the Codex reference. Other browsers and physical mobile devices are not yet verified.
 
