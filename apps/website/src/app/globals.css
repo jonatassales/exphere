@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@import "@repo/design/tokens.css";
+
+@theme inline {
+  --color-background: var(--design-color-background);
+  --color-foreground: var(--design-color-foreground);
+  --font-body: var(--design-typography-font-body);
+  --spacing-content: var(--design-dimensions-space-4);
+}

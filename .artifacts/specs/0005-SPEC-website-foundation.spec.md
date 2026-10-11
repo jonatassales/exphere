@@ -3,7 +3,7 @@
 - ID: `SPEC-WEBSITE-FOUNDATION`
 - Document number: `SPEC-0005`
 - Version: `1`
-- State: `in-progress`
+- State: `implemented; reviewed local scope`
 - PRD: [PRD-0001 v1](../prd/0001-PRD-exphere.prd.md); product scope approval remains unrecorded.
 - Technical owners: project owner as consumer; implementation and platform reviewers remain to be assigned.
 - Authorization: on October 11, 2026, the owner followed specification synthesis with `to-tickets && implement and commit and push on a separate branch`. This authorizes bounded application implementation, dependency installation, type checking, build, and reviewed feature-branch commit/push. It does not record human acceptance of this exact revision or authorize application tests, browser/service probes, deployment, or npm publication.
@@ -104,4 +104,8 @@ Existing workspace build orchestration is prior art; the hook-contract suite ver
 - Verification plan: `VER-WEBSITE-01` in this artifact; source revision, commands, outcomes, and remaining gaps must be recorded during authorized implementation.
 - Execution evidence: [SITE-01 evidence](../tickets/0018-TICKET-website-foundation.ticket.md#evidence) records command and generated-output checks; review of the examined source remains pending. These checks do not verify browser behavior, service binding/shutdown, or deployment.
 - Trade-offs, decisions, and blocking questions: `DEC-WEBSITE-01` selects compatible exact framework/dependency versions under the execution request, with compatibility still requiring evidence. `DEC-WEBSITE-02` limits this cycle to installation, type checking, build, and static review; tests and browser/service probes remain excluded. `DEC-WEBSITE-03` uses public `@repo/design/tokens.css`, `--design-` token names, and an explicit light theme. Final visual identity and deployment remain later decisions.
-- Technical review: `pending; owners and version to be recorded`
+- Technical review: Standards and Spec reviews passed for snapshot `c5f15b459bfc415172764c4aa16d39fb9ac437207a709e11c0ae471751d3f63d` after correction of the missing CLI environment-asset check. See linked ticket evidence for methods, red/green verification, and limits.
+
+### Delivery verification
+
+The linked ticket records the completed local implementation and its observed evidence on October 11, 2026. The earlier verification sections describe the planned criteria; results are limited to the installed dependency graph, static review, compilation, and expressly authorized fixture or generated-artifact checks. Production and browser/runtime criteria without execution evidence remain not-verified. No blanket policy compliance or release availability is claimed.

@@ -18,13 +18,16 @@ Microruntimes are the proposed unit for composing and executing consumer-owned u
 | --- | --- | --- |
 | `packages/sdk/` | Private, versioned TypeScript SDK | API remains empty. |
 | `packages/cli/` | Private, versioned shell CLI, runtime descriptors, Terraform/Kubernetes adapters, and explicit consumer hooks | Infrastructure execution is not demonstrated. |
+| `packages/design/` | Neutral tokens and generated CSS/JSON | Public intent; no registry release. |
+| `packages/web/` | Source placeholders and SmoothUI development tooling | No usable runtime exports yet. |
+| `apps/website/` | Minimal Next.js consumer of the design package | Build evidence does not establish browser or production behavior. |
 | `.agents/` | Agent context, rules, guardrails, skills, and templates | Instructions guide behavior; they do not authenticate approvals or enforce transitions. |
 | `.exphere/workflows/` | Common SDD model and five domain workflows, including Dev | Documentary guidance without an executor or organizational adoption evidence. |
 | `.artifacts/` | Typed PRDs, specs, tickets, research, and design documents | Local records do not provide access control or an execution engine. |
 | `.audits/evidence/` | Evidence contract and location for authorized observations | No successful runtime outcome follows from the presence of this directory. |
 | `.micro-runtime/<id>/` | Consumer configuration created on demand | It is not a predefined stack, application workspace, or deployed environment. |
 
-The current tree does not contain the previously described API, web application, or protobuf workspace. Root shell adapters provide workspace builds, local checks, and authorized contract tests. This document does not restore them or claim that those commands work.
+The current tree does not contain the previously described API or protobuf workspace. Root shell adapters provide workspace builds, local checks, and authorized contract tests. Removed API and protobuf components are not restored.
 
 ## Workflow design
 

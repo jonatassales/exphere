@@ -4,7 +4,7 @@
 
 Exphere is an experimental project for developer experience and agent-assisted software delivery. The current tree contains a pnpm/Turborepo workspace and the private, versioned SDK in `packages/sdk/` and CLI in `packages/cli/`. The SDK TypeScript API remains empty. The CLI owns `ex`, microruntime descriptors, Terraform/Kubernetes adapters, and explicit consumer `.sh` hooks. Local hooks implement selected developer checks and advisory SDD traceability. There is no workflow engine, comprehensive quality-contract enforcement, or demonstrated production integration. Documents and adapters do not prove execution or outcomes.
 
-The previously described application and protobuf workspaces are absent. Do not restore removed components or advertise unavailable commands as working. The root [README](README.md) describes the current tree and its limitations.
+The workspace also contains public-intent `@repo/design` and `@repo/web` packages and a minimal Next.js application in `apps/website/`. The earlier API and protobuf workspaces remain absent. Do not restore removed components or advertise unavailable commands as working. The root [README](README.md) describes the current tree and its limitations.
 
 ## Project principles
 
@@ -92,4 +92,4 @@ Read `docs/README.md` inside that installed package first, then read the relevan
 This block is written and re-added by `turbo` before repository-scoped commands when an AI agent is detected. In the Turborepo source repository, its template is defined in `crates/turborepo-cli/src/cli/agent_guidance.rs`. Removing the managed block while updates are enabled means a later qualifying invocation will add it again. Set `"agentGuidance": false` in the root `turbo.json` or `turbo.jsonc` to opt out; this does not remove an existing block. Keep the block committed with your work to avoid an uncommitted change on the next agent invocation.
 <!-- END:turborepo-agent-rules -->
 
-- SPEC-DESIGN-TOKENS authorizes isolated public-export and watch contract fixtures under the October 11, 2026 implementation request.
+- SPEC-DESIGN-TOKENS authorizes isolated public-export and watch contract fixtures. SPEC-WEBSITE-FOUNDATION authorizes dependency installation, type checking, production compilation, and inspection of generated page/CSS artifacts; browser probes and application test infrastructure remain outside this cycle. These scopes follow the October 11, 2026 combined ticket/implementation request.
