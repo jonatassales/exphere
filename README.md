@@ -9,7 +9,7 @@ Exphere explores developer experience, agent-assisted delivery, and consumer-com
 | `packages/design/` | Public-intent `@repo/design`; basic light-palette tokens with generated CSS/JSON exports. |
 | `packages/web/` | Public-intent `@repo/web`; source placeholders and SmoothUI CLI dependency only. |
 | `apps/website/` | Minimal private Next.js application consuming design tokens. |
-| `.micro-runtime/<id>/` | Consumer configuration created on demand by the CLI; not a workspace. |
+| `.exphere/runtimes/<id>/` | Consumer v2 configuration created on demand; not a workspace. Existing `.micro-runtime/<id>/` descriptors remain legacy v1. |
 | `.agents/` | Context, rules, guardrails, skills, and templates. |
 | `.exphere/workflows/` | Common SDD lifecycle and the Dev, design, operations, SRE, and FinOps workflow documents. |
 | `.artifacts/` | Typed PRDs, specs, tickets, research, and design documents in en-US. |
@@ -29,7 +29,7 @@ pnpm ex runtime billing init
 pnpm ex --root /path/to/consumer runtime list
 ```
 
-`init` creates only `.micro-runtime/<id>/schema.json`, with identity and an empty `components` object. It refuses to overwrite an existing directory. Consumers provide Terraform configuration, Kubernetes manifests, and explicit `.sh` hooks. The CLI validates descriptors and dispatches selected commands; it does not choose the stack or composition.
+`init` creates an incomplete v2 descriptor under `.exphere/runtimes/<id>/` for manual editing; `init --guided` asks for consumer choices and writes the descriptor plus native Kubernetes/Terraform files. Existing output is preserved. Components remain in their applications, and resource/image/readiness decisions remain in native files. `validate` checks descriptor structure and local references; it does not prove operational readiness. `init --legacy` explicitly creates the earlier v1 shape.
 
 The root `postinstall` preserves local CLI setup, which installs the command under `~/.local/share/exphere/bin` and configures the zsh or bash PATH, then configures repository-local Husky hooks. CLI setup skips CI; `EXPHERE_SKIP_USER_SETUP=1` explicitly skips the user PATH step while retaining hook setup. `pnpm install --ignore-scripts` runs neither step. Use `pnpm ex setup` for manual CLI setup.
 

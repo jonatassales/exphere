@@ -2,7 +2,7 @@
 set -eu
 . "$EX_CLI_DIR/core/common.sh"
 [ "$#" -eq 0 ] || ex_die 'Help does not accept arguments.' 2
-cat <<'EOF'
+cat <<'HELP'
 ex — Exphere microruntimes CLI
 
 Usage: ex [--root DIRECTORY] <command>
@@ -10,20 +10,27 @@ Usage: ex [--root DIRECTORY] <command>
   --help                              Show this help
   --version                           Show the CLI version
   setup                               Install ex in your user PATH
-  runtime list                        List consumer microruntimes
-  runtime <id> init                   Create .micro-runtime/<id>/schema.json
-  runtime <id> validate               Validate descriptor shape and local paths
-  runtime <id> terraform <command>    Run Terraform in the declared directory
-  runtime <id> kubernetes <command>   Run kubectl against declared manifests
-  runtime <id> run <hook> [args...]   Execute a consumer-provided .sh hook
+  runtime list                        List IDs, versions and descriptor paths
+  runtime <id> init                    Create an incomplete manual v2 descriptor
+  runtime <id> init --guided           Generate native files from explicit answers
+  runtime <id> init --legacy           Explicitly create a legacy v1 descriptor
+  runtime <id> validate                Validate descriptor shape and local paths
 
-Terraform: init, validate, plan, apply, destroy, output, show, fmt, workspace.
-Terraform accepts native arguments, optionally separated by --.
-Kubernetes: diff, apply, delete, status. No extra arguments in this version.
-
-Descriptors: .micro-runtime/<id>/schema.json, version 1.
+New descriptors: .exphere/runtimes/<id>/schema.json, version 2.
+Complete owner, units, Terraform directory, local context and namespace before
+validation. Native workload and quota settings remain in consumer files.
 The project is found above the current directory, or selected with --root.
-init creates a descriptor only and refuses to overwrite an existing runtime.
-Tools: sh, jq; terraform or kubectl only for the selected adapter.
-There is no default deployment, automatic initialization or implicit hook.
-EOF
+Initialization refuses existing runtime output in either descriptor location.
+Validation is offline and performs no infrastructure operation or hook.
+
+Legacy descriptors remain at .micro-runtime/<id>/schema.json, version 1.
+Legacy-only commands:
+  runtime <id> run <hook> [args...]     Execute an explicitly declared .sh hook
+  runtime <id> terraform <command>     Forward native Terraform arguments
+  runtime <id> kubernetes <command>    Run kubectl against declared manifests
+Terraform: init, validate, plan, apply, destroy, output, show, fmt, workspace.
+Kubernetes: diff, apply, delete, status. No extra arguments in this version.
+Same-ID descriptors in both locations are ambiguous and must be resolved.
+There is no automatic migration, default deployment or implicit hook.
+Tools for configuration: sh and jq. Lifecycle prerequisites are separate.
+HELP

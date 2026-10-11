@@ -60,7 +60,7 @@ The [workflow profiles](.artifacts/design/0004-DD-workflow-profiles.dd.md) are a
 
 `.agents/` contains agent guidance, rules, guardrails, skills, and templates. Workflow documents live separately in `.exphere/workflows/`. The harness also includes project artifacts, evidence, the SDK and CLI, and consumer configuration created on demand. `.agents/` is not the entire harness. The [project context](.agents/CONTEXT.md) records the intended CLI installation and development workflow; project-directory generation is not implemented.
 
-The SDK and CLI are separate `@exphere/sdk` and `@exphere/cli` packages. `ex runtime <id> init` creates `.micro-runtime/<id>/schema.json` on demand, with no predefined infrastructure or components. Create no speculative directory trees.
+The SDK and CLI are separate `@exphere/sdk` and `@exphere/cli` packages. `ex runtime <id> init` creates an incomplete v2 descriptor at `.exphere/runtimes/<id>/schema.json`; `init --guided` writes only explicitly selected native configuration. Existing `.micro-runtime` v1 configurations remain available through the explicit legacy contract. For configuration work, read the [CLI contract](packages/cli/cli/README.md). Create no speculative directory trees.
 
 ## Agent skills
 
@@ -80,6 +80,7 @@ Distinguish drafts, authorized decisions, implementations, and observed outcomes
 - Use pnpm pinned in the manifest and Turborepo for workspace tasks. Workspaces own their dependencies; actual internal dependencies use `workspace:*`.
 - SPEC-SDK-CLI-SEPARATION authorizes isolated package-consumer and CLI setup fixtures under the owner's October 11, 2026 implementation request. Use disposable installation directories; real user shell/profile changes and infrastructure execution remain outside verification.
 - Preserve the existing SDK and consumer boundaries. Do not recreate removed applications or contracts without a separate request.
+- SPEC-MICRORUNTIME-CONFIGURATION authorizes disposable public-CLI configuration fixtures under the owner's October 11, 2026 `implement` request. Consumer files and real shell profiles remain outside those fixtures.
 
 <!-- BEGIN:turborepo-agent-rules -->
 

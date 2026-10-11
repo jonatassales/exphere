@@ -1,24 +1,66 @@
 #!/bin/sh
 
+ex_runtime_parent() (
+  ex_parent_relative=$1
+  ex_parent_path=$EX_PROJECT_ROOT
+  ex_parent_accumulated=
+  ex_old_ifs=$IFS
+  IFS=/
+  set -- $ex_parent_relative
+  IFS=$ex_old_ifs
+  for ex_part do
+    ex_parent_accumulated=${ex_parent_accumulated:+$ex_parent_accumulated/}$ex_part
+    if [ ! -e "$ex_parent_path/$ex_part" ] && [ ! -L "$ex_parent_path/$ex_part" ]; then
+      mkdir "$ex_parent_path/$ex_part" || ex_die "Cannot create $ex_parent_accumulated."
+    fi
+    ex_parent_path=$(ex_resolve_path "$EX_PROJECT_ROOT" "$ex_parent_accumulated")
+    [ -d "$ex_parent_path" ] || ex_die "$ex_parent_accumulated must be a directory." 2
+  done
+  printf '%s\n' "$ex_parent_path"
+)
+
 ex_init_runtime() (
   ex_need jq
   ex_valid_id "$1" || ex_die 'Invalid runtime id: use lowercase letters, numbers and hyphens.' 2
-  ex_descriptor=$(jq -n --arg id "$1" '{version: 1, id: $id, components: {}}')
+  ex_new_id=$1
+  ex_init_mode=${2:-manual}
+  for ex_location in .exphere/runtimes .micro-runtime; do
+    [ ! -e "$EX_PROJECT_ROOT/$ex_location/$ex_new_id" ] && [ ! -L "$EX_PROJECT_ROOT/$ex_location/$ex_new_id" ] ||
+      ex_die "Microruntime already exists: $ex_location/$ex_new_id. Existing output is never overwritten." 2
+  done
   umask 077
-  if [ ! -e "$EX_PROJECT_ROOT/.micro-runtime" ]; then
-    mkdir "$EX_PROJECT_ROOT/.micro-runtime"
-  fi
-  ex_parent=$(ex_resolve_path "$EX_PROJECT_ROOT" .micro-runtime)
-  [ -d "$ex_parent" ] || ex_die '.micro-runtime must be a directory.' 2
-  ex_destination="$ex_parent/$1"
-  mkdir "$ex_destination" || ex_die "Microruntime already exists or cannot be created: $1"
-  if ! (set -C; printf '%s\n' "$ex_descriptor" > "$ex_destination/schema.json"); then
-    ex_die 'Unable to write schema.json; inspect the newly created runtime directory.'
-  fi
-  printf 'ex: created %s/schema.json. Configure components and adapters before executing them.\n' "$ex_destination"
-)
+  ex_stage=$(mktemp -d "${TMPDIR:-/tmp}/exphere-init.XXXXXX")
+  ex_created=
+  trap 'rm -rf "$ex_stage" || printf "ex: inspect temporary partial output: %s\n" "$ex_stage" >&2; if [ -n "$ex_created" ]; then rm -rf "$ex_created" || printf "ex: inspect partial output: %s\n" "$ex_created" >&2; fi' EXIT
+  trap 'exit 130' INT
+  trap 'exit 143' HUP TERM
+  if [ "$ex_init_mode" = legacy ]; then
+    jq -n --arg id "$ex_new_id" '{version: 1, id: $id, components: {}}' >"$ex_stage/schema.json"
+    ex_parent=$(ex_runtime_parent .micro-runtime)
+  elif [ "$ex_init_mode" = guided ]; then
+    ex_guided_generate
+    ex_parent=$(ex_runtime_parent .exphere/runtimes)
+  else
+    jq -n --arg id "$ex_new_id" '{version: 2, id: $id, environment: "local", owner: "", units: {}, terraform: {directory: "terraform"}, kubernetes: {context: "", namespace: ""}}' >"$ex_stage/schema.json"
+    cat >"$ex_stage/README.md" <<'GUIDE'
+# Manual microruntime configuration
 
-ex_load_runtime() {
+This is an incomplete version 2 descriptor. Supply the owner, explicit local Kubernetes context and namespace, selected units, and existing native configuration before validation or execution.
+
+Each unit key matches its existing component directory basename. Its `component` path is project-relative; `kubernetes.manifests` is runtime-relative. Terraform owns the namespace and quotas. Workload images, replicas, resources and probes belong in Kubernetes files. Do not copy application source or store credentials here.
+
+Run `ex runtime <id> validate` after configuring the descriptor. Validation performs no infrastructure operations. Explicit lifecycle operations require local Docker, kind, kubectl, Terraform, jq, and a supported native configuration. Generated configuration does not demonstrate execution, readiness, quota enforcement or cleanup.
+GUIDE
+    ex_parent=$(ex_runtime_parent .exphere/runtimes)
+  fi
+  ex_destination="$ex_parent/$ex_new_id"
+  mkdir "$ex_destination" || ex_die "Microruntime already exists or cannot be created: $ex_new_id"
+  ex_created=$ex_destination
+  cp -R "$ex_stage/." "$ex_destination/" || ex_die "Unable to publish runtime: $ex_destination"
+  ex_created=
+  printf 'ex: created %s/schema.json. Configure required inputs and native files before validation or execution.\n' "$ex_destination"
+)
+ex_validate_v1() {
   ex_need jq
   EX_RUNTIME_ID=$1
   ex_valid_id "$EX_RUNTIME_ID" || ex_die 'Runtime id must contain lowercase letters, numbers and hyphens, and cannot start with a hyphen.' 2
@@ -80,3 +122,6 @@ ex_load_runtime() {
   export EX_RUNTIME_ID EX_RUNTIME_DIR EX_RUNTIME_SCHEMA
   export EX_TERRAFORM_DIR EX_KUBERNETES_MANIFESTS EX_KUBERNETES_CONTEXT EX_KUBERNETES_NAMESPACE
 }
+
+. "$EX_CLI_DIR/core/configuration.sh"
+. "$EX_CLI_DIR/core/guided.sh"

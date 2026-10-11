@@ -157,9 +157,10 @@ mv "$test_area/cli-manifest.json" "$fixture_root/packages/cli/package.json"
 [ "$(sh "$fixture_entry" --version)" = 'ex 0.0.7' ] || fail 'CLI version does not follow its own manifest.'
 consumer="$fixture_root/consumer"
 mkdir "$consumer"
-sh "$fixture_entry" --root "$consumer" runtime billing init >"$test_area/runtime.out"
+sh "$fixture_entry" --root "$consumer" runtime billing init --legacy >"$test_area/runtime.out"
 sh "$fixture_entry" --root "$consumer" runtime billing validate >>"$test_area/runtime.out"
-[ "$(sh "$fixture_entry" --root "$consumer" runtime list)" = billing ] || fail 'Microruntime discovery changed after relocation.'
+sh "$fixture_entry" --root "$consumer" runtime list >"$test_area/list.out"
+grep -Fq 'billing' "$test_area/list.out" && grep -Fq 'v1' "$test_area/list.out" && grep -Fq '.micro-runtime/billing/schema.json' "$test_area/list.out" || fail 'Microruntime discovery omitted legacy identity or location after relocation.'
 before_descriptor=$(cksum "$consumer/.micro-runtime/billing/schema.json")
 if sh "$fixture_entry" --root "$consumer" runtime billing init >>"$test_area/runtime.out" 2>&1; then
   fail 'Microruntime initialization overwrote an existing descriptor.'
@@ -206,3 +207,6 @@ env PATH="$fixture_root/tools:$PATH" sh "$fixture_entry" --root "$consumer" runt
 printf '%s\n' --context=fixture-context --namespace=billing diff --filename "$runtime_dir/manifests" >"$test_area/kubernetes.expected"
 cmp -s "$test_area/kubernetes.out" "$test_area/kubernetes.expected" || fail 'Kubernetes adapter arguments changed.'
 printf 'CLI contract: consumer hooks and controlled external adapters passed.\n'
+
+sh "$package_dir/scripts/test-configuration.sh"
+sh "$package_dir/scripts/test-guided-configuration.sh"
