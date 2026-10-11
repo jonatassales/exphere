@@ -210,3 +210,6 @@ printf 'CLI contract: consumer hooks and controlled external adapters passed.\n'
 
 sh "$package_dir/scripts/test-configuration.sh"
 sh "$package_dir/scripts/test-guided-configuration.sh"
+for contract in preflight lifecycle terraform-runtime observation composition recovery access process-boundary concurrency; do
+  sh "$package_dir/scripts/tests/$contract.sh"
+done
