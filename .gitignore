@@ -1,0 +1,16 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+.audits/evidence/runs/
+node_modules/
+.pnpm-store/
+.turbo/
+.next/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan

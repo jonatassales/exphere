@@ -1,0 +1,17 @@
+.git
+.vercel
+.agents
+.artifacts
+.audits
+.cursor
+.codex
+**/node_modules
+**/.next
+**/dist
+**/.turbo
+**/.env*
+**/*.log
+**/*.tsbuildinfo
+**/coverage
+**/test-results
+**/playwright-report

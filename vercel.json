@@ -1,0 +1,33 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "dashboard": {
+      "root": "apps/dashboard",
+      "framework": "nextjs",
+      "installCommand": "cd ../.. && pnpm install --frozen-lockfile --ignore-scripts",
+      "buildCommand": "cd ../.. && pnpm exec turbo run build --filter=dashboard...",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "dashboard-stub",
+          "format": "url",
+          "env": "DASHBOARD_STUB_HTTP_URL"
+        }
+      ]
+    },
+    "dashboard-stub": {
+      "root": "apps/microservices/dashboard-stub",
+      "framework": "express",
+      "entrypoint": "src/server.ts",
+      "outputDirectory": ".",
+      "installCommand": "cd ../../.. && pnpm install --frozen-lockfile --ignore-scripts",
+      "buildCommand": "cd ../../.. && pnpm exec turbo run build --filter=350z..."
+    }
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": { "service": "dashboard" } }
+  ],
+  "git": {
+    "deploymentEnabled": { "**": false, "main": true }
+  }
+}
