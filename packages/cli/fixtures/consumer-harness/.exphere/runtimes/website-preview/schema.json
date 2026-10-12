@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "id": "website-preview",
+  "environment": "local",
+  "owner": "fixture-owner",
+  "units": {
+    "website": {
+      "component": "apps/website",
+      "kubernetes": {
+        "manifests": "units/website/kubernetes"
+      }
+    }
+  },
+  "terraform": {
+    "directory": "terraform"
+  },
+  "kubernetes": {
+    "context": "kind-fixture",
+    "namespace": "website-preview"
+  }
+}
