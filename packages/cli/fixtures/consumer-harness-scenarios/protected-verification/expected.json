@@ -1,0 +1,77 @@
+{
+  "formatVersion": 1,
+  "synthetic": true,
+  "id": "protected-verification",
+  "cycleId": "cycle",
+  "currency": "USD",
+  "decision": "admitted-simulation",
+  "reason": "covered-synthetic-proposal",
+  "dispatchPerformed": false,
+  "duplicateEvents": 0,
+  "accounts": [
+    {
+      "id": "window",
+      "consumedMicros": {
+        "ai": "915000",
+        "infrastructure": "0",
+        "combined": "915000"
+      },
+      "reservedMicros": {
+        "ai": "0",
+        "infrastructure": "0",
+        "combined": "0"
+      },
+      "protectedRemainingMicros": {
+        "ai": "80000",
+        "infrastructure": "50000",
+        "combined": "130000"
+      }
+    },
+    {
+      "id": "feature",
+      "consumedMicros": {
+        "ai": "915000",
+        "infrastructure": "0",
+        "combined": "915000"
+      },
+      "reservedMicros": {
+        "ai": "0",
+        "infrastructure": "0",
+        "combined": "0"
+      },
+      "protectedRemainingMicros": {
+        "ai": "80000",
+        "infrastructure": "50000",
+        "combined": "130000"
+      }
+    },
+    {
+      "id": "cycle",
+      "consumedMicros": {
+        "ai": "915000",
+        "infrastructure": "0",
+        "combined": "915000"
+      },
+      "reservedMicros": {
+        "ai": "0",
+        "infrastructure": "0",
+        "combined": "0"
+      },
+      "protectedRemainingMicros": {
+        "ai": "80000",
+        "infrastructure": "50000",
+        "combined": "130000"
+      }
+    }
+  ],
+  "pendingChargeIds": [],
+  "overageIds": [],
+  "resourceObligations": [],
+  "checks": [
+    {
+      "eventId": "observation-1",
+      "result": "inconclusive"
+    }
+  ],
+  "financialEnforcement": false
+}

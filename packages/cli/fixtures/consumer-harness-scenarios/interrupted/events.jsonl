@@ -1,0 +1,2 @@
+{"formatVersion":1,"synthetic":true,"eventId":"observation-1","cycleId":"cycle","sequence":1,"eventType":"planned","result":"inconclusive","resourceObligations":[]}
+{"formatVersion":1,"synthetic":true,"eventId":"observation-2","cycleId":"cycle","sequence":2,"eventType":"paused","result":"inconclusive","resourceObligations":[{"resourceId":"website-workload","owner":"fixture-owner","status":"ongoing","reason":"Pausing the agent did not terminate this resource.","shutdownAuthority":"fixture-operator","maxLifetimeSeconds":7200}]}
