@@ -78,6 +78,6 @@ retain noindex. Deployment configuration and production access remain separately
 owned and are not changed by this integration.
 
 The source-only identity/SEO delivery has an explicit verification block in
-[SPEC-WEBSITE-IDENTITY-SEO](../../.exphere/artifacts/specs/0013-SPEC-website-identity-seo.spec.md).
+[SPEC-WEBSITE-IDENTITY-SEO](../../.exphere/artifacts/specs/0017-SPEC-website-identity-seo.spec.md).
 Asset inspection is not a passing application build, independent review, browser
 audit, indexing result, or Core Web Vitals measurement.
