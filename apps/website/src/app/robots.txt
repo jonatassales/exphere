@@ -1,0 +1,4 @@
+# The page remains crawlable so its HTML noindex directive can be read.
+# A sitemap is deferred until the public origin and indexing policy are accepted.
+User-agent: *
+Allow: /
