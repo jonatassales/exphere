@@ -50,4 +50,4 @@ An application README explains the surface's product role and behavior. Stack de
 
 Source at `e518dace741d8b9b44dd0a9d851fa3f42506320a`: [frontend guardrail](https://github.com/jonatassales/langdrift/blob/e518dace741d8b9b44dd0a9d851fa3f42506320a/.agents/guardrails/frontend.md).
 
-Adaptation: fixed source package paths and available shared UI become conditional ownership. Exphere's `.sh` automation policy replaces the conflicting direct-manifest-command guidance. Framework choices remain application-specific, and no draft web foundation is implemented or accepted by this rule. See [DEC-RULE-01](../../.artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register).
+Adaptation: fixed source package paths and available shared UI become conditional ownership. Exphere's `.sh` automation policy replaces the conflicting direct-manifest-command guidance. Framework choices remain application-specific, and no draft web foundation is implemented or accepted by this rule. See [DEC-RULE-01](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register).

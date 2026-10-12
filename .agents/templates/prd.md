@@ -1,6 +1,6 @@
 # PRD — problem and expected outcome
 
-Save the artifact using the PRD pattern and sequence in the [artifact tracker](../../.artifacts/agents/0006-DD-artifact-tracker.dd.md).
+Save the artifact using the PRD pattern and sequence in the [artifact tracker](../../.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md).
 
 - ID: `PRD-<id>`
 - State: `draft`

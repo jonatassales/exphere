@@ -7,7 +7,13 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!!.agents", "!!.artifacts", "!!.audits"]
+    "includes": [
+      "**",
+      "!!.agents",
+      "!!.exphere/artifacts",
+      "!!.exphere/harness",
+      "!!.audits"
+    ]
   },
   "formatter": {
     "enabled": true,

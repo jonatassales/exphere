@@ -1,8 +1,8 @@
 # GitHub agent review
 
-The `agent-review` job in [ci.yml](../../.github/workflows/ci.yml) runs the trusted [code-review skill](../../.agents/skills/code-review/SKILL.md) against an immutable pull request snapshot. Two independent, concurrent OpenAI Responses API requests produce Standards and Spec assessments. The requests have no tools and receive no previous reviewer output. They cannot execute repository code, edit files, install dependencies, publish comments, or approve a PR.
+The `agent-review` job in [ci.yml](../../.github/workflows/ci.yml) runs the trusted [code-review skill](../../.exphere/harness/skills/code-review/SKILL.md) against an immutable pull request snapshot. Two independent, concurrent OpenAI Responses API requests produce Standards and Spec assessments. The requests have no tools and receive no previous reviewer output. They cannot execute repository code, edit files, install dependencies, publish comments, or approve a PR.
 
-The adapter is an implementation of [SPEC-GITHUB-AGENT-REVIEW](../../.artifacts/specs/0008-SPEC-github-agent-review.spec.md), not a general CI policy engine. Substantive findings are informational. A successful job is not human approval or proof that the application works.
+The adapter is an implementation of [SPEC-GITHUB-AGENT-REVIEW](../../.exphere/artifacts/specs/0008-SPEC-github-agent-review.spec.md), not a general CI policy engine. Substantive findings are informational. A successful job is not human approval or proof that the application works.
 
 ## Events and trust boundary
 
@@ -12,11 +12,15 @@ A short `review-scope` job reads event metadata using trusted code before select
 
 `actions/checkout` checks out `github.sha`, the trusted workflow revision. The adapter reads PR objects as data without checking out or executing the PR tree. Workflow logic, shell helpers, the skill, and applicable policies come from the trusted revision; proposed instruction changes remain review data. GitHub permissions are limited to `contents: read` and `pull-requests: read`. Checkout does not persist its token. The GitHub token is scoped to metadata, collection, and review steps, and the OpenAI key is scoped to the review step.
 
+Artifact discovery reads `.exphere/artifacts/` and historical `.artifacts/` in the PR head and each included commit. A duplicate identity across roots remains ambiguous even when the blobs are identical or a later commit repairs the duplication. Ticket spec links resolve from each ticket's actual directory; a Markdown fragment is not part of the Git file path. Absolute, external, and repository-escaping links are not local artifact evidence. The collector verifies the linked document's stable identity; it does not validate section contents or semantic fulfillment.
+
+Trusted policy discovery includes `.exphere/harness/rules/` and `.exphere/harness/guardrails/`, retained local guidance, and legacy policy locations. Instructions are read only from the trusted revision: prefer `.exphere/harness/skills/code-review/SKILL.md`, falling back to `.agents/skills/code-review/SKILL.md` only when the new path is absent from that same revision. PR, index, and working-tree copies cannot supply a missing trusted skill. Missing skills and oversized trusted input fail before provider calls; a read failure at the preferred path does not trigger fallback.
+
 Draft PRs, forks, Dependabot PRs, irrelevant edits, and disabled configuration receive explicit skipped outcomes with no provider calls. Eligible runs resolve the actual PR `Spec:` declaration and included commits' `Ticket:` trailers. Missing or inconsistent SDD identities remain advisory. Without an authoritative spec, Standards can run while Spec is explicitly `not-verified`.
 
 Reports identify the repository, PR, event, run/attempt, base, head, merge-base, commits, changed paths, exclusions, trusted revision, and model. The scope job checks current PR identity before selecting a cancelling group, isolating already-stale reruns; the adapter checks again before and after reviewing. Freshness checks are observations, not an atomic lock with GitHub scheduling. A superseded result retains its original identity and cannot stand for the current revision. Oversized or incomplete context fails visibly; the adapter does not silently truncate input.
 
-Because the workflow executes trusted default-branch code, this PR cannot validate its own new workflow before it is merged into `main`. A local fixture does not prove GitHub event delivery, actual token permissions, provider authentication, or model quality.
+Because the workflow executes trusted default-branch code, this PR cannot validate its own new workflow before it is merged into `main`. Hosted review of a layout migration may remain incomplete while the older adapter is trusted; do not read the contribution's adapter or skills to bypass that boundary. The existing 100-path and request-size limits still apply to the migration. A local fixture does not prove GitHub event delivery, actual token permissions, provider authentication, or model quality.
 
 ## Activation
 

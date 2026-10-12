@@ -71,7 +71,7 @@ mv "$scratch/updated.json" "$scratch/snapshot.json"
 
 # Discover policy sources at the trusted revision. Proposed policy edits remain PR data.
 git ls-tree -r --name-only "$trusted" >"$scratch/tree"
-grep -E '(^|/)(AGENTS\.md|CODING_STANDARDS\.md|CONTRIBUTING\.md)$|^\.agents/(rules|guardrails)/.*\.md$|^\.exphere/(rules|guardrails)/.*\.md$|^\.artifacts/agents/0006-|^README\.md$|^\.agents/(README|CONTEXT)\.md$' "$scratch/tree" >"$scratch/standards.paths" || :
+grep -E '(^|/)(AGENTS\.md|CODING_STANDARDS\.md|CONTRIBUTING\.md)$|^\.agents/(rules|guardrails)/.*\.md$|^\.exphere/(harness/)?(rules|guardrails)/.*\.md$|^\.artifacts/agents/0006-|^\.exphere/artifacts/design/0006-DD-artifact-tracker\.dd\.md$|^README\.md$|^\.agents/(README|CONTEXT)\.md$' "$scratch/tree" >"$scratch/standards.paths" || :
 printf '' >"$scratch/standards.jsonl"
 while IFS= read -r path; do
   read_blob "$trusted" "$path"
@@ -79,7 +79,14 @@ while IFS= read -r path; do
   [ "$(wc -c <"$scratch/standards.jsonl")" -le 262144 ] || fail 'Trusted policy context exceeds the input limit.'
 done <"$scratch/standards.paths"
 jq -s . "$scratch/standards.jsonl" >"$scratch/standards.json"
-git cat-file blob "$trusted:.agents/skills/code-review/SKILL.md" >"$scratch/skill.md" || fail 'Trusted code-review skill is unavailable.'
+skill_path=.exphere/harness/skills/code-review/SKILL.md
+if ! git cat-file -e "$trusted:$skill_path" 2>/dev/null; then
+  skill_path=.agents/skills/code-review/SKILL.md
+fi
+git cat-file -e "$trusted:$skill_path" 2>/dev/null || fail 'Trusted code-review skill is unavailable.'
+# Apply the existing blob limit to trusted instructions too; never fall back after a read failure.
+read_blob "$trusted" "$skill_path"
+cp "$scratch/blob" "$scratch/skill.md"
 
 # Owning manifests and README files supply surrounding context without running the PR.
 printf '' >"$scratch/owning.paths"
@@ -107,7 +114,8 @@ printf '' >"$scratch/advisories.jsonl"
 spec_id=$(jq -r '.pull_request.body // "" | split("\n") | map(select(test("^Spec:"))) | if length == 1 then .[0] | try capture("^Spec:[ \\t]*(?<id>[A-Z][A-Z0-9-]*)[ \\t\\r]*$").id catch "" else "" end' "$GITHUB_EVENT_PATH")
 printf 'null\n' >"$scratch/spec.json"
 spec_matches=0
-git ls-tree -r --name-only "$head" .artifacts/specs >"$scratch/spec.paths"
+# Read both layouts in each source revision; duplicate identities remain ambiguous.
+git ls-tree -r --name-only "$head" .exphere/artifacts/specs .artifacts/specs >"$scratch/spec.paths"
 if [ -z "$spec_id" ]; then advisory 'PR must declare exactly one valid Spec: identity.'; fi
 while IFS= read -r path; do
   case "$path" in *.spec.md) ;; *) continue ;; esac
@@ -129,8 +137,22 @@ while IFS= read -r commit; do
     advisory "Commit $commit must declare exactly one valid Ticket: identity."
     continue
   fi
+  # A repaired PR head cannot make an ambiguous parent identity unique in an older commit.
+  if [ -n "$spec_id" ]; then
+    commit_spec_matches=0
+    git ls-tree -r --name-only "$commit" .exphere/artifacts/specs .artifacts/specs >"$scratch/commit-spec.paths"
+    while IFS= read -r commit_spec_path; do
+      case "$commit_spec_path" in *.spec.md) ;; *) continue ;; esac
+      read_blob "$commit" "$commit_spec_path"
+      count=$(grep -Fxc -- "- ID: \`$spec_id\`" "$scratch/blob" || :)
+      commit_spec_matches=$((commit_spec_matches + count))
+    done <"$scratch/commit-spec.paths"
+    if [ "$commit_spec_matches" -ne 1 ]; then
+      advisory "Commit $commit parent spec $spec_id is unresolved or ambiguous in its commit tree."
+    fi
+  fi
   matches=0
-  git ls-tree -r --name-only "$commit" .artifacts/tickets >"$scratch/ticket.paths"
+  git ls-tree -r --name-only "$commit" .exphere/artifacts/tickets .artifacts/tickets >"$scratch/ticket.paths"
   while IFS= read -r path; do
     case "$path" in *.ticket.md) ;; *) continue ;; esac
     read_blob "$commit" "$path"
@@ -138,9 +160,20 @@ while IFS= read -r commit; do
       matches=$((matches + 1))
       relation=$(sed -n -e 's/^\*\*Spec:\*\* \[\([^] ]*\) v[^]]*\](.*)[.]\{0,1\}[[:space:]]*$/\1/p' -e 's/^- Spec: \[\([^] ]*\) v[^]]*\](.*)[.]\{0,1\}[[:space:]]*$/\1/p' "$scratch/blob")
       link=$(sed -n -e 's/^\*\*Spec:\*\* \[[^]]*\](\([^)]*\)).*/\1/p' -e 's/^- Spec: \[[^]]*\](\([^)]*\)).*/\1/p' "$scratch/blob")
-      resolved_path=$(jq -nr --arg path ".artifacts/tickets/$link" '$path | split("/") | reduce .[] as $part ([]; if $part == ".." then .[:-1] elif $part == "." or $part == "" then . else . + [$part] end) | join("/")')
+      # A fragment selects a section, not a Git object. Resolve from this ticket, not a fixed root.
+      spec_link_path=${link%%#*}
+      resolved_path=$(jq -nr --arg directory "$(dirname "$path")" --arg link "$spec_link_path" '
+        if $link == "" or ($link | startswith("/")) or ($link | test("^[A-Za-z][A-Za-z0-9+.-]*:")) then ""
+        else ($directory + "/" + $link) | split("/") |
+          reduce .[] as $part ([];
+            if . == null then null
+            elif $part == ".." then (if length == 0 then null else .[:-1] end)
+            elif $part == "." or $part == "" then .
+            else . + [$part] end) |
+          if . == null then "" else join("/") end
+        end')
       if [ "$relation" != "$spec_id" ] || [ "$spec_matches" -ne 1 ]; then advisory "Commit $commit ticket $tickets has a missing, ambiguous, or mismatched Spec relationship."; fi
-      if [ -z "$link" ] || ! git cat-file -e "$commit:$resolved_path" 2>/dev/null; then
+      if [ -z "$resolved_path" ] || ! git cat-file -e "$commit:$resolved_path" 2>/dev/null; then
         advisory "Commit $commit ticket $tickets links to an unavailable Spec artifact."
       else
         read_blob "$commit" "$resolved_path"

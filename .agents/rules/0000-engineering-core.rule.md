@@ -30,4 +30,4 @@ Application source and framework configuration retain their required languages a
 
 Imported from [the engineering core source rule](https://github.com/jonatassales/langdrift/blob/e518dace741d8b9b44dd0a9d851fa3f42506320a/.cursor/rules/00-engineering-core.mdc) at revision `e518dace741d8b9b44dd0a9d851fa3f42506320a`.
 
-The [adaptation register](../../.artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register) preserves Exphere's owner instructions, adopted policies, and accepted contracts instead of elevating imported rules above them. Editor attachment metadata becomes this document's description and applicability; reading a file is distinct from automatic attachment or enforcement.
+The [adaptation register](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register) preserves Exphere's owner instructions, adopted policies, and accepted contracts instead of elevating imported rules above them. Editor attachment metadata becomes this document's description and applicability; reading a file is distinct from automatic attachment or enforcement.

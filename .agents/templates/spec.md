@@ -1,6 +1,6 @@
 # Technical specification
 
-Save the artifact using the SPEC pattern and sequence in the [artifact tracker](../../.artifacts/agents/0006-DD-artifact-tracker.dd.md).
+Save the artifact using the SPEC pattern and sequence in the [artifact tracker](../../.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md).
 
 - ID: `SPEC-<id>`
 - State: `draft`
@@ -30,7 +30,7 @@ Save the artifact using the SPEC pattern and sequence in the [artifact tracker](
 
 ## Verification and decisions
 
-- Affected guardrails: `<FIN/12F IDs and version>`; consult the [policies](../guardrails/README.md).
+- Affected guardrails: `<FIN/12F IDs and version>`; consult the [policy-specific guidance](../rules/README.md#policies-by-context).
 - Applicability, criteria, owners, and planned evidence: `<record only the affected scope; justify non-applicability>`
 - Cost/consumption impact: `<when applicable: allocation, estimate with sources/assumptions, authorized budget, monitoring, and shutdown>`
 - Open issues and exceptions: `<decision section IDs or unverified points; a plan does not prove compliance>`

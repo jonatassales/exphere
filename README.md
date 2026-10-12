@@ -10,10 +10,11 @@ Exphere explores developer experience, agent-assisted delivery, and consumer-com
 | `packages/web/` | Public-intent `@repo/web`; the children-only `ExphereShader` React motion surface, with public design tokens and generated styles. |
 | `apps/website/` | Minimal private Next.js application consuming design tokens and the shared `ExphereShader` in its root layout. |
 | `.exphere/runtimes/<id>/` | Consumer v2 configuration created on demand; not a workspace. Existing `.micro-runtime/<id>/` descriptors remain legacy v1. |
-| `.agents/` | Context, rules, guardrails, skills, and templates. |
-| `.exphere/workflows/` | Common SDD lifecycle and the Dev, design, operations, SRE, and FinOps workflow documents. |
-| `.artifacts/` | Typed PRDs, specs, tickets, research, and design documents in en-US. |
-| `.audits/evidence/` | Contract for evidence from authorized execution. |
+| `.agents/` | Local context, engineering rules, frontend guardrails, templates, and `writing-for-agents`. |
+| `.exphere/harness/` | Shared skills and numbered SDD, FinOps, and Twelve-Factor rules and guardrails. |
+| `.exphere/workflow/` | Common SDD lifecycle and the surviving Dev, operations, SRE, and FinOps workflow documents; the Design document is unavailable. |
+| `.exphere/artifacts/` | Typed PRDs, specs, tickets, research, and design documents in en-US; agent configuration DDs share `design/`. |
+| `.audits/evidence/runs/` | Existing ignored generated-output destination; its former parent README is unavailable. |
 
 The tree has no API or protobuf workspace. The SDK API remains empty. Design and web use versioned public-intent metadata; no package has been published by this work. See the [design contract](packages/design/README.md), [web boundary](packages/web/README.md), and [website commands](apps/website/README.md).
 
@@ -37,11 +38,13 @@ See the [CLI contract](packages/cli/cli/README.md) for commands, descriptors, an
 
 ## Project documents
 
-- [PRD-0001](.artifacts/prd/0001-PRD-exphere.prd.md): product problem, intended outcomes, scope, and unmeasured hypotheses.
-- [DD-0001](.artifacts/design/0001-DD-exphere.dd.md): current boundaries and design direction.
-- [Documentation spec](.artifacts/specs/0001-SPEC-documentation-workflows.spec.md): reference review, workflow relocation, and the documented Dev workflow.
-- [Artifact tracker](.artifacts/agents/0006-DD-artifact-tracker.dd.md): typed filenames, directories, numbering, and states.
-- [Harness](.agents/README.md) and [current workflows](.exphere/workflows/README.md).
+- [PRD-0001](.exphere/artifacts/prd/0001-PRD-exphere.prd.md): product problem, intended outcomes, scope, and unmeasured hypotheses.
+- [DD-0001](.exphere/artifacts/design/0001-DD-exphere.dd.md): current boundaries and design direction.
+- [Documentation spec](.exphere/artifacts/specs/0001-SPEC-documentation-workflows.spec.md): reference review, workflow relocation, and the documented Dev workflow.
+- [Artifact tracker](.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md): typed filenames, directories, numbering, and states.
+- [Local guidance and harness navigation](.agents/README.md) and [current workflows](.exphere/workflow/README.md).
+
+The former skill lock, evidence README, shared guardrail index, CLI-context ADR, and Design workflow document remain removed. Consult surviving documents for their stated scope; no replacement contracts are implied.
 
 ## Developer checks
 
@@ -58,11 +61,11 @@ Use Node.js **22.22.1 or newer**, the pinned pnpm version, Git, and a POSIX shel
 | commit-msg | Validate the proposed message with commitlint's conventional configuration and emit advisory ticket/spec findings from the index. |
 | pre-push | Report outgoing SDD associations and PR-metadata limitations, then run build followed by test for the clean tracked, checked-out outgoing revision. Quality errors and unsupported source revisions block. |
 
-Biome checks supported JS/TS variants, JSON/JSONC, and CSS using the staged configuration. Shell, Markdown, and other unsupported formats are outside this linter's coverage. Existing agent, artifact, and evidence exclusions remain. The harness scanner reads the project working tree; its diagnostic is not staged-content validation. A low score is not a failure or an instruction to expand project scope.
+Biome checks supported JS/TS variants, JSON/JSONC, and CSS using the staged configuration. Shell, Markdown, and other unsupported formats are outside this linter's coverage. Local agent and evidence exclusions remain; artifact and shared-harness exclusions target `.exphere/artifacts/` and `.exphere/harness/`. Runtime configuration under `.exphere/runtimes/` is not blanket-excluded by Biome or Vercel. The harness scanner reads the project working tree; its diagnostic is not staged-content validation. A low score is not a failure or an instruction to expand project scope.
 
 `verifyDepsBeforeRun: false` disables pnpm's implicit installation before run/exec. Hooks require tools already installed; the scanner uses offline npx with installation disabled. Missing tools produce explicit failures/warnings according to the table. Commitlint retains its upstream ignored-message behavior, including merge/revert and fixup/squash messages; ticket associations are evaluated separately.
 
-Follow the [SDD rule](.exphere/rules/sdd.md) and [guardrail](.exphere/guardrails/sdd.md): `Ticket: HOOK-01` is a commit trailer; `Spec: SPEC-GIT-HOOKS-SDD` belongs in the actual PR body. Stable artifact IDs are independent of filename numbers. Unavailable PR metadata warns locally; review must inspect the real PR declaration when it exists. Hooks can be bypassed and do not constitute CI enforcement or authorization to publish.
+Follow the [SDD rule](.exphere/harness/rules/0001-sdd.rule.md) and [guardrail](.exphere/harness/guardrails/0002-sdd.gr.md): `Ticket: HOOK-01` is a commit trailer; `Spec: SPEC-GIT-HOOKS-SDD` belongs in the actual PR body. Stable artifact IDs are independent of filename numbers. Unavailable PR metadata warns locally; review must inspect the real PR declaration when it exists. Hooks can be bypassed and do not constitute CI enforcement or authorization to publish.
 
 ## GitHub agent review
 

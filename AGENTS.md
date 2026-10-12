@@ -20,13 +20,13 @@ The workspace also contains public-intent `@repo/design` and `@repo/web` package
 
 All project content must use **en-US**, including documentation, templates, comments, and user-facing messages. Conversation language may differ. Preserve commands, identifiers, technical meaning, and required public third-party attribution. Keep project content focused on Exphere without unrelated recruiting narratives, private project names, or project-origin comparisons.
 
-The [artifact tracker](.artifacts/agents/0006-DD-artifact-tracker.dd.md) defines the directories, numbering, states, and filename rules for every file under `.artifacts/`. Use four-digit sequences per type and lowercase English slugs:
+The [artifact tracker](.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md) defines the directories, numbering, states, and filename rules for every file under `.exphere/artifacts/`. Use four-digit sequences per type and lowercase English slugs:
 
 - `0001-PRD-<slug>.prd.md` in `prd/`.
 - `0001-SPEC-<slug>.spec.md` in `specs/`.
 - `0001-TICKET-<slug>.ticket.md` in `tickets/`.
 - `0001-RSC-<slug>.rsc.md` in `research/`.
-- `0001-DD-<slug>.dd.md` in `design/`, or `agents/` for existing agent configuration designs.
+- `0001-DD-<slug>.dd.md` in `design/`, including agent configuration designs.
 
 Use lowercase names for every project directory and match their exact spelling in references. Existing filename conventions, including `AGENTS.md`, `README.md`, and typed artifact markers, remain unchanged.
 
@@ -34,39 +34,39 @@ Create only artifacts required for the authorized phase. Preserve stable IDs whe
 
 ## Local guardrails
 
-FinOps and Twelve-Factor are local working and review policies adopted October 10, 2026. For changes to resources, costs, or AI consumption, load [FinOps rules](.agents/rules/finops.md). For services, configuration, dependencies, delivery, or lifecycle, load [Twelve-Factor rules](.agents/rules/twelve-factor.md). Criteria and evidence requirements are in [guardrails](.agents/guardrails/README.md). Load the [SDD rule](.exphere/rules/sdd.md) and [SDD guardrail](.exphere/guardrails/sdd.md) for commits, reviews, and PR delivery. The SDD rule requires two-axis code review before completion, commit, or push, feature-branch delivery from main, and no force pushes. SDD identity findings warn for now; missing evidence is not compliance and this exception does not weaken other policies or quality failures. Local hook behavior is documented in the root README; no CLI/CI policy engine is implemented. Preserve scoped test authorization and unrelated restrictions.
+FinOps and Twelve-Factor are local working and review policies adopted October 10, 2026. For changes to resources, costs, or AI consumption, load [FinOps rules](.exphere/harness/rules/0002-finops.rule.md). For services, configuration, dependencies, delivery, or lifecycle, load [Twelve-Factor rules](.exphere/harness/rules/0003-twelve-factor.rule.md). Criteria and evidence requirements are in the [FinOps guardrail](.exphere/harness/guardrails/0001-finops.gr.md) and [Twelve-Factor guardrail](.exphere/harness/guardrails/0003-twelve-factor.gr.md). The former shared guardrail index is unavailable; consult each surviving policy directly. Load the [SDD rule](.exphere/harness/rules/0001-sdd.rule.md) and [SDD guardrail](.exphere/harness/guardrails/0002-sdd.gr.md) for commits, reviews, and PR delivery. The SDD rule requires two-axis code review before completion, commit, or push, feature-branch delivery from main, and no force pushes. SDD identity findings warn for now; missing evidence is not compliance and this exception does not weaken other policies or quality failures. Local hook behavior is documented in the root README; no CLI/CI policy engine is implemented. Preserve scoped test authorization and unrelated restrictions.
 
 ## Workflow proposal
 
 SDD (Spec Driven Development) is the common lifecycle: capture, discovery, prioritization, specification, preparation, execution, verification, delivery, and learning. The open/closed analogy is a design principle; it does not make the core immutable.
 
-The current [workflow entry](.exphere/workflows/README.md) and [declarative definition](.exphere/workflows/definition.json) describe that lifecycle. Design, operations, SRE, FinOps, and Dev specialize checkpoints, skills, artifacts, and tool connections. They remain documentary drafts without executors or integrations. Code-oriented skills are not universal obligations for every domain.
+The current [workflow entry](.exphere/workflow/README.md) and [declarative definition](.exphere/workflow/definition.json) describe that lifecycle. Design, operations, SRE, FinOps, and Dev specialize checkpoints, skills, artifacts, and tool connections. They remain documentary drafts without executors or integrations. Code-oriented skills are not universal obligations for every domain.
 
-Workflows live in `.exphere/workflows/`. The [Dev workflow](.exphere/workflows/dev/README.md) documents planning, execution, review, audit, and refinement with the installed Pocock skills. The [documentation spec](.artifacts/specs/0001-SPEC-documentation-workflows.spec.md) records this implementation; organizational adoption and automated execution remain unproven.
+Workflows live in `.exphere/workflow/`. The [Dev workflow](.exphere/workflow/dev/README.md) documents planning, execution, review, audit, and refinement with the installed Pocock skills. The [documentation spec](.exphere/artifacts/specs/0001-SPEC-documentation-workflows.spec.md) records this implementation; organizational adoption and automated execution remain unproven.
 
 Artifacts share identification, version, origin, ownership, and traceability while preserving domain-specific content and criteria. Checkpoints may occur before, during, or after execution without introducing another lifecycle. Grow domain adaptations with the responsible specialists and observed needs.
 
-Organizational adoption is unvalidated. Begin with pilots, listen to teams, and measure effort and benefit. A general prohibition on local workflows remains open. Certification, exceptions, and governance require further design; a document does not establish an approved organizational policy. See the [institutional proposal](.artifacts/design/0003-DD-institutional-workflow.dd.md).
+Organizational adoption is unvalidated. Begin with pilots, listen to teams, and measure effort and benefit. A general prohibition on local workflows remains open. Certification, exceptions, and governance require further design; a document does not establish an approved organizational policy. See the [institutional proposal](.exphere/artifacts/design/0003-DD-institutional-workflow.dd.md).
 
-The [workflow profiles](.artifacts/design/0004-DD-workflow-profiles.dd.md) are a separate hypothesis from domain adaptations. They do not justify arbitrary methodology or obligation choices. Start with one pilot before expanding.
+The [workflow profiles](.exphere/artifacts/design/0004-DD-workflow-profiles.dd.md) are a separate hypothesis from domain adaptations. They do not justify arbitrary methodology or obligation choices. Start with one pilot before expanding.
 
 ## Navigation and harness boundary
 
-- [Harness entry](.agents/README.md), [context](.agents/CONTEXT.md), and [working rules](.agents/rules/README.md).
-- [Product requirements](.artifacts/prd/0001-PRD-exphere.prd.md) and [design overview](.artifacts/design/0001-DD-exphere.dd.md).
-- [Domain configuration](.artifacts/agents/0007-DD-domain-model.dd.md) and [microruntime requirements](.artifacts/design/0002-DD-microruntimes.dd.md).
-- [Proposed architecture](.artifacts/design/0005-DD-microruntime-architecture.dd.md), retaining decision ID `ADR-0001`.
-- [Templates](.agents/templates/) and [evidence contract](.audits/evidence/README.md).
+- [Local guidance](.agents/README.md), [context](.agents/CONTEXT.md), and [working rules](.agents/rules/README.md).
+- [Product requirements](.exphere/artifacts/prd/0001-PRD-exphere.prd.md) and [design overview](.exphere/artifacts/design/0001-DD-exphere.dd.md).
+- [Domain configuration](.exphere/artifacts/design/0007-DD-domain-model.dd.md) and [microruntime requirements](.exphere/artifacts/design/0002-DD-microruntimes.dd.md).
+- [Proposed architecture](.exphere/artifacts/design/0005-DD-microruntime-architecture.dd.md), retaining decision ID `ADR-0001`.
+- [Templates](.agents/templates/) and [evidence ownership guidance](.agents/rules/0090-test-ownership.rule.md#evidence-ownership). The former evidence README is unavailable; these formats do not replace that contract.
 
-`.agents/` contains agent guidance, rules, guardrails, skills, and templates. Workflow documents live separately in `.exphere/workflows/`. The harness also includes project artifacts, evidence, the SDK and CLI, and consumer configuration created on demand. `.agents/` is not the entire harness. The [project context](.agents/CONTEXT.md) records the intended CLI installation and development workflow; project-directory generation is not implemented.
+`.agents/` contains local guidance, engineering rules, frontend guardrails, templates, and `writing-for-agents`. Shared skills and numbered SDD, FinOps, and Twelve-Factor policies live in `.exphere/harness/`. Workflow documents live in `.exphere/workflow/`; typed artifacts, including agent configuration DDs in `design/`, live in `.exphere/artifacts/`. The harness also includes project artifacts, evidence, the SDK and CLI, and consumer configuration created on demand. `.agents/` is not the entire harness. The [project context](.agents/CONTEXT.md) records the intended CLI installation and development workflow; project-directory generation is not implemented.
 
 The SDK and CLI are separate `@exphere/sdk` and `@exphere/cli` packages. `ex runtime <id> init` creates an incomplete v2 descriptor at `.exphere/runtimes/<id>/schema.json`; `init --guided` writes only explicitly selected native configuration. Existing `.micro-runtime` v1 configurations remain available through the explicit legacy contract. For configuration work, read the [CLI contract](packages/cli/cli/README.md). Create no speculative directory trees.
 
 ## Agent skills
 
-Installed skills and local adaptations are described in the [skill configuration](.artifacts/agents/0008-DD-agent-skills.dd.md) and [lock](.agents/skills.lock.json). Keep public third-party attribution and accurately report any missing local license material.
+Installed skills and local adaptations are described in the [skill configuration](.exphere/artifacts/design/0008-DD-agent-skills.dd.md); the former skill lock is unavailable. Keep public third-party attribution and accurately report any missing local license material.
 
-Load only skills relevant to the authorized phase. If the executor has no Skill tool, read the relevant `.agents/skills/<name>/SKILL.md`. Automatic discovery in that directory has not been verified. Preserve invocation boundaries; a documented phase does not authorize the next one. Reference installation commands do not authorize running them.
+Load only skills relevant to the authorized phase. If the executor has no Skill tool, read the relevant `.exphere/harness/skills/<name>/SKILL.md`; for `writing-for-agents`, read `.agents/skills/writing-for-agents/SKILL.md`. Automatic discovery in that directory has not been verified. Preserve invocation boundaries; a documented phase does not authorize the next one. Reference installation commands do not authorize running them.
 
 Project rules and explicit user instructions take precedence over skill defaults. A user can authorize the current phase without adopting the entire institutional proposal. Do not request an already unambiguous authorization again.
 

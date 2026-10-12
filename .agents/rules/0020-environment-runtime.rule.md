@@ -6,7 +6,7 @@ Handle environment variables and other external inputs at the operation that use
 
 ## Applies when
 
-Changing JavaScript or TypeScript operations that consume environment variables, response bodies, network calls, filesystem reads, or third-party SDK results. Apply the [Twelve-Factor policy](twelve-factor.md) when the change affects configuration or service lifecycle.
+Changing JavaScript or TypeScript operations that consume environment variables, response bodies, network calls, filesystem reads, or third-party SDK results. Apply the [Twelve-Factor policy](../../.exphere/harness/rules/0003-twelve-factor.rule.md) when the change affects configuration or service lifecycle.
 
 ## Configuration access
 
@@ -30,4 +30,4 @@ Use `try/catch` for external or runtime boundaries. A pure internal function fai
 
 Imported from [the environment and runtime source rule](https://github.com/jonatassales/langdrift/blob/e518dace741d8b9b44dd0a9d851fa3f42506320a/.cursor/rules/20-environment-runtime.mdc) at revision `e518dace741d8b9b44dd0a9d851fa3f42506320a`.
 
-The [adaptation register](../../.artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register) preserves mounted files, secret references, and explicitly safe local defaults under Exphere's Twelve-Factor contract. Applicability follows the actual language and operation rather than obsolete source-tree globs. No wrapper, configuration migration, or runtime implementation is introduced by this document.
+The [adaptation register](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register) preserves mounted files, secret references, and explicitly safe local defaults under Exphere's Twelve-Factor contract. Applicability follows the actual language and operation rather than obsolete source-tree globs. No wrapper, configuration migration, or runtime implementation is introduced by this document.

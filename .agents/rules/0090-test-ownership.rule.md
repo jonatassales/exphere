@@ -26,7 +26,7 @@ Use only checks that exist in the current repository and are authorized for the 
 
 ## Evidence ownership
 
-Follow the [evidence contract](../../.audits/evidence/README.md). The evidence guidance is tracked; execution logs and reports belong in the ignored `runs/<run-id>/` area defined by that contract. Do not apply a blanket ignore policy to `.audits/`.
+The former `.audits/evidence/README.md` is unavailable; no replacement general evidence contract is asserted here. Execution logs and reports keep the existing `.audits/evidence/runs/<run-id>/` destination, preserved by [Git ignore configuration](../../.gitignore) and the browser-output configuration. Use the surviving [verification plan](../templates/verification-plan.md) and [review format](../templates/review.md) to record authorized scope, revision, methods, outcomes, and limitations in the owning artifact. These formats do not recreate the removed contract. Do not apply a blanket Git ignore policy to `.audits/`.
 
 Select publishable evidence deliberately and sanitize sensitive data. A local output may reference other local outputs, but an ignored local path is not accessible publication evidence. Summarize validation in the delivery record and link only selected evidence that recipients can inspect.
 
@@ -36,4 +36,4 @@ Record the actual scope, source revision, checks, results, and remaining gaps. A
 
 Imported from [the test ownership source rule](https://github.com/jonatassales/langdrift/blob/e518dace741d8b9b44dd0a9d851fa3f42506320a/.cursor/rules/90-test-ownership.mdc) at revision `e518dace741d8b9b44dd0a9d851fa3f42506320a`.
 
-The [adaptation register](../../.artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register) replaces an assumed runtime path, source-specific browser-runner ban, unavailable boundary-check command, and blanket audit exclusion with Exphere's actual ownership, permissions, and evidence contracts. This document creates no tests, runner, directories, or enforcement.
+The [adaptation register](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register) replaces an assumed runtime path, source-specific browser-runner ban, unavailable boundary-check command, and blanket audit exclusion with Exphere's actual ownership, permissions, and evidence contracts. This document creates no tests, runner, directories, or enforcement.

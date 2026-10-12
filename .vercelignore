@@ -1,7 +1,8 @@
 .git
 .vercel
 .agents
-.artifacts
+.exphere/artifacts
+.exphere/harness
 .audits
 .cursor
 .codex
