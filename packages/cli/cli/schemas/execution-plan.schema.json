@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:exphere:consumer-harness:execution-plan:1",
+  "title": "Non-authoritative execution plan v1",
+  "$comment": "Reference contract v1. Offline validation supports only the documented bundled vocabulary; no execution authorization is conveyed.",
+  "type": "object",
+  "properties": {
+    "formatVersion": {
+      "const": 1
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "cycleId": {
+      "$ref": "#/$defs/id"
+    },
+    "status": {
+      "const": "proposal"
+    },
+    "priceRevision": {
+      "$ref": "#/$defs/revision"
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "profileId": {
+            "$ref": "#/$defs/id"
+          },
+          "effort": {
+            "enum": [
+              "none",
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "purpose": {
+            "enum": [
+              "implementation",
+              "verification",
+              "cleanup",
+              "planning"
+            ]
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "alternatives": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/id"
+            },
+            "minItems": 1,
+            "maxItems": 8
+          },
+          "maxInputTokens": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000
+          },
+          "maxOutputTokens": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000
+          },
+          "estimatedMicros": {
+            "$ref": "#/$defs/money"
+          },
+          "uncertainty": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "requiredCheckIds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/id"
+            },
+            "minItems": 1,
+            "maxItems": 16
+          }
+        },
+        "required": [
+          "id",
+          "profileId",
+          "effort",
+          "purpose",
+          "rationale",
+          "alternatives",
+          "maxInputTokens",
+          "maxOutputTokens",
+          "estimatedMicros",
+          "uncertainty",
+          "requiredCheckIds"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 32
+    },
+    "infrastructureHorizonSeconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 86400
+    },
+    "qualityCriterion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    }
+  },
+  "required": [
+    "formatVersion",
+    "synthetic",
+    "cycleId",
+    "status",
+    "priceRevision",
+    "tasks",
+    "infrastructureHorizonSeconds",
+    "qualityCriterion"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048,
+      "pattern": "^[a-z][a-z0-9-]{0,63}$"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.?(?:/|$))(?!.*//)(?!.*\\\\)(?!.*[\u0000-\u001f\u007f]).*[^/]$"
+    },
+    "money": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 12,
+      "pattern": "^(0|[1-9][0-9]{0,11})$"
+    },
+    "hash": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "revision": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{0,127}$"
+    },
+    "time": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20,
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    }
+  }
+}

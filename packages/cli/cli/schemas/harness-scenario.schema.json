@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:exphere:consumer-harness:harness-scenario:1",
+  "title": "Synthetic scenario manifest v1",
+  "$comment": "Reference contract v1. Offline validation supports only the documented bundled vocabulary; no execution authorization is conveyed.",
+  "type": "object",
+  "properties": {
+    "formatVersion": {
+      "const": 1
+    },
+    "synthetic": {
+      "const": true
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "contextRef": {
+      "$ref": "#/$defs/path"
+    },
+    "planRef": {
+      "$ref": "#/$defs/path"
+    },
+    "accountingRef": {
+      "$ref": "#/$defs/path"
+    },
+    "eventsRef": {
+      "$ref": "#/$defs/path"
+    },
+    "reportRef": {
+      "$ref": "#/$defs/path"
+    },
+    "expectedRef": {
+      "$ref": "#/$defs/path"
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "attemptId": {
+          "$ref": "#/$defs/id"
+        },
+        "accountId": {
+          "$ref": "#/$defs/id"
+        },
+        "category": {
+          "enum": [
+            "ai",
+            "infrastructure"
+          ]
+        },
+        "purpose": {
+          "enum": [
+            "ordinary",
+            "planning",
+            "verification",
+            "cleanup"
+          ]
+        },
+        "profileId": {
+          "$ref": "#/$defs/id"
+        },
+        "effort": {
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "bounded": {
+          "type": "boolean"
+        },
+        "reservationMicros": {
+          "$ref": "#/$defs/money"
+        },
+        "maxInputTokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "maxOutputTokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "currency": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 3,
+          "pattern": "^[A-Z]{3}$"
+        }
+      },
+      "required": [
+        "attemptId",
+        "accountId",
+        "category",
+        "purpose",
+        "profileId",
+        "effort",
+        "bounded",
+        "reservationMicros",
+        "maxInputTokens",
+        "maxOutputTokens",
+        "currency"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "formatVersion",
+    "synthetic",
+    "id",
+    "contextRef",
+    "planRef",
+    "accountingRef",
+    "eventsRef",
+    "reportRef",
+    "expectedRef",
+    "request"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048,
+      "pattern": "^[a-z][a-z0-9-]{0,63}$"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.?(?:/|$))(?!.*//)(?!.*\\\\)(?!.*[\u0000-\u001f\u007f]).*[^/]$"
+    },
+    "money": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 12,
+      "pattern": "^(0|[1-9][0-9]{0,11})$"
+    },
+    "hash": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "revision": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{0,127}$"
+    },
+    "time": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20,
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    }
+  }
+}
