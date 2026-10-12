@@ -26,4 +26,4 @@ Keep useful development and debugging inspectability in mind for shared state. C
 
 Source at `e518dace741d8b9b44dd0a9d851fa3f42506320a`: [Jotai guardrail](https://github.com/jonatassales/langdrift/blob/e518dace741d8b9b44dd0a9d851fa3f42506320a/.agents/guardrails/jotai.md).
 
-Adaptation: source-application examples and legacy logger identity are removed while preserving optional adoption, local state, domain ownership, and inspectability. No universal directory structure, registry, logger, or state demonstration is introduced. See [DEC-RULE-01](../../.artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register).
+Adaptation: source-application examples and legacy logger identity are removed while preserving optional adoption, local state, domain ownership, and inspectability. No universal directory structure, registry, logger, or state demonstration is introduced. See [DEC-RULE-01](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register).

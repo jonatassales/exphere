@@ -9,10 +9,11 @@ trap 'exit 130' INT TERM
 warn() { printf 'SDD WARN: %s\n' "$*" >&2; }
 
 objects() {
+  # Each inspected tree may use either layout; count copies at both paths separately.
   if [ "$sdd_revision" = index ]; then
-    git ls-files --stage -- ".artifacts/$1/" | awk '$3 == 0 { print $2 }'
+    git ls-files --stage -- ".exphere/artifacts/$1/" ".artifacts/$1/" | awk '$3 == 0 { print $2 }'
   else
-    git ls-tree -r "$sdd_revision" -- ".artifacts/$1/" | awk '$2 == "blob" { print $3 }'
+    git ls-tree -r "$sdd_revision" -- ".exphere/artifacts/$1/" ".artifacts/$1/" | awk '$2 == "blob" { print $3 }'
   fi
 }
 

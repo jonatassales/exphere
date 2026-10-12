@@ -208,55 +208,55 @@ traceability() {
   expect 0 sh .husky/_/commit-msg "$test_area/message"
   contains 'SDD WARN'
   contains 'exactly one Ticket'
-  mkdir -p .artifacts/tickets .artifacts/specs
-  printf '# TEST-01: Fixture ticket\n\n**Spec:** [SPEC-TEST v1](../specs/0099-SPEC-test.spec.md).\n' >.artifacts/tickets/0098-TICKET-test.ticket.md
-  printf '# Fixture spec\n\n- ID: `SPEC-TEST`\n' >.artifacts/specs/0099-SPEC-test.spec.md
+  mkdir -p .exphere/artifacts/tickets .exphere/artifacts/specs
+  printf '# TEST-01: Fixture ticket\n\n**Spec:** [SPEC-TEST v1](../specs/0099-SPEC-test.spec.md).\n' >.exphere/artifacts/tickets/0098-TICKET-test.ticket.md
+  printf '# Fixture spec\n\n- ID: `SPEC-TEST`\n' >.exphere/artifacts/specs/0099-SPEC-test.spec.md
   printf 'feat: fixture\n\nTicket: TEST-01\n' >"$test_area/message"
   expect 0 sh .husky/_/commit-msg "$test_area/message"
   contains 'ticket TEST-01 resolves to 0 artifacts'
-  git add .artifacts
+  git add .exphere/artifacts
   expect 0 sh .husky/_/commit-msg "$test_area/message"
   contains 'TEST-01 -> SPEC-TEST'
-  printf '# Changed only in working tree\n' >.artifacts/tickets/0098-TICKET-test.ticket.md
+  printf '# Changed only in working tree\n' >.exphere/artifacts/tickets/0098-TICKET-test.ticket.md
   expect 0 sh .husky/_/commit-msg "$test_area/message"
   contains 'TEST-01 -> SPEC-TEST'
   printf 'Ticket: TEST-02\n' >>"$test_area/message"
   expect 0 sh .husky/_/commit-msg "$test_area/message"
   contains 'exactly one Ticket'
   printf 'feat: fixture\n\nTicket: TEST-01\n' >"$test_area/message"
-  git checkout -- .artifacts/tickets/0098-TICKET-test.ticket.md
-  cp .artifacts/tickets/0098-TICKET-test.ticket.md .artifacts/tickets/0100-TICKET-duplicate.ticket.md
-  git add .artifacts
+  git checkout -- .exphere/artifacts/tickets/0098-TICKET-test.ticket.md
+  cp .exphere/artifacts/tickets/0098-TICKET-test.ticket.md .exphere/artifacts/tickets/0100-TICKET-duplicate.ticket.md
+  git add .exphere/artifacts
   expect 0 sh .husky/_/commit-msg "$test_area/message"
   contains 'resolves to 2 artifacts'
-  git rm -fq .artifacts/tickets/0100-TICKET-duplicate.ticket.md
-  printf '\n**Spec:** [SPEC-OTHER v1](other.md).\n' >>.artifacts/tickets/0098-TICKET-test.ticket.md
-  git add .artifacts/tickets/0098-TICKET-test.ticket.md
+  git rm -fq .exphere/artifacts/tickets/0100-TICKET-duplicate.ticket.md
+  printf '\n**Spec:** [SPEC-OTHER v1](other.md).\n' >>.exphere/artifacts/tickets/0098-TICKET-test.ticket.md
+  git add .exphere/artifacts/tickets/0098-TICKET-test.ticket.md
   expect 0 sh .husky/_/commit-msg "$test_area/message"
   contains 'must declare one parent Spec'
-  printf '# TEST-01: Fixture ticket\n\n**Spec:** [SPEC-TEST v1](../specs/0099-SPEC-test.spec.md).\n' >.artifacts/tickets/0098-TICKET-test.ticket.md
-  git add .artifacts/tickets/0098-TICKET-test.ticket.md
-  cp .artifacts/specs/0099-SPEC-test.spec.md .artifacts/specs/0100-SPEC-duplicate.spec.md
-  git add .artifacts/specs/0100-SPEC-duplicate.spec.md
+  printf '# TEST-01: Fixture ticket\n\n**Spec:** [SPEC-TEST v1](../specs/0099-SPEC-test.spec.md).\n' >.exphere/artifacts/tickets/0098-TICKET-test.ticket.md
+  git add .exphere/artifacts/tickets/0098-TICKET-test.ticket.md
+  cp .exphere/artifacts/specs/0099-SPEC-test.spec.md .exphere/artifacts/specs/0100-SPEC-duplicate.spec.md
+  git add .exphere/artifacts/specs/0100-SPEC-duplicate.spec.md
   expect 0 sh .husky/_/commit-msg "$test_area/message"
   contains 'parent spec SPEC-TEST resolves to 2 artifacts'
-  git rm -fq .artifacts/specs/0100-SPEC-duplicate.spec.md
-  git rm --cached -q .artifacts/specs/0099-SPEC-test.spec.md
+  git rm -fq .exphere/artifacts/specs/0100-SPEC-duplicate.spec.md
+  git rm --cached -q .exphere/artifacts/specs/0099-SPEC-test.spec.md
   expect 0 sh .husky/_/commit-msg "$test_area/message"
   contains 'parent spec SPEC-TEST resolves to 0 artifacts'
   git add .
   git -c core.hooksPath=/dev/null commit -qm "$(cat "$test_area/message")"
   first=$(git rev-parse HEAD)
-  printf '# Working-tree artifact is not evidence\n' >.artifacts/tickets/0098-TICKET-test.ticket.md
+  printf '# Working-tree artifact is not evidence\n' >.exphere/artifacts/tickets/0098-TICKET-test.ticket.md
   zero=0000000000000000000000000000000000000000
   printf 'refs/heads/main %s refs/heads/main %s\n' "$first" "$zero" >"$test_area/updates"
   expect 0 sh scripts/hooks/sdd.sh push origin "$test_area/updates"
   contains "$first: TEST-01 -> SPEC-TEST"
   contains 'PR-to-spec verification unavailable'
-  git checkout -- .artifacts/tickets/0098-TICKET-test.ticket.md
-  printf '# TEST-02: Another ticket\n\n- Spec: [SPEC-OTHER v1](../specs/0100-SPEC-other.spec.md).\n' >.artifacts/tickets/0100-TICKET-other.ticket.md
-  printf '# Another spec\n\n- ID: `SPEC-OTHER`\n' >.artifacts/specs/0100-SPEC-other.spec.md
-  git add .artifacts
+  git checkout -- .exphere/artifacts/tickets/0098-TICKET-test.ticket.md
+  printf '# TEST-02: Another ticket\n\n- Spec: [SPEC-OTHER v1](../specs/0100-SPEC-other.spec.md).\n' >.exphere/artifacts/tickets/0100-TICKET-other.ticket.md
+  printf '# Another spec\n\n- ID: `SPEC-OTHER`\n' >.exphere/artifacts/specs/0100-SPEC-other.spec.md
+  git add .exphere/artifacts
   git -c core.hooksPath=/dev/null commit -qm "$(printf 'feat: next fixture\n\nTicket: TEST-02')"
   second=$(git rev-parse HEAD)
   printf 'refs/heads/main %s refs/heads/main %s\nrefs/heads/other %s refs/heads/other %s\n' "$second" "$zero" "$second" "$zero" >"$test_area/updates"
@@ -276,6 +276,96 @@ traceability() {
   printf 'PASS: advisory SDD, index/tree identities, duplicates, outgoing ranges, deduplication, and coverage warnings\n' 
 }
 
+layout_traceability() {
+  fixture
+  mkdir -p .exphere/artifacts/tickets .exphere/artifacts/specs
+  printf '# LAYOUT-01: Moved ticket\n\n**Spec:** [SPEC-LAYOUT v1](../specs/0099-SPEC-layout.spec.md).\n' >.exphere/artifacts/tickets/0098-TICKET-layout.ticket.md
+  printf '# Layout spec\n\n- ID: `SPEC-LAYOUT`\n' >.exphere/artifacts/specs/0099-SPEC-layout.spec.md
+  printf 'feat: layout fixture\n\nTicket: LAYOUT-01\n' >"$test_area/message"
+  expect 0 sh scripts/hooks/sdd.sh commit "$test_area/message"
+  contains 'ticket LAYOUT-01 resolves to 0 artifacts'
+  git add .exphere/artifacts
+  expect 0 sh scripts/hooks/sdd.sh commit "$test_area/message"
+  contains 'LAYOUT-01 -> SPEC-LAYOUT'
+  # A duplicate present only in the working tree is not index evidence.
+  mkdir -p .artifacts/tickets
+  cp .exphere/artifacts/tickets/0098-TICKET-layout.ticket.md .artifacts/tickets/0098-TICKET-layout.ticket.md
+  expect 0 sh scripts/hooks/sdd.sh commit "$test_area/message"
+  contains 'LAYOUT-01 -> SPEC-LAYOUT'
+  rm .artifacts/tickets/0098-TICKET-layout.ticket.md
+  # An unstaged spec edit cannot invalidate the staged relationship either.
+  printf '# Unstaged spec is not evidence\n' >.exphere/artifacts/specs/0099-SPEC-layout.spec.md
+  expect 0 sh scripts/hooks/sdd.sh commit "$test_area/message"
+  contains 'LAYOUT-01 -> SPEC-LAYOUT'
+  git checkout -- .exphere/artifacts/specs/0099-SPEC-layout.spec.md
+  printf '# Unstaged identity is not evidence\n' >.exphere/artifacts/tickets/0098-TICKET-layout.ticket.md
+  expect 0 sh scripts/hooks/sdd.sh commit "$test_area/message"
+  contains 'LAYOUT-01 -> SPEC-LAYOUT'
+  git checkout -- .exphere/artifacts/tickets/0098-TICKET-layout.ticket.md
+
+  # Identical blobs at different paths still represent duplicate artifacts.
+  mkdir -p .artifacts/tickets .artifacts/specs
+  cp .exphere/artifacts/tickets/0098-TICKET-layout.ticket.md .artifacts/tickets/0098-TICKET-layout.ticket.md
+  git add .artifacts
+  expect 0 sh scripts/hooks/sdd.sh commit "$test_area/message"
+  contains 'ticket LAYOUT-01 resolves to 2 artifacts'
+  git rm -fq .artifacts/tickets/0098-TICKET-layout.ticket.md
+  cp .exphere/artifacts/specs/0099-SPEC-layout.spec.md .artifacts/specs/0099-SPEC-layout.spec.md
+  git add .artifacts
+  expect 0 sh scripts/hooks/sdd.sh commit "$test_area/message"
+  contains 'parent spec SPEC-LAYOUT resolves to 2 artifacts'
+  git rm -fq .artifacts/specs/0099-SPEC-layout.spec.md
+
+  # Build pre-move and post-move commits, then assess their own trees together.
+  rmdir .artifacts/tickets .artifacts/specs .artifacts 2>/dev/null || :
+  git mv .exphere/artifacts .artifacts
+  git add scripts .gitignore
+  git -c core.hooksPath=/dev/null commit -qm "$(cat "$test_area/message")"
+  layout_legacy=$(git rev-parse HEAD)
+  expect 0 sh scripts/hooks/sdd.sh commit "$test_area/message"
+  contains 'LAYOUT-01 -> SPEC-LAYOUT'
+  mkdir -p .exphere/artifacts
+  git mv .artifacts/tickets .exphere/artifacts/tickets
+  printf '# LAYOUT-01: Moved ticket\n\n**Spec:** [SPEC-LAYOUT v1](../../../.artifacts/specs/0099-SPEC-layout.spec.md).\n' >.exphere/artifacts/tickets/0098-TICKET-layout.ticket.md
+  git add .exphere/artifacts/tickets
+  git -c core.hooksPath=/dev/null commit -qm "$(cat "$test_area/message")"
+  layout_partial=$(git rev-parse HEAD)
+  git mv .artifacts/specs .exphere/artifacts/specs
+  printf '# LAYOUT-01: Moved ticket\n\n**Spec:** [SPEC-LAYOUT v1](../specs/0099-SPEC-layout.spec.md).\n' >.exphere/artifacts/tickets/0098-TICKET-layout.ticket.md
+  git add .exphere/artifacts/tickets
+  git -c core.hooksPath=/dev/null commit -qm "$(cat "$test_area/message")"
+  layout_current=$(git rev-parse HEAD)
+  printf '# Working tree cannot repair either commit\n' >.exphere/artifacts/tickets/0098-TICKET-layout.ticket.md
+  printf 'refs/heads/main %s refs/heads/main 0000000000000000000000000000000000000000\n' "$layout_current" >"$test_area/updates"
+  expect 0 sh scripts/hooks/sdd.sh push origin "$test_area/updates"
+  contains "$layout_legacy: LAYOUT-01 -> SPEC-LAYOUT"
+  contains "$layout_partial: LAYOUT-01 -> SPEC-LAYOUT"
+  contains "$layout_current: LAYOUT-01 -> SPEC-LAYOUT"
+  [ "$(grep -c 'identity only' "$test_area/output")" = 3 ]
+  # A later clean tree must not hide ambiguity in an earlier commit.
+  git checkout -- .exphere/artifacts/tickets/0098-TICKET-layout.ticket.md
+  mkdir -p .artifacts/tickets .artifacts/specs
+  cp .exphere/artifacts/tickets/0098-TICKET-layout.ticket.md .artifacts/tickets/
+  git add .artifacts
+  git -c core.hooksPath=/dev/null commit -qm "$(cat "$test_area/message")"
+  layout_duplicate_ticket=$(git rev-parse HEAD)
+  git rm -q .artifacts/tickets/0098-TICKET-layout.ticket.md
+  cp .exphere/artifacts/specs/0099-SPEC-layout.spec.md .artifacts/specs/
+  git add .artifacts
+  git -c core.hooksPath=/dev/null commit -qm "$(cat "$test_area/message")"
+  layout_duplicate_spec=$(git rev-parse HEAD)
+  git rm -q .artifacts/specs/0099-SPEC-layout.spec.md
+  git -c core.hooksPath=/dev/null commit -qm "$(cat "$test_area/message")"
+  layout_repaired=$(git rev-parse HEAD)
+  printf 'refs/heads/main %s refs/heads/main %s\n' "$layout_repaired" "$layout_current" >"$test_area/updates"
+  expect 0 sh scripts/hooks/sdd.sh push origin "$test_area/updates"
+  contains "$layout_duplicate_ticket: ticket LAYOUT-01 resolves to 2 artifacts"
+  contains "$layout_duplicate_spec: parent spec SPEC-LAYOUT resolves to 2 artifacts"
+  contains "$layout_repaired: LAYOUT-01 -> SPEC-LAYOUT"
+  [ "$(grep -c 'identity only' "$test_area/output")" = 1 ]
+  printf 'PASS: canonical index, legacy and mixed commit trees, cross-root duplicates, and later repairs cannot alter history\n'
+}
+
 deletion_without_head() {
   fixture
   expect 0 sh scripts/hooks/install.sh
@@ -290,7 +380,8 @@ case "${1:-all}" in
   staged) staged ;;
   push) push_gate ;;
   sdd) traceability ;;
+  layout) layout_traceability ;;
   unborn) deletion_without_head ;;
-  all) installation; staged; push_gate; traceability; deletion_without_head ;;
+  all) installation; staged; push_gate; traceability; layout_traceability; deletion_without_head ;;
   *) printf 'Unknown hook test group: %s\n' "$1" >&2; exit 2 ;;
 esac

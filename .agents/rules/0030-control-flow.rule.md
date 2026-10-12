@@ -22,4 +22,4 @@ New control flow stays within two conditional levels. Beyond that, use a guard, 
 
 Imported from [the control flow source rule](https://github.com/jonatassales/langdrift/blob/e518dace741d8b9b44dd0a9d851fa3f42506320a/.cursor/rules/30-control-flow.mdc) at revision `e518dace741d8b9b44dd0a9d851fa3f42506320a`.
 
-The [adaptation register](../../.artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register) converts editor-specific metadata into readable applicability. The source control-flow requirements are retained; this file does not configure a linter or prove enforcement.
+The [adaptation register](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register) converts editor-specific metadata into readable applicability. The source control-flow requirements are retained; this file does not configure a linter or prove enforcement.

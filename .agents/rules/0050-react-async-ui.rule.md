@@ -18,4 +18,4 @@ Add `template.tsx` only when a route must remount on navigation. Use the framewo
 
 Source at `e518dace741d8b9b44dd0a9d851fa3f42506320a`: [React async UI rule](https://github.com/jonatassales/langdrift/blob/e518dace741d8b9b44dd0a9d851fa3f42506320a/.cursor/rules/50-react-async-ui.mdc).
 
-Adaptation: obsolete source globs become technology-based applicability, and the source website's route state is replaced by a conditional requirement. Server Component and route-file guidance applies only where the selected framework supports it. See [DEC-RULE-01](../../.artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register).
+Adaptation: obsolete source globs become technology-based applicability, and the source website's route state is replaced by a conditional requirement. Server Component and route-file guidance applies only where the selected framework supports it. See [DEC-RULE-01](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register).

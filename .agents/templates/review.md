@@ -1,6 +1,6 @@
 # Change and evidence review
 
-Use this format within the relevant typed artifact, following the [artifact tracker](../../.artifacts/agents/0006-DD-artifact-tracker.dd.md).
+Use this format within the relevant typed artifact, following the [artifact tracker](../../.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md).
 
 - Section ID: `REV-<id>`
 - State: `draft`
@@ -24,7 +24,7 @@ Use this format within the relevant typed artifact, following the [artifact trac
 
 ## Affected guardrails
 
-Record only criteria applicable to the change, using the [policy states](../guardrails/README.md).
+Record only criteria applicable to the change, using each [surviving policy](../rules/README.md#policies-by-context). The former shared assessment index is unavailable; this format does not replace it or grant exception authority. SDD retains its explicitly advisory assessment in its own guardrail.
 
 | Policy/version and FIN/12F ID | Target/revision | Method and evidence | State | Owner and open issue/exception |
 | --- | --- | --- | --- | --- |

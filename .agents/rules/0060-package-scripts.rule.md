@@ -24,4 +24,4 @@ Keep necessary container orchestration at the container boundary. Select command
 
 Imported from [the package scripts source rule](https://github.com/jonatassales/langdrift/blob/e518dace741d8b9b44dd0a9d851fa3f42506320a/.cursor/rules/60-package-scripts.mdc) at revision `e518dace741d8b9b44dd0a9d851fa3f42506320a`.
 
-The [adaptation register](../../.artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register) replaces the source's shell-wrapper prohibition and direct manifest framework commands with Exphere's required `.sh` boundary. Atomic operations and root workspace orchestration remain intact. This documentation import does not rewrite manifests or add scripts.
+The [adaptation register](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register) replaces the source's shell-wrapper prohibition and direct manifest framework commands with Exphere's required `.sh` boundary. Atomic operations and root workspace orchestration remain intact. This documentation import does not rewrite manifests or add scripts.

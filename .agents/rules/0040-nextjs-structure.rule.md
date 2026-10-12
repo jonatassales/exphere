@@ -38,4 +38,4 @@ Framework-convention assets and endpoints stay directly under `src/app/`: icons,
 
 Sources at `e518dace741d8b9b44dd0a9d851fa3f42506320a`: [Next.js structure rule](https://github.com/jonatassales/langdrift/blob/e518dace741d8b9b44dd0a9d851fa3f42506320a/.cursor/rules/40-nextjs-structure.mdc) and [Next.js guardrail](https://github.com/jonatassales/langdrift/blob/e518dace741d8b9b44dd0a9d851fa3f42506320a/.agents/guardrails/nextjs.md).
 
-Adaptation: obsolete source paths and contradictory proxy placement are replaced by conditional ownership and version verification. Source examples do not create application directories, mandatory state buckets, a proxy, or shared component exports. See [DEC-RULE-01](../../.artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register).
+Adaptation: obsolete source paths and contradictory proxy placement are replaced by conditional ownership and version verification. Source examples do not create application directories, mandatory state buckets, a proxy, or shared component exports. See [DEC-RULE-01](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register).

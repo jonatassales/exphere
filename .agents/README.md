@@ -1,18 +1,22 @@
-# Reusable harness — proposal
+# Local agent guidance
 
-This directory contains the generic, reusable part of the harness. The intended CLI bootstrap is recorded in the [project context](CONTEXT.md). Project-directory generation is not implemented, and the broader distribution contract for this harness remains undefined.
+This directory contains repository-local guidance, engineering rules, frontend guardrails, templates, and `writing-for-agents`. Shared skills and numbered policies live in `.exphere/harness/`. The intended CLI bootstrap is recorded in the [project context](CONTEXT.md); project-directory generation and the broader harness distribution contract remain unimplemented.
 
 | Entry | Responsibility |
 | --- | --- |
 | [CONTEXT.md](CONTEXT.md) | Context and boundaries of this consumer project |
-| [rules/](rules/README.md) | Agent behavior, FinOps/Twelve-Factor application, and skill use |
-| [guardrails/](guardrails/README.md) | Adopted local FinOps/Twelve-Factor policies and evolving governance contracts |
-| [skills/](skills/) | Pocock skills and four FinOps skills, with sources and hashes in the [lock](skills.lock.json) |
-| [templates/](templates/) | Reusable artifact formats |
-| [Workflows](../.exphere/workflows/README.md) | Common SDD architecture and five domain workflows, maintained outside this directory |
+| [rules/](rules/README.md) | Local engineering rules and policy-reading conditions |
+| [guardrails/](guardrails/) | Retained frontend, Next.js, Tailwind, and Jotai guidance; the former shared guardrail index is unavailable |
+| [writing-for-agents](skills/writing-for-agents/SKILL.md) | Local agent-facing writing guidance and skill mechanics |
+| [Shared skills](../.exphere/harness/skills/) | Workflow and FinOps skills, with retained [provenance and limitations](../.exphere/artifacts/design/0008-DD-agent-skills.dd.md) |
+| [Shared policies](rules/README.md#policies-by-context) | Numbered SDD, FinOps, and Twelve-Factor rules and guardrails under `.exphere/harness/` |
+| [templates/](templates/) | Reusable artifact formats, not replacement policy or evidence contracts |
+| [Workflows](../.exphere/workflow/README.md) | Common SDD architecture and four surviving domain documents: Dev, operations, SRE, and FinOps |
 
-The harness also includes workflow documents in `.exphere/workflows/` and relies on context and contracts in `.artifacts/`, evidence in `.audits/`, the CLI in `packages/cli/cli/`, and consumer configuration in `.micro-runtime/`, created on demand. `.agents/` is not the entire harness. The boundary between distributable content and consumer configuration still needs to be defined.
+The harness also relies on typed artifacts in `.exphere/artifacts/`, the CLI in `packages/cli/cli/`, and consumer runtime configuration created on demand in `.exphere/runtimes/` (or legacy `.micro-runtime/`). `.agents/` is not the entire harness. The boundary between distributable content and consumer configuration still needs to be defined.
 
-The previous FinOps synthesis and local Pocock license file are absent. Consult the [skill provenance and limitations](../.artifacts/agents/0008-DD-agent-skills.dd.md); the lock records provenance but does not prove that deleted files remain available. The current FinOps policies are in rules and guardrails. The [SDD rule](../.exphere/rules/sdd.md) and [SDD guardrail](../.exphere/guardrails/sdd.md) live under `.exphere/` and provide advisory commit/ticket and PR/spec traceability. Local checks and their limits are in the [developer commands](../README.md#developer-checks).
+The skill lock, evidence README, shared guardrail index, CLI-context ADR, and Design workflow document remain removed. The earlier FinOps synthesis and local Pocock license file are also absent. Retained skill attribution does not establish current lock-based integrity or local license completeness. The [verification plan](templates/verification-plan.md), [review format](templates/review.md), and [evidence ownership guidance](rules/0090-test-ownership.rule.md#evidence-ownership) are applicable surviving material, not a replacement for the removed contracts. Existing generated output stays under the ignored `.audits/evidence/runs/` destination.
 
-The root [AGENTS.md](../AGENTS.md) is the entry point for agents. These documents do not execute any phase automatically. Artifact naming and states follow the [local tracker](../.artifacts/agents/0006-DD-artifact-tracker.dd.md).
+The [SDD rule](../.exphere/harness/rules/0001-sdd.rule.md) and [SDD guardrail](../.exphere/harness/guardrails/0002-sdd.gr.md) provide advisory commit/ticket and PR/spec traceability. Local checks and their limits are in the [developer commands](../README.md#developer-checks).
+
+The root [AGENTS.md](../AGENTS.md) is the agent entry point. These documents do not execute phases automatically. Artifact naming and states follow the [local tracker](../.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md).

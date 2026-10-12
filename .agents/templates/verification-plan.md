@@ -1,12 +1,12 @@
 # Verification plan
 
-Use this format as a section of the relevant spec or DD, following the [artifact tracker](../../.artifacts/agents/0006-DD-artifact-tracker.dd.md).
+Use this format as a section of the relevant spec or DD, following the [artifact tracker](../../.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md).
 
 - Section ID: `VER-<id>`; state: `draft`
 - PRD/spec and versions: `<references>`
 - Owners of targets and execution: `<people/teams>`
 - Execution profile: `<components, versions, resources, data, and environment>`
-- Affected guardrails: `<FIN/12F IDs and version; required method and evidence>` according to the [policies](../guardrails/README.md).
+- Affected guardrails: `<FIN/12F IDs and version; required method and evidence>` according to the [policy-specific guidance](../rules/README.md#policies-by-context).
 
 This template does not authorize execution. Respect the scoped build/test and hook-contract authorization in root AGENTS. For unrelated behavior without test authorization, record checks as pending and limit work to authorized inspection.
 

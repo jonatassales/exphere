@@ -1,11 +1,11 @@
 # Agent rules
 
 - Respect the authorized scope and explicit user instructions; preserve unrelated files and changes.
-- Load only skills relevant to the phase, reading `.agents/skills/<name>/SKILL.md` when no invocation tool is available. Preserve upstream invocation boundaries; documenting a phase does not authorize the next one.
+- Load only skills relevant to the phase, reading `.exphere/harness/skills/<name>/SKILL.md` when no invocation tool is available; `writing-for-agents` remains at `.agents/skills/writing-for-agents/SKILL.md`. Preserve upstream invocation boundaries; documenting a phase does not authorize the next one.
 - Recognize authorization already given for the same scope. Commits, pushes, remote publication, provisioning, and production actions require the corresponding authorization.
-- Consult [context](../CONTEXT.md), the [local tracker](../../.artifacts/agents/0006-DD-artifact-tracker.dd.md), and [domain configuration](../../.artifacts/agents/0007-DD-domain-model.dd.md) when relevant; create only the artifacts needed for the request.
+- Consult [context](../CONTEXT.md), the [local tracker](../../.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md), and [domain configuration](../../.exphere/artifacts/design/0007-DD-domain-model.dd.md) when relevant; create only the artifacts needed for the request.
 - Distinguish proposals, authorized decisions, implementation, and observed results. Do not invent approvals, measurements, identities, or organizational targets.
-- Apply the [guardrails](../guardrails/README.md) when designing contracts. Selected developer checks have local hooks; broader policy enforcement is not implemented.
+- Apply the [applicable shared policies](#policies-by-context) when designing contracts. Selected developer checks have local hooks; broader policy enforcement is not implemented.
 
 These rules guide agents; they do not replace permissions, policies, or executable checks. The root [AGENTS.md](../../AGENTS.md) remains the project entry point.
 
@@ -30,7 +30,7 @@ Before changing implementation, load the general engineering rule and each rule 
 
 New rule names use `NNNN-<lowercase-english-name>.rule.md`. Existing policy filenames stay stable. The four-digit rule sequence is independent of artifact numbering and preserves the imported source order.
 
-The [import specification](../../.artifacts/specs/0007-SPEC-agent-rule-import.spec.md#source-snapshot-and-destination-inventory) maps every source rule, the source README, and all four reference guardrails to this corpus. Source commit: `e518dace741d8b9b44dd0a9d851fa3f42506320a`. Each rule retains its pinned provenance; the specification records substantive adaptations. Required third-party names and attribution remain intact.
+The [import specification](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md#source-snapshot-and-destination-inventory) maps every source rule, the source README, and all four reference guardrails to this corpus. Source commit: `e518dace741d8b9b44dd0a9d851fa3f42506320a`. Each rule retains its pinned provenance; the specification records substantive adaptations. Required third-party names and attribution remain intact.
 
 This Markdown index replaces editor-specific attachment metadata with explicit reading conditions. A linked rule does not prove that an agent loaded it, that Cursor attached it, or that a CLI/CI gate enforces it. Existing local policies below retain their authority.
 
@@ -38,11 +38,11 @@ This Markdown index replaces editor-specific attachment metadata with explicit r
 
 | Load when working on | Agent rules | Criteria and evidence |
 | --- | --- | --- |
-| Resources, paid consumption, infrastructure, AI costs, or savings claims | [FinOps](finops.md) | [FIN-01 through FIN-08](../guardrails/finops.md) |
-| Commits, ticket/spec scope, PR review, or delivery | [SDD](../../.exphere/rules/sdd.md) | [SDD-01 through SDD-03](../../.exphere/guardrails/sdd.md), advisory |
-| Services, configuration, dependencies, build/release, data, logs, or lifecycle | [Twelve-Factor](twelve-factor.md) | [12F-01 through 12F-12](../guardrails/twelve-factor.md) |
+| Resources, paid consumption, infrastructure, AI costs, or savings claims | [FinOps](../../.exphere/harness/rules/0002-finops.rule.md) | [FIN-01 through FIN-08](../../.exphere/harness/guardrails/0001-finops.gr.md) |
+| Commits, ticket/spec scope, PR review, or delivery | [SDD](../../.exphere/harness/rules/0001-sdd.rule.md) | [SDD-01 through SDD-03](../../.exphere/harness/guardrails/0002-sdd.gr.md), advisory |
+| Services, configuration, dependencies, build/release, data, logs, or lifecycle | [Twelve-Factor](../../.exphere/harness/rules/0003-twelve-factor.rule.md) | [12F-01 through 12F-12](../../.exphere/harness/guardrails/0003-twelve-factor.gr.md) |
 
-FinOps and Twelve-Factor were adopted locally on October 10, 2026; advisory SDD was authorized on October 11, 2026. Use the states and application boundaries in the [guardrails index](../guardrails/README.md); third-party skills do not redefine these policies.
+FinOps and Twelve-Factor were adopted locally on October 10, 2026; advisory SDD was authorized on October 11, 2026. Use each linked policy's stated assessment and application boundaries. The former shared guardrail index is unavailable; this navigation table does not replace it or grant exception authority. Third-party skills do not redefine these policies.
 
 ## Current user restrictions
 
