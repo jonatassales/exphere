@@ -1,0 +1,92 @@
+{
+  "formatVersion": 1,
+  "synthetic": true,
+  "id": "interrupted",
+  "cycleId": "cycle",
+  "currency": "USD",
+  "decision": "rejected",
+  "reason": "cycle-paused",
+  "dispatchPerformed": false,
+  "duplicateEvents": 0,
+  "accounts": [
+    {
+      "id": "window",
+      "consumedMicros": {
+        "ai": "0",
+        "infrastructure": "0",
+        "combined": "0"
+      },
+      "reservedMicros": {
+        "ai": "20000",
+        "infrastructure": "0",
+        "combined": "20000"
+      },
+      "protectedRemainingMicros": {
+        "ai": "100000",
+        "infrastructure": "50000",
+        "combined": "150000"
+      }
+    },
+    {
+      "id": "feature",
+      "consumedMicros": {
+        "ai": "0",
+        "infrastructure": "0",
+        "combined": "0"
+      },
+      "reservedMicros": {
+        "ai": "20000",
+        "infrastructure": "0",
+        "combined": "20000"
+      },
+      "protectedRemainingMicros": {
+        "ai": "100000",
+        "infrastructure": "50000",
+        "combined": "150000"
+      }
+    },
+    {
+      "id": "cycle",
+      "consumedMicros": {
+        "ai": "0",
+        "infrastructure": "0",
+        "combined": "0"
+      },
+      "reservedMicros": {
+        "ai": "20000",
+        "infrastructure": "0",
+        "combined": "20000"
+      },
+      "protectedRemainingMicros": {
+        "ai": "100000",
+        "infrastructure": "50000",
+        "combined": "150000"
+      }
+    }
+  ],
+  "pendingChargeIds": [
+    "interrupted"
+  ],
+  "overageIds": [],
+  "resourceObligations": [
+    {
+      "resourceId": "website-workload",
+      "owner": "fixture-owner",
+      "status": "ongoing",
+      "reason": "Pausing the agent did not terminate this resource.",
+      "shutdownAuthority": "fixture-operator",
+      "maxLifetimeSeconds": 7200
+    }
+  ],
+  "checks": [
+    {
+      "eventId": "observation-1",
+      "result": "inconclusive"
+    },
+    {
+      "eventId": "observation-2",
+      "result": "inconclusive"
+    }
+  ],
+  "financialEnforcement": false
+}

@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:exphere:consumer-harness:harness-lock:1",
+  "title": "Reference installation inventory v1",
+  "$comment": "Reference contract v1. Offline validation supports only the documented bundled vocabulary; no execution authorization is conveyed.",
+  "type": "object",
+  "properties": {
+    "formatVersion": {
+      "const": 1
+    },
+    "kind": {
+      "const": "reference-inventory"
+    },
+    "referenceVersion": {
+      "const": "1.0.0"
+    },
+    "repositoryId": {
+      "$ref": "#/$defs/id"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "$ref": "#/$defs/path"
+          },
+          "sha256": {
+            "$ref": "#/$defs/hash"
+          },
+          "owner": {
+            "enum": [
+              "consumer",
+              "distribution"
+            ]
+          },
+          "version": {
+            "$ref": "#/$defs/revision"
+          },
+          "origin": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              },
+              "revision": {
+                "$ref": "#/$defs/revision"
+              },
+              "licenseDisposition": {
+                "enum": [
+                  "project-authored-source-only",
+                  "upstream-license-included"
+                ]
+              },
+              "licenseRef": {
+                "$ref": "#/$defs/path"
+              }
+            },
+            "required": [
+              "source",
+              "revision",
+              "licenseDisposition"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "owner",
+          "version",
+          "origin"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 128
+    }
+  },
+  "required": [
+    "formatVersion",
+    "kind",
+    "referenceVersion",
+    "repositoryId",
+    "entries"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048,
+      "pattern": "^[a-z][a-z0-9-]{0,63}$"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.?(?:/|$))(?!.*//)(?!.*\\\\)(?!.*[\u0000-\u001f\u007f]).*[^/]$"
+    },
+    "money": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 12,
+      "pattern": "^(0|[1-9][0-9]{0,11})$"
+    },
+    "hash": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "revision": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{0,127}$"
+    },
+    "time": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20,
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "terraform": {
+    "required_version": "= 1.16.5",
+    "required_providers": {
+      "kubernetes": {
+        "source": "hashicorp/kubernetes",
+        "version": "= 3.2.1"
+      }
+    },
+    "backend": {
+      "local": {}
+    }
+  },
+  "variable": {
+    "ex_context": {
+      "type": "string"
+    },
+    "ex_namespace": {
+      "type": "string"
+    },
+    "ex_kubeconfig": {
+      "type": "string"
+    },
+    "ex_runtime_owner": {
+      "type": "string"
+    }
+  },
+  "provider": {
+    "kubernetes": {
+      "config_path": "${var.ex_kubeconfig}",
+      "config_context": "${var.ex_context}"
+    }
+  },
+  "resource": {
+    "kubernetes_namespace_v1": {
+      "runtime": {
+        "metadata": {
+          "name": "${var.ex_namespace}",
+          "labels": {
+            "exphere.dev/runtime": "website-preview",
+            "exphere.dev/owner": "${var.ex_runtime_owner}"
+          }
+        }
+      }
+    },
+    "kubernetes_resource_quota_v1": {
+      "runtime": {
+        "metadata": {
+          "name": "runtime",
+          "namespace": "${kubernetes_namespace_v1.runtime.metadata[0].name}",
+          "labels": {
+            "exphere.dev/runtime": "website-preview",
+            "exphere.dev/owner": "${var.ex_runtime_owner}"
+          }
+        },
+        "spec": {
+          "hard": {
+            "requests.cpu": "1",
+            "requests.memory": "512Mi",
+            "limits.cpu": "2",
+            "limits.memory": "1Gi"
+          }
+        }
+      }
+    }
+  }
+}

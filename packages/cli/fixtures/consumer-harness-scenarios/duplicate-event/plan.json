@@ -1,0 +1,28 @@
+{
+  "formatVersion": 1,
+  "synthetic": true,
+  "cycleId": "cycle",
+  "status": "proposal",
+  "priceRevision": "fixture-price-v1",
+  "tasks": [
+    {
+      "id": "change",
+      "profileId": "economy",
+      "effort": "low",
+      "purpose": "implementation",
+      "rationale": "Routine synthetic edit; quality checks remain mandatory.",
+      "alternatives": [
+        "deliberate"
+      ],
+      "maxInputTokens": 1000,
+      "maxOutputTokens": 1000,
+      "estimatedMicros": "3000",
+      "uncertainty": "Synthetic ceiling; not a measurement of real token use.",
+      "requiredCheckIds": [
+        "outcome-review"
+      ]
+    }
+  ],
+  "infrastructureHorizonSeconds": 3600,
+  "qualityCriterion": "The feature criteria and required review must pass; no accepted delivery is asserted."
+}

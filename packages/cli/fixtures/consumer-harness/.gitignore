@@ -1,0 +1,13 @@
+/.exphere/artifacts/accounting/
+/.exphere/artifacts/cycles/
+/.exphere/state/
+/.exphere/cache/
+/.exphere/logs/
+/.exphere/secrets/
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/kubeconfig
+.env
+.env.*
+!.env.example

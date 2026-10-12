@@ -1,0 +1,96 @@
+{
+  "formatVersion": 1,
+  "synthetic": true,
+  "id": "resumed-cycle",
+  "cycleId": "cycle",
+  "currency": "USD",
+  "decision": "admitted-simulation",
+  "reason": "covered-synthetic-proposal",
+  "dispatchPerformed": false,
+  "duplicateEvents": 0,
+  "accounts": [
+    {
+      "id": "window",
+      "consumedMicros": {
+        "ai": "12000",
+        "infrastructure": "0",
+        "combined": "12000"
+      },
+      "reservedMicros": {
+        "ai": "20000",
+        "infrastructure": "0",
+        "combined": "20000"
+      },
+      "protectedRemainingMicros": {
+        "ai": "100000",
+        "infrastructure": "50000",
+        "combined": "150000"
+      }
+    },
+    {
+      "id": "feature",
+      "consumedMicros": {
+        "ai": "12000",
+        "infrastructure": "0",
+        "combined": "12000"
+      },
+      "reservedMicros": {
+        "ai": "20000",
+        "infrastructure": "0",
+        "combined": "20000"
+      },
+      "protectedRemainingMicros": {
+        "ai": "100000",
+        "infrastructure": "50000",
+        "combined": "150000"
+      }
+    },
+    {
+      "id": "cycle",
+      "consumedMicros": {
+        "ai": "12000",
+        "infrastructure": "0",
+        "combined": "12000"
+      },
+      "reservedMicros": {
+        "ai": "20000",
+        "infrastructure": "0",
+        "combined": "20000"
+      },
+      "protectedRemainingMicros": {
+        "ai": "100000",
+        "infrastructure": "50000",
+        "combined": "150000"
+      }
+    }
+  ],
+  "pendingChargeIds": [
+    "uncertain"
+  ],
+  "overageIds": [],
+  "resourceObligations": [
+    {
+      "resourceId": "website-workload",
+      "owner": "fixture-owner",
+      "status": "ongoing",
+      "reason": "Pausing the agent did not terminate this resource.",
+      "shutdownAuthority": "fixture-operator",
+      "maxLifetimeSeconds": 7200
+    }
+  ],
+  "checks": [
+    {
+      "eventId": "observation-1",
+      "result": "inconclusive"
+    },
+    {
+      "eventId": "observation-2",
+      "result": "inconclusive"
+    },
+    {
+      "eventId": "observation-3",
+      "result": "inconclusive"
+    }
+  ],
+  "financialEnforcement": false
+}
