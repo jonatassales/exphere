@@ -1,11 +1,11 @@
 # Website
 
-The initial Exphere website has one en-US page at `/`. It displays only the
-supplied horizontal Exphere logo at the upper left, with an accessible Exphere
-heading, spacing supplied by `@repo/design`, and the shared `ExphereShader` motion
-background around root-layout children. It has no navigation, marketing sections,
-authentication, API, external integrations, or persistent state. This application
-is private and has no deployed release.
+The initial Exphere website has one en-US page at `/`. The home logo and its
+heading are temporarily commented out at the owner's request, leaving only the
+shared `ExphereShader` motion background and the main container with spacing from
+`@repo/design`. It has no navigation, marketing sections, authentication, API,
+external integrations, or persistent state. This application is private and has
+no deployed release.
 
 Run these commands from the repository root:
 
@@ -45,9 +45,12 @@ Production compilation uses Next.js's supported Webpack option. The local Turbop
 ## Identity and SEO status
 
 [Identity provenance](IDENTITY.md) lists the supplied artwork and raster exports.
-The page remains a Server Component and uses the framework's `Image` component
-with an explicit aspect ratio and accessible name; no application client module
-is added. The logo is not a navigation bar or link to an unimplemented route.
+The page remains a Server Component. The logo's complete heading block and its
+`next/image` import are retained as comments in `src/app/page.tsx`; uncomment both
+together to restore the original aspect ratio, accessible name, and placement.
+No empty heading or replacement content is rendered while the logo is disabled.
+The SVG and all favicon, Apple, application, and social assets remain available.
+See [SPEC-WEBSITE-HOME-LOGO-VISIBILITY](../../.exphere/artifacts/specs/0018-SPEC-website-home-logo-visibility.spec.md).
 
 The root layout owns application identity, the light viewport, and `noindex`.
 The page owns its title, experimental-project description, and en-US social copy.
