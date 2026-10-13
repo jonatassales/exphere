@@ -12,8 +12,12 @@
 - [x] IDENTITY-04: Correct Home LinkedIn/GitHub links, accessible text and Docs project link.
 - [x] IDENTITY-05: Update website README to match behavior.
 - [x] VER-IDENTITY-01: Inspect scoped source diff and record available static evidence and missing runtime/reviewer checks.
-- [ ] Open ticket-linked PR without merging.
+- [x] Open ticket-linked draft PR without merging.
 
 ## Evidence
 
 Baseline: `a2b78dcf8ba60724654760018c589fd2aef008e7` on `main`. Implementation source: `8496a8db62f29f0e7e8a836d09d7f40c27ca3a0f`. The five requirements were checked by scoped source inspection against the pinned baseline; a two-axis manual code review found no apparent defects. Independent sub-agent review, Biome, TypeScript, production build, browser checks and CI were not performed in the GitHub-connector-only session. See the parent spec for detailed evidence and limitations. PR publication remains pending.
+
+## Delivery
+
+Draft PR: [#34](https://github.com/jonatassales/exphere/pull/34), opened against `main`. The PR declares `Spec: SPEC-WEBSITE-AGENTIC-FINOPS-IDENTITY` and `Ticket: BRAND-01`. It remains in review until independent reviews and native checks are completed. No merge or deployment is claimed.

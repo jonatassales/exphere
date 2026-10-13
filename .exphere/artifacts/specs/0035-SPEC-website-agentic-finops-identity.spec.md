@@ -62,3 +62,7 @@ Initial spec and ticket were authored against the pinned `main` revision. Implem
 **Two-axis manual review of the same implementation snapshot:** Standards — no evident deviation from the repository's Tailwind/React ownership, semantic-token or accessibility conventions in the scoped diff. Spec — each IDENTITY requirement appears implemented without extra feature scope. These are source-only assessments performed in one review context, **not independent sub-agent review** and not evidence of observed browser behavior. They do not replace the repository's independent review policy.
 
 **Not verified:** No local command execution was available in this GitHub-connector-only pass. Biome, TypeScript, Next production compilation, native hooks, generated HTML, actual disabled cursor presentation, rendered orb, live browser tests and CI remain unrun/unverified at this stage. No deployment or production behavior is claimed.
+
+### PR delivery
+
+Draft PR [#34](https://github.com/jonatassales/exphere/pull/34) is open against `main` on `codex/website-agentic-finops-identity`. Its body declares this spec and ticket `BRAND-01` (SDD-02 traceability present). The source-level static review and the unverified checks above remain unchanged; PR creation is not evidence of successful CI, merge, or deployment.
