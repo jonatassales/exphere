@@ -2,20 +2,20 @@
 
 - ID: `SPEC-WEBSITE-HERO-DOCS`
 - Document number: `SPEC-0021`
-- Version: `1`
+- Version: `2`
 - State: `approved for scoped implementation; verification pending`
 - PRD: [PRD-0001](../prd/0001-PRD-exphere.prd.md) — broader product direction; organizational acceptance remains unproven.
 - Visual contract: [ADR-0002](../design/0010-DD-website-design-system-branding.dd.md) and [website DESIGN.md](../../../apps/website/DESIGN.md).
 - Technical owner: website implementer; project owner retains production, docs-hosting, and launch decisions.
 - Ticket: [WEB-HERO-01](../tickets/0043-TICKET-website-hero-documentation.ticket.md).
 - Baseline: `6133b4cfb8b83adf5929f5c055d6e46631e50778` (`main`, after PR #14 merged).
-- Authorization: the owner's October 13, 2026 follow-up requests a ClickHouse-design-based hero page with a documentation link. The current scoped implementation and prior same-repository feature-branch/PR delivery instruction authorize this bounded change and a PR; merge and deployment are not authorized.
+- Authorization: the owner's October 13, 2026 follow-up requests a ClickHouse-design-based hero page with a documentation link, then explicitly corrects the scope to retain the existing motion background. This version supersedes the unimplemented motion-removal decision in v1. The current scoped implementation and prior same-repository feature-branch/PR delivery instruction authorize this bounded change and a PR; merge and deployment are not authorized.
 
 ## Problem and outcome
 
 The home route currently renders an empty container with the earlier shader behind it. Visitors cannot learn what Exphere is or reach the existing documentation from that page.
 
-Create one concise, accessible hero that introduces the experimental Exphere project and leads directly to available documentation. Apply the **existing Exphere adaptation** of the ClickHouse design language: white canvas, black branding, bold sans headings, restrained spacing/radii, technical monospace detail, subtle hairlines, and flat surfaces. Do not copy ClickHouse yellow or its product-specific copy.
+Create one concise, accessible hero that introduces the experimental Exphere project and leads directly to available documentation. Apply the **existing Exphere adaptation** of the ClickHouse design language: black branding, bold sans headings, restrained spacing/radii, technical monospace detail, subtle hairlines, and flat, lightly translucent neutral content surfaces that leave the existing shader visibly animated behind the page. Do not copy ClickHouse yellow or its product-specific copy.
 
 ## User story
 
@@ -27,8 +27,8 @@ As someone visiting the Exphere website, I want a clear description of the exper
 - A single hero contains a small text-based Exphere masthead, accessible `h1`, factual supporting text, a visible **Read documentation** link, and an optional code-style CLI example grounded in commands already documented in the repository.
 - The documentation destination is the current [repository README](https://github.com/jonatassales/exphere#readme). This repository is private; the link is not a claim that public docs hosting exists. Do not create an unimplemented `/docs` route or invent a separate docs domain.
 - The previous home SVG logo remains disabled; a plain typographic project name in the masthead is not its restoration.
-- The site-wide shader currently introduces a purple gradient and animation, contrary to the accepted white/black flat visual direction. Stop mounting `ExphereShader` in the website root layout; keep the shared component/package unchanged.
-- Use Tailwind classes and a minimal app-local semantic token bridge for website colors. Keep `@repo/design` generic.
+- **Retain the existing `ExphereShader` mount and motion background** in the website root layout, unchanged, as explicitly required by the owner. Its inherited shader colors and animation are a narrowly scoped, pre-existing exception to the flat/no-new-gradient UI guidance; black is still the only authored Exphere brand color. Do not recolor, remove, disable, or cover the motion with an opaque full-viewport surface.
+- Use existing Tailwind utilities and the website's approved neutral/black palette. Keep `@repo/design` generic. No new style sheet or shared token migration is needed for this single hero.
 - Leave metadata, noindex, robots, manifest, favicon/social assets, dependencies, scripts, and deployment configuration unchanged.
 
 ## Acceptance
@@ -37,10 +37,10 @@ As someone visiting the Exphere website, I want a clear description of the exper
 | --- | --- | --- |
 | REQ-HERO-01 | Home presents an informative hero. | Exactly one visible `h1`, brief factual experimental-product description, and masthead; no claimed production features. |
 | REQ-HERO-02 | Docs CTA is usable. | Real anchor labeled "Read documentation" leads to the repository README, has a visible focus state and adequate contrast; no invented `/docs`. |
-| REQ-HERO-03 | Visual contract is respected. | White background, black branding, bold hierarchy, hairline panel, small radii, technical monospace content; no new yellow, purple, gradients, shadows, or remote assets. |
+| REQ-HERO-03 | Visual contract is respected. | Black-only authored branding, bold hierarchy, translucent white/neutral contrast surfaces, hairline panel, small radii, and technical monospace content; no new chromatic accents, gradients, shadows, or remote assets. The unchanged existing animated shader is a documented exception. |
 | REQ-HERO-04 | Hero adapts to devices. | Single-column on narrow screens and 2-column editorial/CLI layout on desktop, with readable text and no forced horizontal page scrolling. |
 | REQ-HERO-05 | CLI preview is truthful. | Only `pnpm ex runtime list` and `pnpm ex runtime billing init`, matching the root README; no fabricated output. |
-| REQ-HERO-06 | No unnecessary runtime effects. | Remove the root shader mount without changing `@repo/web` source; page remains server-authored and adds no dependency or client component. |
+| REQ-HERO-06 | Motion remains intact. | The existing root layout continues mounting `ExphereShader` unchanged, the animation remains visible behind hero content, and no new client module/dependency is introduced. |
 | REQ-HERO-07 | Existing SEO/identity contract holds. | Root and page metadata, `noindex`, manifest, robots, favicon/social images, and hidden SVG logo are not activated or rewritten. |
 | REQ-HERO-08 | Traceable delivery. | One parent spec and ticket, review against fixed `main` baseline, evidence for available checks, one Ticket trailer per commit and an actual PR `Spec:` declaration. |
 
@@ -49,8 +49,7 @@ As someone visiting the Exphere website, I want a clear description of the exper
 - `.exphere/artifacts/specs/0021-SPEC-website-hero-documentation.spec.md`
 - `.exphere/artifacts/tickets/0043-TICKET-website-hero-documentation.ticket.md`
 - `apps/website/src/app/page.tsx`
-- `apps/website/src/app/layout.tsx`
-- `apps/website/src/app/globals.css`
+- `apps/website/DESIGN.md`
 - `apps/website/README.md`
 
 ## Ownership and operation
@@ -60,14 +59,14 @@ The website owns its presentation and docs link. Shared `@repo/design` and `@rep
 ## Decisions and trade-offs
 
 - **DOCS-01 — Existing documentation:** select GitHub README as the only verified documentation landing. It requires repository access while the repository is private; future public docs hosting is an independent decision.
-- **VIS-01 — Shader:** stop mounting the site shader rather than obscuring an actively rendered purple canvas under an opaque page. The component remains available in its shared package.
+- **VIS-01 — Shader:** retain the pre-existing animated `ExphereShader` root mount. The owner's explicit preservation requirement overrides the general no-gradient rule for this existing motion layer only. Keep the hero surface transparent overall; only individual content areas may use static, translucent white for readability. No shader modification or new animation is authorized.
 - **CONTENT-01 — Truthful copy:** distinguish the experimental project from a completed workflow engine. The code card shows commands, not invented runtime output.
-- **STYLE-01 — Tokens:** expose site-only neutral/black roles through the existing Tailwind bootstrap rather than changing generic package tokens or adding CSS selectors.
+- **STYLE-01 — Tokens:** use static Tailwind utilities and existing neutral/black roles locally without editing generic token sources, framework bootstrap CSS, or introducing additional style files.
 - **SCOPE-01 — SEO:** visual navigation does not approve indexability or a production origin.
 
 ## Verification plan
 
-1. Review source against the accepted design and this spec; inspect semantic heading, CTA URL, readable/focus classes, and CLI commands.
+1. Review source against the accepted design and this spec; inspect semantic heading, CTA URL, readable/focus classes, and CLI commands. Verify the root shader mount is unchanged and remains visible through the page's transparent layout.
 2. Run existing `pnpm --filter website typecheck`, `pnpm build --filter=website...`, and `pnpm check` with the installed repository toolchain when available. Inspect built HTML for a single hero heading and docs anchor if a build environment is available; do not add a test framework just for this slice.
 3. Review `main...branch` on independent Standards and Spec axes following the local SDD rule; report honestly if the independent agents are unavailable.
 4. Confirm unchanged SEO asset/metadata scope and published PR traceability. Missing evidence is not a passing check.
