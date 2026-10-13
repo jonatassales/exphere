@@ -1,8 +1,8 @@
 # Exphere feature proposals
 
 - Status: proposed product backlog; implementation and operational acceptance are separate.
-- Version: 1.
-- Updated: October 11, 2026.
+- Version: 2.
+- Updated: October 13, 2026.
 - Scope: thirteen prioritized capabilities for developer-installed microruntimes, governed agentic delivery, and cost-aware execution.
 - Authority: the project owner requested this detailed feature register. Recording a feature does not authorize infrastructure changes, paid calls, new test suites, or publication.
 
@@ -22,11 +22,66 @@ Governance, security, observability, and traceability apply across all three pil
 
 ## Status and relationship to existing work
 
-The current [workspace overview](../../README.md) and [CLI contract](../../packages/cli/cli/README.md) remain the implementation references. The checked documentation describes manual and guided v2 configuration, native Kubernetes/Terraform files, local reference validation, and explicit legacy adapters. The SDK API remains empty. These foundations do not establish a working agent workflow, financial enforcement, or a completed infrastructure lifecycle.
+The current [workspace overview](../../README.md) and [Go CLI contract](../../packages/cli/README.md) remain the implementation references. The CLI is now a Go scaffold with help/version; initialization and runtime operations are unavailable. The earlier shell CLI, manual/guided generation, setup, and native adapters are retired. Retained schemas/specifications are historical contracts for future implementation. The TypeScript SDK API remains empty. These foundations do not establish a working agent workflow, financial enforcement, or a completed infrastructure lifecycle.
 
 This register extends the product direction beyond [PRD-0002](../../.exphere/artifacts/prd/0002-PRD-local-microruntimes.prd.md), whose local pilot defers monetary enforcement and automatic optimization. It does not silently amend that PRD, approve a new schema, or mark any feature complete. Future implementation must reconcile the selected feature scope with its originating PRD and SPEC.
 
 Feature IDs in this document are local backlog identifiers, not new PRD, SPEC, or ticket identities. Exact APIs, commands, persistence formats, provider choices, and authentication mechanisms remain specification decisions.
+
+## Backstage context and team-funded execution
+
+![Architecture proposal: Backstage and intent artifacts feed RAG, cost allocation, LangGraph orchestration, and microruntime execution; a shared team budget governs every covered paid call, and observed outcomes return to memory.](assets/backstage-context-team-budget.png)
+
+This is a proposed architecture, not an installed integration. The [documentation SPEC](../../.exphere/artifacts/specs/0029-SPEC-backstage-team-budget-proposal.spec.md) and [delivery ticket](../../.exphere/artifacts/tickets/0051-TICKET-backstage-team-budget-proposal.ticket.md) track this refinement. The earlier [factory overview](assets/runtimes-factory.png) remains a broader workflow illustration; this section is authoritative for the updated funding proposal. [Asset provenance](assets/README.md) records the logo source and image-generation method.
+
+**The authorized spending ceiling belongs to a team for a defined period.** Developers, features, tickets, and cycles are attribution and planning dimensions, not independent funding authorities. Complex work can receive a larger allocation than simple work. Agents may redistribute available funds within the existing team policy without requesting routine approval for every ticket.
+
+| Boundary | Proposed responsibility |
+| --- | --- |
+| Backstage connector | Retrieve component ownership, team references, dependencies, and documentation links through an explicitly configured, authorized read-only MCP connection or API. |
+| Artifact sources | Retrieve the referenced PRD, SPEC, ticket, or PR from its authorized source. Catalog links do not imply that Backstage stores every artifact body. |
+| RAG and memory | Combine exact references with relevant vector retrieval, relationship traversal, and past execution episodes. Record sources, revisions, relevance, and uncertainty. |
+| Cost allocation agent | Use recovered evidence, priority, required quality, prices, and the available team balance to recommend feature allocations and model/effort choices, with an artifact-linked rationale. |
+| LangGraph orchestration | Coordinate the proposed execution steps and routing. Model selection, budget enforcement, and the financial ledger remain Exphere responsibilities. |
+| Deterministic budget control | Reserve before each covered paid action, reconcile observed usage, and prevent simultaneous runtimes from committing the same team balance. |
+
+Backstage context helps resolve an owning team; a trusted consumer mapping associates that team with its budget account. Catalog metadata and retrieved prose do not authorize spending or redirect charges. Missing, ambiguous, stale, or unauthorized ownership must be surfaced before paid planning or execution. The portal stays independently owned, and this proposal adds no required Backstage replacement, plugin installation, or paid platform subscription.
+
+Read-only access must be enforced by scoped credentials, permissions, and allowed operations. An MCP tool's description is not an access-control boundary. The documented Backstage MCP Actions Backend requires installation and configuration; availability is not assumed for any consumer. A configured API adapter is an alternative transport, not a permission bypass.
+
+### Proposed agents boundary
+
+```text
+.exphere/agents/
+├── rag/
+│   ├── sources.json
+│   ├── connectors/
+│   │   └── backstage.ts
+│   ├── retrieve.ts
+│   └── memory.ts
+├── allocation/
+│   ├── agent.ts
+│   └── rationale.ts
+├── orchestration/
+│   ├── graph.ts
+│   └── routing.ts
+└── budget/
+    └── client.ts
+```
+
+This tree describes proposed consumer agent application modules and configuration. It creates no files, automation scripts, generated-layout contract, or supported CLI commands. It must be reconciled with the existing consumer harness specifications before generation is implemented. Database vendors, module APIs, and storage topology remain open.
+
+- `sources.json` declares allowed source references and connection bindings, without credentials.
+- `connectors/backstage.ts` would resolve catalog context; `retrieve.ts` would assemble relevant, authorized evidence; `memory.ts` would access vector, relationship, and episodic stores. Vector similarity does not automatically build a relationship graph.
+- `allocation/agent.ts` would propose investments; `rationale.ts` would retain a concise decision summary, source references, estimates, alternatives, and uncertainty. This is auditable justification, not a requirement to retain private model reasoning.
+- `orchestration/graph.ts` and `routing.ts` would coordinate steps, model/effort choices, fallback, and pause/resume behavior through LangGraph.
+- `budget/client.ts` would access a shared, durable budget service or store. It is a deterministic client, not another LLM agent. Independent local balance copies cannot provide shared-team enforcement.
+
+Live balances, reservations, secrets, and memory records stay outside committed source. A local pilot can use local storage with one serialized writer; multi-operator claims require a shared transactional boundary and authenticated account access. Memory retrieval must preserve tenant/team permissions, retention, and provenance. Episodes include failure, retry cost, model/effort, accepted or rejected outcomes, and artifact revisions, rather than storing only successes.
+
+Planning, embeddings, paid retrieval, model review, retries, and LLM-generated reports must declare their financial coverage. Every covered call obtains a reservation before it starts, including the allocator's own calls. Unbounded or unknown liabilities prevent a hard-cap claim. At insufficient balance, the workflow uses an affordable permitted alternative or pauses; it cannot invent more funding or remove required checks.
+
+The optimization target is expected cost per accepted outcome, including failed attempts and rework. Historical similarity supports estimates; it does not prove that a feature will generate revenue or financially pay for itself. Quality requirements and business priority remain explicit inputs. Sparse or stale history produces a stated uncertainty or bounded fallback, not fabricated precision.
 
 ## Prioritized feature index
 
@@ -36,13 +91,13 @@ Priority combines demonstrable product value with the effort of a narrow impleme
 | --- | --- | --- | --- | --- |
 | 1 / F-01 | Automatic delivery and cost report | Very high: financial visibility, observability, and explainable outcomes | Medium; report rendering is small after measurement exists | Execution and usage records |
 | 2 / F-02 | Resource preflight | Very high: platform boundaries and early prevention of invalid resource requests | Low–medium | Native configuration and an explicit consumer policy |
-| 3 / F-03 | Per-cycle budget guardrail | Very high: autonomy with enforceable spending boundaries | Medium–high | Controlled dispatch, price coverage, and durable reservations |
+| 3 / F-03 | Shared team budget guardrail | Very high: autonomy with enforceable spending boundaries | Medium–high | Controlled dispatch, price coverage, and durable team reservations |
 | 4 / F-04 | Unproductive-attempt detector | High: less wasted consumption and repeated failure | Low–medium for bounded rules | Attempt and verification events |
 | 5 / F-05 | Intent-to-execution traceability | High: auditability and explainable ownership | Low–medium | Stable identities and revision snapshots |
 | 6 / F-06 | Execution planner with cost estimates | Very high: agentic delivery connected to affordability | Medium for a bounded catalog | F-03, F-05, and a price snapshot |
 | 7 / F-07 | Complete local microruntime journey | Very high: reproducible execution around existing applications | Medium–high | Existing configuration contract and local prerequisites |
 | 8 / F-08 | Runtime-installed SDD harness | High: an adoptable Golden Path with executable checkpoints | Medium for one workflow | Versioned skills, explicit workflow transitions, and evidence contracts |
-| 9 / F-09 | Consolidated sprint budget | High: connect priorities, allocations, and actual consumption | Low–medium after the ledger exists | F-03 and feature/cycle attribution |
+| 9 / F-09 | Team budget allocation and sprint reporting | High: connect priorities, allocations, and actual consumption | Low–medium after the team ledger exists | F-03 and feature/cycle attribution |
 | 10 / F-10 | Evidence-based runtime diagnosis | High: actionable troubleshooting with inspectable sources | Medium for read-only diagnosis | F-07 inspection and F-03 for paid diagnosis |
 | 11 / F-11 | Minimal context per ticket | Medium–high: context efficiency and reproducibility | Low–medium without a vector database | F-05 and explicit artifact references |
 | 12 / F-12 | Bounded replanning and resume | Very high: autonomous recovery without budget resets | High | F-03, F-04, F-05, F-06, and durable execution state |
@@ -55,7 +110,7 @@ Priority combines demonstrable product value with the effort of a narrow impleme
 | Decision or activity | Proposed responsibility |
 | --- | --- |
 | Problem, value, priorities, scope, and acceptance criteria | Product owner and responsible specialists; agents assist with clarification |
-| Organization/team funding and execution policy | Authorized budget and policy owners, configured before routine execution |
+| Team funding envelope and execution policy | Authorized budget and policy owners, configured before routine execution; no developer or ticket budgets |
 | Feature plan, model/effort recommendation, and allocation proposal | Agent planner, subject to deterministic policy validation |
 | Routine execution and authorized reallocations | Workflow executor; no repeated human approval inside the existing grant |
 | Metering, reservation, budget checks, and arithmetic | Deterministic software, using declared sources and pricing rules |
@@ -65,22 +120,24 @@ Priority combines demonstrable product value with the effort of a narrow impleme
 
 Approval of a PRD may authorize execution under an existing policy only when that approval explicitly covers execution. A document's wording alone is not an authenticated grant. Existing valid authorization should be reused instead of requesting approval for every ticket or call.
 
-### Runtime, feature, sprint, and cycle
+### Team, runtime, feature, sprint, and cycle
 
+- A **team budget** is the shared authorized ceiling for a defined currency, coverage, and funding period. All covered runtimes for that team use the same account and reservation boundary.
 - A **microruntime** is reusable execution configuration referencing consumer-owned components. It is not a budget period or a copy of application source.
 - A **feature** is an intended outcome, connected to approved intent and its acceptance criteria.
 - A **cycle** is one identified workflow execution with a defined scope, runtime reference, configuration revision, and authorization.
-- A **sprint** is an optional planning and budget aggregation window. Teams that do not use sprints can use another explicit funding window.
+- A **sprint** is an optional planning/reporting window within the team's explicit funding policy; it does not create independent spending authority.
 - A **ticket** is an execution unit with a plan and required evidence. Multiple attempts may be needed to complete it.
 - An **attempt** is a specific action or provider request. Retrying does not erase the earlier attempt or its charge.
 
-The reporting hierarchy is funding window/sprint → feature → cycle → ticket/step → attempt. A runtime is referenced by its cycles and can be reused by different features. One feature can span multiple cycles or runtimes. Reopening work or starting another cycle must not bypass the feature's or funding window's cumulative limits.
+The reporting hierarchy is team/funding period → feature → cycle → ticket/step → attempt; a sprint is an optional aggregation view. A runtime is referenced by its cycles and can be reused by different features. One feature can span multiple cycles or runtimes. Reopening work or starting another cycle must not reset the team's cumulative spending. Feature allocations are adjustable planning targets, not independently authorized budgets.
 
 ### Financial terminology and coverage
 
 | Term | Meaning |
 | --- | --- |
-| Budget | Authorized spending ceiling for a defined scope and period |
+| Budget | Authorized team spending ceiling for a defined coverage and period |
+| Feature allocation | Adjustable planning target within the team's available funds; not a charge or a separate funding grant |
 | Estimate | Predicted consumption and cost under stated assumptions, potentially expressed as a range |
 | Reservation | Balance held for an action that may incur charges; it is not yet an additional settled charge |
 | Metered usage cost | Cost calculated from observed usage and the applicable price snapshot; invoice reconciliation may still be pending |
@@ -110,7 +167,7 @@ The proposed consumer distribution groups harness capabilities under `.exphere/`
 └── agents/       # bounded agent roles, tool permissions, and integration bindings
 ```
 
-This is a proposed generated-consumer layout, not a request to reorganize this repository. The current project uses `.agents/` for local guidance, `.exphere/artifacts/` for typed artifacts, `.exphere/harness/` for shared skills and policies, and singular `.exphere/workflow/` for workflow documents. Generated evidence keeps `.audits/evidence/runs/`. A future specification must define adoption, migration or coexistence, generated-file ownership, and any tool-specific entry points. The former evidence README is unavailable. Surviving [evidence ownership guidance](../rules/0090-test-ownership.rule.md#evidence-ownership) and artifact formats remain applicable within their stated scope, without asserting a replacement contract.
+This is a proposed generated-consumer layout, not a request to reorganize this repository. The current project uses `.agents/` for local guidance and Go skills, `.exphere/artifacts/` for typed artifacts, `.exphere/harness/` for policies and FinOps/AWS skills, and singular `.exphere/workflow/` for workflow documents and AIHero skills. Generated evidence keeps `.audits/evidence/runs/`. A future specification must define adoption, migration or coexistence, generated-file ownership, and any tool-specific entry points. The former evidence README is unavailable. Surviving [evidence ownership guidance](../rules/0090-test-ownership.rule.md#evidence-ownership) and artifact formats remain applicable within their stated scope, without asserting a replacement contract.
 
 The intended runtime model remains `.exphere/runtimes/<id>/`, with shared Terraform configuration and units containing native execution configuration. For example, `units/website/` references `apps/website`; it does not copy the application. Kubernetes owns container resources, images, probes, replicas, volumes, and scheduling. Terraform owns the pilot's namespace and quota preparation. The descriptor connects those authorities rather than duplicating their editable values.
 
@@ -125,7 +182,7 @@ Generated directories are created only for selected capabilities. Installing a p
 **Smallest useful behavior**
 
 1. Collect normalized action and usage events from one controlled provider integration and the workflow executor.
-2. Attribute each event to its runtime, feature, cycle, ticket, and step when those identities are available. Surface unassigned events.
+2. Attribute each event to its team account, runtime, feature, cycle, ticket, and step when those identities are available. Surface unassigned events.
 3. Aggregate budget, estimated cost, metered cost, outstanding reservations, and remaining allowance separately.
 4. Produce a readable report and structured record containing completed work, failed or skipped checks, retries, unresolved charges, and cleanup status.
 5. Optionally generate a concise explanation from those records. The explanation cannot change totals, fabricate reasons, or turn missing evidence into a passing result.
@@ -177,9 +234,9 @@ Generated directories are created only for selected capabilities. Installing a p
 
 **Useful measures:** invalid configurations detected before mutation, actionable diagnostic coverage, and observed runtime failures missed by preflight. Initial thresholds come from consumer policy, not invented universal defaults.
 
-## F-03 — Per-cycle budget guardrail
+## F-03 — Shared team budget guardrail
 
-**Outcome:** covered billable actions cannot start unless their bounded cost fits the authorized execution budget and every applicable parent limit.
+**Outcome:** covered billable actions cannot start unless their bounded cost fits the team's shared authorized budget and execution policy. Every cycle uses that same balance.
 
 **Problem.** Observing costs after execution does not prevent a retry loop or concurrent agents from consuming the same apparent remaining balance.
 
@@ -187,7 +244,7 @@ Generated directories are created only for selected capabilities. Installing a p
 
 1. Route covered provider requests through one controlled dispatcher with a persistent ledger. Start with serialized execution if that makes the accounting boundary smaller and reliable.
 2. Before dispatch, derive a conservative reservation from the actual request, the price snapshot, enforced output limits, and all supported billable categories.
-3. Atomically verify and reserve funds against the cycle and applicable feature/funding-window limits.
+3. Atomically verify and reserve funds against the team account and funding period, retaining feature/cycle attribution. Estimates allocated to tickets are not funding authorization.
 4. Reconcile the reservation with returned usage, retaining an explicit pending balance when the charge is uncertain.
 5. Deny uncovered calls with an actionable reason and pause or replan according to policy. A report-only or simulated mode must be labeled accordingly.
 
@@ -198,10 +255,10 @@ settled ledger charges
 + outstanding reservations
 + proposed request reservation
 + protected verification/closure balance not already reserved
-<= applicable spending cap
+<= authorized team spending cap for the funding period
 ```
 
-The same check applies to every relevant parent account. Protected work draws from its designated reserve without counting that allocation twice. Reservations represent potential liabilities; conversion to a settled charge replaces the corresponding reservation.
+The same shared team account governs all covered runtimes and developers. Protected work draws from its designated reserve without counting that allocation twice. Reservations represent potential liabilities; conversion to a settled charge replaces the corresponding reservation. The agent can revise feature allocations within policy, but only an authorized budget owner can change the team ceiling.
 
 **Acceptance criteria**
 
@@ -212,7 +269,8 @@ The same check applies to every relevant parent account. Protected work draws fr
 - Model effort is not treated as a monetary cap; request limits and pricing coverage determine the reservation.
 - Unsupported pricing categories or an unbounded maximum charge prevent a hard-cap claim for that action.
 - Unexpected reconciliation above a reservation is recorded truthfully, triggers the defined response, and is never hidden by truncating the ledger.
-- Restarting the executor preserves reservations and costs; starting a new cycle cannot reset a feature's consumed allowance.
+- Restarting the executor preserves reservations and costs; starting a new cycle or runtime cannot reset the team's consumed allowance.
+- Catalog ownership resolves through a trusted team-account mapping; ambiguous ownership cannot silently charge another team.
 
 **Demonstration:** reject a new call that would consume protected verification funds, while showing spent, reserved, protected, and available amounts.
 
@@ -276,7 +334,7 @@ The same check applies to every relevant parent account. Protected work draws fr
 
 **Outcome:** the developer approves intended work and receives a proposed execution plan that fits the available policy and budget without manually pricing each ticket.
 
-**Inputs:** approved intent; required checks; runtime capabilities; allowed models and effort settings; price snapshot; available allowance; and comparable execution history when available.
+**Inputs:** approved intent; required checks; runtime capabilities; allowed models and effort settings; price snapshot; available team balance; Backstage ownership/component context; retrieved artifact revisions; and comparable execution history when available.
 
 **Smallest useful behavior**
 
@@ -286,12 +344,12 @@ The same check applies to every relevant parent account. Protected work draws fr
 4. Propose allocations, retry limits, protected verification funds, and permitted fallbacks within the policy.
 5. Validate the structured proposal before dispatch. If no affordable valid plan exists, return a bounded alternative or an explicit pause.
 
-**Plan content:** ticket/step; purpose; source versions; model/effort; usage assumptions; estimate range; hard allocation; retry policy; mandatory checks; fallback options; and reason for the selection. These are conceptual fields, not additions to the current runtime descriptor.
+**Plan content:** team account; feature/ticket/step; purpose; source versions; model/effort; usage assumptions; estimate range; adjustable feature allocation; retry policy; mandatory checks; fallback options; uncertainty; and reason for the selection. These are conceptual fields, not additions to the current runtime descriptor. The team ceiling and pre-dispatch reservation are the spending controls.
 
 **Acceptance criteria**
 
 - Invalid or out-of-policy model/effort choices are rejected independently of the planner's prose.
-- Allocations fit the available parent allowance, including the planning cost and required reserves.
+- Allocations fit the available team allowance, including the planning cost and required reserves, without assigning equal budgets to individual developers.
 - Unknown history or uncertain task complexity is disclosed rather than replaced with invented precision.
 - The actual request is checked again before dispatch; a planning estimate is not spend authorization.
 - The planner cannot remove required security or quality checks to make a proposal fit.
@@ -360,19 +418,19 @@ The reference pilot is a prebuilt `apps/website` image on local Kubernetes, with
 
 **Demonstration:** install a narrow SDD harness into an existing project, inspect its versioned skills and checkpoints, and show an execution stopping on missing required evidence.
 
-**Dependencies and boundaries:** workflow execution, F-05, evidence contracts, and selected skills. A web console, skill marketplace, universal workflow designer, or mandatory organizational rollout is not required. LangGraph may be evaluated as an executor; its adoption is not settled by this register.
+**Dependencies and boundaries:** workflow execution, F-05, evidence contracts, and selected skills. A web console, skill marketplace, universal workflow designer, or mandatory organizational rollout is not required. LangGraph is the proposed orchestration direction for this refinement; no dependency, executable graph, or integration is installed by this register.
 
 **Useful measures:** adoption/setup effort, generated-file conflicts, checkpoint evidence completeness, and routine human interventions per accepted delivery.
 
-## F-09 — Consolidated sprint budget
+## F-09 — Team budget allocation and sprint reporting
 
-**Outcome:** the platform automatically allocates and reports a funding window's consumption across features and cycles without requiring people to price each action.
+**Outcome:** the platform automatically allocates the team's available funds across features and reports consumption by cycle and optional sprint, without requiring people to price each ticket or developer.
 
 **Smallest useful behavior**
 
-- Define an authorized funding window, total allowance, currency, owner, validity period, and automatic allocation rules.
+- Resolve the authorized team account, funding window, total allowance, currency, owner, validity period, and automatic allocation rules established for F-03.
 - Aggregate the same underlying attempt records by feature and cycle; do not create a second set of charges.
-- Let the planner propose feature allocations within the available window and per-feature policy.
+- Let the planner propose and adjust feature allocations using retrieved evidence, priorities, complexity, outcomes, and the available team balance. Feature allocations create no independent budget authority.
 - Display spent, reserved, protected, unallocated, and remaining amounts, with clear definitions that prevent double counting.
 - Optionally expose execution credits using a recorded conversion. Keep credits independent of story points and model-specific token prices.
 
@@ -388,7 +446,7 @@ The reference pilot is a prebuilt `apps/website` image on local Kubernetes, with
 
 **Demonstration:** show multiple feature allocations, an automatic within-policy adjustment, and a refused allocation that would exceed the remaining grant.
 
-**Dependencies and boundaries:** F-03, F-05, and F-06 for agent allocation. Until F-09 exists, the initial financial pilot can use one directly authorized cycle; F-09 is required before claiming sprint-wide enforcement. Multi-team chargeback, ERP integration, and workforce productivity scoring are deferred.
+**Dependencies and boundaries:** F-03, F-05, and F-06 for agent allocation. The first financial pilot already uses one team account, even with only one cycle; F-09 adds richer allocation and reporting, not the first shared funding boundary. Multi-team chargeback, ERP integration, and workforce productivity scoring are deferred.
 
 **Useful measures:** budget utilization, forecast-versus-consumption variance, unallocated cost, and accepted delivery outcomes. A large unspent balance is not automatically a success or savings.
 
@@ -426,6 +484,7 @@ The reference pilot is a prebuilt `apps/website` image on local Kubernetes, with
 **Smallest useful behavior**
 
 - Follow explicit links from ticket to SPEC, PRD, runtime, applicable rules, and required evidence.
+- Enrich selected context with authorized Backstage team/component relationships and relevant execution episodes; retrieve artifact bodies from their actual source.
 - Select relevant sections and record versions, omitted sources, and selection reasons.
 - Always preserve mandatory policies and acceptance criteria, or stop when they cannot fit the supported context budget.
 - Validate the final request size and charge reservation after context assembly.
@@ -508,10 +567,10 @@ The priority table expresses value/effort. The following sequence describes a po
 
 1. Establish a narrow F-05 identity/event contract and the smallest F-07 local execution path, building on existing configuration.
 2. Add F-02 resource preflight and ownership-aware inspection so infrastructure behavior is demonstrable.
-3. Introduce one controlled provider adapter, metering, and the F-03 ledger/dispatcher. Generate F-01 reports from those records.
+3. Introduce one controlled provider adapter, metering, and the F-03 shared team ledger/dispatcher. Generate F-01 reports from those records.
 4. Add F-04 bounded retry detection and F-06 planning with deterministic proposal validation.
 5. Package the supported path through F-08, using F-11 context selection as needed.
-6. Extend to F-09 shared planning-window budgets and F-10 diagnosis after their evidence sources exist.
+6. Extend to F-09 team allocation/sprint reporting and F-10 diagnosis after their evidence sources exist; team funding is already required by F-03.
 7. Add F-12 durable recovery after action replay and reservation reconciliation are designed.
 8. Evaluate F-13 only when sufficient comparable accepted-outcome evidence exists.
 
@@ -537,13 +596,14 @@ A valid demonstration distinguishes live results, fixtures, projections, and uns
 | --- | --- |
 | SaaS console | Future configuration/reporting surface; not required for the first local workflow |
 | Provider coverage | Choose one provider and supported billable categories before claiming enforcement |
-| Budget persistence | Select a store and serialization/transaction model that survives failures and prevents double reservation |
+| Budget persistence | Select a shared team-account store and serialization/transaction model that survives failures and prevents double reservation across runtimes |
 | Organizational trust boundary | Define authenticated grants, policy distribution, tamper resistance, and concurrent operators before organization-wide claims |
 | Model and effort routing | Begin with a small allowed catalog; supported effort parameters and fallback behavior are provider-specific |
 | Infrastructure financial data | Select a source, attribution method, delay model, and coverage before reporting actual cloud cost |
 | Infrastructure estimates | Native resource requests and quotas are inputs, not a price; monetary estimates require usage, duration, rate, and allocation assumptions |
-| Existing portal integration | Optional adapter or catalog linkage; preserve independently owned portals and workflows |
-| MCP and agent orchestration | Evaluate bounded connectors and LangGraph when a concrete feature needs them; neither is installed by this register |
+| Existing portal integration | Backstage is the highlighted context adapter in this proposal; preserve independently owned portals and require configured, authorized access |
+| MCP and agent orchestration | Read-only Backstage MCP/API and LangGraph orchestration are proposed; transport, deployment, credentials, and executable integration remain unimplemented |
+| Retrieval and memory | Vector search, relationship traversal, and episodic memory are logical capabilities; select stores and ingestion, freshness, access, and retention policies before implementation |
 | Skills | Select exact sources/versions, required attribution, review method, update policy, and tool-discovery adapters |
 | Consumer harness layout | Reconcile proposed `.exphere/workflow/` with current repository `.exphere/workflow/` and evidence/artifact conventions in a separate specification |
 | Evidence retention | Define redaction, access, storage, deletion, and publication boundaries before persisting sensitive provider or runtime data |
@@ -557,6 +617,9 @@ These proposals use the following references. External documentation supports sp
 - [FinOps Foundation — Budgeting](https://www.finops.org/framework/capabilities/budgeting/): funding ownership, estimates versus budgets, reserves, and responses to spending thresholds. Consulted October 11, 2026.
 - [Kubernetes — Resource Quotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/): native resource admission and namespace quotas. Consulted October 11, 2026.
 - [Birgitta Boeckeler — Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html): guides, sensors, computational versus inferential controls, and directing human attention toward important decisions. Consulted October 11, 2026.
+- [Backstage — Software Catalog](https://backstage.io/docs/features/software-catalog/): ownership and software metadata as context. Consulted October 13, 2026.
+- [Backstage — MCP Actions Backend](https://backstage.io/docs/ai/mcp-actions/): separately installed/configured actions exposed through MCP; access must be authorized and constrained. Consulted October 13, 2026.
+- [LangGraph — Overview](https://docs.langchain.com/oss/javascript/langgraph/overview): orchestration of stateful agent steps; Exphere's funding and allocation rules are separate application responsibilities. Consulted October 13, 2026.
 - [Local FinOps guardrails](../../.exphere/harness/guardrails/0001-finops.gr.md): ownership, estimates, authorized envelopes, resource sizing, cleanup, cost observation, valid comparisons, and preserved quality.
 - [Local Twelve-Factor guardrails](../../.exphere/harness/guardrails/0003-twelve-factor.gr.md): source identity, configuration, dependencies, build/run separation, lifecycle, logs, and administrative effects.
 - [Local evidence ownership guidance](../rules/0090-test-ownership.rule.md#evidence-ownership): execution context, methods, outcomes, and handling of retained output; the former general evidence contract is unavailable.
