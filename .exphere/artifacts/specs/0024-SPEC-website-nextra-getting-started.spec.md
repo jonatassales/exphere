@@ -26,7 +26,7 @@ Hero copy:
 
 Footer: inline icon links with accessible names (verified GitHub and organization LinkedIn destinations; no nonexistent Exphere npm package link), and a small Orb plus literal `exphere by Grupo OLX © 2026`. The supplied footer wording is owner-directed; organizational endorsement is not independently authenticated.
 
-Clipboard: label `npx exphere init`; button copies exactly these bytes, shows success or failure message via `aria-live`, keyboard usable. The command is **not implemented/published** by the Go scaffold yet and must not be presented as an executable supported feature. Display a brief command-preview note stating init is unavailable.
+Clipboard: label `npx exphere init`; button copies exactly these bytes, shows success or failure message via `aria-live`, keyboard usable. The command is **not implemented/published** by the Go scaffold yet and must not be presented as an executable supported feature. Display only the requested command box and copy feedback. Record the unsupported CLI/distribution state in the README; do not add unrequested implementation notes to the hero.
 
 Nextra 4 Docs Theme is integrated via its official Next.js plugin, required `mdx-components` file and an App Router `/docs` MDX Getting Started page. The owner requested no other substantive docs. `/` remains the initial hero entry with a working Docs link to `/docs`. Maintain current page/noindex metadata and light/dark state (dark only), including within Docs.
 
@@ -84,3 +84,24 @@ Nextra 4.6.1 loads twoslash, whose declared compiler support is TypeScript `^5.5
 - No active ICO or social-image metadata convention files remain. Legacy clients requiring only `/favicon.ico` and future social sharing retain explicit limitations. The origin/indexing decision and empty social image lists stay unchanged; valid replacement exports require a future verified change.
 
 Website verification reported successful production compilation and type checking, decoding of the five active PNG assets, byte identity of all six archived originals against baseline `d6b3c8a`, and generated HTML containing one heading per page, exact requested copy, the Docs link, noindex directives, and decorative listening orbs. Record the final integrated source snapshot and command evidence in INTEGRATE-01; these observations do not establish browser clipboard, motion, rendering or production behavior.
+
+## Website-only correction — October 13, 2026
+
+The owner rejected the rendered PR #19 website and requested rollback followed by
+a correction limited to the website. Skill installation, CLI and repository-wide
+tooling are outside this follow-up. Production was rolled back to deployment
+`dpl_9yCnQQJH5FAmUHw3XVeiPjnTSMbc` at source `d6b3c8a`.
+
+Browser inspection reproduced the defect: the shared shader stylesheet introduced
+the utilities cascade layer before the application bootstrap introduced base.
+Base resets therefore overrode utility typography and spacing on both routes.
+Import application CSS first and explicitly order Tailwind cascade layers; retain
+the shared shader package unchanged. Native Nextra page metadata limits the sidebar
+to Getting Started and removes redundant breadcrumbs/table-of-contents chrome.
+
+The current owner request authorizes direct browser inspection of the corrected
+website, superseding the earlier static-only scope for this follow-up. Verify the
+production build at desktop and mobile widths, clipboard success/failure, internal
+navigation, decorative Orbo registration/state and reduced motion. This does not
+authorize new application test infrastructure. Record the actual evidence in
+WEB-DOCS-01.

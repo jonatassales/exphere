@@ -1,9 +1,9 @@
+import "@app/globals.css";
+
 import { ExphereShader } from "@repo/web/react/exphere-shader";
 import type { Metadata, Viewport } from "next";
 import { Head } from "nextra/components";
 import type { ReactNode } from "react";
-
-import "@app/globals.css";
 
 export const metadata: Metadata = {
   applicationName: "Exphere",
