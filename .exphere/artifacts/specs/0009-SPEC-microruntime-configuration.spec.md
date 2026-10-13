@@ -58,6 +58,15 @@ Namespaces/limits/quotas are resource configuration, not proof of isolation, enf
 
 - [CLI-RUNTIME-03](../tickets/0061-TICKET-go-runtime-manual-configuration.ticket.md)
 - [CLI-RUNTIME-04](../tickets/0062-TICKET-go-runtime-guided-configuration.ticket.md)
+- [SCAFFOLD-PUBLISH-01](../tickets/0072-TICKET-scaffold-publication-portability.ticket.md)
+
+### Follow-up — local RAG dependency pilot
+
+On October 13, 2026, the owner selected local project artifacts and execution evidence for the first RAG, proposed Neo4j, and requested that a runtime be exercised. This authorizes a bounded disposable local dependency pilot, including startup, inspection, connectivity, and cleanup when prerequisites are available. It does not authorize new automated suites, cloud infrastructure, a paid embedding service, permanent database storage, or automatic prerequisite installation. Prior unverified execution records remain historical observations.
+
+The pilot exposed a generation defect before infrastructure execution: on macOS, publishing a staged scaffold by renaming it over the exclusively reserved destination returned `file exists`. Preserve exclusive destination reservation and the existing non-atomic publication contract. Publish validated staged entries into the owned destination, clean or explicitly report this invocation's partial output on handled failure, and never overwrite preexisting consumer output. Shared agent scaffolding uses the same helper.
+
+The disposable database uses native resource limits and transient storage; it does not extend the supported resource kinds or establish durable RAG memory. The embedding provider and subsequent retrieval implementation remain separate decisions.
 
 ## Historical v1 contract and verification — retained without current authority
 
