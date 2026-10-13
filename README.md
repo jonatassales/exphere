@@ -1,4 +1,6 @@
-# Exphere
+<h1 align="center">Exphere</h1>
+
+[![Exphere — Full blast agentic FinOps runtimes, with the white logo and a purple gradient on a dark background.](.agents/features/assets/exphere-readme-banner.png)](.agents/features/assets/exphere-readme-banner.png)
 
 **Microruntimes for existing applications. A foundation for cost-aware agentic delivery.**
 
@@ -73,8 +75,12 @@ The proposed integration complements an existing developer portal. It does not r
 
 ### Feature illustrations
 
+The earlier end-to-end factory sketch shows the thirteen capabilities and optional tools. **Its cycle/feature/sprint-cap wording is superseded by the team-budget proposal above.**
+
+[![Earlier Exphere runtime factory sketch with its delivery flow, proposed capabilities, and third-party connections. Budget labels are historical; the current proposal authorizes funding per team.](.agents/features/assets/runtimes-factory.png)](.agents/features/assets/runtimes-factory.png)
+
 - [Backstage context and shared team budget](.agents/features/assets/backstage-context-team-budget.png): current architecture refinement, including the proposed agents tree.
-- [Earlier end-to-end factory sketch](.agents/features/assets/runtimes-factory.png): a broader view of the thirteen capabilities and optional tools. Its cycle/feature/sprint-cap wording is superseded by the team-budget proposal above; it is retained as historical design context.
+- [Earlier end-to-end factory sketch, full size](.agents/features/assets/runtimes-factory.png).
 - [Image provenance and Backstage attribution](.agents/features/assets/README.md).
 
 Both images are design material, not screenshots of running integrations.

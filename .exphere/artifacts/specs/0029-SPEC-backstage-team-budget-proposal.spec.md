@@ -1,14 +1,16 @@
 # Backstage context and team budget proposal
 
 - ID: `SPEC-BACKSTAGE-TEAM-BUDGET-DOCS`
-- Version: 3.
+- Version: 4.
 - State: `draft`; technical review and product implementation acceptance are separate.
 - Date: October 13, 2026.
 - PRD: [PRD-0001](../prd/0001-PRD-exphere.prd.md) provides product context; [PRD-0002](../prd/0002-PRD-local-microruntimes.prd.md) defers financial enforcement. No approved PRD version for the proposed RAG/funding implementation is asserted.
 - Technical owners: project owner for this documentation; consumer portal, platform, and budget owners remain to be designated for an executable integration.
 - Authorization: the owner's October 13 request explicitly authorizes a new diagram highlighting Backstage with its logo, updates under `.agents/features/`, an image in its existing `assets/` directory, one SPEC, one ticket, and a PR. This authorization covers documentation delivery, not integration implementation, deployment, or merge.
-- Scope refinement: before PR publication, the owner additionally requested a polished root README linking the feature images and supplied the Platform README Expert role. This v2 includes that documentation work; it reuses the already-created assets and creates no additional visual material.
+- Scope refinement: before PR publication, the owner additionally requested a polished root README linking the feature images and supplied the Platform README Expert role. Version 2 included that documentation work using existing assets. The subsequent explicit banner request below authorizes one new visual.
 - Current-base reconciliation: v3 targets `e969af6892a7d355f806d9b458eb134b7925d912`, which migrated the CLI to Go and retired the shell commands. Onboarding must show only current help/version and local website development; no runtime generation or PATH setup is available. Filename sequences were allocated after the concurrent migration, preserving this SPEC's stable ID and the single ticket's stable ID.
+
+- Visual follow-up (v4): after PR #21 was merged, the owner requested that the other existing diagram appear inline, a new banner use the Exphere logo and the supplied headline reference with a purple gradient, and the main README title be centered. This follow-up starts from `b9ba11ddf25fa0d84fc724504a20793e5caa5d58`, preserves both diagrams, and changes only presentation plus its traceability records.
 
 ## Contract and composition
 
@@ -27,6 +29,7 @@ The previous diagram left Backstage inside a generic context label. The feature 
 | REQ-BCTX-07 | Existing thirteen feature IDs, the prior illustration, consumer stack choices, portal ownership, and current runtime schema remain intact. | Review the scoped diff and verify all thirteen unique feature headings remain. |
 | REQ-BCTX-08 | Documentation and images are en-US, discoverable under the requested features directory, and source-attributed. SPEC/ticket/PR traceability and actual review evidence are recorded. | Local links, asset inspection, two-axis review, ticket trailer, and actual PR body. |
 | REQ-BCTX-09 | The root README presents the product, current Go scaffold and empty SDK, honest quick start, architecture, feature-image links, workspace navigation, and native contributor checks. Retired shell commands are not advertised as available. Existing assets are reused, with superseded budget wording in the earlier illustration explicitly qualified. | Inspect source/CLI contracts, Markdown links and image descriptions, rendered HTML where available, and preservation of the developer-checks anchor. No browser or theme validation is inferred from source inspection. |
+| REQ-BCTX-10 | Center the main README title, embed both existing diagrams, and add a banner with the existing Exphere identity above the reference headline "Full blast / agentic FinOps runtimes" and a purple gradient. Preserve current capability statements and the historical budget qualification. | Inspect the banner against both supplied references, the centered heading markup, both inline image references, full-size links, and rendered output. |
 
 Components remain consumer choices. LangGraph is the proposed orchestration framework in this design, not an installed dependency. Vector, relationship, and episodic storage providers, deployment topology, model catalog, and price coverage remain open. A relationship graph in retrieval is distinct from the LangGraph execution graph.
 
@@ -43,6 +46,7 @@ The shared ledger would admit and reserve covered requests atomically, reconcile
 - `.agents/features/assets/backstage-context-team-budget.png`
 - `.agents/features/assets/backstage-logo.png`
 - `.agents/features/assets/README.md`
+- `.agents/features/assets/exphere-readme-banner.png` (v4 owner-requested visual addition).
 - This SPEC.
 - [BCTX-DOCS-01](../tickets/0051-TICKET-backstage-team-budget-proposal.ticket.md).
 
@@ -74,6 +78,8 @@ The folder tree in the image is conceptual. Do not generate the illustrated `.ex
 - Trade-off: update the existing feature register rather than invent a fourteenth capability or an executable architecture. Team funding is the proposed foundation of F-03; F-09 adds allocation/reporting depth.
 - Open decisions: executable PRD approval, trusted account-mapping source, retention and freshness, database topology, credentials, coverage/pricing, and reconciliation semantics require a later implementation specification.
 - Technical review: independent Standards and Spec reviewers both reported zero actionable findings for staged tree `5335671fe510aeb7aad7f8e5ffd0eb9e38eec462` against the base above. The originating ticket records observed checks and publication-stage limits. Subsequent changes only record this review evidence; implementation acceptance remains separate.
+
+- V4 verification: independent Standards and Spec reviews report zero actionable findings for tree `1d4fd38e902d72572d9d2094d4333c52a303c32a`. Review covers the incremental presentation diff against `b9ba11ddf25fa0d84fc724504a20793e5caa5d58`; the ticket records the new snapshot and independent review. Earlier review evidence applies only to the unchanged proposal. No new test suite is required. The existing native publication gates remain applicable.
 
 ### Primary references
 
