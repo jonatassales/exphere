@@ -8,6 +8,36 @@ async function graphicsDrawCount(page: Page) {
   return count;
 }
 
+async function settledGraphicsDrawCount(page: Page) {
+  let count = 0;
+
+  await expect
+    .poll(
+      async () => {
+        const snapshot = await page.evaluate(() => {
+          const draws = performance.getEntriesByName("consumer-graphics-draw");
+          const lastDraw = draws.at(-1);
+
+          return {
+            count: draws.length,
+            quietFor: lastDraw ? performance.now() - lastDraw.startTime : 0,
+          };
+        });
+
+        count = snapshot.count;
+
+        return snapshot.quietFor;
+      },
+      {
+        message: "graphics draws settle after observer delivery",
+        timeout: 5000,
+      },
+    )
+    .toBeGreaterThanOrEqual(300);
+
+  return count;
+}
+
 test("public wrapper renders server children and remains interactive", async ({
   page,
 }) => {
@@ -150,6 +180,41 @@ test("reduced motion, hidden presentation and unmount stop graphics work", async
   page,
 }) => {
   await page.addInitScript(() => {
+    const NativeResizeObserver = window.ResizeObserver;
+    const NativeIntersectionObserver = window.IntersectionObserver;
+
+    // A static draw can follow initial observer delivery even after a quiet gap.
+    window.ResizeObserver = class extends NativeResizeObserver {
+      constructor(callback: ResizeObserverCallback) {
+        super((entries, observer) => {
+          callback(entries, observer);
+
+          if (
+            entries.some((entry) => entry.target instanceof HTMLCanvasElement)
+          ) {
+            performance.mark("consumer-graphics-resize-ready");
+          }
+        });
+      }
+    };
+
+    window.IntersectionObserver = class extends NativeIntersectionObserver {
+      constructor(
+        callback: IntersectionObserverCallback,
+        options?: IntersectionObserverInit,
+      ) {
+        super((entries, observer) => {
+          callback(entries, observer);
+
+          if (
+            entries.some((entry) => entry.target instanceof HTMLCanvasElement)
+          ) {
+            performance.mark("consumer-graphics-intersection-ready");
+          }
+        }, options);
+      }
+    };
+
     const draw = WebGL2RenderingContext.prototype.drawArrays;
 
     WebGL2RenderingContext.prototype.drawArrays = function (
@@ -169,9 +234,19 @@ test("reduced motion, hidden presentation and unmount stop graphics work", async
 
   await expect.poll(() => graphicsDrawCount(page)).toBeGreaterThan(0);
 
-  await page.waitForTimeout(200);
+  await expect
+    .poll(() =>
+      page.evaluate(() =>
+        ["resize", "intersection"].every(
+          (observer) =>
+            performance.getEntriesByName(`consumer-graphics-${observer}-ready`)
+              .length > 0,
+        ),
+      ),
+    )
+    .toBe(true);
 
-  const staticCount = await graphicsDrawCount(page);
+  const staticCount = await settledGraphicsDrawCount(page);
 
   await page.waitForTimeout(300);
 
@@ -185,9 +260,7 @@ test("reduced motion, hidden presentation and unmount stop graphics work", async
 
   await page.emulateMedia({ reducedMotion: "reduce" });
 
-  await page.waitForTimeout(200);
-
-  const changedCount = await graphicsDrawCount(page);
+  const changedCount = await settledGraphicsDrawCount(page);
 
   await page.waitForTimeout(300);
 

@@ -22,9 +22,9 @@ export function CopyCommand() {
   }
 
   return (
-    <div className="mx-auto mt-9 w-full max-w-[540px] text-left">
-      <div className="flex items-center justify-between gap-3 rounded-lg border border-site-border bg-site-canvas px-3 py-1.5">
-        <code className="overflow-x-auto whitespace-nowrap font-mono text-sm text-site-ink sm:text-base">
+    <div className="mx-auto mt-9 w-full max-w-90 text-left">
+      <div className="flex items-center justify-between gap-2 rounded-lg border border-site-border bg-site-canvas px-3 py-1">
+        <code className="min-w-0 overflow-x-auto whitespace-nowrap font-mono text-xs text-site-ink">
           {command}
         </code>
         <button
