@@ -24,3 +24,9 @@ The October 13, 2026 failure report authorizes REQ-HOME-06 in the parent spec: r
 The first correction still failed in GitHub run 38403213470. REQ-HOME-06 now also requires observing native canvas resize/intersection callback completion before the baseline; quiet time alone is insufficient. Refreshed validation for this revision is pending.
 
 Revised synchronization passed 10 normal repetitions and three delayed-intersection repetitions; a disposable diagnostic without the readiness barrier reproduced CI's exact 4-to-5 mismatch. Package type checking, Biome and refreshed independent reviews passed. See the parent spec for the source hash and the distinction between failed prior CI and pending updated CI.
+
+## Attribution correction — October 13, 2026
+
+The owner requested project-wide `Grupo XLO` attribution and PR delivery. This bounded correction updates REQ-HOME-03 and the existing related artifacts only; the approved current layout and behavior remain unchanged. The parent spec records authorization, base and verification scope. Independent review and publication checks are pending.
+
+Review closure: independent Standards and Spec reviews both passed with zero findings against manifest SHA-256 `9d9686c6fd761d437940aa00c7ccb769265a16f19e5ac78eec380db35173551b` at base `f40987589c95a57de5413afa476d7e0b1a1b1ac5`. Eight attribution substitutions were verified; no former-name matches remain in authored source/documentation. Scoped Biome, website type checking and whitespace checks passed. This evidence-only append follows review; the reviewed source and requirements are unchanged. Native commit/push gates execute during publication; no merge or deployment is claimed.

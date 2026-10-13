@@ -21,7 +21,7 @@ The current Next.js 16 App Router website uses Tailwind and the shared animated 
 - Show Orbo as a visually controlled preview: no media capture, no provider, no call to `startConversation`. Preserve reduced-motion `system`. Use native `<orb-o>` attributes, no wrapper framework or custom renderer.
 - Maintain site dark tokens, near-black surfaces and the current purple motion. Header orb uses `#0a0a0a` through `#666666` neutral colors, not Exphere's purple accent.
 - The copy button's command `npx exphere init` is **display-only until the npm executable exists**. Copying must never execute it and must handle navigator.clipboard failure.
-- Use inline accessible SVG social icons and real verified URLs, avoiding invented X/Instagram profile links. Render the exact owner-provided `exphere by Grupo OLX © 2026` footer credit; do not infer trademark clearance or organizational legal approval from a repo change.
+- Use inline accessible SVG social icons and real verified URLs, avoiding invented X/Instagram profile links. Render the exact owner-provided `exphere by Grupo XLO © 2026` footer credit; do not infer trademark clearance or organizational legal approval from a repo change.
 - Keep `noindex` until a separate accepted production-origin/indexability decision. Nextra theme route does not auto-create public SEO claims.
 - Respect the existing project's Tailwind-first styling rule despite the attached generic frontend role's preference for native CSS; preserve framework-local ownership.
 
