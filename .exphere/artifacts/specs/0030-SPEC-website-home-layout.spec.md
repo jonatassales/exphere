@@ -39,7 +39,7 @@ The owner selected viewport centering and explicitly chose “Preserve current b
 
 The branding decision is a scoped exception to general Exphere-only guidance. Preserve Grupo OLX attribution and LinkedIn only within the authorized website scope; it does not establish organizational adoption or other commercial claims.
 
-Baseline: main at `8251f7851fb9b2be9067782c178fe814ca5cc295`. The original checkout contained homepage edits against an older app tree. Carry over the approved visual intent while keeping current upstream structure, corrected clipboard value and configuration references. Existing DESIGN.md and IDENTITY.md are already present in this baseline; do not overwrite them with unrelated local copies. This spec supersedes earlier homepage panel, scale and footer-placement instructions only for the stated requirements.
+Baseline: main at `8251f7851fb9b2be9067782c178fe814ca5cc295`. The original checkout contained homepage edits against an older app tree. Carry over the approved visual intent while keeping current upstream structure, corrected clipboard value and configuration references. The prior visual contract and asset provenance record are already present in this baseline; do not overwrite them with unrelated local copies. This spec supersedes earlier homepage panel, scale and footer-placement instructions only for the stated requirements.
 
 ### VER-HOME-01: bounded verification
 

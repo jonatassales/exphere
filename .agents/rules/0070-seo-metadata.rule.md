@@ -18,7 +18,7 @@ An indexable route needs a unique title and description, a self canonical, a ser
 
 `opengraph-image.*` and `twitter-image.*` own social image files and framework-derived image metadata. Do not manually duplicate width, height, MIME type, alt, or absolute image descriptors already owned by the framework.
 
-Keep `robots.txt`, `sitemap.xml`, icons, social images, and `manifest.webmanifest` as static convention files under `src/app/` when the application requires them. Do not replace these static files with TypeScript generators. Application metadata source and composition follow [Next.js metadata ownership](0040-nextjs-structure.rule.md#metadata-ownership).
+Keep `robots.txt`, `sitemap.xml`, icons, social images, and `manifest.webmanifest` as static convention files under the application's App Router root (`src/app/` by default, `app/` for the Exphere website) when the application requires them. Do not replace these static files with TypeScript generators. Application metadata source and composition follow [Next.js metadata ownership](0040-nextjs-structure.rule.md#metadata-ownership).
 
 For localized applications, routing owns locale IDs, public prefixes, and the default locale, conventionally in `routing.ts`. Metadata JSON owns titles, descriptions, site name, public origin, Open Graph locales, and organization fields. It does not own route paths. Include only fields and locale catalogs required by the application's contract.
 

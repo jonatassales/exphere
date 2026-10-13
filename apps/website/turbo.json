@@ -1,0 +1,9 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/.agents/features/assets/**"],
+      "outputs": ["$TURBO_EXTENDS$", "public/_pagefind/**"]
+    }
+  }
+}

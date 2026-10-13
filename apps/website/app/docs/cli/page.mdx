@@ -1,0 +1,35 @@
+---
+title: "CLI"
+description: "Run the current Go CLI scaffold and distinguish supported commands from proposed runtime behavior."
+---
+
+# CLI
+
+The `ex` CLI is a dependency-free Go scaffold. Use it from the repository through the private pnpm task bridge. It is separate from the TypeScript SDK.
+
+## Supported commands
+
+From the repository root:
+
+```sh
+pnpm ex --help
+pnpm ex version
+```
+
+Help lists the command surface; version prints the scaffold version. The direct Go entrypoint is also available:
+
+```sh
+go -C packages/cli run ./cmd/ex --help
+```
+
+## Initialization is reserved
+
+`init` is intentionally unavailable. It returns a nonzero result without creating consumer files. Runtime generation, validation, lifecycle management, Terraform/Kubernetes execution, global installation, and shell-profile setup are not working commands in the Go scaffold.
+
+The homepage displays `npx exphere init` as product-facing preview text. It does not establish npm publication or a working initializer.
+
+## Historical contracts
+
+The former shell implementation and runtime hooks are retired. Surviving schemas, source-contract fixtures, and design documents record earlier work; they do not prove feature parity or a deployed integration.
+
+Read the [package-owned CLI reference](https://github.com/jonatassales/exphere/blob/main/packages/cli/README.md) for build commands and exact behavior. Use [Concepts](/docs/concepts#microruntimes-compose-around-existing-applications) to understand the intended microruntime boundary.

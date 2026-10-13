@@ -2,7 +2,7 @@
 
 **Spec:** [SPEC-WEBSITE-HERO-DOCS v2](../specs/0021-SPEC-website-hero-documentation.spec.md)
 **What to build:** Turn the empty home page into a responsive, accessible Exphere hero with one truthful project introduction, a documentation CTA linking to the existing repository README, and a small code-style CLI preview using documented commands. Respect the approved black-branded ClickHouse-derived design language while keeping the existing animated shader visible and without restoring the previously disabled SVG logo.
-**Blocked by:** None. The approved [website DESIGN.md](../../../apps/website/DESIGN.md) is already present on main.
+**Blocked by:** None. The original visual contract was present on main for this historical cycle. See the [current successor and retained provenance](../specs/0031-SPEC-website-docs-refresh.spec.md#retained-asset-provenance) for the later refresh.
 **Status:** in-review
 **Approval:** The owner's October 13, 2026 request authorizes the scoped hero implementation and explicitly corrects the unimplemented v1 plan to **retain the motion background**; the preceding same-repository PR workflow instruction provides feature-branch/PR delivery authorization. This does not authorize deployment or merge.
 

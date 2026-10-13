@@ -1,5 +1,6 @@
 import { OrboPreview } from "@app/template/orbo-preview";
 import { WebsiteFooter } from "@app/template/website-footer";
+import { Search } from "nextra/components";
 import { getPageMap } from "nextra/page-map";
 import { Layout, Navbar } from "nextra-theme-docs";
 import type { ReactNode } from "react";
@@ -20,7 +21,7 @@ export default async function DocsLayout(props: DocsLayoutProps) {
       editLink={null}
       feedback={{ content: null }}
       footer={
-        <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-10">
+        <div className="mx-auto w-full max-w-[1440px] border-t border-site-border px-6 py-8 sm:px-10">
           <WebsiteFooter />
         </div>
       }
@@ -33,13 +34,16 @@ export default async function DocsLayout(props: DocsLayoutProps) {
             </span>
           }
           logoLink="/"
+          projectLink="https://github.com/jonatassales/exphere"
         />
       }
-      navigation={false}
       nextThemes={{ defaultTheme: "dark", forcedTheme: "dark" }}
       pageMap={pageMap}
-      search={null}
-      toc={{ float: false }}
+      search={
+        <Search aria-label="Search documentation" placeholder="Search docs…" />
+      }
+      toc={{ title: "On this page" }}
+      sidebar={{ defaultMenuCollapseLevel: 2 }}
     >
       {children}
     </Layout>

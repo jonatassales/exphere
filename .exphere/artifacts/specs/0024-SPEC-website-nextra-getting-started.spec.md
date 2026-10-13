@@ -1,5 +1,7 @@
 # Nextra website entry, Orbo preview and Getting Started
 
+Reference maintenance: successor links below point to the later website refresh, not to the source reviewed in this historical cycle. Original revisions and review hashes remain authoritative.
+
 - ID: `SPEC-WEB-DOCS`
 - Document number: `SPEC-0024`
 - Version: `1`
@@ -14,7 +16,7 @@
 
 ## Contract
 
-The existing Next.js App Router home page remains a server-rendered first entry. The visual design follows the site's dark/purple Exphere DESIGN.md and retains a single existing ExphereShader background. The right CLI card disappears. One **centered, slightly wider** hero includes exactly one `h1`, the owner's exact title and description and one interactive dark copy field for `npx exphere init`. The header label becomes `Documentation`, linking to `/docs`.
+The existing Next.js App Router home page remains a server-rendered first entry. The visual design follows the site's dark/purple Exphere visual contract and retains a single existing ExphereShader background. The right CLI card disappears. One **centered, slightly wider** hero includes exactly one `h1`, the owner's exact title and description and one interactive dark copy field for `npx exphere init`. The header label becomes `Documentation`, linking to `/docs`.
 
 Header: an `orbo-voice` native `<orb-o>` element appears **left** of the Exphere text logo, aligned in scale, using `state="listening"`, dark grayscale colors and reduced-motion `system`. This is a **visual demo**, not evidence of recording or an active microphone. Register the web component only in a small client boundary; preserve SSR accessibility.
 
@@ -48,7 +50,7 @@ Nextra 4 Docs Theme is integrated via its official Next.js plugin, required `mdx
 `src/app/docs/page.mdx`, `src/app/template/orbo-preview.tsx`,
 `src/app/template/copy-command.tsx`, `src/mdx-components.tsx`,
 `src/app/layout.tsx`, `src/app/globals.css`, `src/app/template/website-footer.tsx`,
-`DESIGN.md`, `IDENTITY.md`, removal of retired website script wrappers,
+the retired website visual contract, the retired asset provenance record, removal of retired website script wrappers,
 `next.config.mjs`, `package.json`, `README.md`, and optional Nextra metadata files
 only where needed. Root `pnpm-workspace.yaml` may carry only the scoped Nextra
 compatibility overrides described below; synchronize `pnpm-lock.yaml`.
@@ -80,7 +82,7 @@ Nextra 4.6.1 loads twoslash, whose declared compiler support is TypeScript `^5.5
 
 - Use native `next build` with Next.js 16.4 Turbopack. Nextra 4.6.1's legacy Webpack loader misclassifies the MDX metadata. The supported `turbopack.resolveAlias` maps `next-mdx-import-source-file` to `./src/mdx-components.tsx`; the Docs layout uses the root page map for the single authored `/docs` leaf.
 - Scope pnpm overrides to `nextra@4.6.1>zod` and `nextra-theme-docs@4.6.1>zod` at 4.1.12. Resolved Zod 4.4.3 rejects the theme's omitted `children` field during server rendering. Do not globally override unrelated Zod consumers. Retain the website-only TypeScript 6.0.3 decision above and include these pins in upgrade review.
-- Preserve all six malformed baseline image files byte-for-byte under `public/brand/`; the [identity record](../../../apps/website/IDENTITY.md) contains their paths, defects and SHA-256 checksums. Recover only the active Apple and 512px application/maskable icons from black-brand revision `706d6dae3eb7a95f68738448ae28e36fefd291a3`. This is recovery of existing geometry, not a logo redesign. The valid existing SVG/PNG favicons remain active.
+- Preserve all six malformed baseline image files byte-for-byte under `public/brand/`; the [current successor and retained provenance](0031-SPEC-website-docs-refresh.spec.md#retained-asset-provenance) contains their paths, defects and SHA-256 checksums. Recover only the active Apple and 512px application/maskable icons from black-brand revision `706d6dae3eb7a95f68738448ae28e36fefd291a3`. This is recovery of existing geometry, not a logo redesign. The valid existing SVG/PNG favicons remain active.
 - No active ICO or social-image metadata convention files remain. Legacy clients requiring only `/favicon.ico` and future social sharing retain explicit limitations. The origin/indexing decision and empty social image lists stay unchanged; valid replacement exports require a future verified change.
 
 Website verification reported successful production compilation and type checking, decoding of the five active PNG assets, byte identity of all six archived originals against baseline `d6b3c8a`, and generated HTML containing one heading per page, exact requested copy, the Docs link, noindex directives, and decorative listening orbs. Record the final integrated source snapshot and command evidence in INTEGRATE-01; these observations do not establish browser clipboard, motion, rendering or production behavior.

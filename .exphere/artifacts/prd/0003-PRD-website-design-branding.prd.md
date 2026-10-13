@@ -15,7 +15,7 @@
 
 ## Scope
 
-- Included: a website-local `DESIGN.md`; black Exphere logo; black-on-white browser/app icons; black-and-white Open Graph and X/Twitter cards; asset provenance/alt-text documentation; PRD/ADR/spec/ticket traceability.
+- Included: a website-local visual contract (now retired); black Exphere logo; black-on-white browser/app icons; black-and-white Open Graph and X/Twitter cards; asset provenance/alt-text documentation; PRD/ADR/spec/ticket traceability.
 - Out of scope: restoring the currently commented home logo, redesigning page content, changing shared `@repo/design` tokens, adding fonts or dependencies, changing metadata copy, accepting a production origin, enabling indexing, adding sitemap/entity/social-profile facts, deployment, or merge.
 - Dependencies, constraints, and open questions: the ClickHouse reference is an independent design analysis, not an affiliation or license to reuse ClickHouse marks. Structural principles are adapted; ClickHouse yellow is intentionally not adopted. Production origin/indexing remains an independent launch decision.
 
@@ -23,7 +23,7 @@
 
 | Requirement | Behavior/outcome | Verifiable criterion | Expected evidence |
 | --- | --- | --- | --- |
-| REQ-BRAND-001 | Canonical website design language | `apps/website/DESIGN.md` records the ClickHouse-derived technical rules and the Exphere-specific monochrome override. | Source review against the selected external reference and owner direction. |
+| REQ-BRAND-001 | Canonical website design language | The former website visual contract recorded the ClickHouse-derived technical rules and the Exphere-specific monochrome override. | Source review against the selected external reference and owner direction. |
 | REQ-BRAND-002 | Black brand identity | Exphere mark and wordmark use black only; no purple/yellow/chromatic brand pixels remain in consumed website identity assets. | SVG inspection and raster chroma scan. |
 | REQ-BRAND-003 | SEO/browser consistency | Favicon, Apple/app/maskable icons and social cards use the same black-on-white identity and retain required dimensions/references. | Image decode, dimensions, ICO frame, maskable-boundary, manifest-path checks. |
 | REQ-BRAND-004 | Technical, flat visual language | SEO cards use white canvas, black identity, technical line work, restrained geometry, and no shadows/gradients. | SVG/raster visual-source inspection. |

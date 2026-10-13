@@ -2,7 +2,7 @@
 
 **Spec:** [SPEC-WEBSITE-DARK-THEME v1](../specs/0022-SPEC-website-dark-theme.spec.md)
 **What to build:** Replace the light/white Exphere hero, CLI cards and browser chrome with the ClickHouse-derived dark-only palette and readable white type. Keep the existing animated shader but provide it dark neutral colors, preserving its current default public consumer behavior. Keep the Docs CTA, SEO launch gate, black logo assets and responsive layout.
-**Blocked by:** None. The merged [hero spec](../specs/0021-SPEC-website-hero-documentation.spec.md) and existing website DESIGN.md provide the baseline.
+**Blocked by:** None. The merged [hero spec](../specs/0021-SPEC-website-hero-documentation.spec.md) and existing retired website visual contract provide the baseline.
 **Status:** in-review
 **Approval:** The owner's October 13, 2026 request explicitly authorizes the PRD, spec, ticket, implementation, commit and PR for this exact dark-theme scope; prior motion preservation continues. No merge, deployment or public launch authorized.
 

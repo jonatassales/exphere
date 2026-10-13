@@ -1,0 +1,52 @@
+---
+title: "Architecture"
+description: "Explore the current package boundaries and the proposed context-to-execution architecture."
+---
+
+# Architecture
+
+import Image from "next/image";
+import contextDiagram from "@diagrams/backstage-context-team-budget.png";
+import factoryDiagram from "@diagrams/runtimes-factory.png";
+
+Exphere's current workspace provides the documentation, package foundations, CLI scaffold, and contracts for a larger delivery platform. The diagrams below describe that proposed platform.
+
+## Context to execution
+
+<Image src={contextDiagram} alt="Proposed flow from Backstage and intent artifacts through context retrieval, allocation, agent orchestration, and microruntime execution, governed by a shared team budget." sizes="(max-width: 768px) 100vw, 800px" />
+
+1. **Gather ownership and intent.** A configured, authorized Backstage connection would provide component context. Artifact bodies come from their source.
+2. **Assemble useful context.** Retrieval would combine requirements, prior outcomes, and relevant evidence.
+3. **Recommend investment.** An allocator would propose work within the team's budget and priorities.
+4. **Coordinate execution.** LangGraph would coordinate model and effort choices; deterministic controls would reserve funds before covered paid calls.
+5. **Learn from results.** Observed outcomes would return to memory for future decisions.
+
+The Backstage connector, retrieval store, allocator, orchestrator, and financial ledger are not implemented. The integration is intended to complement an existing developer portal, not require its replacement.
+
+## Current workspace boundaries
+
+| Location | Responsibility |
+| --- | --- |
+| `packages/cli/` | Go `ex` scaffold and private pnpm task bridge. |
+| `packages/sdk/` | Separate private TypeScript SDK; API remains empty. |
+| `packages/design/` | Generated CSS/JSON design tokens. |
+| `packages/web/` | Shared ExphereShader React surface. |
+| `apps/website/` | Next.js/Nextra introduction and documentation. |
+| `.agents/features/` | Proposed capabilities and existing illustrations. |
+| `.exphere/artifacts/` | Typed PRDs, specs, tickets, research, and design records. |
+| `.exphere/workflow/` | Documentary SDD lifecycle and installed workflow skills. |
+| `.exphere/harness/` | Shared policies and retained supporting material. |
+
+Public-intent package metadata does not demonstrate registry publication. The Go CLI does not expose the former shell runtime implementation.
+
+## Thirteen feature proposals
+
+The [feature register](https://github.com/jonatassales/exphere/blob/main/.agents/features/README.md) groups the direction around explaining delivery, bounding consumption, planning with evidence, executing and recovering, and evaluating improvement. Each proposal has its own acceptance criteria, dependencies, and limitations.
+
+### Earlier factory sketch
+
+<Image src={factoryDiagram} alt="Historical Exphere factory sketch connecting thirteen proposed capabilities and optional tools. Its cycle, feature, and sprint budget caps are superseded by the shared team budget proposal." sizes="(max-width: 768px) 100vw, 800px" />
+
+This earlier sketch illustrates the breadth of the proposed flow. **Its cycle/feature/sprint-cap budget wording is superseded by the shared team budget model above.** Neither image is a screenshot of running integrations.
+
+See [image provenance and third-party attribution](https://github.com/jonatassales/exphere/blob/main/.agents/features/assets/README.md), the [design overview](https://github.com/jonatassales/exphere/blob/main/.exphere/artifacts/design/0001-DD-exphere.dd.md), and the [local microruntime requirements](https://github.com/jonatassales/exphere/blob/main/.exphere/artifacts/prd/0002-PRD-local-microruntimes.prd.md).

@@ -1,5 +1,7 @@
 # Nextra documentation entry architecture
 
+Reference maintenance: successor links below point to the later website refresh, not to the source reviewed in this historical cycle. Original revisions and review hashes remain authoritative.
+
 - ID: `DD-0012`
 - Decision ID: `ADR-0004`
 - Status: `selected under owner-requested documentation-only scope`
@@ -45,6 +47,6 @@ Native Next.js 16.4 Turbopack owns production compilation. Configure its support
 
 Pin Zod 4.1.12 only for Nextra 4.6.1 and its Docs Theme through scoped pnpm overrides. The resolved 4.4.3 version rejects the theme's omitted `children` field during server rendering. This and the website-only TypeScript pin are bounded compatibility decisions; other workspace consumers keep their own dependency versions.
 
-Production compilation exposed six corrupt binary assets already present in the base revision. Preserve their original bytes and moved social alt sidecars under existing `public/brand/`; restore active Apple and 512px manifest icons from the verified black-brand revision `706d6dae3eb7a95f68738448ae28e36fefd291a3`. Existing SVG and PNG favicon links remain active. Remove the corrupt ICO/social convention routes while retaining noindex and empty social image metadata. Legacy ICO-only clients and social image publication remain explicit limitations. The [identity record](../../../apps/website/IDENTITY.md) owns exact byte provenance and checksums; the [focused specification](../specs/0024-SPEC-website-nextra-getting-started.spec.md#native-nextra-build-and-asset-recovery) bounds the affected paths and evidence.
+Production compilation exposed six corrupt binary assets already present in the base revision. Preserve their original bytes and moved social alt sidecars under existing `public/brand/`; restore active Apple and 512px manifest icons from the verified black-brand revision `706d6dae3eb7a95f68738448ae28e36fefd291a3`. Existing SVG and PNG favicon links remain active. Remove the corrupt ICO/social convention routes while retaining noindex and empty social image metadata. Legacy ICO-only clients and social image publication remain explicit limitations. The [current successor and retained provenance](../specs/0031-SPEC-website-docs-refresh.spec.md#retained-asset-provenance) owns exact byte provenance and checksums; the [focused specification](../specs/0024-SPEC-website-nextra-getting-started.spec.md#native-nextra-build-and-asset-recovery) bounds the affected paths and evidence.
 
 The website implementer reported a successful production build, type check, active-PNG decoding, archived-source byte comparisons and generated HTML/metadata inspection. Final integration review records the checked snapshot separately. No browser verification, indexing, deployment or new brand design is claimed.

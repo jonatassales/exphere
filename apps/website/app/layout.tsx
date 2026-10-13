@@ -1,6 +1,5 @@
 import "@app/globals.css";
 
-import { ExphereShader } from "@repo/web/react/exphere-shader";
 import type { Metadata, Viewport } from "next";
 import { Head } from "nextra/components";
 import type { ReactNode } from "react";
@@ -19,14 +18,6 @@ export const viewport: Viewport = {
   colorScheme: "dark",
   themeColor: "#0a0a0a",
 };
-
-// Purple-on-black website motion; shared shader defaults stay unchanged.
-const shaderPalette = {
-  primary: "#36135a",
-  primaryHover: "#6d0ad6",
-  background: "#0a0a0a",
-  surface: "#121212",
-} as const;
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -47,8 +38,8 @@ export default function RootLayout(props: RootLayoutProps) {
         backgroundColor={{ dark: "#0a0a0a", light: "#0a0a0a" }}
         color={{ hue: 266, saturation: 100, lightness: 76 }}
       />
-      <body className="min-h-screen bg-background font-body text-foreground">
-        <ExphereShader palette={shaderPalette}>{children}</ExphereShader>
+      <body className="min-h-screen supports-[height:100dvh]:min-h-dvh bg-background font-body text-foreground">
+        {children}
       </body>
     </html>
   );

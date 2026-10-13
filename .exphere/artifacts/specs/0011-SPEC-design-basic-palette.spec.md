@@ -111,7 +111,7 @@ Prior art: the [design package contract](../../../packages/design/README.md) and
 
 ### Inspected source context
 
-Read-only inspection used repository base `89e4bd796d3ec8ff76bed414c39f19be2d365b7e`, the [authored color data](../../../packages/design/tokens/color.json), [compiler](../../../packages/design/src/compiler.ts), [package contract](../../../packages/design/README.md), and the [website's public token mapping](../../../apps/website/src/app/globals.css). The inspected compiler already supports the needed literals, normalization, and same-theme aliasing. Historical foundation verification remains attached to its original spec and is not evidence for this palette update.
+Read-only inspection used repository base `89e4bd796d3ec8ff76bed414c39f19be2d365b7e`, the [authored color data](../../../packages/design/tokens/color.json), [compiler](../../../packages/design/src/compiler.ts), [package contract](../../../packages/design/README.md), and the [website's public token mapping](../../../apps/website/app/globals.css). The inspected compiler already supports the needed literals, normalization, and same-theme aliasing. Historical foundation verification remains attached to its original spec and is not evidence for this palette update.
 
 ### Draft review record — October 11, 2026
 

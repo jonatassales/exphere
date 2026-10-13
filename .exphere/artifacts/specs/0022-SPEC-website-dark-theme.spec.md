@@ -1,11 +1,13 @@
 # Dark-only website and grayscale motion palette
 
+Reference maintenance: successor links below point to the later website refresh, not to the source reviewed in this historical cycle. Original revisions and review hashes remain authoritative.
+
 - ID: `SPEC-WEBSITE-DARK-THEME`
 - Document number: `SPEC-0022`
 - Version: `1`
 - State: `source implemented; in review; runnable checks pending`
 - PRD: [PRD-WEBSITE-DARK-THEME](../prd/0004-PRD-website-dark-theme.prd.md)
-- Design decision: [ADR-0002](../design/0010-DD-website-design-system-branding.dd.md), amended only for the website dark theme under this request; [website DESIGN.md](../../../apps/website/DESIGN.md).
+- Design decision: [ADR-0002](../design/0010-DD-website-design-system-branding.dd.md), amended only for the website dark theme under this request; [current successor and retained provenance](0031-SPEC-website-docs-refresh.spec.md#retained-asset-provenance).
 - Existing feature: [SPEC-WEBSITE-HERO-DOCS v2](0021-SPEC-website-hero-documentation.spec.md) — hero/docs and shader preservation remain in force.
 - Ticket: [WEB-DARK-01](../tickets/0044-TICKET-website-dark-theme.ticket.md)
 - Baseline: `bc9e838b3b0fe3fd5736ce8fcf0ce25930239aa3` (`main`).
@@ -43,7 +45,7 @@ As a visitor, I want Exphere's website and moving background in dark graphite/bl
 - this spec
 - `.exphere/artifacts/tickets/0044-TICKET-website-dark-theme.ticket.md`
 - `.exphere/artifacts/design/0010-DD-website-design-system-branding.dd.md` (historical theme supersession note only)
-- `apps/website/DESIGN.md`, `apps/website/README.md`
+- the retired website visual contract, `apps/website/README.md`
 - `apps/website/src/app/globals.css`, `apps/website/src/app/layout.tsx`, `apps/website/src/app/page.tsx`, `apps/website/src/app/manifest.webmanifest`
 - `packages/web/src/react/exphere-shader/exphere-shader.tsx`
 - `packages/web/README.md`

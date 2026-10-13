@@ -6,7 +6,7 @@
 
 ## Application and route ownership
 
-Use the App Router directly under `src/app/`. Do not add a Pages Router tree. Framework files retain their framework meaning: `layout.tsx`, `page.tsx`, `template.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`, `route.ts`, and, when needed by the installed version, `proxy.ts`. Use those conventions instead of custom wrappers that duplicate their jobs.
+Use the App Router directly under `src/app/` by default. **Website exception:** the owner selected `apps/website/app/` with no `src/` wrapper in SPEC-WEBSITE-DOCS-REFRESH. For this application, all `src/app/` ownership guidance below applies to `app/`, including static metadata and presentation infrastructure. Its Nextra mapping belongs in `app/components/mdx-components.tsx`. Do not add a Pages Router tree. Framework files retain their framework meaning: `layout.tsx`, `page.tsx`, `template.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`, `route.ts`, and, when needed by the installed version, `proxy.ts`. Use those conventions instead of custom wrappers that duplicate their jobs.
 
 The filesystem owns page identity. Apply [frontend composition](0100-frontend.rule.md#components-hooks-and-composition) through route files and layouts: each route composes its page instead of passing a discriminator into a universal view. Navigation and title models may represent useful data without owning route dispatch. Give distinct pages page-specific metadata; a shared layout's metadata is a foundation, not a replacement for page identity.
 

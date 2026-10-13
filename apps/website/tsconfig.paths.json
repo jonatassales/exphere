@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "paths": {
-      "@app/*": ["./src/app/*"]
+      "@app/*": ["./app/*"],
+      "@diagrams/*": ["../../.agents/features/assets/*"]
     }
   }
 }
