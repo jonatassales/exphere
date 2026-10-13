@@ -268,6 +268,10 @@ importers:
         version: 7.0.2
 
   packages/sdk:
+    dependencies:
+      '@exphere/cli':
+        specifier: workspace:*
+        version: link:../cli
     devDependencies:
       typescript:
         specifier: 7.0.2

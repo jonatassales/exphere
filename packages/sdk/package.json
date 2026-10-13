@@ -10,12 +10,24 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "bin"
   ],
   "scripts": {
     "build": "tsc --project tsconfig.json"
   },
   "devDependencies": {
     "typescript": "7.0.2"
-  }
+  },
+  "bin": {
+    "ex": "./bin/ex.sh",
+    "ex-shell-setup": "./bin/setup-shell.sh"
+  },
+  "dependencies": {
+    "@exphere/cli": "workspace:*"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ]
 }

@@ -2,7 +2,10 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"errors"
+	"github.com/jonatassales/exphere/packages/cli/src/internal/adapters/process"
+	"github.com/jonatassales/exphere/packages/cli/src/internal/commands"
 	"strings"
 	"testing"
 )
@@ -15,20 +18,20 @@ func TestCommand(t *testing.T) {
 		stdout string
 		stderr string
 	}{
-		{name: "help on no args", status: 0, stdout: "Exphere CLI (Go scaffold)"},
-		{name: "explicit help", args: []string{"--help"}, status: 0, stdout: "Usage: ex"},
-		{name: "version", args: []string{"version"}, status: 0, stdout: "ex 0.0.0-dev (Go scaffold)"},
-		{name: "init unsupported", args: []string{"init"}, status: 2, stderr: "init is not implemented"},
-		{name: "unexpected init flags", args: []string{"init", "--force"}, status: 2, stderr: "does not accept arguments or flags"},
-		{name: "unexpected init arguments", args: []string{"init", "project"}, status: 2, stderr: "does not accept arguments or flags"},
-		{name: "invalid command", args: []string{"runtime"}, status: 2, stderr: "unknown command"},
-		{name: "unexpected version arguments", args: []string{"version", "extra"}, status: 2, stderr: "does not accept arguments"},
-		{name: "unexpected help arguments", args: []string{"help", "extra"}, status: 2, stderr: "does not accept arguments"},
+		{name: "help on no args", status: 0, stdout: "Exphere CLI"},
+		{name: "explicit help", args: []string{"--help"}, status: 0, stdout: "Usage:"},
+		{name: "version", args: []string{"version"}, status: 0, stdout: "ex 0.0.0-dev"},
+		{name: "init initialized", args: []string{"init"}, status: 0, stdout: "initialized"},
+		{name: "unexpected init flags", args: []string{"init", "--force"}, status: 2, stderr: "unknown flag"},
+		{name: "unexpected init arguments", args: []string{"init", "project"}, status: 2, stderr: "requires 0 argument"},
+		{name: "invalid command", args: []string{"invalid"}, status: 2, stderr: "unknown command"},
+		{name: "unexpected version arguments", args: []string{"version", "extra"}, status: 2, stderr: "requires 0 argument"},
+		{name: "unexpected help arguments", args: []string{"help", "extra"}, status: 2, stderr: "unknown help command"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			var out, err bytes.Buffer
-			status := run(tt.args, &out, &err)
+			status := commands.Execute(context.Background(), tt.args, commands.Options{Version: version, Runner: process.Runner{}, Directory: t.TempDir(), Output: &out, Diagnostics: &err})
 			if status != tt.status || !strings.Contains(out.String(), tt.stdout) || !strings.Contains(err.String(), tt.stderr) {
 				t.Fatalf("run(%q) = (%d, %q, %q), want status %d and substrings %q, %q", tt.args, status, out.String(), err.String(), tt.status, tt.stdout, tt.stderr)
 			}
