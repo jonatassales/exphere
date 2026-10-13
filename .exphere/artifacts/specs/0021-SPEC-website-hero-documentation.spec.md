@@ -3,7 +3,7 @@
 - ID: `SPEC-WEBSITE-HERO-DOCS`
 - Document number: `SPEC-0021`
 - Version: `2`
-- State: `approved for scoped implementation; verification pending`
+- State: `source implemented; in review; runtime verification pending`
 - PRD: [PRD-0001](../prd/0001-PRD-exphere.prd.md) — broader product direction; organizational acceptance remains unproven.
 - Visual contract: [ADR-0002](../design/0010-DD-website-design-system-branding.dd.md) and [website DESIGN.md](../../../apps/website/DESIGN.md).
 - Technical owner: website implementer; project owner retains production, docs-hosting, and launch decisions.
@@ -73,4 +73,59 @@ The website owns its presentation and docs link. Shared `@repo/design` and `@rep
 
 ### Evidence
 
-Awaiting the implementation snapshot and review. Do not mark the ticket done without verification.
+Source review snapshot: implementation commit `eab6e044ccbba6ecd4ba0004fe6ec8de7b02d0dd`,
+against fixed `main` baseline `6133b4cfb8b83adf5929f5c055d6e46631e50778`.
+
+The GitHub compare reports three commits ahead, zero behind and exactly five scoped
+files changed: this spec, WEB-HERO-01 ticket, website page, website README, and
+website DESIGN.md. No root-layout, shader, package, lockfile, Tailwind bootstrap,
+metadata, robot policy, social image, manifest, or deployment change exists.
+
+Implementation source identities:
+
+- `apps/website/src/app/page.tsx` Git blob: `07b9b6d9a88046c383814e52aa8b4a1c2babcbf0`.
+- `apps/website/DESIGN.md` Git blob: `44221edd04a2bf667f6705a8b5813b0a8de3fe10`.
+- `apps/website/README.md` Git blob: `3ef0f406fbfc2b20e410bfb62cf46542d189e4ff`.
+- `apps/website/src/app/layout.tsx` remains baseline blob
+  `2f3afff8c66e37da29c0d9e2e4b6a3a07ffb18e3` with
+  `<ExphereShader>{children}</ExphereShader>` intact.
+
+Static source inspection verifies the single rendered `h1`, an external
+documentation anchor with focus-visible affordances and safe new-tab attributes,
+two documented CLI commands, responsive grid and scrollable code examples,
+static translucent white content surfaces, black CTA, and the still-commented
+home SVG logo. No CLI output is fabricated.
+
+### Standards axis
+
+Sequential source-level review against `AGENTS.md`, the website design
+contract, local styling/Next.js/frontend rules and SDD v1 found no actionable
+violation. The route remains a Server Component, component styling uses Tailwind,
+semantic App Router metadata is untouched, no authored selector CSS or new
+dependency was added, and the site-specific exception accurately preserves the
+owner-approved animated shader. The two small static command rows intentionally
+share presentation markup without adding an unnecessary component abstraction.
+
+### Spec axis
+
+Sequential source-level review confirms REQ-HERO-01 through REQ-HERO-07
+at the inspected source revision. REQ-HERO-08 is only partially verified:
+three commits use one `Ticket: WEB-HERO-01` trailer; final PR publication and
+independent review still require inspection. The changed layout does **not**
+remove, recolor, or obscure the existing shader with an opaque full-screen layer.
+No unapproved docs route, claimed production capability, or launch/indexing
+metadata has been introduced.
+
+### Unverified execution and review
+
+The connector execution has no checked-out workspace or installed project
+toolchain. Next.js production build, TypeScript checks, Biome, real browser
+rendering, animation visibility during actual playback, and focus contrast under
+live motion were **not run**. Source-level preservation is not a browser test.
+
+The local code-review skill calls for parallel independent sub-agents; this
+execution only performed sequential manual Standards/Spec inspection. Prior
+repository CI runs used a disabled provider configuration and cannot be assumed
+to supply independent approval for this change. The PR must record actual CI
+results separately. No work is marked done or merge-ready from these checks.
+
