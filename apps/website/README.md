@@ -56,6 +56,10 @@ telemetry integration, deployment, or measured capacity claim.
 The application is dark only, including Nextra. Tailwind utilities consume the
 public `@repo/design` token CSS and the website's charcoal/purple theme bridge.
 Nextra's required framework stylesheet is the only new global style import.
+The root imports application bootstrap CSS before the shared shader stylesheet,
+and declares `theme, base, components, utilities` in that order. This prevents
+framework resets from taking precedence over Tailwind utilities.
+`src/app/_meta.ts` keeps the documentation sidebar limited to Getting Started.
 [DESIGN.md](DESIGN.md) records website-only visual decisions; shared token and
 shader ownership stay in their packages. The existing shader uses the same
 purple-on-black palette, motion algorithm, reduced-motion support and fallback.

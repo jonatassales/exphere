@@ -159,8 +159,9 @@ legible white UI typography instead of attempting a black-on-black logo.
 The website remains pre-launch/`noindex`: keep `metadataBase: null`, no
 canonical/sitemap/entity claims, crawlable robots and inactive social URL
 metadata gates. Use the owner-supplied FinOps hero copy and internal `/docs` navigation. The
-copyable `npx exphere init` is visibly marked as a preview because init and npm
-distribution are not available. No new public documentation domain is implied.
+copyable `npx exphere init` is displayed exactly as requested. Copying does not
+execute it; the scaffold and distribution limitations remain documented in the
+README without adding an unrequested note to the hero. No new public documentation domain is implied.
 
 ## 10. Decisions and source boundaries
 

@@ -28,7 +28,6 @@ export function CopyCommand() {
           {command}
         </code>
         <button
-          aria-describedby="command-preview"
           aria-label="Copy npx exphere init"
           className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-md text-site-body transition-colors hover:bg-site-elevated hover:text-site-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white disabled:opacity-50"
           disabled={status === "copying"}
@@ -49,12 +48,6 @@ export function CopyCommand() {
           </svg>
         </button>
       </div>
-      <p
-        className="mt-3 text-center text-xs leading-5 text-site-body"
-        id="command-preview"
-      >
-        Command preview — init is not available yet.
-      </p>
       <p
         aria-live="polite"
         className="mt-1 min-h-5 text-center text-xs leading-5 text-site-body"
