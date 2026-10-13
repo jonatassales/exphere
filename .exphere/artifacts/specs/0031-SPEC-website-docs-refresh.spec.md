@@ -163,3 +163,41 @@ Verification of this correction:
 - This is a local deployment-input reproduction, not a Vercel redeployment. No project setting, protection, deployment target, or production alias changed. No application source or new test infrastructure changed.
 - Baseline/corrected build logs and filter inventory are retained locally under `.audits/evidence/runs/deployment-assets/` (ignored). Disposable source fixtures and verification helpers remain outside the repository.
 - Independent Standards and Spec reviews both passed with zero remaining findings against manifest `caab755d49c6eba4d5bd7cc685802be7498fcf7c63e56a7cf3d9bb244aa6ca84`, based on `b8400e2eeac2c89abb6919b0d9dfced51edaee6f`. The initial Standards evidence-retention finding is resolved. Only these review-closure records were updated afterward; deployment configuration is unchanged.
+
+
+## Search deployment correction: REFRESH-10
+
+The owner reported another deployment error after PR #26 merged. Deployment `dpl_GUakJB8mBzfVRM3LqJWp2X6G4fLc`, built from `df49a26c33e2d3da40040f25391f1ecd786b9d3c`, retained the diagram assets and compiled successfully. It failed afterward because Pagefind scanned `.next/server/app`, while Next.js 16.4.0 with Vercel's adapter emitted HTML into its route cache. The earlier local evidence did not cover this platform adapter. Its output-path conclusion is superseded for adapter builds.
+
+REFRESH-10 (ticket REFRESH-03): index prerendered Docs through Next.js build-complete output records and their public URLs before platform packaging. Retain Nextra body markers, the five-page corpus, `public/_pagefind`, ordinary local builds, and the platform's configuration and packaging hooks. Fail on an empty corpus or Pagefind error. Keep the existing pinned dependencies; add no application test infrastructure or command wrappers. A website-owned Next.js adapter is framework configuration, not a repository task wrapper. Account for platform adapter selection/configuration in Turbo caching.
+
+The owner's continuing failure report authorizes implementation, verification, ticket-linked commit, normal publication and a corrective PR under the existing spec. It does not request changes to Vercel settings, protection, production aliases, or a direct production deployment.
+
+### REV-REFRESH-10
+
+- State: local verification and independent reviews passed; PR delivery pending.
+- Target: website build integration on base `df49a26c33e2d3da40040f25391f1ecd786b9d3c`.
+- Baseline: locally installing the exact `@vercel/next` 21.0.0 adapter used by Vercel CLI 62.7.0 and supplying it to the unchanged build reproduced the zero-HTML Pagefind failure. The adapter package is confined to a disposable directory and is not a project dependency.
+- Verification scope: forced ordinary build, forced build with the actual Vercel adapter, generated search URL/content inspection, packaged search-file inspection, cache restoration, type checking and native publication gates. No new browser probes or permanent application tests.
+- Independent Standards and Spec reviews: both passed with zero remaining findings against manifest `942fc466d6e80871502b6961bc18211b66a7e929e271eab9c9f2d97ee5d354f2`.
+- Evidence: `.audits/evidence/runs/search-deployment/` (ignored local logs and reports).
+- Production recovery remains unverified until a corrected revision is deployed.
+
+| Policy/version and ID | Target | Assessment and evidence | State |
+| --- | --- | --- | --- |
+| Twelve-Factor v1 / 12F-01, 12F-02 | Website build | Same codebase and pinned Next.js/Pagefind dependencies; no added runtime service. | Compliant within this scope |
+| Twelve-Factor v1 / 12F-03, 12F-05, 12F-10 | Platform build contract | Preserve injected adapter configuration, generate search before packaging, and compare ordinary versus platform builds. Local output is not a released deployment. | Local checks passed; production not verified |
+
+Delivery authorization is the owner's repeated request to fix the failed deployment and prior explicit PR request. Review records do not imply human acceptance or production approval.
+
+Verification results for REFRESH-10:
+
+- Forced ordinary production build: passed; five documentation pages indexed.
+- Forced build with `@vercel/next` 21.0.0: passed; all five public Docs URLs appear in decoded Pagefind fragments, with the expected titles. Vercel Build Output API v3 package contains all 19 search files, byte-identical to `public/_pagefind`.
+- Cache restoration after moving generated `.next` and search output aside: all three tasks hit cache; restored public and packaged search files match the verified originals.
+- Website type checking, scoped Biome checks and `git diff --check`: passed. Native commit/push gates and hosted CI will be reported with PR delivery.
+- No project settings or deployment changed. This covers the provider adapter locally, not a hosted production deployment; production recovery remains unverified.
+
+Initial review of manifest `fb6cb06ef89074db4f2de4929fb0c24676ae280bb56dae5d7a5677136cba2db1`: Spec passed; Standards requested the public Next.js type export, contextual runtime error boundaries, and explicit async/control-flow conventions. All three findings were addressed in the framework adapter; refreshed review is pending.
+
+Refreshed Standards and Spec reviews both passed against `942fc466d6e80871502b6961bc18211b66a7e929e271eab9c9f2d97ee5d354f2` with zero remaining findings. Forced local build/type checks and provider-adapter build passed again after the review fixes; refreshed output inspection confirms the same five URLs and 19 byte-identical packaged assets. Final logs and report are retained alongside the baseline evidence. Only review-closure text changed after this snapshot.

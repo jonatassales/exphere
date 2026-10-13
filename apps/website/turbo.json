@@ -2,6 +2,7 @@
   "extends": ["//"],
   "tasks": {
     "build": {
+      "env": ["NEXT_ADAPTER_PATH", "NEXT_ADAPTER_VERCEL_CONFIG"],
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/.agents/features/assets/**"],
       "outputs": ["$TURBO_EXTENDS$", "public/_pagefind/**"]
     }

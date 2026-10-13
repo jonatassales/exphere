@@ -18,3 +18,12 @@ Applicable local formatting, type checking, production build, reference and brow
 ## Deployment correction
 
 The owner's deployment failure report extends this ticket with REFRESH-09 in the parent spec. The deployment ignore filter excluded the two architecture diagrams even though local/CI compilation passed. Include only those assets in the deployment input and verify a disposable filtered build. Filtered baseline reproduced both missing-module errors; the corrected fixture build passed and emitted both original PNGs plus the five-page search index. Only the two required images are newly included. Independent Standards and Spec reviews passed with zero remaining findings against manifest `caab755d49c6eba4d5bd7cc685802be7498fcf7c63e56a7cf3d9bb244aa6ca84`; the evidence-retention finding is resolved. Only review-closure records changed after that snapshot. Follow-up PR delivery remains pending; production recovery requires a corrected deployment.
+
+
+## Search adapter correction
+
+The owner's second deployment failure report extends this ticket with REFRESH-10. PR #26 fixed the missing diagrams; Vercel now fails at Pagefind because its Next.js adapter uses a different generated-HTML layout. Replace the folder assumption with Next.js output records, index public Docs URLs before platform packaging, and preserve the platform hooks. Reproduce with the exact platform adapter, inspect packaged search assets and URLs, and review the same final snapshot along both required axes. Forced ordinary and Vercel-adapter builds passed. Decoded fragments contain exactly the five public Docs URLs; all 19 generated search files are included byte-for-byte in the Vercel package and restored by a full Turbo cache hit. Type checking and scoped formatting passed. Independent review and PR delivery remain pending; production recovery is unverified.
+
+Initial Spec review passed. The three Standards findings (public type import, contextual runtime failure handling, and explicit async/control flow) were corrected; both axes will review the refreshed snapshot before commit.
+
+Refreshed Standards and Spec reviews passed with zero remaining findings against `942fc466d6e80871502b6961bc18211b66a7e929e271eab9c9f2d97ee5d354f2`. Final ordinary build/type checks, provider-adapter build and output inspection passed; logs/report are retained under the spec's evidence location. Only review-closure text changed afterward. PR delivery remains pending; production recovery is unverified.
