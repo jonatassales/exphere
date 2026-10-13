@@ -1,0 +1,17 @@
+# HOME-01: Center the homepage and restore shared references
+
+**Spec:** [SPEC-WEBSITE-HOME-LAYOUT v1](../specs/0030-SPEC-website-home-layout.spec.md)
+**What to build:** Deliver a viewport-centered three-row homepage with the owner’s borderless design, header navigation and shared centered footer.
+**Blocked by:** None.
+**Status:** in-review
+**Approval:** The owner explicitly authorized this two-ticket plan, implementation, commits, push and PR in this conversation on October 13, 2026. Branding preservation is explicit. Merge and deployment remain outside scope.
+
+- [x] REQ-HOME-01: balanced rows, minimum viewport height and natural overflow.
+- [x] REQ-HOME-02: preserve hero, animation, header links and copy.
+- [x] REQ-HOME-03: Home and Docs share the requested footer; valid typography utility.
+- [x] REQ-HOME-05: preserve upstream src/app, aliases and configuration rename.
+- [x] Scoped checks and independent Standards/Spec reviews recorded against the final source.
+
+## Evidence
+
+See VER-HOME-01 and the evidence section of the parent spec. Scoped formatting, website type checking, production compilation and generated-output inspection passed. Independent Standards and Spec reviews reported zero actionable findings against the parent spec’s recorded source hashes. Browser behavior and production remain unverified. PR acceptance is pending.
