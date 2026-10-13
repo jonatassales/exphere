@@ -1,0 +1,81 @@
+---
+title: "Development"
+description: "Set up the workspace, build the website, and understand the native checks and review workflow."
+---
+
+# Development
+
+The workspace uses pnpm and Turborepo to invoke each tool's native commands. Keep changes with the package that owns them and preserve unrelated local work.
+
+## Prerequisites and installation
+
+Use Git, Node.js **22.22.1+**, the manifest-pinned **pnpm 12.4.2**, and **Go 1.23+**. CLI source-contract checks also require a POSIX shell and `jq`.
+
+```sh
+git clone https://github.com/jonatassales/exphere.git
+cd exphere
+pnpm install --frozen-lockfile
+```
+
+Installation activates repository-local Husky hooks; it does not install a global CLI or modify shell profiles. `pnpm install --ignore-scripts` skips lifecycle commands. `HUSKY=0` disables Husky installation/execution; neither bypass establishes successful verification.
+
+## Build and serve the website
+
+```sh
+pnpm build --filter=website...
+pnpm start --filter=website
+```
+
+The build prepares shared dependencies, compiles Next.js, then indexes the five documentation pages with Pagefind. Search assets are generated under `apps/website/public/_pagefind/`; they are ignored by Git and restored with the website build cache. Search requires a built index, including when using the development server.
+
+For editing:
+
+```sh
+pnpm dev --filter=website
+```
+
+Next.js prints the local address. Stop the foreground process when finished. While editing design tokens, run `pnpm --filter @repo/design dev` separately.
+
+## Workspace commands
+
+| Command | Purpose |
+| --- | --- |
+| `pnpm build` | Build declared Go and JavaScript/TypeScript workspaces. |
+| `pnpm test` | Run declared package tests, retained CLI source-contract checks, and disposable hook contracts. |
+| `pnpm typecheck` | Run workspace type checks, including Go vet. |
+| `pnpm check` / `pnpm lint` | Run the existing Biome checks. |
+| `pnpm format` | Apply Biome formatting explicitly. |
+| `pnpm harness:score` | Report the informational local harness diagnostic. |
+| `pnpm --filter website typecheck` | Generate Next.js route types and check website TypeScript. |
+
+Biome does not cover Go, shell, or Markdown. A contract fixture does not establish a running cluster or provider integration. `verifyDepsBeforeRun: false` prevents implicit dependency installation before tasks.
+
+## Hooks and review
+
+- **Pre-commit:** checks eligible staged files and reports the harness diagnostic.
+- **Commit-msg:** validates Conventional Commits and reports advisory ticket/spec associations.
+- **Pre-push:** checks the clean, checked-out outgoing revision, then runs build and test.
+
+Use one `Ticket: <stable-id>` trailer per commit and `Spec: <stable-id>` in each PR body. Independent Standards and Spec reviewers inspect the same identified snapshot. Follow the [SDD rule](https://github.com/jonatassales/exphere/blob/main/.exphere/harness/rules/0001-sdd.rule.md) and [guardrail](https://github.com/jonatassales/exphere/blob/main/.exphere/harness/guardrails/0002-sdd.gr.md).
+
+Hooks provide local feedback, not authenticated approval or permission to publish. They can be bypassed. Report the revision and scope actually verified rather than treating a successful hook as proof of all project requirements.
+
+## CI and evidence
+
+GitHub Actions runs native installation, checks, type checking, builds, and tests. It does not run the retired shell agent-review provider or make paid model requests. Two-axis review remains a contributor obligation.
+
+Generated browser evidence belongs under the ignored `.audits/evidence/runs/` directory. A local pass does not prove hosted CI success, and CI success does not prove production readiness.
+
+## Source ownership
+
+Website routes live in `apps/website/app/`. Nextra owns MDX rendering and navigation; the website's component mapping lives in `app/components/mdx-components.tsx`. Typed Next.js configuration is in `next.config.ts`. Shared design and shader implementation remain in their packages.
+
+No application secrets or backing service are required for this documentation site. Existing noindex and inactive social-image settings remain in place; a public indexing launch requires its own decision.
+
+## Project references
+
+- [Website guide](https://github.com/jonatassales/exphere/blob/main/apps/website/README.md)
+- [Product requirements](https://github.com/jonatassales/exphere/blob/main/.exphere/artifacts/prd/0001-PRD-exphere.prd.md)
+- [Artifact tracker](https://github.com/jonatassales/exphere/blob/main/.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md)
+- [Workflow catalog](https://github.com/jonatassales/exphere/blob/main/.exphere/workflow/README.md)
+- [Contributor instructions](https://github.com/jonatassales/exphere/blob/main/AGENTS.md)

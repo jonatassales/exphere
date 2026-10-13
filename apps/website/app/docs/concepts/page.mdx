@@ -1,0 +1,40 @@
+---
+title: "Concepts"
+description: "The three ideas behind Exphere: cost awareness, agent-assisted delivery, and microruntimes."
+---
+
+# Concepts
+
+Exphere brings three ideas together: make costs part of delivery decisions, give agents useful context, and keep execution composed around the team's existing stack.
+
+## FinOps: connect work and cost
+
+The proposal connects covered spending to accepted outcomes and the team's authorized budget. Estimates support decisions; they are not promises of revenue or savings.
+
+**Funding belongs to the team.** Features receive adjustable estimates and allocations. Developers and tickets do not receive independent spending grants. Planning, retrieval, review, retries, and execution must declare which costs they cover.
+
+Historical evidence can improve an estimate. Unused budget alone does not establish savings. The current repository documents this model; it does not implement a financial ledger or spending gate.
+
+## Agent-assisted delivery: context before execution
+
+Useful agent work starts with intent, ownership, constraints, and evidence. The proposed delivery flow carries that context through planning, implementation, verification, and review.
+
+Leadership supplies objectives. Teams contribute operational evidence. DevEx helps people resolve tradeoffs; an LLM does not make delivery commitments on their behalf.
+
+The repository describes a Spec Driven Development lifecycle: capture, discovery, prioritization, specification, preparation, execution, verification, delivery, and learning. Those documents do not constitute an executing workflow engine.
+
+## Microruntimes: compose around existing applications
+
+A **microruntime** is the proposed execution boundary around application components and the tools needed to operate them. Consumers choose their stack, components, and composition. Application source remains with its application.
+
+For example, a unit named `website` would reference `apps/website`. It would not move the website into a platform-owned source tree.
+
+The local pilot design assigns images, resources, replicas, probes, and scheduling to native Kubernetes configuration. Terraform prepares namespace and quotas. A descriptor connects those authorities rather than duplicating their editable values. These remain design contracts, not supported Go CLI commands.
+
+## Contracts and evidence
+
+Specifications state intended behavior. Gherkin can express examples without requiring BDD. Neither a specification nor a passing source-contract fixture proves a running production integration.
+
+Exphere's local policies cover SDD traceability, FinOps, and Twelve-Factor concerns. They guide contributors; they do not establish organization-wide adoption, authenticated approvals, or universal automated enforcement.
+
+Continue with [Architecture](/docs/architecture) or explore the [feature register](https://github.com/jonatassales/exphere/blob/main/.agents/features/README.md).
