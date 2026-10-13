@@ -9,6 +9,19 @@
 - Parent: [PRD-0001 — Exphere](0001-PRD-exphere.prd.md).
 - Authorization: the owner requested this PRD. The agreed pilot scope is recorded below; detailed specification, software implementation, and observed pilot results are separate deliverables.
 
+## Scope amendment — Go delivery, October 13, 2026
+
+The owner explicitly approved and requested implementation of the Go CLI foundation/local runtime lifecycle plan. [PRD-GO-LOCAL-RUNTIME-DELIVERY v1](0009-PRD-go-cli-local-runtime-delivery.prd.md) coordinates this increment. The original product requirements and historical approval/review records below remain preserved; this amendment governs conflicts with prior current-implementation descriptions and proposed seams.
+
+- Use the Go CLI with Cobra, manual dependency injection, and verb-before-ID commands. The retired shell CLI and legacy v1 creation/execution are not restored; new configuration remains descriptor v2.
+- Support one explicitly created project-owned kind cluster with private kubeconfig/state, consumer-built image loading, and explicit cluster deletion after owned-runtime cleanup.
+- Keep manual/guided configuration and native authority. Initial supported workloads are stateless Deployments, ClusterIP Services, and finite Jobs; bounded editable Terraform JSON prepares namespace/quotas.
+- Add optional editable TypeScript LangGraph source outside runtime units, with a finite deterministic Job and no model calls. Source remains consumer-owned; image building stays outside the CLI.
+- Keep configuration after runtime cleanup; preserve execution evidence and recoverable state. Refuse deletion when ownership or observations are uncertain.
+- Verification is limited to adapting existing tests and existing authorized repository checks. No new suites/scenarios or live cluster/application pilot runs are authorized by this delivery. Runtime and agent operational integration remains unverified.
+
+Current contracts: [configuration v2](../specs/0009-SPEC-microruntime-configuration.spec.md), [local lifecycle v2](../specs/0033-SPEC-local-microruntime-lifecycle.spec.md), [Go foundation v1](../specs/0032-SPEC-go-cli-foundation.spec.md), and [LangGraph scaffold v1](../specs/0034-SPEC-langgraph-scaffold.spec.md). This amendment records actual conversational scope authorization; it does not authenticate approvals or authorize publication/paid operations.
+
 ## Problem and outcome
 
 Developers need a reproducible way to compose an execution environment around existing application components, configure its resource boundaries, inspect its behavior, and remove the resources it creates. Repeating these steps manually increases setup effort and makes ownership and configuration harder to trace.

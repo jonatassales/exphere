@@ -1,12 +1,67 @@
-# Technical specification
+# Microruntime configuration v2 — Go delivery
 
 - ID: `SPEC-MICRORUNTIME-CONFIGURATION`
 - Document: `SPEC-0009`
-- Version: `1`
-- State: `draft`
-- PRD: [PRD-0002 v1 — Local microruntimes](../prd/0002-PRD-local-microruntimes.prd.md). Its accepted product decisions are recorded in that draft; approval of the complete PRD revision is not recorded.
-- Technical owners: Exphere project owner for the pilot's consumer decisions; platform implementation and review owners remain to be assigned.
-- Approval: the owner invoked `to-spec` on October 11, 2026 and requested two specifications linked to `PRD-0002`: configuration and local lifecycle. Draft synthesis and this split are authorized. Approval of this draft's technical proposals, verification seam, tickets, and implementation is not recorded.
+- Version: `2`
+- State: `implemented`
+- PRD: [PRD-GO-LOCAL-RUNTIME-DELIVERY v1](../prd/0009-PRD-go-cli-local-runtime-delivery.prd.md) and [PRD-0002 v1](../prd/0002-PRD-local-microruntimes.prd.md), as amended October 13, 2026.
+- Technical owners: consumer for composition/native resource values; Exphere implementers/reviewers for Go generation and validation.
+- Approval: the owner explicitly requested implementation of the complete Go CLI foundation/local runtime lifecycle plan on October 13, 2026, including this configuration revision and its ticket breakdown. Authorization covers local implementation and existing checks; it does not authorize new test suites/scenarios, live infrastructure scenarios, or publication.
+
+## Current contract and composition
+
+This v2 decision supersedes the former shell/jq implementation, ID-before-verb commands, v1 execution/creation compatibility, and old verification permissions for this delivery. The complete v1 decision/review body is retained below as historical evidence for its original snapshots. Historical paths and hashes are not claims about current files or Go validation.
+
+Requirements: REQ-GOL-003/009/010; configuration portions of REQ-MR-001 through 005 and 012 through 014. The descriptor remains version 2; specification version 2 identifies the Go delivery, not a descriptor version migration.
+
+`ex runtime init <id>` creates an incomplete manual descriptor and actionable README. It does not invent valid images, owner, resource budgets, or prerequisites. `ex runtime init <id> --guided` collects consumer values and generates initial native configuration. `ex runtime validate <id>` performs one shared typed/semantic validation for both paths. An incomplete manual descriptor must fail validation with instructions for missing values.
+
+- Descriptor identity, environment, owner, unit source/configuration references, context/namespace target, and optional hooks keep their existing v2 authority.
+- Project-relative component paths and runtime-relative configuration paths remain distinct, canonicalized, and contained. Unit names match the selected component directory names; duplicate names and paths fail clearly.
+- Kubernetes owns images, requests/limits, replicas, probes, ephemeral storage, volumes, and scheduling within the supported pilot capabilities. Terraform owns namespace and quotas. No second editable copy of those values belongs in the descriptor.
+- Generated runtime data lives in `.exphere/runtimes/<id>`. Units contain only execution configuration and reference source in applications or `.exphere/agents/<name>`.
+- Refuse invalid types/versions/unknown descriptor fields, duplicate keys or identities, missing targets, unsupported native resources, and path/symlink escapes before infrastructure mutation. Use explicit target selection; never fall back to current context or the default namespace.
+- Generation prevalidates supplied inputs, refuses existing output, and preserves preexisting files. Handled failure/cancellation removes only newly owned partial output or reports it when removal fails. Do not claim atomic publication or recovery from untrappable termination.
+- Hooks are optional named runtime-relative `.sh` references. Declaring/generating/validating a hook never invokes it automatically.
+
+### Native capability boundary
+
+The initial Kubernetes set is stateless Deployments, ClusterIP Services, and finite Jobs with a positive active deadline, expressed as editable JSON/YAML. Reject host, persistent, and generic ephemeral volume sources; permitted transient/configuration volumes remain bounded by the native validator. Unsupported kinds/features fail before mutation; this is not general support for every Kubernetes feature.
+
+Terraform configuration uses editable native `.tf.json` only in this pilot, with exactly one explicit Kubernetes provider whose kubeconfig/context inputs are bound to the selected runtime target. Reject missing/implicit provider configuration, HCL `.tf`, modules, data sources, provisioners, non-Kubernetes providers, remote backends, and resources outside namespace/quota preparation before Terraform initialization. This bounded native subset makes local ownership review possible; extending it requires an explicit capability decision. Runtime operation state/backends belong to private state and the lifecycle contract, not a consumer-editable remote backend.
+
+Guided configuration asks only for selected capabilities and required consumer values: owner/target, component references, prebuilt image, ports, resources/readiness, and quota. It writes values to their native authority. A generated agent unit references its source and a finite Job; it does not copy code. Consumer native edits remain authoritative and are revalidated, not rewritten back to template defaults.
+
+### Legacy transition
+
+New generation accepts only descriptor v2 at `.exphere/runtimes`. Retired `.micro-runtime` descriptors and version 1 input receive an actionable legacy/unsupported message; no shell fallback, silent move/rewrite, legacy init, or automatic migration. If a requested ID exists in both locations, fail before writing or operating and identify both paths.
+
+## Current responsibilities
+
+The consumer supplies composition, images, supported resource settings, owner, and readiness; edits generated configuration; and resolves collisions. Exphere validates references/capabilities, generates only selected configuration, explains incomplete/manual input, and hands the current validated configuration to [lifecycle v2](0033-SPEC-local-microruntime-lifecycle.spec.md). Service owners approve actual resource and quality targets; generated values are not organizational approvals.
+
+## Current operation and limits
+
+Configuration generation affects project files only; it never installs dependencies, starts containers, applies Terraform, or invokes hooks. `.exphere/state` is private operational state, separate from consumer configuration; `.audits/evidence/runs` holds execution evidence created by actual lifecycle operations. Deleting a configuration directory never implicitly destroys infrastructure or discards state.
+
+Namespaces/limits/quotas are resource configuration, not proof of isolation, enforcement, capacity, financial authorization, or realized savings. No secret values are generated in descriptors/reports. Supported configuration deliberately limits the first local journey; consumer stack ownership does not imply arbitrary native execution support.
+
+## Current verification and decisions
+
+- Applicable guardrails: FIN-01/04/05; 12F-01/02/03/05/07/08/09/12, with source/native configuration ownership reviewed and live enforcement, capacity, readiness, and shutdown `not-verified`.
+- Accepted verification boundary: adapt existing Go tests and surviving contracts only. Do not add/recreate the historical configuration suites, new scenarios, or live infrastructure checks.
+- Retain valid configuration, invalid reference, name collision, quota rejection, preparation failure, and cleanup as documentary acceptance scenarios. The latter scenarios belong to lifecycle review and remain unexecuted.
+- Technical review and current check results: see the [integrated delivery record](../tickets/0069-TICKET-go-runtime-integrated-review.ticket.md). The final record confirms resolved findings and passing review; operational verification remains pending. Historical passes below apply only to their recorded shell-era snapshots.
+- Supporting current contracts: [Go CLI foundation](0032-SPEC-go-cli-foundation.spec.md), [LangGraph scaffold](0034-SPEC-langgraph-scaffold.spec.md), and [CLI reference](../../../packages/cli/README.md).
+
+## Current delivery tickets
+
+- [CLI-RUNTIME-03](../tickets/0061-TICKET-go-runtime-manual-configuration.ticket.md)
+- [CLI-RUNTIME-04](../tickets/0062-TICKET-go-runtime-guided-configuration.ticket.md)
+
+## Historical v1 contract and verification — retained without current authority
+
+The following records preserve the original shell implementation decisions, draft statements, hashes, and observations. Current Go authority and execution restrictions are defined above. Historical commands, links to removed implementation paths, and approval/publication scopes do not carry forward automatically.
 
 ## Implementation decision record — October 11, 2026
 
@@ -201,3 +256,5 @@ bda2758d01e284924717c0df978758f20743c19d8865f48270856ce31cbaf86c  packages/cli/c
 a732d29305f04834a558f0213d5ceffd02bd90b10c9cbc2b2a9e74d4aebb2754  packages/cli/scripts/test-guided-configuration.sh
 6491b2ae816d95d3ecb8b9958d0d108de80a94e318c0f232bf615c6e3a9be9fd  packages/cli/scripts/test.sh
 ```
+
+The Go v2 implementation and independent source review are complete under the current limited verification scope; see [CLI-RUNTIME-11](../tickets/0069-TICKET-go-runtime-integrated-review.ticket.md). Historical records above remain attached to their original revisions. Operational execution remains unverified.

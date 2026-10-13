@@ -19,7 +19,7 @@ Bring product intent, delivery context, and cost into the same conversation. Exp
 - **Give agents useful context.** Bring ownership, requirements, and prior evidence into planning and execution.
 - **Build around what you have.** Compose microruntimes around existing applications without handing over your stack choices.
 
-These are the product's direction. Exphere is experimental: today you can explore the documentation, run the Go CLI's help/version commands, and use the workspace's design tokens and shared web surface. Runtime automation and the SDK API are not implemented.
+These are the product's direction. Exphere is experimental: the Go CLI provides local project/runtime configuration, an owned kind-cluster lifecycle, inspection and cleanup, and an editable deterministic LangGraph scaffold. Cluster and agent execution remain operationally unverified in this delivery. The TypeScript SDK API, financial controls, and portal integrations are not implemented. See the [CLI reference](packages/cli/README.md) for supported capabilities and limits.
 
 ## Architecture
 
@@ -37,11 +37,13 @@ Start with the [documentation](https://exphere.vercel.app/docs) for the current 
 
 ```sh
 pnpm install --frozen-lockfile
-pnpm ex --help
+./node_modules/.bin/ex-shell-setup --shell zsh
+source "$HOME/.zshrc"
+ex --help
 pnpm dev --filter=website
 ```
 
-Installation activates repository-local Husky hooks. The CLI is a scaffold; the website's `npx exphere init` is preview text, not a working installer.
+Installation builds the local Go CLI and activates repository-local Husky hooks; it does not start infrastructure or change your shell profile. The explicit shell-setup command is a one-time opt-in that makes `ex` resolve each project's local executable. Use `--shell bash` and its configured profile for Bash. The website's `npx exphere init` is preview distribution text, not a published installer.
 
 ## Developer checks
 
