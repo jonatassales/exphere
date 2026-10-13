@@ -1,69 +1,157 @@
 # Exphere
 
-Exphere is an experimental DevEX / FinOps platform exploring agent-assisted software delivery and consumer-composed microruntimes. The repository contains a documentation website, an empty TypeScript SDK API, a Go CLI scaffold, developer checks and proposed workflow contracts. It does not demonstrate production automation, infrastructure integration or realized savings.
+**Microruntimes for existing applications. A foundation for cost-aware agentic delivery.**
+
+Exphere explores a developer platform that connects product intent, execution context, and delivery costs. Teams keep ownership of their applications and infrastructure choices; microruntimes provide the proposed execution boundary around them.
+
+Today, this repository contains a documentation website, a Go CLI scaffold, an empty TypeScript SDK API, and the contracts behind thirteen proposed features. Shared team budgets, agent orchestration, and runtime automation remain product direction.
+
+[Quick start](#quick-start) · [Architecture](#architecture) · [13 feature proposals](.agents/features/README.md) · [CLI reference](packages/cli/README.md)
+
+## What you can use today
+
+| Component | Current behavior |
+| --- | --- |
+| Go CLI | Run help and version commands; unsupported initialization fails explicitly without creating files. |
+| Documentation website | Explore the Next.js/Nextra introduction and Getting Started page locally. |
+| SDK | Inspect the separate TypeScript package boundary; its API remains empty. |
+| Design and web packages | Reuse the workspace's generated design tokens and shared ExphereShader React surface. |
+| Project contracts | Read the proposed features, SDD workflow, microruntime specifications, and local FinOps policies. |
+
+The SDK and CLI are private workspace packages. There is no published `exphere` installer demonstrated here. The website's `npx exphere init` command previews the intended interface; it is not a working onboarding command.
+
+## Quick start
+
+Requirements: repository access, Git, Node.js **22.22.1 or newer**, the manifest-pinned **pnpm 12.4.2**, and **Go 1.23+** for the CLI. Retained source-contract checks also use a POSIX shell and `jq`.
+
+```sh
+git clone https://github.com/jonatassales/exphere.git
+cd exphere
+pnpm install --frozen-lockfile
+
+pnpm ex --help
+pnpm ex version
+```
+
+The CLI prints its supported commands and scaffold version. It does not create a runtime. `init` is reserved and returns an explicit nonzero result without changing consumer files.
+
+To explore the documentation website:
+
+```sh
+pnpm dev --filter=website
+```
+
+Open the local address printed by Next.js and visit `/docs` for Getting Started. Turborepo builds shared dependencies first. Stop the foreground process when finished.
+
+Installation activates repository-local Husky hooks. It does not install `ex` globally or modify shell profiles. `pnpm install --ignore-scripts` skips lifecycle commands; `HUSKY=0` disables Husky installation/execution.
+
+## Microruntime CLI
+
+A microruntime is the proposed execution configuration around existing application components. A unit named `website` would reference `apps/website`; application source stays in its own directory.
+
+The local pilot design assigns images, resources, replicas, probes, and scheduling to native Kubernetes configuration, with Terraform preparing namespace and quotas. Its descriptor connects those authorities without duplicating editable values. These are retained design contracts, not implemented Go commands.
+
+The earlier shell CLI's runtime generation, validation, setup, Terraform/Kubernetes adapters, and legacy behavior have been retired. Existing schemas and source-contract fixtures preserve earlier work; they do not prove feature parity in the Go scaffold.
+
+Read the [current CLI reference](packages/cli/README.md) and [microruntime pilot requirements](.exphere/artifacts/prd/0002-PRD-local-microruntimes.prd.md) for the distinction between supported commands and planned behavior.
+
+## Architecture
+
+The product direction brings together three responsibilities:
+
+- **FinOps:** connect covered spending to accepted outcomes and the team's authorized budget.
+- **Agentic delivery:** coordinate work through intent, context, required checks, and evidence, with fewer routine human interventions.
+- **Microruntimes:** provide reusable execution boundaries around consumer-selected components and tools.
+
+The following diagram is a **proposal**. Backstage supplies ownership and component context through a configured, authorized connection. Artifact bodies come from their source. RAG assembles context and prior outcomes; the allocator recommends investments; LangGraph coordinates model and effort choices; deterministic controls reserve funds before covered paid calls.
+
+[![Proposed Exphere architecture: Backstage and intent artifacts feed retrieval, allocation, LangGraph orchestration, and microruntime execution. A shared team budget governs paid calls, and outcomes return to memory. The adjacent tree separates retrieval, allocation, orchestration, and budget access.](.agents/features/assets/backstage-context-team-budget.png)](.agents/features/assets/backstage-context-team-budget.png)
+
+**Funding belongs to the team.** Features receive adjustable estimates and allocations. Developers and tickets do not receive independent spending grants. Planning, retrieval, review, retries, and execution must declare their cost coverage. Historical evidence can improve an estimate; it cannot prove future revenue or turn unused budget into savings.
+
+The proposed integration complements an existing developer portal. It does not require replacing Backstage or moving application source into Exphere. Read the [context and funding proposal](.agents/features/README.md#backstage-context-and-team-funded-execution) for ownership, permissions, memory, and accounting boundaries.
+
+### Feature illustrations
+
+- [Backstage context and shared team budget](.agents/features/assets/backstage-context-team-budget.png): current architecture refinement, including the proposed agents tree.
+- [Earlier end-to-end factory sketch](.agents/features/assets/runtimes-factory.png): a broader view of the thirteen capabilities and optional tools. Its cycle/feature/sprint-cap wording is superseded by the team-budget proposal above; it is retained as historical design context.
+- [Image provenance and Backstage attribution](.agents/features/assets/README.md).
+
+Both images are design material, not screenshots of running integrations.
+
+## Feature direction
+
+The [feature register](.agents/features/README.md) contains thirteen proposals with acceptance criteria, dependencies, and limitations. Implementation requires its own approved scope.
+
+| Area | Proposed features |
+| --- | --- |
+| Explain the delivery | F-01 cost report · F-05 intent-to-execution traceability |
+| Bound consumption | F-02 resource preflight · F-03 shared team budget · F-04 repeated-failure detection |
+| Plan with evidence | F-06 costed execution planning · F-09 team allocation and sprint reporting · F-11 task context |
+| Execute and recover | F-07 local lifecycle · F-08 installed SDD harness · F-10 diagnosis · F-12 bounded resume |
+| Evaluate improvement | F-13 comparable-delivery efficiency |
+
+A workflow engine, shared financial ledger, Backstage connector, RAG store, model router, and measured savings remain future work. The proposed agents tree describes application responsibilities; it is not generated by the current CLI.
 
 ## Workspace
 
-| Location | Current responsibility |
+| Location | Responsibility |
 | --- | --- |
-| `apps/website/` | Next.js/Nextra introductory documentation page and Getting Started section; grayscale visual-only Orbo and copyable preview command. |
-| `packages/design/` | Design tokens and their TypeScript compiler. |
-| `packages/web/` | Shared ExphereShader React surface and public-export contract fixtures. |
-| `packages/sdk/` | Separate private `@exphere/sdk` package; TypeScript API remains empty. |
-| `packages/cli/` | Private workspace task bridge and dependency-free Go `ex` scaffold. |
-| `.exphere/artifacts/` | Typed PRDs, specifications, tickets, research and design decisions. |
-| `.exphere/workflow/` | Documentary SDD lifecycle, domain adaptations and AIHero skills. |
-| `.exphere/harness/` | Shared SDD, FinOps and Twelve-Factor policies and FinOps/AWS skills. |
-| `.agents/` | Local engineering guidance, templates and the 20 requested Go skills. |
+| [`packages/cli/`](packages/cli/README.md) | Dependency-free Go `ex` scaffold with a private pnpm task bridge. |
+| `packages/sdk/` | Separate private TypeScript `@exphere/sdk`; API remains empty. |
+| [`packages/design/`](packages/design/README.md) | Public-intent `@repo/design`; generated CSS/JSON design tokens. |
+| [`packages/web/`](packages/web/README.md) | Public-intent `@repo/web`; shared ExphereShader React surface. |
+| [`apps/website/`](apps/website/README.md) | Next.js/Nextra project introduction and Getting Started page. |
+| [`.agents/features/`](.agents/features/README.md) | Proposed capabilities and feature illustrations. |
+| [`.exphere/artifacts/`](.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md) | Typed PRDs, specs, tickets, research, and design records. |
+| [`.exphere/workflow/`](.exphere/workflow/README.md) | Documentary SDD lifecycle and [AIHero workflow skills](.exphere/workflow/skills/README.md). |
+| `.exphere/harness/` | Shared SDD, FinOps, and Twelve-Factor policies plus FinOps/AWS skills. |
+| [`.agents/`](.agents/README.md) | Local engineering guidance, templates, and [Go skills](.agents/skills/README.md). |
 
-## Development
+Public-intent metadata does not establish package publication. Generated evidence retains the ignored `.audits/evidence/runs/` destination.
 
-Use Node.js **22.22.1 or newer**, the root manifest's pinned pnpm **12.4.2**, the Go version declared in `packages/cli/go.mod`, Git and `jq` for the retained source-contract checks. Install dependencies with `pnpm install`; the native Husky prepare command configures local Git hooks. Installation no longer installs `ex` globally or changes a shell profile. `HUSKY=0` disables hook installation/execution; `pnpm install --ignore-scripts` skips lifecycle commands.
-
-Use `pnpm dev --filter=website` for the website. Turborepo builds its workspace dependencies first; run `pnpm --filter @repo/design dev` separately while editing tokens. Use `pnpm build` for production output and `pnpm start --filter=website` to run the application. The root entry and `/docs` Getting Started page use Nextra. Documentation content beyond Getting Started is intentionally absent.
-
-The website's `npx exphere init` clipboard command previews the intended interface. No `exphere` npm release or working initialization command is provided by this change. Orbo's `listening` state is a visual presentation and does not request microphone access. The owner supplied the footer attribution `exphere by Grupo OLX © 2026`; this repository does not independently establish organizational endorsement.
-
-## Go CLI
-
-```sh
-pnpm ex --help
-pnpm ex version
-pnpm ex init
-```
-
-The first two commands provide the scaffold's usage and version. `init` deliberately returns a nonzero unsupported result and writes no consumer files. Unknown or malformed commands fail explicitly. The implementation lives under `packages/cli/cmd/ex/`.
-
-The previous shell CLI's `runtime`, `setup`, Terraform/Kubernetes adapters, guided generation, legacy compatibility and PATH installation have been retired. JSON schemas under `packages/cli/cli/schemas/` and CLI-owned consumer-harness fixtures remain historical/source contracts; they are not current executable Go capabilities. Read the [CLI README](packages/cli/README.md) for the supported boundary.
+For website work, use `pnpm --filter @repo/design dev` separately while editing tokens. `pnpm build` prepares production outputs; `pnpm start --filter=website` serves the built application locally. See the [website guide](apps/website/README.md) for its current presentation and limits.
 
 ## Developer checks
 
-Root task aliases call the native tools; wrapper `scripts/` directories are absent outside `packages/cli/`. Substantive Husky hooks and native test files retain their framework-defined owners.
+Root aliases invoke native pnpm/Turborepo/Go tools. Retired wrapper directories outside the CLI are not part of the current workflow.
 
-| Command or hook | Behavior |
+| Command | Purpose |
 | --- | --- |
-| `pnpm build` | Turborepo runs declared workspace builds, including Go, SDK, tokens, web and website. |
-| `pnpm typecheck` | Declared workspace type checks, after dependency builds. |
-| `pnpm test` | Declared native package tests, CLI-owned reference-contract checks and disposable Husky hook contracts through Turborepo. |
-| `pnpm check`, `pnpm lint`, `pnpm format` | Biome checks; `format` explicitly writes fixes. |
-| `pnpm harness:score` | Informational project harness scan; results are not approvals or production evidence. |
-| pre-commit | lint-staged/Biome checks eligible staged files, preserving partial edits; informational harness scan and ticket reminder. |
-| commit-msg | Blocking Conventional Commit validation and advisory staged ticket/spec associations. |
-| pre-push | Advisory outgoing SDD associations followed by build/test for the clean tracked outgoing source revision. Unsupported revisions and quality failures block. |
+| `pnpm build` | Build declared Go and JavaScript/TypeScript workspaces. |
+| `pnpm test` | Run declared package tests, retained CLI source-contract checks, and disposable Husky hook contracts. |
+| `pnpm typecheck` | Run declared workspace type checks, including Go vet. |
+| `pnpm check` / `pnpm lint` | Run the existing Biome checks. |
+| `pnpm format` | Apply Biome formatting changes explicitly. |
+| `pnpm harness:score` | Run the local harness diagnostic; findings are informational. |
 
-Biome does not cover shell, Go or Markdown. Installed skills and typed artifacts are excluded from frontend linting; their validation is separate. Hook contracts use disposable Git repositories and a local bare remote. CLI tests cover scaffold behavior; retained consumer-harness checks inspect source/fixtures and do not prove runtime deployment. Design export/watch fixtures and web fixtures retain their declared test runners. Removed shell CLI installation/runtime fixtures and the shell agent-review provider are no longer executable coverage.
+Pre-commit checks eligible staged files and reports the harness diagnostic. Commit-msg validates Conventional Commits and reports advisory ticket/spec associations. Pre-push checks the clean, checked-out outgoing revision and runs build followed by test.
 
-`verifyDepsBeforeRun: false` prevents implicit dependency installation before tasks. Hooks require installed tools. Follow the [SDD rule](.exphere/harness/rules/0001-sdd.rule.md) and [guardrail](.exphere/harness/guardrails/0002-sdd.gr.md): each commit declares one stable `Ticket:` trailer and each actual PR declares one `Spec:`. Advisory findings are not compliance. Hooks can be bypassed and do not authenticate approval or authorize publication.
+Biome does not cover Go, shell, or Markdown. Source-contract fixtures do not establish a running cluster or provider integration. Hooks can be bypassed; they provide feedback rather than authenticated approval or authorization to publish. `verifyDepsBeforeRun: false` prevents implicit dependency installation before tasks.
+
+Use one `Ticket: <stable-id>` trailer per commit and `Spec: <stable-id>` in each PR body. Follow the [SDD rule](.exphere/harness/rules/0001-sdd.rule.md) and [guardrail](.exphere/harness/guardrails/0002-sdd.gr.md), including separate Standards and Spec reviews of the same snapshot.
 
 ## CI and review
 
-GitHub Actions uses native dependency installation, checks, type checking, builds and tests. It does not run the retired shell agent-review provider or make paid model requests. Separate Standards and Spec review remains the contributor obligation described in the [code-review skill](.exphere/workflow/skills/code-review/SKILL.md); CI success is not a replacement for that review. Hosted workflow execution and local results must be recorded for the revision actually checked.
+GitHub Actions runs native installation, checks, type checking, builds, and tests. It does not run the retired shell agent-review provider or make paid model requests. Separate Standards and Spec review remains the contributor obligation in the [code-review skill](.exphere/workflow/skills/code-review/SKILL.md).
 
-## Project documents and limitations
+Report the revision and scope actually verified. A local check does not prove hosted CI success, and CI success does not prove production readiness.
 
-- [Product requirements](.exphere/artifacts/prd/0001-PRD-exphere.prd.md) and [design overview](.exphere/artifacts/design/0001-DD-exphere.dd.md).
-- [PR #19 integration specification](.exphere/artifacts/specs/0028-SPEC-pr19-completion.spec.md): requested website, Go, native tooling and skills scope with a requirement-by-requirement checklist.
-- [Artifact tracker](.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md), [local guidance](.agents/README.md), and [workflow documentation](.exphere/workflow/README.md).
-- [Workflow skill provenance](.exphere/workflow/skills/README.md) and [Go skill provenance](.agents/skills/README.md).
+## Project documents
 
-The former skill lock, evidence README, guardrail index and CLI-context ADR remain absent. Retained policy documents and schemas do not establish an executed workflow, organizational adoption, npm publication, indexing, deployment, cost savings or production readiness. The owner-authorized PR #19 verification is bounded to this migration; it does not authorize provisioning or production access.
+| Start here | What it contains |
+| --- | --- |
+| [Product requirements](.exphere/artifacts/prd/0001-PRD-exphere.prd.md) | Problem, intended outcomes, scope, and unvalidated hypotheses. |
+| [Local microruntime pilot](.exphere/artifacts/prd/0002-PRD-local-microruntimes.prd.md) | Earlier configuration and lifecycle contracts for future implementation. |
+| [Design overview](.exphere/artifacts/design/0001-DD-exphere.dd.md) | Product and system boundaries. |
+| [Feature register](.agents/features/README.md) | Thirteen proposals and the current funding/context decisions. |
+| [This documentation specification](.exphere/artifacts/specs/0029-SPEC-backstage-team-budget-proposal.spec.md) | Scope, requirements, and evidence for this presentation. |
+| [Go and documentation migration](.exphere/artifacts/specs/0028-SPEC-pr19-completion.spec.md) | Current Go, website, native-tooling, and skills integration. |
+| [Artifact tracker](.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md) | Stable IDs, naming, directories, and states. |
+| [Local contributor guidance](AGENTS.md) | Scope, ownership, workflow, and repository rules. |
+
+## Current limits
+
+Exphere is experimental. The SDK API is empty, the Go CLI is a scaffold, and these diagrams do not deliver an agent workflow or financial enforcement. Provisioning, production access, deployment, cloud billing integrations, and organizational adoption require their own implementation and evidence.
+
+Keep changes scoped and preserve consumer-owned decisions. The surviving project documents define their own boundaries; removed historical guidance is not silently replaced by this README.
