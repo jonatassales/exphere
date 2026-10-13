@@ -105,3 +105,8 @@ production build at desktop and mobile widths, clipboard success/failure, intern
 navigation, decorative Orbo registration/state and reduced motion. This does not
 authorize new application test infrastructure. Record the actual evidence in
 WEB-DOCS-01.
+
+The owner subsequently requested a slightly smaller header orb while inspecting
+the corrected browser view. Header/docs logo orbs use 1.5rem (24px), centered
+with the existing Exphere text, shifted down 2px for the owner's subsequent
+optical-alignment request; the footer remains 1.5rem.

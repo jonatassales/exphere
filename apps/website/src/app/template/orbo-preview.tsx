@@ -8,7 +8,7 @@ interface OrboPreviewProps {
 }
 
 export function OrboPreview(props: OrboPreviewProps) {
-  const { size = "2rem" } = props;
+  const { size = "1.5rem" } = props;
 
   useEffect(() => {
     void import("orbo-voice/browser").catch(() => {

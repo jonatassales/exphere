@@ -195,7 +195,7 @@ examples. The hero preserves the dark/purple palette and shader with the exact
 owner title and description. Its only action is the dark copy control; the
 header's Documentation link reaches the initial Nextra Getting Started page.
 
-Native Orbo elements sit to the left of the header mark (2rem) and footer credit
+Native Orbo elements sit to the left of the header mark (1.5rem, shifted down 2px for optical alignment) and footer credit
 (1.5rem), in black/gray shades through #666666. They use listening as a decorative
 visual state with system reduced motion, without audio or microphone behavior.
 The footer credit is `exphere by Grupo OLX © 2026`, with compact accessible

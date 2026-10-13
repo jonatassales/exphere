@@ -33,7 +33,7 @@ export default function WebsitePage() {
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[1280px] flex-col px-6 py-7 text-site-ink sm:px-10 lg:px-14">
       <header className="flex flex-wrap items-center justify-between gap-4 border-b border-site-border pb-5">
-        <span className="inline-flex items-center gap-2 text-xl font-bold tracking-[-0.065em]">
+        <span className="inline-flex items-center gap-2 text-xl font-bold tracking-[-0.065em] [&>span]:translate-y-0.5">
           <OrboPreview />
           exphere
         </span>
