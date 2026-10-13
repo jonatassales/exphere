@@ -92,3 +92,28 @@ Alignment review: both independent axes refreshed the six-file delta against
 Both confirm 24px header/docs orbs shifted down 2px, unchanged footer and retained
 listening/grayscale/reduced-motion configuration. This outcome append follows the
 review and is evidence-only.
+
+### Desktop density and clipboard padding follow-up
+
+The owner's subsequent browser feedback requested a half-sized desktop card and
+text, roughly half the header-to-card gap, a 30% shorter desktop header and less
+clipboard padding. The hero uses uniform 50% scaling from 1024px with a top origin;
+desktop header control/padding are compacted. Mobile keeps its previous card
+scale and header touch target. Clipboard padding is 12px horizontal/6px vertical
+before desktop scaling.
+
+Production compilation and scoped Biome passed. Chromium on the production build
+measured a 450px desktop card (previously 900px), a 45px header (previously 65px),
+and a 141px gap (previously 261px at 1440 by 1000). Mobile retained scale 1 and
+a 65px header; no horizontal overflow occurred. The clipboard's actual readback
+remained exactly `npx exphere init` in both desktop/mobile views, with no uncaught
+page errors. Screenshots and measurements are retained beside the earlier local
+evidence. These observations describe the requested visual scale, not a change
+to the unscaled CSS font declarations.
+
+Desktop refinement review: both independent axes inspected the five-file delta
+against `cd65c61e31672f9182489f98e87b227958540446` at tree
+`b2fcfb7367e04cc6d4e734b1f489808f14391b19`. Standards: 0 findings. Spec: 0 findings.
+The requested desktop proportions and clipboard padding are implemented; mobile
+scale/touch sizing and copy semantics are preserved. This evidence-only outcome
+append follows the review.
