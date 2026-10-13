@@ -4,7 +4,7 @@
 
 ## Work
 
-1. Use [code-review](../../harness/skills/code-review/SKILL.md). Identify the spec and standards relevant to the requested change; include root [AGENTS.md](../../../AGENTS.md), applicable [rules](../../../.agents/rules/README.md), and [guardrails](../../harness/guardrails).
+1. Use [code-review](../skills/code-review/SKILL.md). Identify the spec and standards relevant to the requested change; include root [AGENTS.md](../../../AGENTS.md), applicable [rules](../../../.agents/rules/README.md), and [guardrails](../../harness/guardrails).
 2. Give the standards and spec reviewers the same selected paths, contents, baseline, and snapshot identity. Follow the skill's parallel-review procedure. Exclude unrelated edits and third-party files unless the authorized change affects them.
 3. Include committed and uncommitted changes when Git is available. Without Git, review the explicit manifest and captured contents as task additions or changes against an available local snapshot. State that no historical Git diff exists.
 4. Keep the two findings lists separate. Standards review evaluates documented rules and applicable design concerns; spec review evaluates missing behavior, incorrect implementation, and unrequested scope. Cite actual locations and distinguish defects from suggestions.

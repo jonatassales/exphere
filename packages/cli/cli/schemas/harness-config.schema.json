@@ -71,10 +71,7 @@
                 "$ref": "#/$defs/path"
               }
             },
-            "required": [
-              "id",
-              "descriptorRef"
-            ],
+            "required": ["id", "descriptorRef"],
             "additionalProperties": false
           },
           "minItems": 1,
@@ -95,26 +92,16 @@
       "type": "object",
       "properties": {
         "langgraph": {
-          "enum": [
-            "unavailable"
-          ]
+          "enum": ["unavailable"]
         },
         "mcp": {
-          "enum": [
-            "unavailable"
-          ]
+          "enum": ["unavailable"]
         },
         "rag": {
-          "enum": [
-            "unavailable"
-          ]
+          "enum": ["unavailable"]
         }
       },
-      "required": [
-        "langgraph",
-        "mcp",
-        "rag"
-      ],
+      "required": ["langgraph", "mcp", "rag"],
       "additionalProperties": false
     },
     "retrieval": {
@@ -193,10 +180,7 @@
               "maximum": 604800
             }
           },
-          "required": [
-            "revisionPolicy",
-            "maxAgeSeconds"
-          ],
+          "required": ["revisionPolicy", "maxAgeSeconds"],
           "additionalProperties": false
         }
       },
@@ -220,10 +204,7 @@
           "$ref": "#/$defs/revision"
         },
         "provenance": {
-          "enum": [
-            "synthetic",
-            "governed"
-          ]
+          "enum": ["synthetic", "governed"]
         },
         "currency": {
           "type": "string",
@@ -253,12 +234,7 @@
               "supportedEfforts": {
                 "type": "array",
                 "items": {
-                  "enum": [
-                    "none",
-                    "low",
-                    "medium",
-                    "high"
-                  ]
+                  "enum": ["none", "low", "medium", "high"]
                 },
                 "minItems": 1,
                 "maxItems": 4,
@@ -321,12 +297,7 @@
           "$ref": "#/$defs/id"
         },
         "effort": {
-          "enum": [
-            "none",
-            "low",
-            "medium",
-            "high"
-          ]
+          "enum": ["none", "low", "medium", "high"]
         },
         "allowanceMicros": {
           "$ref": "#/$defs/money"
@@ -349,12 +320,7 @@
           "uniqueItems": true
         }
       },
-      "required": [
-        "profileId",
-        "effort",
-        "allowanceMicros",
-        "coveredPurposes"
-      ],
+      "required": ["profileId", "effort", "allowanceMicros", "coveredPurposes"],
       "additionalProperties": false
     },
     "budget": {
@@ -391,39 +357,23 @@
               "$ref": "#/$defs/time"
             }
           },
-          "required": [
-            "start",
-            "end"
-          ],
+          "required": ["start", "end"],
           "additionalProperties": false
         },
         "coverage": {
           "type": "object",
           "properties": {
             "ai": {
-              "enum": [
-                "bounded",
-                "unknown"
-              ]
+              "enum": ["bounded", "unknown"]
             },
             "infrastructure": {
-              "enum": [
-                "allocation-estimate",
-                "unknown"
-              ]
+              "enum": ["allocation-estimate", "unknown"]
             },
             "other": {
-              "enum": [
-                "excluded",
-                "unknown"
-              ]
+              "enum": ["excluded", "unknown"]
             }
           },
-          "required": [
-            "ai",
-            "infrastructure",
-            "other"
-          ],
+          "required": ["ai", "infrastructure", "other"],
           "additionalProperties": false
         },
         "failureBehavior": {
@@ -441,11 +391,7 @@
                 "$ref": "#/$defs/id"
               },
               "kind": {
-                "enum": [
-                  "funding-window",
-                  "feature",
-                  "cycle"
-                ]
+                "enum": ["funding-window", "feature", "cycle"]
               },
               "caps": {
                 "type": "object",
@@ -460,11 +406,7 @@
                     "$ref": "#/$defs/money"
                   }
                 },
-                "required": [
-                  "ai",
-                  "infrastructure",
-                  "combined"
-                ],
+                "required": ["ai", "infrastructure", "combined"],
                 "additionalProperties": false
               },
               "protected": {
@@ -480,20 +422,11 @@
                     "$ref": "#/$defs/money"
                   }
                 },
-                "required": [
-                  "ai",
-                  "infrastructure",
-                  "combined"
-                ],
+                "required": ["ai", "infrastructure", "combined"],
                 "additionalProperties": false
               }
             },
-            "required": [
-              "id",
-              "kind",
-              "caps",
-              "protected"
-            ],
+            "required": ["id", "kind", "caps", "protected"],
             "additionalProperties": false
           },
           "minItems": 1,
@@ -541,10 +474,7 @@
         "residualCosts": {
           "type": "array",
           "items": {
-            "enum": [
-              "storage",
-              "network"
-            ]
+            "enum": ["storage", "network"]
           },
           "minItems": 1,
           "maxItems": 2,
@@ -590,21 +520,13 @@
               "const": "unavailable"
             },
             "writer": {
-              "enum": [
-                "accounting-dispatcher",
-                "graph-executor"
-              ]
+              "enum": ["accounting-dispatcher", "graph-executor"]
             },
             "path": {
               "$ref": "#/$defs/path"
             }
           },
-          "required": [
-            "id",
-            "implementation",
-            "writer",
-            "path"
-          ],
+          "required": ["id", "implementation", "writer", "path"],
           "additionalProperties": false
         },
         "graph": {
@@ -617,28 +539,17 @@
               "const": "unavailable"
             },
             "writer": {
-              "enum": [
-                "accounting-dispatcher",
-                "graph-executor"
-              ]
+              "enum": ["accounting-dispatcher", "graph-executor"]
             },
             "path": {
               "$ref": "#/$defs/path"
             }
           },
-          "required": [
-            "id",
-            "implementation",
-            "writer",
-            "path"
-          ],
+          "required": ["id", "implementation", "writer", "path"],
           "additionalProperties": false
         }
       },
-      "required": [
-        "accounting",
-        "graph"
-      ],
+      "required": ["accounting", "graph"],
       "additionalProperties": false
     }
   },

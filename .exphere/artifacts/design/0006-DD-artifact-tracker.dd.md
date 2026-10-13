@@ -39,9 +39,9 @@ Git can provide history when available and commits are authorized. The owner aut
 | Location | Current responsibility |
 | --- | --- |
 | [`.exphere/artifacts/`](../) | Authored PRDs, specs, tickets, research, and DDs; agent configuration DDs are consolidated in `design/` |
-| [`.exphere/harness/`](../../harness/) | Shared skills and numbered SDD, FinOps, and Twelve-Factor rules and guardrails |
-| [`.exphere/workflow/`](../../workflow/README.md) | Common lifecycle and the surviving Dev, operations, SRE, and FinOps documents |
-| [`.agents/`](../../../.agents/README.md) | Local guidance, engineering rules, frontend guardrails, templates, and `writing-for-agents` |
+| [`.exphere/harness/`](../../harness/) | FinOps/AWS skills and numbered SDD, FinOps, and Twelve-Factor rules and guardrails |
+| [`.exphere/workflow/`](../../workflow/README.md) | Common lifecycle, AIHero skills, and the surviving Dev, operations, SRE, and FinOps documents |
+| [`.agents/`](../../../.agents/README.md) | Local guidance, engineering rules, frontend guardrails, templates, and Go skills |
 
 The former skill lock, evidence README, shared guardrail index, CLI-context ADR, and Design workflow document remain unavailable. Surviving guidance and formats do not establish replacement contracts. Generated browser output remains under `.audits/evidence/runs/`; deleting its README does not relocate those outputs. Runtime configuration remains separate in `.exphere/runtimes/` and is not covered by blanket artifact or harness exclusions.
 

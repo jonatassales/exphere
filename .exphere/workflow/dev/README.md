@@ -32,19 +32,18 @@ These links locate the relevant instructions; they do not invoke skills or autho
 
 | Need | Skill |
 | --- | --- |
-| Primary-source investigation | [research](../../harness/skills/research/SKILL.md) |
-| Explicit discovery discussion | [grill-with-docs](../../harness/skills/grill-with-docs/SKILL.md), using [grilling](../../harness/skills/grilling/SKILL.md) and [domain-modeling](../../harness/skills/domain-modeling/SKILL.md) |
-| Specification | [to-spec](../../harness/skills/to-spec/SKILL.md) |
-| Ticket decomposition | [to-tickets](../../harness/skills/to-tickets/SKILL.md) |
-| Authorized implementation | [implement](../../harness/skills/implement/SKILL.md) |
-| Module and interface design | [codebase-design](../../harness/skills/codebase-design/SKILL.md) |
-| Technical review | [code-review](../../harness/skills/code-review/SKILL.md) |
-| Explicit retrospective | [retro](../../harness/skills/retro/SKILL.md) |
-| Agent-facing documents | [writing-for-agents](../../../.agents/skills/writing-for-agents/SKILL.md) |
-| Test-first development at an authorized seam, including the hook-contract suite | [tdd](../../harness/skills/tdd/SKILL.md) |
+| Primary-source investigation | [research](../skills/research/SKILL.md) |
+| Explicit discovery discussion | [grill-with-docs](../skills/grill-with-docs/SKILL.md), using [grilling](../skills/grilling/SKILL.md) and [domain-modeling](../skills/domain-modeling/SKILL.md) |
+| Specification | [to-spec](../skills/to-spec/SKILL.md) |
+| Ticket decomposition | [to-tickets](../skills/to-tickets/SKILL.md) |
+| Authorized implementation | [implement](../skills/implement/SKILL.md) |
+| Module and interface design | [codebase-design](../skills/codebase-design/SKILL.md) |
+| Technical review | [code-review](../skills/code-review/SKILL.md) |
+| Explicit retrospective | [retro](../skills/retro/SKILL.md) |
+| Test-first development at an authorized seam, including the hook-contract suite | [tdd](../skills/tdd/SKILL.md) |
 
 Skill availability does not authorize a later phase. Current project restrictions override skill defaults, including automatic tests or commits. The installed versions and their limitations remain in the [skill configuration](../../artifacts/design/0008-DD-agent-skills.dd.md).
 
 ## Local developer checks
 
-The [command contract](../../../README.md#developer-checks) configures Husky in postinstall while preserving Exphere setup. Pre-commit blocks staged lint failures and reports an informational harness score; commit-msg blocks invalid Conventional Commits and warns about ticket links; pre-push reports SDD findings before blocking build/test checks. Apply the [SDD rule](../../harness/rules/0001-sdd.rule.md) and [guardrail](../../harness/guardrails/0002-sdd.gr.md). Review checks actual ticket/spec scope; audit records unavailable evidence and bypass limitations.
+The [command contract](../../../README.md#developer-checks) configures Husky through its native prepare command without user PATH mutation. Pre-commit blocks staged lint failures and reports an informational harness score; commit-msg blocks invalid Conventional Commits and warns about ticket links; pre-push reports SDD findings before blocking build/test checks. Apply the [SDD rule](../../harness/rules/0001-sdd.rule.md) and [guardrail](../../harness/guardrails/0002-sdd.gr.md). Review checks actual ticket/spec scope; audit records unavailable evidence and bypass limitations.

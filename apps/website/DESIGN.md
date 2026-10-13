@@ -81,8 +81,8 @@ website font tokens until font integration is separately approved.
 
 Spacing: 4, 8, 12, 16, 24, 32, 48 and 96px. Use approximately 96px
 between major desktop sections and tighter proportional spacing on mobile.
-Cap wide editorial content at approximately 1280px. The hero uses an editorial
-plus technical 2-column grid on desktop and one column on narrow screens.
+Cap wide editorial content at approximately 1280px. The hero is one centered panel, capped at approximately 900px within the page,
+with centered copy and one dark command box. There is no right-hand CLI card.
 
 Code panels should scroll horizontally rather than clipping commands. Preserve
 comfortable touch targets and visible keyboard focus at all widths.
@@ -126,8 +126,8 @@ with badges solely for visual effect.
 ## 7. Responsive boundaries
 
 - Mobile: <768px; one column, responsive title sizes and code scroll.
-- Tablet: 768–1024px; two columns where appropriate.
-- Desktop: 1024–1440px; full editorial + technical hero.
+- Tablet: 768–1024px; one centered hero panel.
+- Desktop: 1024–1440px; a wider centered hero with no secondary card.
 - Wide: >1440px; maintain the centered ~1280px content width.
 
 ## 8. Existing motion background in dark purple shades
@@ -158,8 +158,9 @@ legible white UI typography instead of attempting a black-on-black logo.
 
 The website remains pre-launch/`noindex`: keep `metadataBase: null`, no
 canonical/sitemap/entity claims, crawlable robots and inactive social URL
-metadata gates. Keep the existing factual copy, README documentation URL
-and documented CLI commands. No new public documentation domain is implied.
+metadata gates. Use the owner-supplied FinOps hero copy and internal `/docs` navigation. The
+copyable `npx exphere init` is visibly marked as a preview because init and npm
+distribution are not available. No new public documentation domain is implied.
 
 ## 10. Decisions and source boundaries
 
@@ -184,3 +185,30 @@ same purple palette via the existing optional palette input.
 Source-of-truth requirements: [PRD-WEBSITE-PURPLE-ACCENT](../../.exphere/artifacts/prd/0005-PRD-website-purple-accent.prd.md),
 [SPEC-WEBSITE-PURPLE-ACCENT](../../.exphere/artifacts/specs/0023-SPEC-website-purple-accent.spec.md),
 and [WEB-PURPLE-01](../../.exphere/artifacts/tickets/0045-TICKET-website-purple-motion.ticket.md).
+
+## 12. Documentation entry amendment (October 13, 2026)
+
+[SPEC-WEB-DOCS](../../.exphere/artifacts/specs/0024-SPEC-website-nextra-getting-started.spec.md)
+supersedes the earlier two-column hero, repository-only Docs link and CLI
+examples. The hero preserves the dark/purple palette and shader with the exact
+owner title and description. Its only action is the dark copy control; the
+header's Documentation link reaches the initial Nextra Getting Started page.
+
+Native Orbo elements sit to the left of the header mark (2rem) and footer credit
+(1.5rem), in black/gray shades through #666666. They use listening as a decorative
+visual state with system reduced motion, without audio or microphone behavior.
+The footer credit is `exphere by Grupo OLX © 2026`, with compact accessible
+GitHub and organization LinkedIn icons. Brand artwork is unchanged. Nextra
+uses a forced dark theme; no light-mode selector is introduced.
+
+### Build compatibility and asset recovery
+
+The documentation build uses native Turbopack with the application MDX provider
+alias, preserving server rendering and prelaunch metadata. The completion build
+identified corrupt baseline ICO/PNG exports. Their original bytes remain in
+`public/brand/`; valid existing SVG/PNG favicon assets remain active, and exact
+historical black Apple/512px manifest exports were restored. Social metadata
+images remain inactive until valid exports are supplied. [IDENTITY.md](IDENTITY.md)
+records exact provenance, checksums and the legacy ICO compatibility limit.
+This recovery supersedes earlier claims that all binary assets were valid,
+without changing the supplied black vector geometry.

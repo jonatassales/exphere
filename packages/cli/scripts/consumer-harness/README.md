@@ -1,6 +1,6 @@
 # Consumer harness contracts — source verification v1
 
-Implements the pre-generation contract/reference surface of CHL-01 through CHL-08. CHL-09 has a versioned candidate and an explicit incomplete independent-review gate; the generator is not released by these files. The current `ex` command, runtime v2 schema, legacy compatibility, package manifest and existing tests are unchanged.
+Implements the pre-generation contract/reference surface of CHL-01 through CHL-08. CHL-09 has a versioned candidate and an explicit incomplete independent-review gate; the generator is not released by these files. The October 13, 2026 Go scaffold retires the former Bash runtime commands. This independent source verifier retains the existing JSON schemas and synthetic financial scenarios; it does not establish CLI parity or runtime readiness.
 
 ## Run from a source checkout
 
@@ -15,11 +15,11 @@ sh packages/cli/scripts/verify-consumer-harness.sh \
 sh packages/cli/scripts/test-consumer-harness.sh
 ```
 
-The verifier consumes explicit roots. It does not discover another checkout, download dependencies, source consumer data, run hooks, invoke configured MCP tools or call a provider. Only the existing public runtime `validate` operation is used for native descriptor/reference compatibility. A successful result explicitly returns `executionReady: false` and `financialEnforcement: false`. `--require-ready` returns status 3 because the required engines/handlers are unavailable. It cannot turn the fixture into an executing installation.
+The verifier consumes explicit roots. It does not discover another checkout, download dependencies, source consumer data, run hooks, invoke configured MCP tools or call a provider. The existing bundled schema interpreter checks runtime descriptors and local references directly; no public CLI is invoked and compatibility with the retired Bash validator is not asserted. A successful result explicitly returns `executionReady: false` and `financialEnforcement: false`. `--require-ready` returns status 3 because the required engines/handlers are unavailable. It cannot turn the fixture into an executing installation.
 
-The test suite additionally invokes existing manual/guided/legacy initialization in owned temporary consumers and checks Git ignore behavior in a disposable Git repository. Nothing changes a real user shell profile. Tests of invalid data intentionally replace files only in these disposable consumers.
+The test suite checks source descriptors and Git ignore behavior in disposable consumers/repositories. Former manual/guided/legacy initialization tests were retired with their implementation. Nothing changes a real user shell profile. Tests of invalid data intentionally replace files only in these disposable consumers.
 
-Dependencies are explicit: POSIX `sh`, jq 1.7 or newer, standard Unix file/text tools, and either `sha256sum` or `shasum`. Tests also require Git and `mkfifo`. Linux is the observed platform. POSIX-style source and SHA utility fallback are not evidence of macOS execution. No Node, Python, Go module, database or new runtime service is required by this verifier. Existing package tools remain separate.
+Dependencies are explicit: POSIX `sh`, jq 1.7 or newer, standard Unix file/text tools, and either `sha256sum` or `shasum`. Tests also require Git and `mkfifo`. The earlier evidence was collected on Linux. Current-platform verification is recorded in the native-tooling specification; source portability alone is not execution evidence. No Node, Python, Go module, database or new runtime service is required by this verifier. Existing package tools remain separate.
 
 ## Contracts and ownership
 
@@ -47,7 +47,7 @@ Structural validation rejects duplicate JSON keys before normal object parsing, 
 
 Semantic validation additionally checks identity uniqueness, the funding-window → feature → cycle hierarchy, revisions, profile/effort capabilities, protected balances, source scope, installed dependency closure, hashes and native runtime paths. Unknown model prices may be represented by omission in configuration; hypothetical dispatch then rejects them, rather than converting missing data into zero. Unavailable execution handlers are a separate readiness result from structurally valid configuration.
 
-New file references resolve from the explicit consumer root; scenario references resolve from their separately explicit scenario root. Existing runtime component/native path bases are preserved. The source-only reference uses a stricter no-symlink rule, including in-root links; it does not change the public CLI's compatibility contract. Paths reject absolute names, dot/parent traversal, backslashes and control characters. A closed inventory covers every fresh-reference file except the editable config and the inventory itself. SHA-256 hashes detect modification, not author authenticity. Required local Markdown links use the bounded inline-link form demonstrated by the selected skill; network links are attribution only and are not fetched.
+New file references resolve from the explicit consumer root; scenario references resolve from their separately explicit scenario root. Existing runtime component/native path bases are preserved. The source-only reference uses a stricter no-symlink rule, including in-root links; it is not a compatibility promise for the retired public runtime CLI. Paths reject absolute names, dot/parent traversal, backslashes and control characters. A closed inventory covers every fresh-reference file except the editable config and the inventory itself. SHA-256 hashes detect modification, not author authenticity. Required local Markdown links use the bounded inline-link form demonstrated by the selected skill; network links are attribution only and are not fetched.
 
 The verifier rereads observed file hashes before returning. This detects ordinary changes during verification but is not a secure filesystem sandbox against a hostile concurrent writer racing checks and opens. Use a trusted immutable snapshot or an isolated copy for review. Live concurrency, authenticated approval, provider security and operational admission are later executor responsibilities.
 
@@ -73,7 +73,7 @@ Scenarios contain independent literal expected JSON and checked-in receipts. The
 
 ## Source, package and future generator boundary
 
-The current package manifest includes only `cli`. Formal schemas are in that existing distribution subtree. Manual references, synthetic histories and source verification helpers stay outside it. Git ignores are checked separately from the package allowlist. A legitimate `.terraform.lock.hcl` remains authored provider dependency data, not an ignored Terraform state file.
+The current package manifest is a private Go task bridge with no npm executable or release packaging contract. Formal schemas stay in the historical `cli/schemas` directory so reference links remain stable. Manual references, synthetic histories and verification helpers are source-only material. No npm package contents or distribution readiness is asserted. A legitimate `.terraform.lock.hcl` remains authored provider dependency data, not an ignored Terraform state file.
 
 The selected `review-plan` skill is new project-authored fixture content, not a renamed or unlicensed copy of an upstream skill. No third-party skill source is redistributed here. Its supporting file, templates and guide dependencies are inventoried. This minimal selection demonstrates closure without claiming installation of every maintainer Pocock skill. Future selection of an upstream skill must preserve its source revision, supporting assets, attribution and required license material before claiming distribution readiness.
 

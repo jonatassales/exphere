@@ -1,7 +1,7 @@
 # Agent rules
 
 - Respect the authorized scope and explicit user instructions; preserve unrelated files and changes.
-- Load only skills relevant to the phase, reading `.exphere/harness/skills/<name>/SKILL.md` when no invocation tool is available; `writing-for-agents` remains at `.agents/skills/writing-for-agents/SKILL.md`. Preserve upstream invocation boundaries; documenting a phase does not authorize the next one.
+- Load only skills relevant to the phase, reading `.exphere/workflow/skills/<name>/SKILL.md` for workflow skills or `.agents/skills/<golang-name>/SKILL.md` for Go skills when no invocation tool is available. Preserve upstream invocation boundaries; documenting a phase does not authorize the next one.
 - Recognize authorization already given for the same scope. Commits, pushes, remote publication, provisioning, and production actions require the corresponding authorization.
 - Consult [context](../CONTEXT.md), the [local tracker](../../.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md), and [domain configuration](../../.exphere/artifacts/design/0007-DD-domain-model.dd.md) when relevant; create only the artifacts needed for the request.
 - Distinguish proposals, authorized decisions, implementation, and observed results. Do not invent approvals, measurements, identities, or organizational targets.
@@ -46,4 +46,4 @@ FinOps and Twelve-Factor were adopted locally on October 10, 2026; advisory SDD 
 
 ## Current user restrictions
 
-YAGNI. Automation scripts must be `.sh` files invoked by manifests. The design token compiler has the narrow TypeScript-behind-shell exception recorded in root AGENTS. Authorized hook, CLI, design-token, and website verification boundaries are recorded in root AGENTS, including the build/test push gate. Unrelated tests still require authorization. These restrictions take precedence over skill suggestions to test or expand the scope.
+YAGNI. Manifest task aliases use the owning native tool under the package scripts rule. Wrapper directories are retired outside the CLI; authorized CLI verification helpers, substantive Husky hooks, native tests and the design token compiler retain their documented owners. Authorized hook, CLI, design-token, and website verification boundaries are recorded in root AGENTS, including the build/test push gate. Unrelated tests still require authorization. These restrictions take precedence over skill suggestions to test or expand the scope.

@@ -12,10 +12,7 @@
       "$ref": "#/$defs/id"
     },
     "role": {
-      "enum": [
-        "planner",
-        "diagnostician"
-      ]
+      "enum": ["planner", "diagnostician"]
     },
     "orchestrator": {
       "const": "langgraph"
@@ -61,10 +58,7 @@
           "operations": {
             "type": "array",
             "items": {
-              "enum": [
-                "read",
-                "propose"
-              ]
+              "enum": ["read", "propose"]
             },
             "minItems": 1,
             "maxItems": 2,

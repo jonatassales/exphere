@@ -1,5 +1,6 @@
 import { ExphereShader } from "@repo/web/react/exphere-shader";
 import type { Metadata, Viewport } from "next";
+import { Head } from "nextra/components";
 import type { ReactNode } from "react";
 
 import "@app/globals.css";
@@ -35,7 +36,17 @@ export default function RootLayout(props: RootLayoutProps) {
   const { children } = props;
 
   return (
-    <html lang="en-US" data-theme="dark">
+    <html
+      lang="en-US"
+      dir="ltr"
+      className="dark"
+      data-theme="dark"
+      suppressHydrationWarning
+    >
+      <Head
+        backgroundColor={{ dark: "#0a0a0a", light: "#0a0a0a" }}
+        color={{ hue: 266, saturation: 100, lightness: 76 }}
+      />
       <body className="min-h-screen bg-background font-body text-foreground">
         <ExphereShader palette={shaderPalette}>{children}</ExphereShader>
       </body>

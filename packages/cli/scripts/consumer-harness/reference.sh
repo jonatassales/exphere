@@ -110,17 +110,24 @@ h_reference() {
     [ ! -e "$h_consumer/$relative" ] && [ ! -L "$h_consumer/$relative" ] || h_fail "Fresh reference contains generated or sensitive state: $relative"
   done
 
-  # Native settings are not copied into the harness. Reuse the existing public CLI.
+  # Source-only schema/reference checks are independent of the Go CLI scaffold.
   jq -r '.selected.runtimes[] | [.id,.descriptorRef] | @tsv' "$h_config" >"$h_area/runtimes.tsv"
   while IFS="$(printf '\t')" read -r runtime_id relative; do
     [ "$relative" = ".exphere/runtimes/$runtime_id/schema.json" ] || h_fail "Runtime reference/id mismatch: $relative"
     descriptor=$(h_inventory_ref "$relative") || return 1
+    h_json runtime-v2 "$descriptor" || return 1
+    jq -e --arg id "$runtime_id" '.id == $id and all(.units | to_entries[]; .key == (.value.component | split("/") | last))' "$descriptor" >/dev/null || h_fail 'Runtime descriptor identity/component mismatch'
     runtime_base=${relative%/schema.json}
     jq -r '.units[].component' "$descriptor" >"$h_area/components.txt"
     while IFS= read -r component; do h_path "$h_consumer" "$component" directory >/dev/null || return 1; done <"$h_area/components.txt"
     jq -r '.terraform.directory, .units[].kubernetes.manifests, (.hooks // {} | .[])' "$descriptor" >"$h_area/native.txt"
-    while IFS= read -r native; do h_path "$h_consumer" "$runtime_base/$native" future >/dev/null || return 1; done <"$h_area/native.txt"
-    sh "$h_package/cli/ex.sh" --root "$h_consumer" runtime "$runtime_id" validate >"$h_area/runtime.out" || return 1
+    while IFS= read -r native; do
+      native_path=$(h_path "$h_consumer" "$runtime_base/$native" future) || return 1
+      [ -e "$native_path" ] && [ -r "$native_path" ] || h_fail "Required native reference not found: $native"
+    done <"$h_area/native.txt"
+    h_path "$h_consumer" "$runtime_base/$(jq -r '.terraform.directory' "$descriptor")" directory >/dev/null || return 1
+    jq -r '.hooks // {} | .[]' "$descriptor" >"$h_area/hooks.txt"
+    while IFS= read -r hook; do h_path "$h_consumer" "$runtime_base/$hook" file >/dev/null || return 1; done <"$h_area/hooks.txt"
   done <"$h_area/runtimes.tsv"
 
   # The reference supports simple local inline Markdown links. They must also be
@@ -138,5 +145,5 @@ h_reference() {
   jq -n --slurpfile c "$h_config" --slurpfile s "$h_sensors" --slurpfile a "$h_area/agents.jsonl" --arg hash "$(h_sha "$h_config")" '
     {formatVersion:1,contract:"valid",referenceVersion:$c[0].referenceVersion,configSha256:$hash,
      executionReady:false,unavailable:(["langgraph","mcp","rag"] + [$s[0].checks[]|select(.required)|.handler.id] + [$a[].id] | unique),
-     runtimeVerification:"descriptor-and-local-references-only",financialEnforcement:false}' >"$h_area/result.json"
+     runtimeVerification:"source-schema-and-local-references-only",financialEnforcement:false}' >"$h_area/result.json"
 }

@@ -17,16 +17,10 @@
             "$ref": "#/$defs/id"
           },
           "direction": {
-            "enum": [
-              "feedforward",
-              "feedback"
-            ]
+            "enum": ["feedforward", "feedback"]
           },
           "computation": {
-            "enum": [
-              "computational",
-              "inferential"
-            ]
+            "enum": ["computational", "inferential"]
           },
           "required": {
             "type": "boolean"
@@ -44,21 +38,14 @@
                 "$ref": "#/$defs/path"
               }
             },
-            "required": [
-              "id",
-              "availability",
-              "descriptionRef"
-            ],
+            "required": ["id", "availability", "descriptionRef"],
             "additionalProperties": false
           },
           "evidenceType": {
             "$ref": "#/$defs/id"
           },
           "failureBehavior": {
-            "enum": [
-              "block",
-              "inconclusive"
-            ]
+            "enum": ["block", "inconclusive"]
           }
         },
         "required": [
@@ -76,10 +63,7 @@
       "maxItems": 32
     }
   },
-  "required": [
-    "formatVersion",
-    "checks"
-  ],
+  "required": ["formatVersion", "checks"],
   "additionalProperties": false,
   "$defs": {
     "id": {
