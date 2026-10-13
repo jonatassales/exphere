@@ -28,8 +28,8 @@ export default async function DocsLayout(props: DocsLayoutProps) {
       navbar={
         <Navbar
           logo={
-            <span className="inline-flex items-center gap-2 text-xl font-bold tracking-[-0.065em] [&>span]:translate-y-0.5">
-              <OrboPreview />
+            <span className="inline-flex items-center gap-2 text-xl font-bold tracking-[-0.065em]">
+              <OrboPreview appearance="black-hole" />
               exphere
             </span>
           }

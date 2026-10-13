@@ -41,12 +41,12 @@ export default function WebsitePage() {
       <main className="relative mx-auto grid h-screen supports-[height:100dvh]:h-dvh w-full max-w-7xl grid-rows-[minmax(0,1fr)_auto_minmax(0,1fr)] overflow-hidden p-4 text-site-ink sm:px-10 [@media(max-height:600px)]:py-2">
         <header className="flex items-center justify-between gap-2 self-start">
           <span className="inline-flex items-center gap-2 text-xl font-bold tracking-[-0.065em]">
-            <OrboPreview />
+            <OrboPreview appearance="star" />
             exphere
           </span>
           <div className="flex">
             <Link
-              className="inline-flex min-h-11 items-center rounded-md font-mono text-xl font-bold text-site-body hover:text-site-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white mr-4"
+              className="inline-flex min-h-11 items-center rounded-md font-mono text-base font-bold text-site-body hover:text-site-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white mr-4"
               href="/docs"
             >
               Docs

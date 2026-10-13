@@ -201,3 +201,29 @@ Verification results for REFRESH-10:
 Initial review of manifest `fb6cb06ef89074db4f2de4929fb0c24676ae280bb56dae5d7a5677136cba2db1`: Spec passed; Standards requested the public Next.js type export, contextual runtime error boundaries, and explicit async/control-flow conventions. All three findings were addressed in the framework adapter; refreshed review is pending.
 
 Refreshed Standards and Spec reviews both passed against `942fc466d6e80871502b6961bc18211b66a7e929e271eab9c9f2d97ee5d354f2` with zero remaining findings. Forced local build/type checks and provider-adapter build passed again after the review fixes; refreshed output inspection confirms the same five URLs and 19 byte-identical packaged assets. Final logs and report are retained alongside the baseline evidence. Only review-closure text changed after this snapshot.
+
+
+## Header orb appearances: REFRESH-11
+
+The owner explicitly approved the Home star orb / Docs black-hole orb plan and requested implementation, a ticket, and PR delivery on October 13, 2026. During implementation, the owner also requested that Home's Docs label become 20% smaller. This section records those decisions under ticket ORB-01; acceptance of these requirements does not claim implementation verification or production delivery.
+
+- Add the private shared orb prop `appearance?: "star" | "black-hole"`, defaulting to `black-hole`. Home selects `star`; Docs explicitly selects `black-hole`.
+- Home's exact palette is primary `#F8FAFF`, secondary `#BDEBFF`, accent `#D8C4FF`, highlight `#FFFFFF`, background `#0a0a0a`. Apply the approved `0 0 20px rgba(210,235,255,0.5)` drop shadow on this appearance only.
+- Docs keeps primary `#111111`, secondary `#242424`, accent `#333333`, highlight `#666666`, background `#0a0a0a`, without the extra shadow.
+- Shift the shared orb wrapper down exactly 2px using Tailwind. Remove the existing Docs parent offset so its total translation remains 2px. Preserve supported sizes, listening animation, system reduced motion, and decorative accessibility. No shader or public package API changes.
+- Reduce only Home's Docs label from `text-xl` (20px) to `text-base` (16px), preserving its 44px minimum target and existing navigation behavior.
+- Preserve the original checkout's unrelated CLI edits. Deliver from isolated branch `codex/website-orb-appearance`, based on main `535f8f5`. No dependencies or production settings change.
+
+### Verification and review: VER-ORB-01
+
+Run scoped formatting, website types, production compilation and native publication gates. Inspect Home and Docs at desktop and mobile sizes for the selected palettes, exact 2px transform, unclipped visible glow, existing header spacing, and the 16px Docs label. Also inspect reduced-motion presentation. Use disposable browser inspection only; add no permanent test infrastructure. Retain screenshots/logs under `.audits/evidence/runs/orb-appearance/`. Run independent Standards and Spec reviews against the same identified snapshot before commit and push.
+
+Implementation verification and independent Standards/Spec reviews passed; PR delivery is pending. Both reviews examined manifest `be60a3be9da55cbcaa6b36293e8f25bc44d929af29e7fdb0959cd6dc74672888` based on `535f8f543a49cbc73c49286dea83c50b503a4391`, with zero findings on either axis. Only review-closure text changed afterward.
+
+- Scoped Biome, website production build and type checking passed. The build still indexes all five Docs pages.
+- Chromium inspection at 1440x900, 390x844 and 320x568 confirmed the exact palettes, Home-only glow, 24px default wrappers, shared `translate: 0px 2px`, no duplicate Docs parent transform, decorative accessibility, listening state and system reduced motion.
+- Home's Docs link computes to 16px with a 44px target. Navigation to Docs switches to the dark appearance. No horizontal overflow or browser page errors were observed; Home has no vertical scroll, while Docs scrolls normally.
+- Screenshots visually confirm the bright Home orb, dark Docs orb, readable header spacing and no obvious visible halo clipping. Reduced-motion presentation is captured; retained 2rem sizing is inspected separately.
+- Orbo's React types prohibit `className` on the custom element. Styling therefore belongs on the existing wrapper, with static Tailwind data variants; no unsupported host props or dependencies were introduced.
+- React checklist: one shared client component, constant palettes outside render, no new effect/state/listener, unchanged lazy browser registration, no public package interface changes.
+- Native publication gates and hosted CI results will be reported in PR delivery. Local visual evidence does not claim production deployment.
