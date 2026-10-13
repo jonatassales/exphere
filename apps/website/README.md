@@ -7,12 +7,12 @@ linked repository is private and requires access; no separate docs site is
 claimed. The earlier home SVG logo remains commented out at the owner's request.
 
 The existing `ExphereShader` motion background remains mounted in the root
-layout and now uses an opt-in dark grayscale palette for the WebGL animation
+layout and now uses an opt-in purple-on-black palette for the WebGL animation
 and static CSS fallback. The hero uses translucent charcoal panels with white
 and neutral text—**no white cards**. This follows the ClickHouse-inspired
-[dark-only design contract](DESIGN.md). Public `@repo/design` tokens remain
-generic; the optional palette is backwards-compatible for other `@repo/web`
-consumers. The application has no
+[dark-only design contract](DESIGN.md), with an OLX-inspired purple action and
+short readable text accents. Public `@repo/design` tokens remain generic;
+the optional palette is backwards-compatible for other `@repo/web` consumers. The application has no
 authentication, API, external service integration, or persistent state. It is
 private and has no deployed release.
 
@@ -113,11 +113,27 @@ output or runtime status.
 
 The existing `ExphereShader` wrapper remains mounted and active. Its
 animation geometry, lifecycle, reduced-motion support and WebGL2 shader program
-are unchanged; the website supplies four dark neutral colors through the
-shared optional palette contract. The dark cards preserve some background
-motion without light/white hero surfaces. This supersedes the prior light-first
+are unchanged; the website supplies two purple shades and two near-black
+background colors through the shared optional palette contract. The dark cards
+preserve some background motion without light/white hero surfaces. This supersedes the prior light-first
 visual choice while keeping the black brand artwork and pre-launch SEO policy.
 
 See [SPEC-WEBSITE-DARK-THEME](../../.exphere/artifacts/specs/0022-SPEC-website-dark-theme.spec.md)
 and [WEB-DARK-01](../../.exphere/artifacts/tickets/0044-TICKET-website-dark-theme.ticket.md).
 Existing build and browser-test commands remain the verification path.
+
+## OLX-inspired purple accents
+
+[PRD-WEBSITE-PURPLE-ACCENT](../../.exphere/artifacts/prd/0005-PRD-website-purple-accent.prd.md)
+and [SPEC-WEBSITE-PURPLE-ACCENT](../../.exphere/artifacts/specs/0023-SPEC-website-purple-accent.spec.md)
+define the scoped UI palette. The website retains its ClickHouse-derived dark
+surfaces but uses `#6d0ad6` for the main Docs action, `#8c3bef` for hover,
+and brighter `#ba86ff` for small text emphasis over charcoal. The selected
+source purple is OLX-inspired and reuses earlier Exphere token history; it
+is not presented as OLX's official brand specification.
+
+Only the website theme bridge, home styling and root shader palette are
+affected. The shared `@repo/web` component, WebGL animation, manifest,
+black logo assets, SEO/noindex configuration and dependency graph remain
+unchanged. The dark purple shader palette keeps the background motion visible
+with no additional animation or light cards.

@@ -7,18 +7,21 @@ high-contrast, technical system described in the ClickHouse DESIGN.md analysis.
 The reference is inspiration, not affiliation. Neither ClickHouse artwork,
 product copy nor its electric-yellow brand accent is copied.
 
-The Exphere logo/favicons remain pure black. White UI text and black-on-white
-actions are contrast treatments, not new colorways for those brand assets.
+The Exphere logo/favicons remain pure black. White UI text and OLX-inspired
+purple interface accents are contrast and interaction roles, not a recoloring
+of those brand assets. The main purple `#6d0ad6` reuses an earlier Exphere
+token value; it is not presented as a verified official OLX brand specification.
 
 ## 1. Dark-only visual direction
 
 The website has **no light mode**. Use a near-black canvas, white display
-typography, neutral gray body text and subdued charcoal surfaces. Cards and
-panels are only slightly lighter than the background; use hairline separators
+typography, neutral gray body text and subdued charcoal surfaces. Purple is
+the single sparingly used action/emphasis accent, replacing the reference's
+yellow-lime. Cards are only slightly lighter than the background; use hairline separators
 and a flat/no-shadow appearance rather than floating decorative cards.
 
 The existing ExphereShader motion background **must remain active**. Its colors
-are adapted to dark grayscale via the reusable shader's optional palette input.
+are adapted to dark purple-on-black via the reusable shader's optional palette input.
 Do not remove the animation, install an opaque overlay, or change its motion
 algorithm, reduced-motion support, or fallbacks.
 
@@ -35,12 +38,17 @@ algorithm, reduced-motion support, or fallbacks.
 | `site-ink` | `#ffffff` | Headline, primary text and white CTA surface. |
 | `site-body` | `#cccccc` | Body copy, details and important labels. |
 | `site-muted` | `#888888` | Secondary metadata where contrast permits. |
-| `site-on-light` | `#0a0a0a` | Text on white CTA (same as canvas). |
+| `site-accent` | `#6d0ad6` | OLX-inspired primary action surface (white label). |
+| `site-accent-hover` | `#8c3bef` | More luminous purple hover surface (white label). |
+| `site-accent-readable` | `#ba86ff` | Short purple headings/labels legible on dark cards. |
+| `site-on-light` | `#0a0a0a` | Reserved neutral inverse role, not the primary CTA. |
 
 There are **no white cards, white page regions, or light hero panels**.
-White is allowed only for text, high-contrast focus treatment and interactive
-action surfaces. Exphere artwork itself stays black, with existing opaque white
-asset support backgrounds (favicons/social images) left unchanged.
+White is used for text, the purple CTA's label and high-contrast focus
+treatment. Purple accent is restricted to primary actions and restrained
+emphasis; neutral body text and all card surfaces remain dark. Exphere artwork
+itself stays black, with existing opaque white support backgrounds
+(favicons/social images) left unchanged.
 
 Expose these website-specific semantic roles using the existing Tailwind
 bootstrap. The public `@repo/design` tokens remain generic and unchanged.
@@ -90,9 +98,12 @@ motion is the intentional exception **behind** these surfaces, not card styling.
 
 ### Primary documentation action
 
-A white (`site-ink`) filled button with near-black (`site-canvas`) label,
-8px radius and at least a 40px interactive height. Use a neutral hover state
-and an obvious focus-visible outline. Do not import ClickHouse yellow.
+A purple (`site-accent`, `#6d0ad6`) filled button with a white
+(`site-ink`) label, 8px radius and at least 40px interaction height.
+Hover uses `site-accent-hover` (`#8c3bef`); keyboard focus remains a white
+high-contrast outline. Both states retain readable white text. This is the
+website's OLX-inspired accent replacing the ClickHouse yellow-lime, not a
+literal copy of OLX assets or a second brand mark.
 
 ### Secondary action
 
@@ -107,8 +118,10 @@ motion while preserving text readability. **Never use a white/cream panel.**
 ### Technical captions
 
 Use small mono uppercase labels in `site-body`, reserving `site-muted`
-for sufficiently contrasting surfaces. Do not decorate labels with badges
-solely for visual effect.
+for sufficiently contrasting surfaces. Use `site-accent-readable` for a
+limited technical label and terminal prompts on dark surfaces; the main accent
+`#6d0ad6` is too dark for small purple-on-black text. Do not decorate labels
+with badges solely for visual effect.
 
 ## 7. Responsive boundaries
 
@@ -117,23 +130,24 @@ solely for visual effect.
 - Desktop: 1024–1440px; full editorial + technical hero.
 - Wide: >1440px; maintain the centered ~1280px content width.
 
-## 8. Existing motion background in dark shades
+## 8. Existing motion background in dark purple shades
 
 The site continues to use `ExphereShader`, retaining its WebGL2 animation,
 visibility pause, reduced-motion handling, resource cleanup and static CSS
-fallback. The dark website opts into these four grayscale inputs:
+fallback. The dark website opts into these four purple-on-black inputs:
 
 | Shader color role | Value |
 | --- | --- |
-| `primary` | `#303030` |
-| `primaryHover` | `#484848` |
+| `primary` | `#36135a` |
+| `primaryHover` | `#6d0ad6` |
 | `background` | `#0a0a0a` |
 | `surface` | `#121212` |
 
 The optional `palette` input affects both WebGL and the CSS fallback; it does
 not create a new effect or change the default palette for other consumers.
-Do not replace the shader with an opaque background, tint it purple or add
-an unrelated animation.
+Purple tones belong to the original shader geometry; do not replace the
+shader with an opaque background, add another animated layer, or alter its
+lifecycle, reduced-motion and fallback behavior.
 
 ## 9. Identity, SEO and compatibility
 
@@ -149,7 +163,7 @@ and documented CLI commands. No new public documentation domain is implied.
 
 ## 10. Decisions and source boundaries
 
-- Website-only neutral colors are exposed through a minimal Tailwind theme bridge.
+- Website-only neutral and purple-accent colors are exposed through the existing Tailwind theme bridge.
 - The public `@repo/design` package stays generic.
 - The shared shader gains one backwards-compatible optional palette input.
 - Do not copy ClickHouse branding, yellow CTAs, product claims, or assets.
@@ -157,3 +171,16 @@ and documented CLI commands. No new public documentation domain is implied.
   retains its black-brand identity decision but the earlier light-first **website
   UI surface** is superseded by the owner's October 13, 2026 dark-only change
   in [SPEC-WEBSITE-DARK-THEME](../../.exphere/artifacts/specs/0022-SPEC-website-dark-theme.spec.md).
+
+## 11. Purple accent amendment (October 13, 2026)
+
+The project owner selected an OLX-inspired purple in place of the reference's
+bright yellow/lime accent while keeping this dark-only site and the existing
+ExphereShader motion. The accent family is scoped to website UI; the previously
+approved **black Exphere logo SVGs and browser/SEO assets are not recolored**.
+The shader remains the same WebGL effect and its fallback derives from the
+same purple palette via the existing optional palette input.
+
+Source-of-truth requirements: [PRD-WEBSITE-PURPLE-ACCENT](../../.exphere/artifacts/prd/0005-PRD-website-purple-accent.prd.md),
+[SPEC-WEBSITE-PURPLE-ACCENT](../../.exphere/artifacts/specs/0023-SPEC-website-purple-accent.spec.md),
+and [WEB-PURPLE-01](../../.exphere/artifacts/tickets/0045-TICKET-website-purple-motion.ticket.md).

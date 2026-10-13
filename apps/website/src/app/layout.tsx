@@ -19,10 +19,10 @@ export const viewport: Viewport = {
   themeColor: "#0a0a0a",
 };
 
-// Website-only colors; other shader consumers retain their default palette.
+// Purple-on-black website motion; shared shader defaults stay unchanged.
 const shaderPalette = {
-  primary: "#303030",
-  primaryHover: "#484848",
+  primary: "#36135a",
+  primaryHover: "#6d0ad6",
   background: "#0a0a0a",
   surface: "#121212",
 } as const;

@@ -16,4 +16,9 @@
   --color-site-ink: #ffffff;
   --color-site-body: #cccccc;
   --color-site-muted: #888888;
+
+  /* OLX-inspired UI accent; no logo recoloring or shared-token change. */
+  --color-site-accent: #6d0ad6;
+  --color-site-accent-hover: #8c3bef;
+  --color-site-accent-readable: #ba86ff;
 }

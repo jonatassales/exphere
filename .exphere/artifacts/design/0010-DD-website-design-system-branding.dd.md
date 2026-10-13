@@ -59,3 +59,26 @@ are unchanged.
 This recorded owner decision is implemented under
 [PRD-WEBSITE-DARK-THEME](../prd/0004-PRD-website-dark-theme.prd.md) and
 [SPEC-WEBSITE-DARK-THEME](../specs/0022-SPEC-website-dark-theme.spec.md).
+
+## Scoped amendment: OLX-inspired purple UI accent (October 13, 2026)
+
+The owner has now selected a single purple action/emphasis accent in place
+of the ClickHouse design reference's bright yellow-lime accent, while
+keeping the dark-only website surface and the existing ExphereShader
+background motion. Website-level semantic roles use `#6d0ad6` for the
+action, `#8c3bef` for its hover state and readable `#ba86ff` for
+small purple text on dark surfaces. The historical Exphere token value
+`#6d0ad6` is an **OLX-inspired choice**, not an independently certified
+official OLX brand specification.
+
+This decision supersedes the prior UI-only prohibition on purple accents,
+but **does not supersede the black-logo/SEO identity decision**. The
+existing Exphere black logo, favicon and social assets remain unchanged.
+The site retains `#0a0a0a` background and neutral dark panels. The
+same WebGL motion and static fallback receive dark-purple colors through
+the existing optional `ExphereShader` palette prop; no animation or
+public-package implementation changes are authorized.
+
+The implementation follows
+[PRD-WEBSITE-PURPLE-ACCENT](../prd/0005-PRD-website-purple-accent.prd.md)
+and [SPEC-WEBSITE-PURPLE-ACCENT](../specs/0023-SPEC-website-purple-accent.spec.md).
