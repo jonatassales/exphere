@@ -567,6 +567,12 @@ func checkInventory(ctx context.Context, kc kube.Client, st *State, after bool) 
 		return e
 	}
 	known := map[string]bool{}
+	observed := map[string]map[string]any{}
+	for _, obj := range all {
+		if uid := kube.Text(kube.Metadata(obj), "uid"); uid != "" {
+			observed[uid] = obj
+		}
+	}
 	for _, r := range st.Resources {
 		if r.UID != "" {
 			known[r.UID] = true
@@ -600,9 +606,111 @@ func checkInventory(ctx context.Context, kc kube.Client, st *State, after bool) 
 		if known[kube.Text(m, "uid")] && !after {
 			continue
 		}
+		if !after && controllerEndpoints(obj, observed, known, st) {
+			continue
+		}
 		return fmt.Errorf("cleanup blocked by remaining or foreign %s/%s", kind, name)
 	}
 	return nil
+}
+
+// controllerEndpoints recognizes the legacy endpoint controller's derived object,
+// which has no Service ownerReference. A name or controller label alone is not
+// sufficient: correlate the live recorded Service and every advertised Pod.
+// This only permits deleting the recorded roots; Endpoints must actually disappear
+// before the post-cleanup inventory permits namespace removal.
+func controllerEndpoints(obj map[string]any, observed map[string]map[string]any, known map[string]bool, st *State) bool {
+	metadata := kube.Metadata(obj)
+	labels, _ := metadata["labels"].(map[string]any)
+	if kube.Text(obj, "apiVersion") != "v1" || kube.Text(obj, "kind") != "Endpoints" ||
+		kube.Text(metadata, "namespace") != st.Namespace || kube.Text(metadata, "uid") == "" ||
+		len(asSlice(metadata["ownerReferences"])) != 0 ||
+		kube.Text(labels, "endpoints.kubernetes.io/managed-by") != "endpoint-controller" {
+		return false
+	}
+	var service map[string]any
+	var unit string
+	for _, resource := range st.Resources {
+		if resource.Kind == "Service" && resource.APIVersion == "v1" && resource.Namespace == st.Namespace &&
+			resource.Name == kube.Text(metadata, "name") && resource.UID != "" {
+			service = observed[resource.UID]
+			unit = resource.Unit
+			if !kube.Owned(service, resource.UID, st.Token) {
+				return false
+			}
+			break
+		}
+	}
+	serviceMetadata := kube.Metadata(service)
+	serviceLabels, _ := serviceMetadata["labels"].(map[string]any)
+	if unit == "" || kube.Text(service, "apiVersion") != "v1" || kube.Text(service, "kind") != "Service" ||
+		kube.Text(serviceMetadata, "namespace") != st.Namespace ||
+		kube.Text(serviceMetadata, "name") != kube.Text(metadata, "name") {
+		return false
+	}
+	for label, value := range map[string]string{
+		"exphere.dev/runtime":         st.ID,
+		"exphere.dev/unit":            unit,
+		"exphere.dev/ownership-token": st.Token,
+	} {
+		if kube.Text(labels, label) != value || kube.Text(serviceLabels, label) != value {
+			return false
+		}
+	}
+	spec, _ := service["spec"].(map[string]any)
+	selector, _ := spec["selector"].(map[string]any)
+	if len(selector) == 0 {
+		return false
+	}
+	for _, value := range selector {
+		if _, ok := value.(string); !ok {
+			return false
+		}
+	}
+	if subsets := obj["subsets"]; subsets != nil {
+		if _, ok := subsets.([]any); !ok {
+			return false
+		}
+	}
+	// Empty endpoints are normal before Pods exist or during failed readiness.
+	// They still require the complete live Service and controller correlation.
+	for _, value := range asSlice(obj["subsets"]) {
+		subset, ok := value.(map[string]any)
+		if !ok {
+			return false
+		}
+		for _, field := range []string{"addresses", "notReadyAddresses"} {
+			if addresses := subset[field]; addresses != nil {
+				if _, ok := addresses.([]any); !ok {
+					return false
+				}
+			}
+			for _, value := range asSlice(subset[field]) {
+				address, _ := value.(map[string]any)
+				ref, _ := address["targetRef"].(map[string]any)
+				uid := kube.Text(ref, "uid")
+				pod := observed[uid]
+				podMetadata := kube.Metadata(pod)
+				podLabels, _ := podMetadata["labels"].(map[string]any)
+				_, recordedUnit := st.Units[kube.Text(podLabels, "exphere.dev/unit")]
+				if !known[uid] || !recordedUnit || kube.Text(ref, "kind") != "Pod" ||
+					(kube.Text(ref, "apiVersion") != "" && kube.Text(ref, "apiVersion") != "v1") ||
+					kube.Text(pod, "apiVersion") != "v1" || kube.Text(pod, "kind") != "Pod" ||
+					kube.Text(ref, "namespace") != st.Namespace || kube.Text(podMetadata, "namespace") != st.Namespace ||
+					kube.Text(ref, "name") != kube.Text(podMetadata, "name") ||
+					kube.Text(podLabels, "exphere.dev/runtime") != st.ID || !kube.Owned(pod, uid, st.Token) {
+					return false
+				}
+				for label, expected := range selector {
+					actual, ok := podLabels[label].(string)
+					if !ok || actual != expected {
+						return false
+					}
+				}
+			}
+		}
+	}
+	return true
 }
 
 // UnitNames returns stable display order without changing consumer configuration.

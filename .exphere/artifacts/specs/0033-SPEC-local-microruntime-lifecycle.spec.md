@@ -76,6 +76,15 @@ Keep configuration validity, invalid references, name collisions, quota rejectio
 - [CLI-RUNTIME-06](../tickets/0064-TICKET-go-single-unit-lifecycle.ticket.md)
 - [CLI-RUNTIME-07](../tickets/0065-TICKET-go-runtime-diagnostics.ticket.md)
 - [CLI-RUNTIME-08](../tickets/0066-TICKET-go-runtime-recovery.ticket.md)
+- [RUNTIME-ENDPOINTS-01](../tickets/0073-TICKET-controller-endpoint-cleanup.ticket.md)
+
+### Follow-up — disposable dependency execution
+
+On October 13, 2026, the owner requested an actual local runtime pilot while selecting Neo4j for RAG exploration, then explicitly authorized installing Terraform and starting Docker. This permits the bounded disposable dependency startup, inspection, connectivity, interruption/recovery, and cleanup journey. It does not authorize new automated suites, persistent production storage, paid model calls, cloud provisioning, or publication. The earlier delivery's unverified records remain historically accurate.
+
+The pilot exposed a cleanup defect: the Kubernetes endpoint controller creates legacy `Endpoints` without an owner-reference chain. The lifecycle must recognize these only through a live, UID-verified recorded Service, its selector, matching runtime ownership labels, controller metadata, and verified Pod references when addresses exist. Empty controller endpoints are valid when that Service has no available Pods. Names alone or a generic kind allowlist must not establish ownership. After workload deletion, these derived objects must disappear before namespace cleanup; the pre-deletion exception does not waive the final inventory check.
+
+The initial image-loading operation also encountered kind's documented multi-platform Docker image-store incompatibility. A consumer-operated single-platform archive import may unblock the pilot; that workaround does not constitute an implemented Exphere adapter fix.
 
 ## Verification and decisions
 
