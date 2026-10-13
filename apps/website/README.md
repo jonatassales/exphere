@@ -32,9 +32,21 @@ behavior, and static fallback; application content retains its normal rendering.
 
 Tailwind utilities consume generated token CSS through the public package export.
 The application selects the light theme without adding a theme switch or storing
-preferences. Edit token values in the design package rather than duplicating them
-here. Development and production builds use the same token contract; the
+preferences. Development and production builds use the same token contract; the
 framework's hot reload and production optimizations differ.
+
+## Website design system
+
+[DESIGN.md](DESIGN.md) is the app-local visual contract. It uses the selected
+ClickHouse DESIGN.md analysis as a structural reference for technical typography,
+spacing, grid, restrained radii, flat surfaces, and code-oriented presentation,
+while explicitly replacing source-brand color with Exphere's black-only brand
+direction. Exphere-specific brand values stay out of the generic public
+`@repo/design` package.
+
+The current page remains intentionally minimal, so the broader typography, card,
+navigation, and layout guidance is a contract for later website work rather than
+a claim that those surfaces already exist.
 
 Generated Next.js types, build output, and TypeScript cache files are ignored by
 the repository. Framework diagnostics go to stdout/stderr. There is no separate
@@ -44,7 +56,9 @@ Production compilation uses Next.js's supported Webpack option. The local Turbop
 
 ## Identity and SEO status
 
-[Identity provenance](IDENTITY.md) lists the supplied artwork and raster exports.
+[Identity provenance](IDENTITY.md) lists the supplied artwork and rebuilt black
+raster exports. Exphere branding is now pure black; white or transparency is used
+only as a support surface for contrast and platform asset requirements.
 The page remains a Server Component. The logo's complete heading block and its
 `next/image` import are retained as comments in `src/app/page.tsx`; uncomment both
 together to restore the original aspect ratio, accessible name, and placement.
@@ -52,7 +66,8 @@ No empty heading or replacement content is rendered while the logo is disabled.
 The SVG and all favicon, Apple, application, and social assets remain available.
 See [SPEC-WEBSITE-HOME-LOGO-VISIBILITY](../../.exphere/artifacts/specs/0018-SPEC-website-home-logo-visibility.spec.md).
 
-The root layout owns application identity, the light viewport, and `noindex`.
+The root layout owns application identity, the light viewport, black browser
+theme color, and `noindex`.
 The page owns its title, experimental-project description, and en-US social copy.
 Icons, the manifest, robots, and social assets use static files directly under
 `src/app/`; manifest resources and the home logo use `public/`. The manifest's
@@ -80,7 +95,9 @@ production build, and repository Biome check. Non-production deployments must
 retain noindex. Deployment configuration and production access remain separately
 owned and are not changed by this integration.
 
-The source-only identity/SEO delivery has an explicit verification block in
-[SPEC-WEBSITE-IDENTITY-SEO](../../.exphere/artifacts/specs/0017-SPEC-website-identity-seo.spec.md).
+The original source-only identity/SEO delivery has an explicit verification
+block in [SPEC-WEBSITE-IDENTITY-SEO](../../.exphere/artifacts/specs/0017-SPEC-website-identity-seo.spec.md).
+The black-brand rebuild is governed by
+[SPEC-WEBSITE-BLACK-BRANDING-SEO](../../.exphere/artifacts/specs/0019-SPEC-website-black-branding-seo.spec.md).
 Asset inspection is not a passing application build, independent review, browser
 audit, indexing result, or Core Web Vitals measurement.
