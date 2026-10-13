@@ -5,6 +5,7 @@ import nextra from "nextra";
 const withNextra = nextra({});
 
 const config: NextConfig = {
+  adapterPath: path.resolve(process.cwd(), "next.adapter.mts"),
   turbopack: {
     resolveAlias: {
       "next-mdx-import-source-file": "./app/components/mdx-components.tsx",

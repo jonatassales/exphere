@@ -21,7 +21,7 @@ Production and development use Next.js 16.4's native Turbopack bundler. The App 
 
 ## Search lifecycle
 
-The website owns the pinned Pagefind build dependency. The build runs `next build` followed by Pagefind over the actual `.next/server/app` HTML. Nextra marks article bodies for indexing; Home and framework error pages do not enter the corpus. Verify five docs pages when adding or changing routes.
+The website owns the pinned Pagefind build dependency. The build runs `next build`. The website-owned `next.adapter.mts` uses Next.js build-complete output records to index prerendered Docs HTML with its public route URL, without assuming an internal output directory. When Vercel supplies `NEXT_ADAPTER_PATH`, the adapter preserves its configuration hook and runs its packaging hook after writing the search assets. Nextra marks article bodies for indexing; Home and framework error pages do not enter the corpus. Verify five docs pages when adding or changing routes.
 
 Generated `public/_pagefind/` files are ignored by Git and included in the website's Turbo build outputs. Diagram assets outside the package are explicit build inputs. A cached build restores search assets alongside Next output. Indexing errors fail the build. The development server needs a previously generated index for search; production verification must check result URLs and served assets, not just the input field.
 
