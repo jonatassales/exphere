@@ -3,8 +3,20 @@ import { ExphereShader } from "@repo/web/react/exphere-shader";
 import { FixtureControls } from "./fixture-controls";
 
 interface PageProps {
-  searchParams: Promise<{ plain?: string; long?: string; empty?: string }>;
+  searchParams: Promise<{
+    plain?: string;
+    long?: string;
+    empty?: string;
+    dark?: string;
+  }>;
 }
+
+const darkPalette = {
+  primary: "#303030",
+  primaryHover: "#484848",
+  background: "#0a0a0a",
+  surface: "#121212",
+} as const;
 
 export default async function Page(props: PageProps) {
   const { searchParams } = props;
@@ -38,7 +50,9 @@ export default async function Page(props: PageProps) {
 
   return (
     <FixtureControls>
-      <ExphereShader>{content}</ExphereShader>
+      <ExphereShader palette={params.dark ? darkPalette : undefined}>
+        {content}
+      </ExphereShader>
     </FixtureControls>
   );
 }

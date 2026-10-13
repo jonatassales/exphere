@@ -26,12 +26,12 @@ export const metadata: Metadata = {
 
 export default function WebsitePage() {
   return (
-    <main className="relative mx-auto flex min-h-screen w-full max-w-[1280px] flex-col px-6 py-7 text-black sm:px-10 lg:px-14">
-      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-black/15 pb-5">
+    <main className="relative mx-auto flex min-h-screen w-full max-w-[1280px] flex-col px-6 py-7 text-site-ink sm:px-10 lg:px-14">
+      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-site-border pb-5">
         <span className="text-xl font-bold tracking-[-0.065em]">
           exphere
         </span>
-        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-neutral-700">
+        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-site-body">
           Agentic software factory / experimental
         </span>
       </header>
@@ -40,8 +40,8 @@ export default function WebsitePage() {
         aria-labelledby="hero-heading"
         className="grid flex-1 items-center gap-8 py-14 lg:grid-cols-2 lg:gap-12 lg:py-24"
       >
-        <div className="rounded-xl border border-black/10 bg-white/75 p-7 sm:p-10 lg:p-12">
-          <p className="mb-6 font-mono text-xs font-semibold uppercase tracking-[0.17em] text-neutral-700">
+        <div className="rounded-xl border border-site-border bg-site-soft/85 p-7 sm:p-10 lg:p-12">
+          <p className="mb-6 font-mono text-xs font-semibold uppercase tracking-[0.17em] text-site-body">
             Developer experience / microruntimes
           </p>
           <h1
@@ -50,17 +50,17 @@ export default function WebsitePage() {
           >
             From intent to runtime.
           </h1>
-          <p className="mt-7 max-w-[560px] text-base leading-7 text-neutral-800 sm:text-lg sm:leading-8">
+          <p className="mt-7 max-w-[560px] text-base leading-7 text-site-body sm:text-lg sm:leading-8">
             Exphere explores developer experience, agent-assisted software
             delivery, and consumer-composed microruntimes.
           </p>
-          <p className="mt-3 max-w-[520px] text-sm leading-6 text-neutral-700">
+          <p className="mt-3 max-w-[520px] text-sm leading-6 text-site-body">
             Early-stage tools and specifications, not a production automation
             service.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-5">
             <a
-              className="inline-flex min-h-11 items-center justify-center gap-4 rounded-lg bg-black px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
+              className="inline-flex min-h-11 items-center justify-center gap-4 rounded-lg bg-site-ink px-6 py-3 text-sm font-semibold text-site-canvas transition-colors hover:bg-neutral-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               href="https://github.com/jonatassales/exphere#readme"
               rel="noopener noreferrer"
               target="_blank"
@@ -69,7 +69,7 @@ export default function WebsitePage() {
               <span aria-hidden="true">↗</span>
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
-            <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-neutral-700">
+            <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-site-body">
               Hosted in the repository
             </span>
           </div>
@@ -77,24 +77,24 @@ export default function WebsitePage() {
 
         <aside
           aria-label="Exphere CLI example"
-          className="overflow-hidden rounded-xl border border-black/15 bg-white/85"
+          className="overflow-hidden rounded-xl border border-site-border bg-site-card/85"
         >
-          <div className="flex items-center justify-between gap-3 border-b border-black/10 px-6 py-4">
-            <span className="font-mono text-xs font-semibold text-black">
+          <div className="flex items-center justify-between gap-3 border-b border-site-border px-6 py-4">
+            <span className="font-mono text-xs font-semibold text-site-ink">
               exphere / cli
             </span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-neutral-600">
+            <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-site-muted">
               Local
             </span>
           </div>
           <div className="space-y-8 px-6 py-8 sm:px-8 sm:py-10">
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.13em] text-neutral-700">
+              <p className="font-mono text-[11px] uppercase tracking-[0.13em] text-site-body">
                 01 / List runtime configurations
               </p>
-              <pre className="mt-3 overflow-x-auto rounded-lg border border-black/10 bg-neutral-100 px-4 py-4 font-mono text-sm leading-6 text-black">
+              <pre className="mt-3 overflow-x-auto rounded-lg border border-site-border bg-site-elevated px-4 py-4 font-mono text-sm leading-6 text-site-ink">
                 <code>
-                  <span aria-hidden="true" className="select-none text-neutral-500">
+                  <span aria-hidden="true" className="select-none text-site-body">
                     {"$ "}
                   </span>
                   pnpm ex runtime list
@@ -102,12 +102,12 @@ export default function WebsitePage() {
               </pre>
             </div>
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.13em] text-neutral-700">
+              <p className="font-mono text-[11px] uppercase tracking-[0.13em] text-site-body">
                 02 / Create a runtime descriptor
               </p>
-              <pre className="mt-3 overflow-x-auto rounded-lg border border-black/10 bg-neutral-100 px-4 py-4 font-mono text-sm leading-6 text-black">
+              <pre className="mt-3 overflow-x-auto rounded-lg border border-site-border bg-site-elevated px-4 py-4 font-mono text-sm leading-6 text-site-ink">
                 <code>
-                  <span aria-hidden="true" className="select-none text-neutral-500">
+                  <span aria-hidden="true" className="select-none text-site-body">
                     {"$ "}
                   </span>
                   pnpm ex runtime billing init
@@ -115,13 +115,13 @@ export default function WebsitePage() {
               </pre>
             </div>
           </div>
-          <div className="border-t border-black/10 px-6 py-4 font-mono text-[11px] uppercase tracking-[0.12em] text-neutral-700">
+          <div className="border-t border-site-border px-6 py-4 font-mono text-[11px] uppercase tracking-[0.12em] text-site-body">
             A local workflow · no deployment implied
           </div>
         </aside>
       </section>
 
-      <footer className="flex flex-wrap justify-between gap-3 border-t border-black/15 pt-5 font-mono text-[11px] uppercase tracking-[0.12em] text-neutral-700">
+      <footer className="flex flex-wrap justify-between gap-3 border-t border-site-border pt-5 font-mono text-[11px] uppercase tracking-[0.12em] text-site-body">
         <span>Exphere / experimental</span>
         <span>Developer experience · agent-assisted delivery</span>
       </footer>
