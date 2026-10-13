@@ -22,7 +22,7 @@ export function CopyCommand() {
   }
 
   return (
-    <div className="mx-auto mt-9 w-full max-w-90 text-left">
+    <div className="mx-auto mt-7 [@media(max-height:600px)]:mt-3 w-full max-w-90 text-left">
       <div className="flex items-center justify-between gap-2 rounded-lg border border-site-border bg-site-canvas px-3 py-1">
         <code className="min-w-0 overflow-x-auto whitespace-nowrap font-mono text-xs text-site-ink">
           {command}
