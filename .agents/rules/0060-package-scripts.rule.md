@@ -10,7 +10,7 @@ Package manifest task aliases call the owning native CLI directly: pnpm/Turborep
 
 Workspaces own their dependencies and actual internal dependencies use `workspace:*`. Read the installed-version Turborepo documentation described in [root AGENTS](../../AGENTS.md) before changing its configuration or commands. App-local configuration should contain meaningful overrides rather than copies of root behavior.
 
-The owner retired `scripts/` directories outside `packages/cli/` on October 13, 2026. Substantive Husky hooks and native test files retain their framework-defined owners; do not recreate deleted task wrappers under different names. CLI-owned verification helpers can remain `.sh` files when required by their authorized contract. Application source, the design token compiler and framework configuration retain their required languages.
+The owner retired `scripts/` directories outside `packages/ex/` on October 13, 2026. Substantive Husky hooks and native test files retain their framework-defined owners; do not recreate deleted task wrappers under different names. CLI-owned verification helpers can remain `.sh` files when required by their authorized contract. Application source, the design token compiler and framework configuration retain their required languages.
 
 ## Provenance and amendments
 

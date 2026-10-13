@@ -52,7 +52,7 @@ Namespaces/limits/quotas are resource configuration, not proof of isolation, enf
 - Accepted verification boundary: adapt existing Go tests and surviving contracts only. Do not add/recreate the historical configuration suites, new scenarios, or live infrastructure checks.
 - Retain valid configuration, invalid reference, name collision, quota rejection, preparation failure, and cleanup as documentary acceptance scenarios. The latter scenarios belong to lifecycle review and remain unexecuted.
 - Technical review and current check results: see the [integrated delivery record](../tickets/0069-TICKET-go-runtime-integrated-review.ticket.md). The final record confirms resolved findings and passing review; operational verification remains pending. Historical passes below apply only to their recorded shell-era snapshots.
-- Supporting current contracts: [Go CLI foundation](0032-SPEC-go-cli-foundation.spec.md), [LangGraph scaffold](0034-SPEC-langgraph-scaffold.spec.md), and [CLI reference](../../../packages/cli/README.md).
+- Supporting current contracts: [Go CLI foundation](0032-SPEC-go-cli-foundation.spec.md), [LangGraph scaffold](0034-SPEC-langgraph-scaffold.spec.md), and [CLI reference](../../../packages/ex/README.md).
 
 ## Current delivery tickets
 

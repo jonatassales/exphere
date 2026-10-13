@@ -1,30 +1,34 @@
 ---
 title: "CLI"
-description: "Run the current Go CLI scaffold and distinguish supported commands from proposed runtime behavior."
+description: "Use the project-local Go CLI for configuration and bounded local runtime lifecycle commands."
 ---
 
 # CLI
 
-The `ex` CLI is a dependency-free Go scaffold. Use it from the repository through the private pnpm task bridge. It is separate from the TypeScript SDK.
+The `ex` CLI is implemented in Go with Cobra and distributed by the private `@exphere/ex` package. The separate `@exphere/sdk` package depends on it and forwards the same executable.
 
 ## Supported commands
 
-From the repository root:
+After source installation and the explicit one-time Bash/Zsh setup, use the project-local command directly:
 
 ```sh
-pnpm ex --help
-pnpm ex version
+ex --help
+ex version
 ```
 
-Help lists the command surface; version prints the scaffold version. The direct Go entrypoint is also available:
+Help lists the command surface; version prints the current CLI version. For contributors, the direct Go entrypoint is also available:
 
 ```sh
-go -C packages/cli run ./cmd/ex --help
+go -C packages/ex run ./src/cmd/ex --help
 ```
 
-## Initialization is reserved
+## Configuration and local lifecycle
 
-`init` is intentionally unavailable. It returns a nonzero result without creating consumer files. Runtime generation, validation, lifecycle management, Terraform/Kubernetes execution, global installation, and shell-profile setup are not working commands in the Go scaffold.
+The CLI implements project initialization, prerequisite diagnostics, manual/guided runtime configuration, descriptor v2 validation, project-owned kind cluster commands, and bounded Terraform/Kubernetes lifecycle operations. It can also generate editable TypeScript LangGraph source for a finite Job without model calls.
+
+It detects missing tools instead of installing them and loads consumer-built images instead of building them. Application and agent source stays outside runtime units. **Live cluster, Terraform, Kubernetes, and LangGraph Job execution remain operationally unverified.** There is no implemented financial ledger, RAG, or MCP integration.
+
+Source installation requires an existing Go toolchain. It never changes shell profiles automatically. Follow the package reference below for the explicit one-time shell setup; without setup, use `./node_modules/.bin/ex`.
 
 The homepage displays `npx exphere init` as product-facing preview text. It does not establish npm publication or a working initializer.
 
@@ -32,4 +36,4 @@ The homepage displays `npx exphere init` as product-facing preview text. It does
 
 The former shell implementation and runtime hooks are retired. Surviving schemas, source-contract fixtures, and design documents record earlier work; they do not prove feature parity or a deployed integration.
 
-Read the [package-owned CLI reference](https://github.com/jonatassales/exphere/blob/main/packages/cli/README.md) for build commands and exact behavior. Use [Concepts](/docs/concepts#microruntimes-compose-around-existing-applications) to understand the intended microruntime boundary.
+Read the [package-owned CLI reference](https://github.com/jonatassales/exphere/blob/main/packages/ex/README.md) for build commands and exact behavior. Use [Concepts](/docs/concepts#microruntimes-compose-around-existing-applications) to understand the intended microruntime boundary.

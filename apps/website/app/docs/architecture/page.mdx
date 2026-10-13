@@ -9,7 +9,7 @@ import Image from "next/image";
 import contextDiagram from "@diagrams/backstage-context-team-budget.png";
 import factoryDiagram from "@diagrams/runtimes-factory.png";
 
-Exphere's current workspace provides the documentation, package foundations, CLI scaffold, and contracts for a larger delivery platform. The diagrams below describe that proposed platform.
+Exphere's current workspace provides documentation, separate CLI/SDK packages, and a bounded local runtime lifecycle implementation. Live infrastructure execution remains operationally unverified. The diagrams below describe the broader proposed platform.
 
 ## Context to execution
 
@@ -27,8 +27,8 @@ The Backstage connector, retrieval store, allocator, orchestrator, and financial
 
 | Location | Responsibility |
 | --- | --- |
-| `packages/cli/` | Go `ex` scaffold and private pnpm task bridge. |
-| `packages/sdk/` | Separate private TypeScript SDK; API remains empty. |
+| `packages/ex/` | Private `@exphere/ex`: Go CLI, project-local bins, and bounded runtime lifecycle. |
+| `packages/sdk/` | Private `@exphere/sdk`: CLI bridges and a TypeScript API that remains empty. |
 | `packages/design/` | Generated CSS/JSON design tokens. |
 | `packages/web/` | Shared ExphereShader React surface. |
 | `apps/website/` | Next.js/Nextra introduction and documentation. |

@@ -179,9 +179,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: 21.2.3
         version: 21.2.3
-      '@exphere/cli':
+      '@exphere/ex':
         specifier: workspace:*
-        version: link:packages/cli
+        version: link:packages/ex
       harness-score:
         specifier: 1.8.1
         version: 1.8.1
@@ -256,8 +256,6 @@ importers:
         specifier: 6.0.3
         version: 6.0.3
 
-  packages/cli: {}
-
   packages/design:
     devDependencies:
       '@types/node':
@@ -267,11 +265,13 @@ importers:
         specifier: 7.0.2
         version: 7.0.2
 
+  packages/ex: {}
+
   packages/sdk:
     dependencies:
-      '@exphere/cli':
+      '@exphere/ex':
         specifier: workspace:*
-        version: link:../cli
+        version: link:../ex
     devDependencies:
       typescript:
         specifier: 7.0.2

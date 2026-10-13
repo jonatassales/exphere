@@ -14,7 +14,7 @@ This directory contains repository-local guidance, engineering rules, frontend g
 | [templates/](templates/) | Reusable artifact formats, not replacement policy or evidence contracts |
 | [Workflows](../.exphere/workflow/README.md) | Common SDD architecture and four surviving domain documents: Dev, operations, SRE, and FinOps |
 
-The harness also relies on typed artifacts in `.exphere/artifacts/`, the Go CLI in `packages/cli/`, and consumer runtime configuration created on demand in `.exphere/runtimes/` (or legacy `.micro-runtime/`). `.agents/` is not the entire harness. The boundary between distributable content and consumer configuration still needs to be defined.
+The harness also relies on typed artifacts in `.exphere/artifacts/`, the Go CLI in `packages/ex/`, and consumer runtime configuration created on demand in `.exphere/runtimes/` (or legacy `.micro-runtime/`). `.agents/` is not the entire harness. The boundary between distributable content and consumer configuration still needs to be defined.
 
 The skill lock, evidence README, shared guardrail index, CLI-context ADR, and Design workflow document remain removed. The earlier FinOps synthesis is also absent. The pinned Pocock MIT license is retained in the workflow catalog; provenance limitations for other skills remain recorded in the skill configuration. No current lock-based integrity mechanism is claimed. The [verification plan](templates/verification-plan.md), [review format](templates/review.md), and [evidence ownership guidance](rules/0090-test-ownership.rule.md#evidence-ownership) are applicable surviving material, not a replacement for the removed contracts. Existing generated output stays under the ignored `.audits/evidence/runs/` destination.
 
