@@ -1,11 +1,18 @@
 # Website
 
-The initial Exphere website has one en-US page at `/`. The home logo and its
-heading are temporarily commented out at the owner's request, leaving only the
-shared `ExphereShader` motion background and the main container with spacing from
-`@repo/design`. It has no navigation, marketing sections, authentication, API,
-external integrations, or persistent state. This application is private and has
-no deployed release.
+The Exphere website has one en-US page at `/`: a responsive, server-authored
+hero introducing the experimental project, a short preview of documented local
+CLI commands, and a **Read documentation** link to the repository README. The
+linked repository is private and requires access; no separate docs site is
+claimed. The earlier home SVG logo remains commented out at the owner's request.
+
+The existing `ExphereShader` motion background remains mounted in the root
+layout and visible behind the hero. Static, translucent white content surfaces
+preserve readability without covering the animation. The hero follows the
+black-branded website [design contract](DESIGN.md); this does not alter the
+generic `@repo/design` or `@repo/web` packages. The application has no
+authentication, API, external service integration, or persistent state. It is
+private and has no deployed release.
 
 Run these commands from the repository root:
 
@@ -51,10 +58,11 @@ horizontal logo, favicon/application icons, and prepared social SEO artwork. The
 ClickHouse design-system analysis is a structural reference only: Exphere does not
 adopt its yellow accent or marks.
 
-The page remains a Server Component. The logo's complete heading block and its
-`next/image` import are retained as comments in `src/app/page.tsx`; uncomment both
-together to restore the original aspect ratio, accessible name, and placement.
-No empty heading or replacement content is rendered while the logo is disabled.
+The page remains a Server Component. Its visible text `h1` is a hero heading,
+not a restoration of the earlier Exphere logo asset. The original SVG logo's
+complete heading block and `next/image` import remain as comments in
+`src/app/page.tsx`; uncommenting them later requires a separate accessibility
+review to avoid duplicate headings. No new image/font dependency was introduced.
 See [SPEC-WEBSITE-HOME-LOGO-VISIBILITY](../../.exphere/artifacts/specs/0018-SPEC-website-home-logo-visibility.spec.md).
 
 The root layout owns application identity, the light viewport, and `noindex`.
@@ -91,3 +99,19 @@ The monochrome redesign is governed by
 [SPEC-WEBSITE-BLACK-SEO](../../.exphere/artifacts/specs/0020-SPEC-website-black-seo.spec.md).
 Static asset inspection is not a passing application build, browser audit,
 indexing result, or Core Web Vitals measurement.
+
+## Hero and motion
+
+The hero follows [SPEC-WEBSITE-HERO-DOCS](../../.exphere/artifacts/specs/0021-SPEC-website-hero-documentation.spec.md)
+and [WEB-HERO-01](../../.exphere/artifacts/tickets/0043-TICKET-website-hero-documentation.ticket.md).
+Its documentation CTA opens the existing GitHub README, which is not a public
+documentation product while repository access is restricted. The CLI panel
+contains commands already documented by the project; it displays no invented
+output or runtime status.
+
+The owner's October 13, 2026 correction explicitly retains the existing
+animated `ExphereShader` wrapper. Its source, mount, animation, and colors are
+unchanged, and the translucent hero surfaces leave it visible. No new gradient,
+animation, shadow, or colored Exphere branding is introduced. This local
+exception to the general flat-surface guidance is also recorded in
+[DESIGN.md](DESIGN.md#10-existing-motion-background-exception).
