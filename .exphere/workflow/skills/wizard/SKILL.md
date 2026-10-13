@@ -9,7 +9,7 @@ A **wizard** is a bash script that walks a human, step by step, through a manual
 
 The [upstream template](https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/skills/engineering/wizard/template.sh) is intentionally not installed: this repository reserves helper scripts for the Exphere CLI. Use this skill to specify the manual stages. Generating an executable wizard requires a separately authorized CLI-owned scope and an inspected template; installation does not authorize credential or infrastructure changes.
 
-Keep the procedure in the relevant typed artifact. If the owner authorizes an executable CLI helper, place it within `packages/cli/` and follow the repository script contract.
+Keep the procedure in the relevant typed artifact. If the owner authorizes an executable CLI helper, place it within `packages/ex/` and follow the repository script contract.
 
 ## Process
 

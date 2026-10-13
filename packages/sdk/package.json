@@ -24,7 +24,7 @@
     "ex-shell-setup": "./bin/setup-shell.sh"
   },
   "dependencies": {
-    "@exphere/cli": "workspace:*"
+    "@exphere/ex": "workspace:*"
   },
   "os": [
     "darwin",

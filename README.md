@@ -8,7 +8,7 @@
   <a href="#quick-start">Quick start</a> ·
   <a href="#architecture">Architecture</a> ·
   <a href=".agents/features/README.md">13 feature proposals</a> ·
-  <a href="packages/cli/README.md">CLI reference</a>
+  <a href="packages/ex/README.md">CLI reference</a>
 </p>
 
 Bring product intent, delivery context, and cost into the same conversation. Exphere explores a developer platform for teams that want to use agents while keeping control of their applications, tools, and spending.
@@ -19,7 +19,7 @@ Bring product intent, delivery context, and cost into the same conversation. Exp
 - **Give agents useful context.** Bring ownership, requirements, and prior evidence into planning and execution.
 - **Build around what you have.** Compose microruntimes around existing applications without handing over your stack choices.
 
-These are the product's direction. Exphere is experimental: the Go CLI provides local project/runtime configuration, an owned kind-cluster lifecycle, inspection and cleanup, and an editable deterministic LangGraph scaffold. Cluster and agent execution remain operationally unverified in this delivery. The TypeScript SDK API, financial controls, and portal integrations are not implemented. See the [CLI reference](packages/cli/README.md) for supported capabilities and limits.
+These are the product's direction. Exphere is experimental: the Go CLI provides local project/runtime configuration, an owned kind-cluster lifecycle, inspection and cleanup, and an editable deterministic LangGraph scaffold. Cluster and agent execution remain operationally unverified in this delivery. The TypeScript SDK API, financial controls, and portal integrations are not implemented. See the [CLI reference](packages/ex/README.md) for supported capabilities and limits.
 
 ## Architecture
 
@@ -47,6 +47,6 @@ Installation builds the local Go CLI and activates repository-local Husky hooks;
 
 ## Developer checks
 
-Setup, workspace commands, hook behavior, and contribution guidance live in the [Development guide](apps/website/app/docs/development/page.mdx). The [CLI reference](packages/cli/README.md) and [project guidance](AGENTS.md) describe their own current boundaries.
+Setup, workspace commands, hook behavior, and contribution guidance live in the [Development guide](apps/website/app/docs/development/page.mdx). The [CLI reference](packages/ex/README.md) and [project guidance](AGENTS.md) describe their own current boundaries.
 
 Exphere does not yet provide a workflow engine, financial enforcement, production integrations, or demonstrated savings. The diagrams describe proposals, not running systems.

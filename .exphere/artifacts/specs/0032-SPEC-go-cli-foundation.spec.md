@@ -54,6 +54,17 @@ The October 13 deployment report exposed an integration regression: Vercel's web
 
 Delivery: [CLI-INSTALL-01](../tickets/0070-TICKET-website-cli-install-isolation.ticket.md).
 
+### Subsequent decision — package identity
+
+The owner's October 13 naming decision replaces the CLI package `@exphere/cli` with `@exphere/ex` and moves its directory from `packages/cli` to `packages/ex`. The SDK remains `@exphere/sdk` in `packages/sdk`; the executable remains `ex`.
+
+- Align the Go module/imports, workspace dependency links, SDK bin resolution, Turbo task keys, CI Go path, and current documentation with the new identity.
+- Preserve the source-build and explicit shell-setup contracts, private versions, and website-only install opt-out. Do not publish packages or introduce compatibility aliases for the retired package name.
+- Move the package contents without changing runtime behavior or the retained inner `cli/schemas` layout. Preserve dated verification records and historical command transcripts as evidence of their original snapshots.
+- Adapt existing checks only; no new suites, live infrastructure execution, or personal shell-profile changes.
+
+Delivery: [EX-PACKAGE-01](../tickets/0071-TICKET-cli-package-identity.ticket.md).
+
 ## Responsibilities
 
 - Consumer: explicitly invoke commands and supply supported inputs; install required native tools separately.

@@ -1,6 +1,6 @@
 ---
 title: "Getting Started"
-description: "Explore Exphere, run the CLI scaffold, and understand what is available today."
+description: "Explore Exphere, run the project-local CLI, and understand what is available today."
 ---
 
 # Getting Started
@@ -18,12 +18,12 @@ Exphere explores a developer platform that connects product intent, delivery con
 
 | Surface | What you can do |
 | --- | --- |
-| Go CLI | Run help and version commands. |
+| Go CLI | Configure projects and microruntimes; use bounded local lifecycle commands and generate finite agent source. |
 | Documentation | Explore the product concepts, architecture, and development workflow. |
 | Design and web packages | Use workspace design tokens and the shared ExphereShader React surface. |
 | Project contracts | Inspect thirteen feature proposals and the documentary SDD lifecycle. |
 
-The TypeScript SDK is a separate private package with an empty API. Runtime initialization, provisioning, agent orchestration, shared budget enforcement, and production integrations are not implemented.
+The private `@exphere/ex` package owns the CLI. The separate private `@exphere/sdk` forwards its commands; its TypeScript API remains empty. Live infrastructure and LangGraph Job execution remain operationally unverified. RAG, MCP integrations, shared budget enforcement, and production integrations are not implemented.
 
 ## Run the project locally
 
@@ -33,11 +33,13 @@ You need repository access, Git, Node.js **22.22.1 or newer**, **pnpm 12.4.2**, 
 git clone https://github.com/jonatassales/exphere.git
 cd exphere
 pnpm install --frozen-lockfile
-pnpm ex --help
-pnpm ex version
+./node_modules/.bin/ex-shell-setup --shell zsh
+source "$HOME/.zshrc"
+ex --help
+ex version
 ```
 
-The CLI prints its supported commands and scaffold version. These commands do not create a runtime or change consumer files.
+The explicit setup command adds a project-aware function to your Zsh profile; Bash and a selected profile are also supported. Without profile setup, invoke `./node_modules/.bin/ex` directly. Help and version do not create a runtime or change consumer files.
 
 Installation activates repository-local Husky hooks. It does not install `ex` globally or modify shell profiles. See [Development](/docs/development#hooks-and-review) for the checks those hooks perform.
 

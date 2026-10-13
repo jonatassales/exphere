@@ -14,6 +14,6 @@ done
 _ex_package=$(CDPATH= cd -P -- "$(dirname -- "$_ex_source")/.." && pwd)
 
 # Anchor resolution to this package so both hoisted npm and isolated pnpm work.
-_ex_cli_manifest=$(node -e 'process.stdout.write(require.resolve("@exphere/cli/package.json", {paths: [process.argv[1]]}))' "$_ex_package")
+_ex_cli_manifest=$(node -e 'process.stdout.write(require.resolve("@exphere/ex/package.json", {paths: [process.argv[1]]}))' "$_ex_package")
 _ex_cli_package=$(dirname -- "$_ex_cli_manifest")
 exec "$_ex_cli_package/scripts/setup-shell.sh" "$@"

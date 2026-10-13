@@ -20,7 +20,7 @@ Prefer the direct dependency, framework API, [operation-boundary environment acc
 
 ## Automation scripts
 
-Use native tool entrypoints under the [package scripts rule](0060-package-scripts.rule.md). The owner reserves helper scripts for `packages/cli/`; allowed CLI helpers use `.sh`. Existing Husky lifecycle hooks and substantive native test files retain their framework owners. Do not relocate obsolete wrapper automation merely to disguise a deleted `scripts/` directory.
+Use native tool entrypoints under the [package scripts rule](0060-package-scripts.rule.md). The owner reserves helper scripts for `packages/ex/`; allowed CLI helpers use `.sh`. Existing Husky lifecycle hooks and substantive native test files retain their framework owners. Do not relocate obsolete wrapper automation merely to disguise a deleted `scripts/` directory.
 
 Application code, framework configuration and the existing design-token compiler retain their appropriate language and file conventions. The Go-only CLI scaffold does not dispatch to a shell runtime. These October 13, 2026 owner instructions supersede the earlier mandatory shell wrapper boundary.
 

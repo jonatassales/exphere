@@ -26,11 +26,11 @@
     "//#test:hooks": {
       "cache": false
     },
-    "@exphere/cli#build": {
+    "@exphere/ex#build": {
       "outputs": ["dist/**"],
       "cache": false
     },
-    "@exphere/cli#typecheck": {
+    "@exphere/ex#typecheck": {
       "cache": false
     },
     "test:contracts": {

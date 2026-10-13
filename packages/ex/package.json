@@ -1,0 +1,29 @@
+{
+  "name": "@exphere/ex",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "go build -o dist/ex ./src/cmd/ex",
+    "test": "go test ./...",
+    "test:contracts": "sh scripts/test-consumer-harness.sh",
+    "typecheck": "go vet ./...",
+    "postinstall": "sh scripts/build.sh"
+  },
+  "bin": {
+    "ex": "./bin/ex.sh",
+    "ex-shell-setup": "./scripts/setup-shell.sh"
+  },
+  "files": [
+    "bin",
+    "src",
+    "go.mod",
+    "go.sum",
+    "scripts/build.sh",
+    "scripts/setup-shell.sh",
+    "README.md"
+  ],
+  "os": [
+    "darwin",
+    "linux"
+  ]
+}

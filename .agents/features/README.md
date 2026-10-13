@@ -22,7 +22,7 @@ Governance, security, observability, and traceability apply across all three pil
 
 ## Status and relationship to existing work
 
-The current [workspace overview](../../README.md) and [Go CLI contract](../../packages/cli/README.md) remain the implementation references. The CLI is now a Go scaffold with help/version; initialization and runtime operations are unavailable. The earlier shell CLI, manual/guided generation, setup, and native adapters are retired. Retained schemas/specifications are historical contracts for future implementation. The TypeScript SDK API remains empty. These foundations do not establish a working agent workflow, financial enforcement, or a completed infrastructure lifecycle.
+The current [workspace overview](../../README.md) and [Go CLI contract](../../packages/ex/README.md) remain the implementation references. The private `@exphere/ex` package implements project setup, descriptor v2 configuration, bounded local kind/Terraform/Kubernetes commands, and finite LangGraph source scaffolding. Live infrastructure and agent execution remain operationally unverified. The earlier shell CLI is retired; its verification records remain historical. The TypeScript SDK API remains empty. These foundations do not establish a working agent workflow or financial enforcement.
 
 This register extends the product direction beyond [PRD-0002](../../.exphere/artifacts/prd/0002-PRD-local-microruntimes.prd.md), whose local pilot defers monetary enforcement and automatic optimization. It does not silently amend that PRD, approve a new schema, or mark any feature complete. Future implementation must reconcile the selected feature scope with its originating PRD and SPEC.
 

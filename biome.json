@@ -49,7 +49,7 @@
       }
     },
     {
-      "includes": ["packages/cli/fixtures/**"],
+      "includes": ["packages/ex/fixtures/**"],
       "formatter": {
         "enabled": false
       }
