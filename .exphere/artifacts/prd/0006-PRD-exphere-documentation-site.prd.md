@@ -20,7 +20,7 @@ Included:
 - Main: remove right CLI/example card, widen and center the hero; replace eyebrow/title/body exactly with owner-supplied copy; remove early-stage footnote and repository-hosting label.
 - Action: a dark `npx exphere init` copy-to-clipboard control with accessible feedback and failure handling. This is a proposed future invocation, **not an assertion that an npm CLI is published or that init works**.
 - Documentation: install/configure Nextra documentation framework; preserve the home intro as the entry experience and add just a `/docs` Getting Started page, with no fabricated service/API details.
-- Footer: replace text with a small orb and `exphere by Grupo OLX © 2026` and compact accessible icon links. The wording is supplied by the owner, not independently validated as an organizational endorsement.
+- Footer: replace text with a small orb and `exphere by Grupo XLO © 2026` and compact accessible icon links. The wording is supplied by the owner, not independently validated as an organizational endorsement.
 - Preserve ExphereShader dark purple motion, SSR App Router ownership, original black identity assets, and the noindex/unknown-origin SEO launch gate.
 
 Not included: voice session/provider, microphone permission, publish/release of exphere npm package, functional init, new docs sections, authentication, deployment or indexing.

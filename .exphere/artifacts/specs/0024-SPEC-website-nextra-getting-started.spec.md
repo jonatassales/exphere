@@ -26,7 +26,7 @@ Hero copy:
 - description `Exphere explores FinOps principles, agent-assisted software delivery, and consumer-composed microruntimes.`
 - delete the early-stage disclaimer, right CLI card, the prior "Hosted in the repository" note and other removed marketing copy.
 
-Footer: inline icon links with accessible names (verified GitHub and organization LinkedIn destinations; no nonexistent Exphere npm package link), and a small Orb plus literal `exphere by Grupo OLX © 2026`. The supplied footer wording is owner-directed; organizational endorsement is not independently authenticated.
+Footer: inline icon links with accessible names (verified GitHub and organization LinkedIn destinations; no nonexistent Exphere npm package link), and a small Orb plus literal `exphere by Grupo XLO © 2026`. The supplied footer wording is owner-directed; organizational endorsement is not independently authenticated.
 
 Clipboard: label `npx exphere init`; button copies exactly these bytes, shows success or failure message via `aria-live`, keyboard usable. The command is **not implemented/published** by the Go scaffold yet and must not be presented as an executable supported feature. Display only the requested command box and copy feedback. Record the unsupported CLI/distribution state in the README; do not add unrequested implementation notes to the hero.
 

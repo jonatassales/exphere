@@ -41,7 +41,7 @@ This table preserves the requested behavior independently of the implementation.
 | REQ-07 | Delete `writing-for-agents`. | SKILLS-03; its explicit deletion overrides inclusion in the AIHero catalog |
 | REQ-08 | Put the full public AIHero catalog under `.exphere/workflow/skills/`. | SKILLS-02; 27 listed on October 13 minus the explicitly excluded skill = 26 installed |
 | REQ-09 | Replace footer developer-experience tagline with accessible social icons following the supplied visual reference. | DOCS-05; use verified destinations |
-| REQ-10 | Footer shows an orb followed by `exphere by Grupo OLX © 2026`. | DOCS-05; exact owner wording, no independent endorsement claim |
+| REQ-10 | Footer shows an orb followed by `exphere by Grupo XLO © 2026`. | DOCS-05; exact owner wording, no independent endorsement claim |
 | REQ-11 | Remove the entire right-side card. | DOCS-02 |
 | REQ-12 | Eyebrow becomes `DevEX / FinOps Platform`. | DOCS-02 |
 | REQ-13 | Heading becomes `Exphere - Full blast agentic FinOps runtimes`. | DOCS-02 |
