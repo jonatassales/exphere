@@ -1,65 +1,55 @@
 # Website identity
 
-The owner supplied the Exphere identity pack on October 12, 2026 for the single
-home-page logo and website metadata assets. This is a selected integration, not
-a new UI icon library or permission to expand the page.
+The owner supplied `exphere-identity-seo(1).zip` on October 13, 2026 and selected the ClickHouse design-system analysis as the website design reference. This integration preserves the supplied Exphere geometry but supersedes the earlier purple/graphite website identity with a monochrome black identity.
 
-## Source and scope
+## Direction and source
 
-Source archive: `exphere-identity-seo.zip`, SHA-256
-`c1a0bd65799cbcd77dbf63371984f39ea5e551d423a1d86e9b9e6d414ded61ad`.
+- Source archive SHA-256: `c1a0bd65799cbcd77dbf63371984f39ea5e551d423a1d86e9b9e6d414ded61ad`.
+- Design reference: `https://getdesign.md/clickhouse/design-md`.
+- Local adaptation: [DESIGN.md](DESIGN.md), governed by `ADR-0002`.
+- Owner override: all Exphere branding is black. ClickHouse yellow and ClickHouse marks are not used.
+- The current home logo remains commented out under SPEC-WEBSITE-HOME-LOGO-VISIBILITY; changing the underlying asset does not restore it.
 
-`public/brand/exphere-logo.svg` is a byte-identical copy of the pack's
-`brand/svg/logo-horizontal-light.svg`. Its purple symbol and graphite wordmark
-are preserved as paths. `src/app/icon.svg` is the supplied `favicons/favicon.svg`.
-No font files, font loading, external SVG references, or JavaScript are required
-by these assets. The pack credits the outlined wordmark to Inter Display; it
-identifies the Exphere mark and composition as newly authored artwork. This
-record does not assert trademark clearance or change third-party font licensing.
+`public/brand/exphere-logo.svg` preserves the pack's horizontal-logo geometry while changing both the mark and outlined wordmark to `#000000`. `src/app/icon.svg` preserves the mark geometry on a white rounded canvas. No font files, external SVG references, runtime image generator, or JavaScript are required by these identity assets.
 
-## Raster exports
+## Browser and application assets
 
-| Destination | Pack source | Encoding |
+| Destination | Size/frames | Treatment |
 | --- | --- | --- |
-| `src/app/favicon.ico` | `favicons/favicon.ico` | Original 16/32px pixels in PNG-compressed ICO frames |
-| `src/app/icon1.png` | `favicons/favicon-96x96.png` | Lossless indexed PNG |
-| `src/app/apple-icon.png` | `favicons/apple-icon.png` | Lossless indexed PNG, opaque 180x180 |
-| `public/icons/app-192.png` | `favicons/android-chrome-192x192.png` | Lossless indexed PNG |
-| `public/icons/app-512.png` | `favicons/android-chrome-512x512.png` | 8-color indexed PNG; antialias shades quantized |
-| `public/icons/maskable-512.png` | `favicons/maskable-icon-512x512.png` | 8-color indexed PNG; antialias shades quantized |
+| `src/app/favicon.ico` | 16/32/48/64/128/256 export set | Black mark on white rounded canvas. |
+| `src/app/icon1.png` | 96×96 | Black mark on white rounded canvas. |
+| `src/app/apple-icon.png` | 180×180 opaque | Black mark on white square canvas. |
+| `public/icons/app-192.png` | 192×192 | Black mark on white square canvas. |
+| `public/icons/app-512.png` | 512×512 | Black mark on white square canvas. |
+| `public/icons/maskable-512.png` | 512×512 | Black mark inside a 64px safe margin on white; essential geometry remains inside the maskable safe region. |
 
-Decoded pixels of the ICO, 96px, 180px, and 192px exports match their sources.
-The 512px exports retain geometry and solid brand colors with fewer antialias
-shades; they are not byte-identical or pixel-identical copies. The
-manifest uses browser display and relative same-origin icon paths; it introduces
-no service worker, offline behavior, or installability guarantee. The maskable
-artwork keeps its essential mark within the central 80%-diameter circle.
+The existing manifest paths and browser-display semantics are unchanged. White is a presentation background; the Exphere identity itself remains black. Raster antialiasing may contain neutral gray values, but validation found no chromatic pixels in the generated PNG assets.
 
-Keep SVG masters unchanged when re-encoding images. Asset export is a one-time
-preparation step, not a new application dependency or repository generator.
+## Social SEO artwork
 
-## Social assets
+`src/app/opengraph-image.png` is 1200×630 and `twitter-image.png` is 1200×600. They are regenerated from the supplied vector social compositions with:
 
-`src/app/opengraph-image.png` and `twitter-image.png` are the same 1200x630
-brand-only card: the supplied horizontal SVG at its original 551x128 size on
-white, centered in the canvas. Their indexed eight-color export preserves the
-solid purple, graphite, and white colors while quantizing antialias shades.
-It contains no unsupported product capabilities or launch claim. Alt sidecars
-describe the image; image dimensions and URL descriptors remain framework-owned.
-Image URL activation is deliberately gated until an origin decision; see README.
+- white canvas;
+- black Exphere mark and wordmark;
+- black outlined positioning text;
+- black technical/orbit line work at neutral opacity;
+- no purple, yellow, gradients, shadows, glow, or chromatic pixels.
+
+The visual language follows the selected reference's flat technical treatment while remaining Exphere-specific. Alt sidecars describe the visible black identity and positioning text. Existing metadata keeps these files inactive as remote sharing URLs until a production origin is accepted; this asset refresh does not change that launch decision.
 
 ## Asset checksums
 
-The following SHA-256 values identify the delivered bytes, not the source ZIP's
-original raster encoding. Both SVG sources are byte-identical to the pack.
+- `public/brand/exphere-logo.svg`: `0b8f4664b99023004bb89fab930e7688c6e28e3d173264c71db8b65effaafb95`
+- `src/app/icon.svg`: `f3c3f60bb731efbfa5c95c921c11c89816bb2024ce274d6f299dc7584e2e2260`
+- `src/app/favicon.ico`: `4daaec06aadf42be7c4412d9933213f2e467ca97151b1a43a3d77f0bf31c8dea`
+- `src/app/icon1.png`: `6d66ee8808a24ac86b1bce93af1fd42ad55caf9230269c736e08b9b1f53ae45c`
+- `src/app/apple-icon.png`: `7d34e17831da2f792eb42f6aec7166bba92f91125b7bf97a4f1f92e7d073ed00`
+- `public/icons/app-192.png`: `4c6d36a1fee333fc2f2b95837f93f521e5da0858abfd52afe0f1441be806506b`
+- `public/icons/app-512.png`: `f7f4ce056586b483754205ca603e15a84d8cd2f7560a436c526c93c1a201dd77`
+- `public/icons/maskable-512.png`: `f7f4ce056586b483754205ca603e15a84d8cd2f7560a436c526c93c1a201dd77`
+- `src/app/opengraph-image.png`: `30026c5841025895d9a23de7c1bf265fca845c35cb3d2ec5911a9a709581a569`
+- `src/app/twitter-image.png`: `e0c9475a5b200d2661d37fe67234322e035f69b658390b5f8f067c67ece76883`
 
-- `public/brand/exphere-logo.svg`: `137b016321ac0e9c466730a3fccb918cdcf7d31ce9cb0eab6e5f224103d0c970`
-- `src/app/icon.svg`: `e5ed52ec7667d8718765618b6f89523f5c308276b181e6bbce18b5bdcf6ea62a`
-- `src/app/apple-icon.png`: `91aa712f3a8bf1e5bfcb80ed2d20435d2303cf4585118c53a74bb1dc9f1b3f29`
-- `src/app/icon1.png`: `f4e5a050f410d548839679a0e8638e7eaefae8ff17b6f74de8a2c3f58634f26b`
-- `public/icons/app-192.png`: `69575b4190d53305a98070a8117499f25c1df29df1b1b84e19e43af2d629789b`
-- `public/icons/app-512.png`: `e7b7e9e4cbf036949971c9e884493bf05523e5a6969fd2e7d04ff0ec40b8e432`
-- `public/icons/maskable-512.png`: `be1d118edea1da0d48530a2404e70728a5bf51e3065bb05579dfe2db26318bc4`
-- `src/app/favicon.ico`: `fec804c24eae3a4b32c0a59aa8059970fcbb4f7094475549b7acd7f10bada73a`
-- `src/app/opengraph-image.png`: `8388add93a1131e6558495c5fc2874456d9435bb793bc98def4903d23a8ad9b3`
-- `src/app/twitter-image.png`: `8388add93a1131e6558495c5fc2874456d9435bb793bc98def4903d23a8ad9b3`
+## Validation boundary
+
+Static validation covers source geometry/color replacement, raster decoding, dimensions, grayscale-only output, and asset references. It does not prove browser rendering, Next.js metadata resolution, deployment, search indexing, or Core Web Vitals. Those remain separate verification/launch concerns.
