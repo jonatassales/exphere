@@ -1,6 +1,13 @@
 #!/bin/sh
 set -eu
 
+# Frontend-only deployments may install the workspace without using the CLI.
+# Keep this explicit: an ordinary source installation still requires Go.
+if [ "${EXPHERE_SKIP_CLI_BUILD:-0}" = "1" ]; then
+  printf '%s\n' 'Skipping the Exphere CLI build (EXPHERE_SKIP_CLI_BUILD=1). Build the CLI separately before using ex.' >&2
+  exit 0
+fi
+
 # Build only this package using an existing toolchain; never install Go or tools.
 _ex_package=$(CDPATH= cd -P -- "$(dirname -- "$0")/.." && pwd)
 if ! command -v go >/dev/null 2>&1; then

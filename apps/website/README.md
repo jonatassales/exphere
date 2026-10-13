@@ -19,6 +19,10 @@ Next.js defaults to port 3000; pass `--hostname 127.0.0.1 --port 3000` to the pa
 
 Production and development use Next.js 16.4's native Turbopack bundler. The App Router and static metadata files live directly in `app/`, with MDX mapping in `app/components/mdx-components.tsx`. Typed configuration maps the MDX provider alias for both bundlers. Webpack remains outside the supported build path because Nextra 4.6.1's loader has a previously observed metadata incompatibility with this Next.js release.
 
+## Vercel installation
+
+The Vercel project root is `apps/website`. Its local `vercel.json` installs the pinned workspace with `EXPHERE_SKIP_CLI_BUILD=1` scoped to that install command, then builds only `website` and its dependencies. The website does not execute the Go CLI, so its deployment does not require a Go toolchain. Other dependency lifecycle scripts remain enabled; normal developer installation still builds the CLI. This configuration does not change the separate root-level Vercel services configuration.
+
 ## Search lifecycle
 
 The website owns the pinned Pagefind build dependency. The build runs `next build`. The website-owned `next.adapter.mts` uses Next.js build-complete output records to index prerendered Docs HTML with its public route URL, without assuming an internal output directory. When Vercel supplies `NEXT_ADAPTER_PATH`, the adapter preserves its configuration hook and runs its packaging hook after writing the search assets. Nextra marks article bodies for indexing; Home and framework error pages do not enter the corpus. Verify five docs pages when adding or changing routes.
