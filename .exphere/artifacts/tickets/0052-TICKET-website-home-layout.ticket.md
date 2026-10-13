@@ -20,3 +20,7 @@ See VER-HOME-01 and the evidence section of the parent spec. Scoped formatting, 
 ## PR check repair
 
 The October 13, 2026 failure report authorizes REQ-HOME-06 in the parent spec: repair baseline synchronization in the existing reduced-motion contract test without changing shader behavior or weakening the stop/resume assertions. Scoped formatting and package type checking passed; the existing failing test passed 10 consecutive repetitions. Refreshed Standards and Spec reviews each reported zero actionable findings against the source hash in the spec. Required push gates and the new CI run remain pending. This is a delivery correction under HOME-01.
+
+The first correction still failed in GitHub run 38403213470. REQ-HOME-06 now also requires observing native canvas resize/intersection callback completion before the baseline; quiet time alone is insufficient. Refreshed validation for this revision is pending.
+
+Revised synchronization passed 10 normal repetitions and three delayed-intersection repetitions; a disposable diagnostic without the readiness barrier reproduced CI's exact 4-to-5 mismatch. Package type checking, Biome and refreshed independent reviews passed. See the parent spec for the source hash and the distinction between failed prior CI and pending updated CI.
