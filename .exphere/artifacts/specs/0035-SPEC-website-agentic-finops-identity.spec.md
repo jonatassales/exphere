@@ -55,4 +55,10 @@ On October 13, 2026, the owner explicitly requested all five changes and the seq
 
 ### Evidence
 
-Initial spec and ticket were authored against the pinned `main` revision. Static source and PR inspection may be recorded here after implementation. Local build, live browser testing and independent sub-agent review are not asserted before they are actually performed.
+Initial spec and ticket were authored against the pinned `main` revision. Implementation source snapshot: `8496a8db62f29f0e7e8a836d09d7f40c27ca3a0f` on the task branch.
+
+**Scoped static verification:** The GitHub comparison to the pinned base includes exactly five changed website files and these two new artifacts. Direct source checks confirmed IDENTITY-01 through IDENTITY-05: exact hero wording; `disabled`, muted tokens and `cursor-not-allowed` on the button; no `use client`, click handler, status state or clipboard API; unchanged preview command; reused black-hole orb in the shared Home/Docs footer; both requested social targets, updated accessible labels and Docs project link; synchronized README. No manifest, shader, test, metadata, asset or dependency change is in the diff.
+
+**Two-axis manual review of the same implementation snapshot:** Standards — no evident deviation from the repository's Tailwind/React ownership, semantic-token or accessibility conventions in the scoped diff. Spec — each IDENTITY requirement appears implemented without extra feature scope. These are source-only assessments performed in one review context, **not independent sub-agent review** and not evidence of observed browser behavior. They do not replace the repository's independent review policy.
+
+**Not verified:** No local command execution was available in this GitHub-connector-only pass. Biome, TypeScript, Next production compilation, native hooks, generated HTML, actual disabled cursor presentation, rendered orb, live browser tests and CI remain unrun/unverified at this stage. No deployment or production behavior is claimed.
