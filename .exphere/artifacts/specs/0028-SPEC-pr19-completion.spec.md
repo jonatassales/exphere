@@ -1,5 +1,7 @@
 # PR #19 completion: documentation entry, Go scaffold and skill ownership
 
+Reference maintenance: successor links below point to the later website refresh, not to the source reviewed in this historical cycle. Original revisions and review hashes remain authoritative.
+
 - ID: `SPEC-PR19-COMPLETION`
 - Document number: `SPEC-0028`
 - Version: `1`
@@ -60,7 +62,7 @@ Preserve existing workflow adaptations and the source schemas/consumer fixtures 
 
 The website scope includes its native Turbopack build and public MDX provider alias, the website-only TypeScript 6.0.3 pin, and Nextra/Docs Theme-specific Zod 4.1.12 overrides in `pnpm-workspace.yaml` plus the synchronized lockfile. These repairs address actual compile/SSR failures without changing other workspaces' compiler or schema-library versions. See [SPEC-WEB-DOCS](0024-SPEC-website-nextra-getting-started.spec.md#native-nextra-build-and-asset-recovery).
 
-The same authorized build exposed six malformed baseline image assets. Preserve their exact original bytes under existing `apps/website/public/brand/`, including the social alt sidecars. Recover the three active Apple/512px icons from existing black-brand revision `706d6dae3eb7a95f68738448ae28e36fefd291a3`; retain the existing valid SVG/PNG favicons. Corrupt ICO/social files no longer occupy Next.js metadata convention paths. The [identity record](../../../apps/website/IDENTITY.md) identifies every recovered/preserved asset and checksum. Legacy ICO-only clients and unpublished social image metadata remain explicit limitations; no logo redesign, indexing or origin decision is added.
+The same authorized build exposed six malformed baseline image assets. Preserve their exact original bytes under existing `apps/website/public/brand/`, including the social alt sidecars. Recover the three active Apple/512px icons from existing black-brand revision `706d6dae3eb7a95f68738448ae28e36fefd291a3`; retain the existing valid SVG/PNG favicons. Corrupt ICO/social files no longer occupy Next.js metadata convention paths. The [current successor and retained provenance](0031-SPEC-website-docs-refresh.spec.md#retained-asset-provenance) identifies every recovered/preserved asset and checksum. Legacy ICO-only clients and unpublished social image metadata remain explicit limitations; no logo redesign, indexing or origin decision is added.
 
 Website verification reported successful production compilation/type checking, active image decoding, preserved-original byte comparisons and generated HTML review. The integration ticket owns final command results and review snapshot identity. These static/build observations do not establish website browser interactions or production acceptance.
 

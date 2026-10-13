@@ -20,12 +20,12 @@ The change consumes the owner-supplied identity geometry and rebuilds the websit
 
 | ID | Required behavior | Acceptance criterion |
 | --- | --- | --- |
-| REQ-BSEO-01 | Website design source | `apps/website/DESIGN.md` maps the selected reference to Exphere with pure-black brand primary and explicit source/adaptation boundaries. |
+| REQ-BSEO-01 | Website design source | the retired website visual contract maps the selected reference to Exphere with pure-black brand primary and explicit source/adaptation boundaries. |
 | REQ-BSEO-02 | Horizontal brand asset | `public/brand/exphere-logo.svg` preserves supplied geometry and uses black for both mark and wordmark; no purple/graphite/yellow fill remains. |
 | REQ-BSEO-03 | Browser/app identity | `icon.svg`, `icon1.png`, `apple-icon.png`, `favicon.ico`, and 192/512/maskable public icons are black-mark-on-white and keep expected dimensions/manifest paths. |
 | REQ-BSEO-04 | Social SEO identity | Open Graph and Twitter PNGs are black-and-white, flat, technical compositions derived from supplied vector artwork; alt text matches visible content. |
 | REQ-BSEO-05 | Bounded semantic scope | `layout.tsx`, `page.tsx`, manifest semantics, robots policy, metadata copy, indexing/origin decisions, dependencies, shared design tokens, shader, and deployment config are unchanged. |
-| REQ-BSEO-06 | Provenance and validation | `IDENTITY.md` records source ZIP hash, design reference/adaptation, asset hashes, dimensions, and chroma/geometry checks. |
+| REQ-BSEO-06 | Provenance and validation | the retired asset provenance record records source ZIP hash, design reference/adaptation, asset hashes, dimensions, and chroma/geometry checks. |
 | REQ-BSEO-07 | SDD delivery | Planning commit precedes implementation; each commit declares one ticket; final PR body contains `Spec: SPEC-WEBSITE-BLACK-SEO`; review/CI limitations are explicit. |
 
 ### Allowed change manifest
@@ -34,7 +34,7 @@ Planning artifacts: PRD-0003, DD-0010, SPEC-0019, this spec, and TICKET-0041/004
 
 Website implementation:
 
-- `apps/website/DESIGN.md`, `README.md`, `IDENTITY.md`.
+- the retired website visual contract, `README.md`, the retired asset provenance record.
 - `apps/website/public/brand/exphere-logo.svg`.
 - `apps/website/public/icons/app-192.png`, `app-512.png`, `maskable-512.png`.
 - `apps/website/src/app/icon.svg`, `icon1.png`, `apple-icon.png`, `favicon.ico`.

@@ -37,7 +37,7 @@ This spec and its two new tickets; plus these 18 files under `apps/website`:
 - `src/app/page.tsx`, `layout.tsx`, `favicon.ico`, `icon.svg`, `icon1.png`, `apple-icon.png`, `manifest.webmanifest`, `robots.txt`.
 - `src/app/opengraph-image.png`, `opengraph-image.alt.txt`, `twitter-image.png`, `twitter-image.alt.txt`.
 - `public/brand/exphere-logo.svg`; `public/icons/app-192.png`, `app-512.png`, `maskable-512.png`.
-- `README.md` and `IDENTITY.md`.
+- `README.md` and the retired asset provenance record.
 
 Missing origin-bearing artifacts are intentionally not written with placeholders. The complete identity pack stays outside the repository. Paths are explicit to satisfy the supplied SEO role's bounded-diff requirement.
 
@@ -99,7 +99,7 @@ While work proceeded, main advanced to `2865485fece84a39b49d2d28268f692b538bd283
 
 ### EVID-IDSEO-01 — Observed results
 
-The inspected application source is `ea7bc05e1f82e65dc19822639170aa2d94c6b0d8`; final reconciliation changes only its README spec link, not executable source or assets. The final 18-file website manifest has SHA-256 `1380879bf8303fc10f50d13ce8ef2af2b4e195852b419bc8f0a2c2d1f869ea4b`. Reconstruct it by sorting paths and serializing an array of objects with sorted keys `git_blob`, `path`, `sha256`, compact JSON and no final newline. Asset hashes are also published in `apps/website/IDENTITY.md`.
+The inspected application source is `ea7bc05e1f82e65dc19822639170aa2d94c6b0d8`; final reconciliation changes only its README spec link, not executable source or assets. The final 18-file website manifest has SHA-256 `1380879bf8303fc10f50d13ce8ef2af2b4e195852b419bc8f0a2c2d1f869ea4b`. Reconstruct it by sorting paths and serializing an array of objects with sorted keys `git_blob`, `path`, `sha256`, compact JSON and no final newline. Asset hashes are also published in the retired asset provenance record.
 
 | Check | Actual result |
 | --- | --- |

@@ -4,7 +4,7 @@ Applies to LangDrift Next.js applications, in addition to [frontend.md](frontend
 
 ## Application and route ownership
 
-Place the App Router's `app/` directly under the `src/` wrapper.
+Place the App Router's `app/` directly under the `src/` wrapper by default. Exphere website follows the owner-selected `apps/website/app/` exception in [Next.js structure](../rules/0040-nextjs-structure.rule.md#application-and-route-ownership); translate the `src/app/` examples below to `app/` for that application.
 
 Apply [frontend composition](frontend.md#components-hooks-and-composition) through route files and layouts: the filesystem owns page identity. A route should compose its page instead of merely passing a page discriminator into a universal view. Navigation/title models can still represent useful data without owning route dispatch.
 

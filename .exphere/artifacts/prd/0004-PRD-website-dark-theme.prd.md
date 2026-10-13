@@ -4,7 +4,8 @@
 - Document number: `PRD-0004`
 - State: `approved for the requested implementation scope`
 - Product/journey owner: project owner
-- Sources: owner's October 13, 2026 dark-theme request, the [ClickHouse design analysis](https://getdesign.md/clickhouse/design-md), [Exphere design contract](../../../apps/website/DESIGN.md), and [website hero spec](../specs/0021-SPEC-website-hero-documentation.spec.md).
+- Sources: owner's October 13, 2026 dark-theme request, the [ClickHouse design analysis](https://getdesign.md/clickhouse/design-md), the original website visual contract (now retired), and [website hero spec](../specs/0021-SPEC-website-hero-documentation.spec.md).
+- Current successor: [website refresh and retained provenance](../specs/0031-SPEC-website-docs-refresh.spec.md#retained-asset-provenance); this was not an input to the historical approval below.
 - Baseline: `bc9e838b3b0fe3fd5736ce8fcf0ce25930239aa3` on `main`.
 
 ## Problem and expected outcome

@@ -1,11 +1,13 @@
 # Website hero and documentation entry point
 
+Reference maintenance: successor links below point to the later website refresh, not to the source reviewed in this historical cycle. Original revisions and review hashes remain authoritative.
+
 - ID: `SPEC-WEBSITE-HERO-DOCS`
 - Document number: `SPEC-0021`
 - Version: `2`
 - State: `source implemented; in review; runtime verification pending`
 - PRD: [PRD-0001](../prd/0001-PRD-exphere.prd.md) — broader product direction; organizational acceptance remains unproven.
-- Visual contract: [ADR-0002](../design/0010-DD-website-design-system-branding.dd.md) and [website DESIGN.md](../../../apps/website/DESIGN.md).
+- Visual contract: [ADR-0002](../design/0010-DD-website-design-system-branding.dd.md) and [current successor and retained provenance](0031-SPEC-website-docs-refresh.spec.md#retained-asset-provenance).
 - Technical owner: website implementer; project owner retains production, docs-hosting, and launch decisions.
 - Ticket: [WEB-HERO-01](../tickets/0043-TICKET-website-hero-documentation.ticket.md).
 - Baseline: `6133b4cfb8b83adf5929f5c055d6e46631e50778` (`main`, after PR #14 merged).
@@ -49,7 +51,7 @@ As someone visiting the Exphere website, I want a clear description of the exper
 - `.exphere/artifacts/specs/0021-SPEC-website-hero-documentation.spec.md`
 - `.exphere/artifacts/tickets/0043-TICKET-website-hero-documentation.ticket.md`
 - `apps/website/src/app/page.tsx`
-- `apps/website/DESIGN.md`
+- the retired website visual contract
 - `apps/website/README.md`
 
 ## Ownership and operation
@@ -78,13 +80,13 @@ against fixed `main` baseline `6133b4cfb8b83adf5929f5c055d6e46631e50778`.
 
 The GitHub compare reports three commits ahead, zero behind and exactly five scoped
 files changed: this spec, WEB-HERO-01 ticket, website page, website README, and
-website DESIGN.md. No root-layout, shader, package, lockfile, Tailwind bootstrap,
+retired website visual contract. No root-layout, shader, package, lockfile, Tailwind bootstrap,
 metadata, robot policy, social image, manifest, or deployment change exists.
 
 Implementation source identities:
 
 - `apps/website/src/app/page.tsx` Git blob: `07b9b6d9a88046c383814e52aa8b4a1c2babcbf0`.
-- `apps/website/DESIGN.md` Git blob: `44221edd04a2bf667f6705a8b5813b0a8de3fe10`.
+- the retired website visual contract Git blob: `44221edd04a2bf667f6705a8b5813b0a8de3fe10`.
 - `apps/website/README.md` Git blob: `3ef0f406fbfc2b20e410bfb62cf46542d189e4ff`.
 - `apps/website/src/app/layout.tsx` remains baseline blob
   `2f3afff8c66e37da29c0d9e2e4b6a3a07ffb18e3` with

@@ -25,7 +25,7 @@ The current website identity artifacts use purple and graphite. The home logo is
 
 Adopt the third option.
 
-1. `apps/website/DESIGN.md` is the website-specific design source for future UI work. It adapts the selected ClickHouse design language; it does not assert affiliation or copy ClickHouse marks.
+1. The former website visual contract recorded the website-specific design source for this historical cycle. It adapts the selected ClickHouse design language; it does not assert affiliation or copy ClickHouse marks.
 2. Exphere brand primary is `#000000`. Brand marks, wordmarks, favicon/app marks, and social-card identity use black. White is the presentation canvas/background, not a second brand accent.
 3. Preserve the reference's technical principles: bold display hierarchy, mono treatment for technical/code content, 4/8/12/16/24/32/48/96 spacing, 4/6/8/12 radii, hairline borders, and no drop shadows. The website remains light-first until a separately approved dark-mode implementation exists.
 4. Do not update shared `@repo/design` tokens in this cycle. This decision governs the website and its SEO identity; package-level token migration requires its own implementation scope because the shared package is public and intentionally independent of Exphere branding.
@@ -34,7 +34,7 @@ Adopt the third option.
 ## Consequences
 
 - Existing purple/graphite website identity assets are superseded by monochrome black versions while preserving geometry.
-- Future website UI changes should consult `apps/website/DESIGN.md` before introducing new website-specific visual values.
+- Current website UI changes follow SPEC-WEBSITE-DOCS-REFRESH; the earlier separate visual contract is retired.
 - The current commented-home-logo decision remains intact; restoring visibility is a separate owner action.
 - Reversal is source-level: restore the previous assets and remove/replace the website design adaptation in a separately reviewed change.
 - Review when the owner changes the design reference, allows non-black brand accents, or authorizes a shared-token migration.

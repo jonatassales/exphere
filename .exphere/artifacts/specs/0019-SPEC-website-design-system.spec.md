@@ -11,7 +11,7 @@
 ## Contract and composition
 
 - Requirements addressed: REQ-BRAND-001 and REQ-BRAND-004.
-- Components selected by the consumer: the existing Next.js website, Tailwind consumption of shared tokens, and a website-local `DESIGN.md` for Exphere-specific visual rules.
+- Components selected by the consumer: the existing Next.js website, Tailwind consumption of shared tokens, and a website-local visual contract (now retired) for Exphere-specific visual rules.
 - Environment and executor selected by the consumer: existing website workspace; no new runtime, package, or design dependency.
 - Extension points and execution lifecycle: future website UI changes read the local design source first, then map those roles onto existing/shared tokens or a separately approved website adaptation. Do not silently mutate public package identity.
 - Configuration, secret references, and data ownership: no secrets or runtime configuration; design documentation is repository-owned source.
@@ -45,6 +45,6 @@
 - Affected guardrails: SDD v1 and frontend ownership rules; FinOps/Twelve-Factor are not materially affected because no service, dependency, configuration, or resource behavior changes.
 - Cost/consumption impact: no provisioned resource or paid provider.
 - Open issues and exceptions: actual shared-token migration and font loading are deferred; this document must not be interpreted as changing the public `@repo/design` package.
-- Verification plan: inspect `apps/website/DESIGN.md` against this contract and ADR-0002.
+- Verification plan: inspect the retired website visual contract against this contract and ADR-0002.
 - Trade-offs: local website guidance avoids leaking Exphere branding into public packages at the cost of a later explicit token-mapping step.
 - Technical review: included in the parent implementation review under `SPEC-WEBSITE-BLACK-SEO`.

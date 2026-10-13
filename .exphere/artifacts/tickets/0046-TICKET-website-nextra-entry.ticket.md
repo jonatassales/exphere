@@ -13,7 +13,7 @@
 - [x] Copy control provides `npx exphere init` with success/error feedback, without executing or asserting publication.
 - [x] Nextra Docs Theme renders one Getting Started page under `/docs`; home remains initial entry.
 - [x] Footer displays small orb, `exphere by Grupo OLX © 2026` and verified accessible social icon links.
-- [x] Existing ExphereShader behavior, noindex policy and black logo identity are preserved. Corrupt baseline assets are retained in public/brand; active icons are recovered as documented in IDENTITY.md. Legacy ICO and unapproved social-image conventions are inactive.
+- [x] Existing ExphereShader behavior, noindex policy and black logo identity are preserved. Corrupt baseline assets are retained in public/brand; active icons are recovered as documented in the retained asset provenance record. Legacy ICO and unapproved social-image conventions are inactive.
 - [x] Dependencies/lockfile and authorized build/static checks are recorded honestly; browser clipboard, visual and motion behavior remain explicitly not verified.
 
 ## Website-only corrective cycle — October 13, 2026

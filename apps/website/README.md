@@ -1,104 +1,44 @@
 # Website
 
-Exphere's en-US documentation entry lives at `/`. A single centered hero uses
-the owner's FinOps copy and a dark copy-to-clipboard control for
-`npx exphere init`. That command is a preview: no Exphere npm executable or
-working `init` is claimed. Copying never executes the command; success and
-failure feedback is announced accessibly, and the visible command remains
-selectable when clipboard access is unavailable.
+Exphere's homepage presents the product direction in a viewport-height, three-row layout. It retains the purple shader animation and compact copy control. On short screens, secondary description text is hidden so the title, links, copy control, and footer remain visible. The copied `npx exphere init` command is preview text, not a working installer; copying never executes it.
 
-**Documentation** links to `/docs`, the only authored Nextra Docs Theme page,
-containing just the Getting Started heading. There is no search index, additional
-documentation, edit-page action, or fabricated runtime guide. Next.js App Router
-and Nextra's official plugin own the routes; `src/mdx-components.tsx` supplies
-the theme's MDX components. The root layout retains one `ExphereShader`.
-
-The header and footer render the native `orbo-voice` `<orb-o>` component in
-black/gray shades. Its `listening` state is decorative, hidden from assistive
-technology, and respects reduced motion. Browser registration happens only
-inside the small client boundary. No microphone, voice provider, media session,
-or audio playback is configured. The copy control owns local React state;
-no application state store or provider is needed for the hero.
-
-The footer uses the owner's literal `exphere by Grupo OLX © 2026` credit and
-accessible GitHub and LinkedIn icons. GitHub points to this repository (which
-may require access); the organization LinkedIn destination is listed on
-[Grupo OLX's official website](https://www.grupoolx.com.br/). This is not a claim
-of independently verified organizational endorsement. No npm icon links to a
-nonexistent Exphere package. The compact icon arrangement follows the owner's
-[Vidro reference](https://vidro.pro/pt-BR/) without copying unrelated profiles.
+`/docs` offers Getting Started, Concepts, Architecture, CLI, and Development. Nextra owns navigation, breadcrumbs, the article wrapper, table of contents, pagination, mobile menu, and Pagefind search. Docs use a solid dark reading background; the shader mounts only on Home. Existing diagram assets are imported from their repository owner through the `@diagrams` alias.
 
 ## Local development
 
-Run these commands from the repository root:
+Run commands from the repository root:
 
 | Command | Purpose |
 | --- | --- |
-| `pnpm build --filter=website...` | Build shared dependencies and the application. |
+| `pnpm build --filter=website...` | Build shared dependencies, compile the website, and generate search assets. |
 | `pnpm dev --filter=website` | Build shared dependencies and start development. |
 | `pnpm start --filter=website` | Serve the completed production build locally. |
 | `pnpm --filter website typecheck` | Generate Next.js route types and check TypeScript. |
 
-Package aliases invoke Next.js and TypeScript directly. There is no website
-`scripts/` directory. Production compilation and development use Next.js 16.4's native Turbopack
-bundler. Nextra 4.6.1's legacy Webpack loader misclassifies MDX metadata under
-this Next.js version. The supported `turbopack.resolveAlias` configuration maps
-Nextra's MDX provider alias directly to this application's `src/mdx-components.tsx`. The framework defaults to port 3000; pass `--hostname 127.0.0.1 --port
-3000` to the `dev` or `start` alias to select a local interface explicitly.
+Next.js defaults to port 3000; pass `--hostname 127.0.0.1 --port 3000` to the package's dev/start command to select the local interface. Stop the process when finished. No application secrets, backing service, or additional environment variables are required. Native diagnostics use stdout/stderr.
 
-No application secrets, backing service, remote origin, or extra environment
-variables are required. Diagnostics use stdout/stderr. Next.js output, route
-types and TypeScript caches remain ignored. There is no application test runner,
-telemetry integration, deployment, or measured capacity claim.
+Production and development use Next.js 16.4's native Turbopack bundler. The App Router and static metadata files live directly in `app/`, with MDX mapping in `app/components/mdx-components.tsx`. Typed configuration maps the MDX provider alias for both bundlers. Webpack remains outside the supported build path because Nextra 4.6.1's loader has a previously observed metadata incompatibility with this Next.js release.
 
-## Design and metadata
+## Search lifecycle
 
-The application is dark only, including Nextra. Tailwind utilities consume the
-public `@repo/design` token CSS and the website's charcoal/purple theme bridge.
-Nextra's required framework stylesheet is the only new global style import.
-The root imports application bootstrap CSS before the shared shader stylesheet,
-and declares `theme, base, components, utilities` in that order. This prevents
-framework resets from taking precedence over Tailwind utilities.
-`src/app/_meta.ts` keeps the documentation sidebar limited to Getting Started.
-[DESIGN.md](DESIGN.md) records website-only visual decisions; shared token and
-shader ownership stay in their packages. The existing shader uses the same
-purple-on-black palette, motion algorithm, reduced-motion support and fallback.
+The website owns the pinned Pagefind build dependency. The build runs `next build` followed by Pagefind over the actual `.next/server/app` HTML. Nextra marks article bodies for indexing; Home and framework error pages do not enter the corpus. Verify five docs pages when adding or changing routes.
 
-Original black brand assets remain intact; [IDENTITY.md](IDENTITY.md) records
-their provenance. The earlier SVG logo heading remains commented out in the
-home source under SPEC-WEBSITE-HOME-LOGO-VISIBILITY. Each page has one visible
-`h1`; the root document owns `lang="en-US"`, `dir="ltr"` and the dark theme.
+Generated `public/_pagefind/` files are ignored by Git and included in the website's Turbo build outputs. Diagram assets outside the package are explicit build inputs. A cached build restores search assets alongside Next output. Indexing errors fail the build. The development server needs a previously generated index for search; production verification must check result URLs and served assets, not just the input field.
 
-The root owns application identity and `noindex`. Each page supplies its own
-title, description and social metadata. The production origin and indexing
-launch remain undecided: `metadataBase` stays null, image URL lists stay empty,
-and no canonical, sitemap or structured entity claims are invented. Static icons, manifest and robots retain their framework paths. Six corrupt
-baseline binary assets are preserved under `public/brand/`; the active Apple
-and 512px manifest icons were recovered from the earlier black-brand revision, and existing valid
-SVG/PNG favicons remain active. Corrupt social images are no longer metadata
-convention files; their image lists remain empty. See IDENTITY.md for exact
-provenance and limitations.
-`robots.txt` permits crawling so the HTML noindex directive can be discovered.
-Nextra does not authorize an indexing launch or production deployment.
+## Presentation and metadata
 
-Before indexing, accept an origin/policy, configure root metadataBase and route
-canonicals/Open Graph URLs, activate social image metadata, and add a static
-sitemap for indexable routes. Reinspect generated HTML and manifests. Local
-compilation and source review do not establish browser interaction, visual
-acceptance, Core Web Vitals, indexing, or production readiness.
+The site is dark only. Tailwind utilities consume public design-token CSS and the website's charcoal/purple theme bridge; global CSS contains framework imports and token integration. Home alone mounts the unchanged shared shader. The decorative orb respects reduced motion and has no microphone or audio integration. Copy interaction remains local React state and announces success/failure.
 
-Current scope is defined by
-[SPEC-WEB-DOCS](../../.exphere/artifacts/specs/0024-SPEC-website-nextra-getting-started.spec.md)
-and [WEB-DOCS-01](../../.exphere/artifacts/tickets/0046-TICKET-website-nextra-entry.ticket.md).
-The earlier hero/right-card and repository-only documentation behavior in
-SPEC-WEBSITE-HERO-DOCS is superseded by this documentation entry.
+LinkedIn points to the owner's profile. The existing owner-requested footer attribution is preserved. No independent organizational endorsement is inferred.
+
+The root owns `lang="en-US"`, application identity, and `noindex`. Pages own titles and descriptions. `metadataBase` remains null; no canonical or sitemap is introduced. Existing valid icons and the manifest are preserved. Corrupt historical binary assets remain inactive under `public/brand/`; social-image lists remain empty. Asset provenance is retained in [SPEC-WEBSITE-DOCS-REFRESH](../../.exphere/artifacts/specs/0031-SPEC-website-docs-refresh.spec.md#retained-asset-provenance).
+
+An indexing launch, social-card activation, and production promotion require separate decisions. Browser verification covers the recorded local build, not production availability.
 
 ## Dependency compatibility
 
-The website compiler is pinned to TypeScript 6.0.3 because Nextra's Twoslash
-dependency requires its JavaScript compiler API, which TypeScript 7 no longer
-provides. Nextra and its Docs Theme resolve Zod 4.1.12 through scoped workspace
-overrides: newer Zod 4.4.3 rejects the theme's omitted `children` schema field
-during server rendering. These bounded pins preserve the existing workspace
-compiler choices elsewhere. Production compilation must remain part of an
-upgrade review; peer-range satisfaction alone did not catch either runtime gap.
+Website TypeScript stays pinned to 6.0.3 because Nextra's Twoslash dependency requires the JavaScript compiler API. Scoped workspace overrides keep Nextra and its theme on Zod 4.1.12; newer Zod previously rejected the theme's omitted children schema field during rendering. Preserve these bounded pins until an upgrade passes production compilation.
+
+## Scope and evidence
+
+[SPEC-WEBSITE-DOCS-REFRESH](../../.exphere/artifacts/specs/0031-SPEC-website-docs-refresh.spec.md) records this cycle's requirements, owner decisions, checks, and independent reviews. The [Development guide](app/docs/development/page.mdx) contains contributor commands and hook semantics.

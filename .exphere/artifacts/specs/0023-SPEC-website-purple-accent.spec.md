@@ -51,7 +51,7 @@ Do not add a new `motion` dependency or replace WebGL with Motion JS; the suppli
 - `.exphere/artifacts/specs/0023-SPEC-website-purple-accent.spec.md`
 - `.exphere/artifacts/tickets/0045-TICKET-website-purple-motion.ticket.md`
 - `.exphere/artifacts/design/0010-DD-website-design-system-branding.dd.md`
-- `apps/website/DESIGN.md`, `apps/website/README.md`
+- the retired website visual contract, `apps/website/README.md`
 - `apps/website/src/app/globals.css`, `apps/website/src/app/layout.tsx`, `apps/website/src/app/page.tsx`
 
 No other application, shared package, asset, manifest, workflow, script, or runtime file is in scope.
@@ -107,7 +107,7 @@ Static sRGB WCAG contrast calculations for **opaque token pairs** (not live comp
 ### Standards review — sequential self-review
 
 Inspected the proposed and committed source against `AGENTS.md`,
-SDD traceability v1, website `DESIGN.md`, the Tailwind styling/frontend
+SDD traceability v1, website the retired website visual contract, the Tailwind styling/frontend
 rules, App Router metadata ownership, and the supplied Senior Staff motion
 role's lifecycle and accessibility considerations. No actionable source-level
 finding was observed. The homepage stays server-rendered, semantic roles

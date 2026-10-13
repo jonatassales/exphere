@@ -5,7 +5,8 @@
 - State: `approved for this scoped implementation`
 - Owner: Exphere project owner
 - Request: October 13, 2026 — replace the ClickHouse-like bright accent with OLX-inspired purple while retaining the black website and Exphere motion background.
-- Sources: supplied `DESIGN-clickhouse.md` and `SENIOR-STAFF-REACT-TS-JS-MOTION-SURFACES.role(1).md`; existing [website DESIGN.md](../../../apps/website/DESIGN.md); [dark-only website PRD](0004-PRD-website-dark-theme.prd.md).
+- Sources: supplied `DESIGN-clickhouse.md` and `SENIOR-STAFF-REACT-TS-JS-MOTION-SURFACES.role(1).md`; existing the original website visual contract (now retired); [dark-only website PRD](0004-PRD-website-dark-theme.prd.md).
+- Current successor: [website refresh and retained provenance](../specs/0031-SPEC-website-docs-refresh.spec.md#retained-asset-provenance); this was not an input to the historical approval below.
 - Baseline: `a9c78f33ab1f7bfaed26dccfd2ad27477b026734` (`main`, dark-theme PR #17 merged).
 
 ## Problem and expected outcome
