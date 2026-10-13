@@ -8,6 +8,36 @@ async function graphicsDrawCount(page: Page) {
   return count;
 }
 
+async function settledGraphicsDrawCount(page: Page) {
+  let count = 0;
+
+  await expect
+    .poll(
+      async () => {
+        const snapshot = await page.evaluate(() => {
+          const draws = performance.getEntriesByName("consumer-graphics-draw");
+          const lastDraw = draws.at(-1);
+
+          return {
+            count: draws.length,
+            quietFor: lastDraw ? performance.now() - lastDraw.startTime : 0,
+          };
+        });
+
+        count = snapshot.count;
+
+        return snapshot.quietFor;
+      },
+      {
+        message: "graphics draws settle after observer delivery",
+        timeout: 5000,
+      },
+    )
+    .toBeGreaterThanOrEqual(300);
+
+  return count;
+}
+
 test("public wrapper renders server children and remains interactive", async ({
   page,
 }) => {
@@ -169,9 +199,7 @@ test("reduced motion, hidden presentation and unmount stop graphics work", async
 
   await expect.poll(() => graphicsDrawCount(page)).toBeGreaterThan(0);
 
-  await page.waitForTimeout(200);
-
-  const staticCount = await graphicsDrawCount(page);
+  const staticCount = await settledGraphicsDrawCount(page);
 
   await page.waitForTimeout(300);
 
@@ -185,9 +213,7 @@ test("reduced motion, hidden presentation and unmount stop graphics work", async
 
   await page.emulateMedia({ reducedMotion: "reduce" });
 
-  await page.waitForTimeout(200);
-
-  const changedCount = await graphicsDrawCount(page);
+  const changedCount = await settledGraphicsDrawCount(page);
 
   await page.waitForTimeout(300);
 

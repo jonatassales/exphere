@@ -78,3 +78,12 @@ Reviewed implementation SHA-256:
 | WebsiteFooter | `3944cf6c985b9134573ffc670f44a3e79322c1cfbb31826544a92f9fbcfe90c1` |
 
 Browser rendering, actual clipboard interaction, deployment and production outcomes remain unverified. No application tests or browser probes were added. Existing push gates execute separately at delivery. Tickets remain in-review for PR acceptance; local completion does not claim merge or deployment.
+
+
+### PR check repair (October 13, 2026)
+
+The owner's report that PR #24 failed authorizes a bounded correction to its existing verification. CI run 38401865040 passed formatting, type checks and builds, then failed the existing shader reduced-motion check: an expected draw count of 4 became 5. Startup resize/intersection notifications can legitimately draw a static frame after the test's fixed 200ms delay. Nine other shader cases passed; the CLI contract job was interrupted when Turbo failed.
+
+Repair requirement REQ-HOME-06: update only the existing reduced-motion test's baseline synchronization to wait for an observed 300ms quiet period, bounded by a 5-second timeout, before recording each reduced-motion baseline. Retain the subsequent strict no-additional-draw assertion and all resume, hidden and unmount checks. No retries, skipped assertions, new application tests, product shader changes or workflow relaxation. This extends VER-HOME-01 solely to repairing and repeating the existing failing contract test; the homepage browser verification boundary is unchanged.
+
+Repair validation: scoped Biome and @repo/web type checking passed. The existing reduced-motion contract passed 10 consecutive repetitions with one worker (40.1 seconds total, including fixture startup). Independent Standards and Spec reviewers both reported zero actionable findings against the same correction snapshot, based on commit 88546afa5ffaf34bdeaa396d1e0adc769405d613. Reviewed shader.spec.ts SHA-256: `0da9bc040f0e12f646eabecf27355bc33299c418db68998eb81393b4c756eaf5`. Only evidence text was updated afterward. Required push gates and the new GitHub CI run remain pending at this record; the previous CI failure is not represented as passing.

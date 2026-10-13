@@ -15,3 +15,8 @@
 ## Evidence
 
 See VER-HOME-01 and the evidence section of the parent spec. Scoped formatting, website type checking, production compilation and generated-output inspection passed. Independent Standards and Spec reviews reported zero actionable findings against the parent spec’s recorded source hashes. Browser behavior and production remain unverified. PR acceptance is pending.
+
+
+## PR check repair
+
+The October 13, 2026 failure report authorizes REQ-HOME-06 in the parent spec: repair baseline synchronization in the existing reduced-motion contract test without changing shader behavior or weakening the stop/resume assertions. Scoped formatting and package type checking passed; the existing failing test passed 10 consecutive repetitions. Refreshed Standards and Spec reviews each reported zero actionable findings against the source hash in the spec. Required push gates and the new CI run remain pending. This is a delivery correction under HOME-01.
