@@ -8,6 +8,8 @@ The CLI package owns the Go executable and npm `bin` entries. The SDK package de
 
 Current source installation requires Go 1.23+ on macOS or Linux. The CLI dependency's postinstall builds a native Go executable with the existing toolchain; it never installs Go or infrastructure tools. Go may fetch pinned module dependencies. Installations that disable dependency scripts must explicitly run the CLI package's `scripts/build.sh` before using it. Release-grade prebuilt platform packages remain future work.
 
+Frontend-only workspace deployments that do not execute Exphere may use `EXPHERE_SKIP_CLI_BUILD=1 pnpm install --frozen-lockfile` to skip only CLI compilation. Other dependency lifecycle scripts still run. This opt-out does not provide a working CLI; unset the variable and run `sh packages/cli/scripts/build.sh` from the repository root before using `ex`. Ordinary installation continues to require Go and build the CLI.
+
 For this repository:
 
 ```sh

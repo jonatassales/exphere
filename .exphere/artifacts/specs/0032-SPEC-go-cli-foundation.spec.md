@@ -42,6 +42,18 @@ After approving the implementation plan, the owner required direct `ex --help` f
 - Public examples use `ex` after explicit setup. Local package-bin invocation remains available when profile integration is undesired. Prebuilt release packages and npm publication are deferred.
 - Verification remains static shell checks and existing authorized checks only. No personal profile execution or new installation test scenarios.
 
+### Website-only installation follow-up
+
+The October 13 deployment report exposed an integration regression: Vercel's website dependency installation ran the workspace CLI postinstall without Go available, before the website build could start. The website has no runtime dependency on the CLI.
+
+- `EXPHERE_SKIP_CLI_BUILD=1` explicitly skips the source-build helper before toolchain lookup and filesystem changes. An unset variable or another value preserves the required Go build. The skip reports that the CLI must be built separately before use.
+- `apps/website/vercel.json` scopes this opt-out to the website's install command. Other lifecycle scripts remain enabled, the lockfile stays frozen, and the website build selects `website` with the existing root-owned Turbo executable. The existing `^build` task edges include the shared design/web builds. Avoid the broader package-graph `website...` selection, which also selected the root's CLI dependency in the installed Turbo version.
+- No automatic Go installation, shell profile change, global CI opt-out, runtime behavior change, or blanket lifecycle-script bypass is introduced.
+- Normal developer/source installation remains the existing contract. An explicitly skipped build does not establish CLI availability.
+- Verification uses the existing checks and actual website install/build path; no new suites or scenarios are added. Hosted readiness is recorded only after an observed successful deployment.
+
+Delivery: [CLI-INSTALL-01](../tickets/0070-TICKET-website-cli-install-isolation.ticket.md).
+
 ## Responsibilities
 
 - Consumer: explicitly invoke commands and supply supported inputs; install required native tools separately.
