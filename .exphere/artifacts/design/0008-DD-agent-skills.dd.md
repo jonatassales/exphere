@@ -3,7 +3,7 @@
 - ID: `DD-0008`
 - Status: `configuration with recorded limitations`
 
-The project includes 12 Matt Pocock skills and four FinOps skills selected on October 10, 2026. They support research, discussion, specifications, tickets, implementation, review, and retrospectives. Their presence does not establish organizational adoption or an automated executor.
+The initial October 10 selection included 12 Matt Pocock skills and four FinOps skills. The current tree contains 26 AIHero/Pocock catalog skills (writing-for-agents explicitly excluded), 20 Samber Go skills and the four FinOps skills. They support research, discussion, specifications, tickets, implementation, review, and retrospectives. Their presence does not establish organizational adoption or an automated executor.
 
 Start with the [local rules](../../../.agents/rules/README.md) and [guardrails](../../harness/guardrails). The previous consolidated FinOps prompt is unavailable; these references do not claim to include its full analysis or corrections to third-party examples.
 
@@ -11,7 +11,7 @@ Start with the [local rules](../../../.agents/rules/README.md) and [guardrails](
 
 | Directory | Skill name | Scope |
 | --- | --- | --- |
-| `finops-workflows` | `finops-workflows` | GitHub Actions run analysis and two shell scripts. |
+| `finops-workflows` | `finops-workflows` | GitHub Actions run analysis through native read-only gh commands; former shell helpers retired. |
 | `finops-cost-optimization` | `finops-cost-optimization` | OCI cost analysis and CLI reference. |
 | `aws-cost-finops` | `aws-cost-optimization` | AWS guidance, governance references, and a report template. |
 | `finops-expert` | `finops-expert` | Cost concepts and illustrative code. |
@@ -25,7 +25,7 @@ The [candidate research](../research/0002-RSC-finops-twelve-factor-skills.rsc.md
 - Pocock source: [mattpocock/skills](https://github.com/mattpocock/skills).
 - Pinned revision: [`49dd158d1076134a641b33efb035946536778336`](https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336).
 - Public [MIT license at that revision](https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/LICENSE).
-- The Pocock license location recorded in the former lock is absent from the current tree. Do not claim local license completeness; retain attribution and record the limitation without recreating removed directories automatically.
+- The original Pocock MIT license is retained at [workflow skills/UPSTREAM-LICENSE](../../workflow/skills/UPSTREAM-LICENSE); this completion restores license material at the new owner without restoring deleted directories.
 - AIHero workflow skills now live under `.exphere/workflow/skills/` and vendored Samber Go skills under `.agents/skills/`; other FinOps/AWS skills remain under `.exphere/harness/skills/`. The former `writing-for-agents` skill was removed by owner instruction. Invocation policies, dependencies, and local adaptations are documented in their retained files; the former lock is unavailable.
 
 There are no automatic updates or global installations. A future update must inspect the selected public revision, preserve necessary local behavior, and update version and license records as applicable. A hash establishes content identity, not functional quality or approval.
@@ -60,4 +60,4 @@ No skill discovery test, behavioral evaluation, workflow execution, or governanc
 
 ## Ownership amendment — October 13, 2026
 
-The project owner relocated the eleven installed AIHero/Dev workflow skills to `.exphere/workflow/skills/`, installed twenty unique Samber Go skills in `.agents/skills/`, and deleted `writing-for-agents` and `.agents/adr/`. Original historical reviews retain their baseline paths; current guidance uses the new locations. See [DD-0013](0013-DD-skill-ownership.dd.md).
+The owner requested the full AIHero catalog under `.exphere/workflow/skills/`, twenty unique Samber Go skills in `.agents/skills/`, and deletion of `writing-for-agents` and `.agents/adr/`. The incoming PR relocated only eleven AIHero adaptations. The completion adds the other fifteen catalog skills, retains pinned licenses and provenance, and restores the missing Go benchmark reference. See the [complete inventory and local adaptations](../../workflow/skills/README.md). Original historical reviews retain their baseline paths; current guidance uses the new locations. See [DD-0013](0013-DD-skill-ownership.dd.md).

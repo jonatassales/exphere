@@ -1,78 +1,69 @@
 # Exphere
 
-Exphere explores developer experience, agent-assisted delivery, and consumer-composed microruntimes. The current workspace uses **Turborepo + pnpm** and contains separate private, versioned SDK and CLI packages. Workflow contracts and organizational adoption remain proposals.
+Exphere is an experimental DevEX / FinOps platform exploring agent-assisted software delivery and consumer-composed microruntimes. The repository contains a documentation website, an empty TypeScript SDK API, a Go CLI scaffold, developer checks and proposed workflow contracts. It does not demonstrate production automation, infrastructure integration or realized savings.
 
-| Path | Current state |
+## Workspace
+
+| Location | Current responsibility |
 | --- | --- |
-| `packages/sdk/` | Private `@exphere/sdk`; TypeScript API remains empty. |
-| `packages/cli/` | Private `@exphere/cli`; owns the `ex` shell CLI. |
-| `packages/design/` | Public-intent `@repo/design`; basic light-palette tokens with generated CSS/JSON exports. |
-| `packages/web/` | Public-intent `@repo/web`; the children-only `ExphereShader` React motion surface, with public design tokens and generated styles. |
-| `apps/website/` | Minimal private Next.js application consuming design tokens and the shared `ExphereShader` in its root layout. |
-| `.exphere/runtimes/<id>/` | Consumer v2 configuration created on demand; not a workspace. Existing `.micro-runtime/<id>/` descriptors remain legacy v1. |
-| `.agents/` | Local context, engineering rules, frontend guardrails, templates, and `writing-for-agents`. |
-| `.exphere/harness/` | Shared skills and numbered SDD, FinOps, and Twelve-Factor rules and guardrails. |
-| `.exphere/workflow/` | Common SDD lifecycle and the surviving Dev, operations, SRE, and FinOps workflow documents; the Design document is unavailable. |
-| `.exphere/artifacts/` | Typed PRDs, specs, tickets, research, and design documents in en-US; agent configuration DDs share `design/`. |
-| `.audits/evidence/runs/` | Existing ignored generated-output destination; its former parent README is unavailable. |
+| `apps/website/` | Next.js/Nextra introductory documentation page and Getting Started section; grayscale visual-only Orbo and copyable preview command. |
+| `packages/design/` | Design tokens and their TypeScript compiler. |
+| `packages/web/` | Shared ExphereShader React surface and public-export contract fixtures. |
+| `packages/sdk/` | Separate private `@exphere/sdk` package; TypeScript API remains empty. |
+| `packages/cli/` | Private workspace task bridge and dependency-free Go `ex` scaffold. |
+| `.exphere/artifacts/` | Typed PRDs, specifications, tickets, research and design decisions. |
+| `.exphere/workflow/` | Documentary SDD lifecycle, domain adaptations and AIHero skills. |
+| `.exphere/harness/` | Shared SDD, FinOps and Twelve-Factor policies and FinOps/AWS skills. |
+| `.agents/` | Local engineering guidance, templates and the 20 requested Go skills. |
 
-The tree has no API or protobuf workspace. The SDK API remains empty. Design and web use versioned public-intent metadata; no package has been published by this work. See the [design contract](packages/design/README.md), [web boundary](packages/web/README.md), and [website commands](apps/website/README.md).
+## Development
 
-Run `pnpm dev --filter=website` for the website after dependency installation. Turborepo builds its design and web dependencies first. Use `pnpm --filter @repo/design dev` separately when editing tokens. `pnpm build` prepares production outputs; `pnpm start --filter=website` runs the application. Browser appearance, deployment, and production readiness require separate evidence.
+Use Node.js **22.22.1 or newer**, the root manifest's pinned pnpm **12.4.2**, the Go version declared in `packages/cli/go.mod`, Git and `jq` for the retained source-contract checks. Install dependencies with `pnpm install`; the native Husky prepare command configures local Git hooks. Installation no longer installs `ex` globally or changes a shell profile. `HUSKY=0` disables hook installation/execution; `pnpm install --ignore-scripts` skips lifecycle commands.
 
-## Microruntime CLI
+Use `pnpm dev --filter=website` for the website. Turborepo builds its workspace dependencies first; run `pnpm --filter @repo/design dev` separately while editing tokens. Use `pnpm build` for production output and `pnpm start --filter=website` to run the application. The root entry and `/docs` Getting Started page use Nextra. Documentation content beyond Getting Started is intentionally absent.
 
-The CLI belongs to `packages/cli/cli/`. The root manifest pins pnpm **12.4.2** and exposes `pnpm ex`. The CLI requires `sh` and `jq`; individual adapters require `terraform` or `kubectl` only when selected.
+The website's `npx exphere init` clipboard command previews the intended interface. No `exphere` npm release or working initialization command is provided by this change. Orbo's `listening` state is a visual presentation and does not request microphone access. The owner supplied the footer attribution `exphere by Grupo OLX © 2026`; this repository does not independently establish organizational endorsement.
+
+## Go CLI
 
 ```sh
-pnpm ex runtime list
-pnpm ex runtime billing init
-pnpm ex --root /path/to/consumer runtime list
+pnpm ex --help
+pnpm ex version
+pnpm ex init
 ```
 
-`init` creates an incomplete v2 descriptor under `.exphere/runtimes/<id>/` for manual editing; `init --guided` asks for consumer choices and writes the descriptor plus native Kubernetes/Terraform files. Existing output is preserved. Components remain in their applications, and resource/image/readiness decisions remain in native files. `validate` checks descriptor structure and local references; it does not prove operational readiness. `init --legacy` explicitly creates the earlier v1 shape.
+The first two commands provide the scaffold's usage and version. `init` deliberately returns a nonzero unsupported result and writes no consumer files. Unknown or malformed commands fail explicitly. The implementation lives under `packages/cli/cmd/ex/`.
 
-The root `postinstall` preserves local CLI setup, which installs the command under `~/.local/share/exphere/bin` and configures the zsh or bash PATH, then configures repository-local Husky hooks. CLI setup skips CI; `EXPHERE_SKIP_USER_SETUP=1` explicitly skips the user PATH step while retaining hook setup. `pnpm install --ignore-scripts` runs neither step. Use `pnpm ex setup` for manual CLI setup.
-
-See the [CLI contract](packages/cli/cli/README.md) for commands, descriptors, and consumer responsibilities. No deployable example microruntime is included.
-
-## Project documents
-
-- [PRD-0001](.exphere/artifacts/prd/0001-PRD-exphere.prd.md): product problem, intended outcomes, scope, and unmeasured hypotheses.
-- [DD-0001](.exphere/artifacts/design/0001-DD-exphere.dd.md): current boundaries and design direction.
-- [Documentation spec](.exphere/artifacts/specs/0001-SPEC-documentation-workflows.spec.md): reference review, workflow relocation, and the documented Dev workflow.
-- [Artifact tracker](.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md): typed filenames, directories, numbering, and states.
-- [Local guidance and harness navigation](.agents/README.md) and [current workflows](.exphere/workflow/README.md).
-
-The former skill lock, evidence README, shared guardrail index, CLI-context ADR, and Design workflow document remain removed. Consult surviving documents for their stated scope; no replacement contracts are implied.
+The previous shell CLI's `runtime`, `setup`, Terraform/Kubernetes adapters, guided generation, legacy compatibility and PATH installation have been retired. JSON schemas under `packages/cli/cli/schemas/` and CLI-owned consumer-harness fixtures remain historical/source contracts; they are not current executable Go capabilities. Read the [CLI README](packages/cli/README.md) for the supported boundary.
 
 ## Developer checks
 
-Use Node.js **22.22.1 or newer**, the pinned pnpm version, Git, and a POSIX shell. Run `pnpm install` to install the declared developer tools and execute postinstall. Husky activation is idempotent, supports linked worktrees, and skips CI, `HUSKY=0`, production-only installs, and directories without Git metadata. A missing development tool in a normal development install or a conflicting `core.hooksPath` is an error. Existing custom hook configuration is not overwritten. Dependency consumers do not receive this repository's root hooks as an SDK install side effect.
+Root task aliases call the native tools; wrapper `scripts/` directories are absent outside `packages/cli/`. Substantive Husky hooks and native test files retain their framework-defined owners.
 
 | Command or hook | Behavior |
 | --- | --- |
-| `pnpm build` | Run declared workspace builds through Turborepo, including SDK compilation, token generation, and the website production build. |
-| `pnpm test` | Run shell hook-contract and agent-review contract suites in disposable Git repositories, then declared workspace test tasks through Turborepo. CLI fixtures verify public command/setup behavior; design fixtures verify generated exports and watch behavior. No application suite is added. |
-| `pnpm typecheck` | Run declared workspace type checks through Turborepo after dependency builds. |
-| `pnpm check`, `pnpm lint`, `pnpm format` | Run the existing Biome configuration; `format` writes fixes explicitly. |
-| `pnpm harness:score` | Invoke locally installed `npx harness-score` from the root, without a target or threshold. Execution errors remain nonzero. |
-| pre-commit | Check eligible staged files with lint-staged/Biome, preserving partial edits; report one project-wide harness scan and a ticket reminder. Lint failures block; score findings or scanner failures do not. |
-| commit-msg | Validate the proposed message with commitlint's conventional configuration and emit advisory ticket/spec findings from the index. |
-| pre-push | Report outgoing SDD associations and PR-metadata limitations, then run build followed by test for the clean tracked, checked-out outgoing revision. Quality errors and unsupported source revisions block. |
+| `pnpm build` | Turborepo runs declared workspace builds, including Go, SDK, tokens, web and website. |
+| `pnpm typecheck` | Declared workspace type checks, after dependency builds. |
+| `pnpm test` | Declared native package tests, CLI-owned reference-contract checks and disposable Husky hook contracts through Turborepo. |
+| `pnpm check`, `pnpm lint`, `pnpm format` | Biome checks; `format` explicitly writes fixes. |
+| `pnpm harness:score` | Informational project harness scan; results are not approvals or production evidence. |
+| pre-commit | lint-staged/Biome checks eligible staged files, preserving partial edits; informational harness scan and ticket reminder. |
+| commit-msg | Blocking Conventional Commit validation and advisory staged ticket/spec associations. |
+| pre-push | Advisory outgoing SDD associations followed by build/test for the clean tracked outgoing source revision. Unsupported revisions and quality failures block. |
 
-Biome checks supported JS/TS variants, JSON/JSONC, and CSS using the staged configuration. Shell, Markdown, and other unsupported formats are outside this linter's coverage. Local agent and evidence exclusions remain; artifact and shared-harness exclusions target `.exphere/artifacts/` and `.exphere/harness/`. Runtime configuration under `.exphere/runtimes/` is not blanket-excluded by Biome or Vercel. The harness scanner reads the project working tree; its diagnostic is not staged-content validation. A low score is not a failure or an instruction to expand project scope.
+Biome does not cover shell, Go or Markdown. Installed skills and typed artifacts are excluded from frontend linting; their validation is separate. Hook contracts use disposable Git repositories and a local bare remote. CLI tests cover scaffold behavior; retained consumer-harness checks inspect source/fixtures and do not prove runtime deployment. Design export/watch fixtures and web fixtures retain their declared test runners. Removed shell CLI installation/runtime fixtures and the shell agent-review provider are no longer executable coverage.
 
-`verifyDepsBeforeRun: false` disables pnpm's implicit installation before run/exec. Hooks require tools already installed; the scanner uses offline npx with installation disabled. Missing tools produce explicit failures/warnings according to the table. Commitlint retains its upstream ignored-message behavior, including merge/revert and fixup/squash messages; ticket associations are evaluated separately.
+`verifyDepsBeforeRun: false` prevents implicit dependency installation before tasks. Hooks require installed tools. Follow the [SDD rule](.exphere/harness/rules/0001-sdd.rule.md) and [guardrail](.exphere/harness/guardrails/0002-sdd.gr.md): each commit declares one stable `Ticket:` trailer and each actual PR declares one `Spec:`. Advisory findings are not compliance. Hooks can be bypassed and do not authenticate approval or authorize publication.
 
-Follow the [SDD rule](.exphere/harness/rules/0001-sdd.rule.md) and [guardrail](.exphere/harness/guardrails/0002-sdd.gr.md): `Ticket: HOOK-01` is a commit trailer; `Spec: SPEC-GIT-HOOKS-SDD` belongs in the actual PR body. Stable artifact IDs are independent of filename numbers. Unavailable PR metadata warns locally; review must inspect the real PR declaration when it exists. Hooks can be bypassed and do not constitute CI enforcement or authorization to publish.
+## CI and review
 
-## GitHub agent review
+GitHub Actions uses native dependency installation, checks, type checking, builds and tests. It does not run the retired shell agent-review provider or make paid model requests. Separate Standards and Spec review remains the contributor obligation described in the [code-review skill](.exphere/workflow/skills/code-review/SKILL.md); CI success is not a replacement for that review. Hosted workflow execution and local results must be recorded for the revision actually checked.
 
-The [agent-review workflow](scripts/agent-review/README.md) reviews immutable PR snapshots against the trusted code-review skill using separate Standards and Spec model requests. It publishes a job summary and report artifact, with explicit skipped, incomplete, stale, and failed outcomes. Findings are informational; provider execution is disabled until its documented model, credentials, owner, and budget configuration is supplied.
+## Project documents and limitations
 
-The authorized local fixtures run with `sh scripts/tests/agent-review.sh` and are included in `pnpm test`. They use controlled responses with no paid API calls. Hosted event delivery and real model behavior remain unverified until a separately authorized pilot.
+- [Product requirements](.exphere/artifacts/prd/0001-PRD-exphere.prd.md) and [design overview](.exphere/artifacts/design/0001-DD-exphere.dd.md).
+- [PR #19 integration specification](.exphere/artifacts/specs/0028-SPEC-pr19-completion.spec.md): requested website, Go, native tooling and skills scope with a requirement-by-requirement checklist.
+- [Artifact tracker](.exphere/artifacts/design/0006-DD-artifact-tracker.dd.md), [local guidance](.agents/README.md), and [workflow documentation](.exphere/workflow/README.md).
+- [Workflow skill provenance](.exphere/workflow/skills/README.md) and [Go skill provenance](.agents/skills/README.md).
 
-## Current limits
-
-YAGNI. The hook initiative authorizes its bounded fixture tests and build/test push gate. The package initiative additionally authorizes isolated SDK/CLI and design-token consumer checks plus website type checking, compilation, and generated-artifact inspection. Browser probes and application test infrastructure remain outside this cycle. No infrastructure provisioning, deployment, or production integration is included. The CLI adapters do not execute the agent workflow or enforce the proposed resource and observability contracts. Their presence does not prove successful Terraform or Kubernetes execution.
+The former skill lock, evidence README, guardrail index and CLI-context ADR remain absent. Retained policy documents and schemas do not establish an executed workflow, organizational adoption, npm publication, indexing, deployment, cost savings or production readiness. The owner-authorized PR #19 verification is bounded to this migration; it does not authorize provisioning or production access.

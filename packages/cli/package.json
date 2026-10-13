@@ -2,13 +2,10 @@
   "name": "@exphere/cli",
   "version": "0.0.0",
   "private": true,
-  "bin": {
-    "ex": "./cli/ex.sh"
-  },
-  "files": [
-    "cli"
-  ],
   "scripts": {
-    "test": "sh scripts/test.sh"
+    "build": "go build -o dist/ex ./cmd/ex",
+    "test": "go test ./...",
+    "test:contracts": "sh scripts/test-consumer-harness.sh",
+    "typecheck": "go vet ./..."
   }
 }

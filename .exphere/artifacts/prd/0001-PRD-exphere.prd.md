@@ -28,7 +28,7 @@ Included in the product direction:
 
 Out of scope for the current delivery: an automated workflow engine, organization-wide adoption, production integrations, universal stack choices, automated certification, new infrastructure, and claims of measured productivity or cost savings.
 
-Current implementation is limited to the SDK and its shell CLI. The workflow and institutional contracts remain documentary proposals. See the [design overview](../design/0001-DD-exphere.dd.md) for the observed boundaries.
+Current implementation includes an empty TypeScript SDK API, a Go-only CLI scaffold and the documentation website. The former shell CLI has been retired under [PRD-GO-CLI-NATIVE-TOOLING](0007-PRD-go-cli-and-native-tooling.prd.md). The workflow and institutional contracts remain documentary proposals. See the [design overview](../design/0001-DD-exphere.dd.md) for the observed boundaries.
 
 ## Requirements and acceptance
 

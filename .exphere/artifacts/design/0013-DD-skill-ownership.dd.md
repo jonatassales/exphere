@@ -10,13 +10,13 @@
 ## Decision
 
 - Local Go skills: `.agents/skills/<golang-*>`. Vendor exact upstream Samber `SKILL.md` and necessary references/assets for the 20 **unique** explicitly requested skills. A duplicated `golang-cli` URL installs once. Include upstream attribution and license, pin the source commit/tree and explain skipped evaluation fixtures if applicable.
-- AIHero/Matt Pocock workflow skills currently stored in `.exphere/harness/skills`: relocate the existing local adaptations to `.exphere/workflow/skills/<skill>`. Preserve their README/supporting files, Git blobs, attribution, and stable names. Do not silently replace them with newer upstream copies.
+- AIHero/Matt Pocock catalog: preserve and relocate the 11 existing local adaptations currently stored in `.exphere/harness/skills` to `.exphere/workflow/skills/<skill>`. Preserve their README/supporting files, Git blobs, attribution, and stable names. Do not silently replace them with newer upstream copies. Install the other 15 catalog skills from the pinned upstream revision; the 27-item catalog minus writing-for-agents yields 26 local skills. The [catalog inventory](../../workflow/skills/README.md) records provenance, preserved adaptations, optional helper omissions and the retained MIT license.
 - Unrelated FinOps/AWS vendor skills remain outside AIHero ownership, with any shell helper scripts removed or intentionally migrated without directories named `scripts` outside the CLI.
 - Remove `.agents/skills/writing-for-agents/` completely and the unused `.agents/adr/.gitkeep`.
 - Update active navigation and skill invocation references to the new owners. Historical artifact evidence may mention former paths, but should be labeled historical; broken active navigation must be fixed.
 - Reevaluate workflow skill discovery paths; moving files alone does not prove automatic agent discovery.
 
-## AIHero/Pocock relocated skill names
+## Eleven preserved AIHero/Pocock adaptations
 
 `code-review`, `codebase-design`, `domain-modeling`,
 `grill-with-docs`, `grilling`, `implement`, `research`,

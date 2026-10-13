@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "nextra-theme-docs/style.css";
 @import "@repo/design/tokens.css";
 
 @theme inline {

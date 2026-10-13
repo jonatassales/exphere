@@ -32,20 +32,10 @@
             "$ref": "#/$defs/id"
           },
           "effort": {
-            "enum": [
-              "none",
-              "low",
-              "medium",
-              "high"
-            ]
+            "enum": ["none", "low", "medium", "high"]
           },
           "purpose": {
-            "enum": [
-              "implementation",
-              "verification",
-              "cleanup",
-              "planning"
-            ]
+            "enum": ["implementation", "verification", "cleanup", "planning"]
           },
           "rationale": {
             "type": "string",

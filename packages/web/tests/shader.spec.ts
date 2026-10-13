@@ -338,9 +338,13 @@ test("optional grayscale palette feeds the shader while defaults stay unchanged"
 }) => {
   await page.goto("/");
 
-  const originalPrimary = await page.locator("canvas").evaluate((canvas) =>
-    getComputedStyle(canvas).getPropertyValue("--design-color-primary").trim(),
-  );
+  const originalPrimary = await page
+    .locator("canvas")
+    .evaluate((canvas) =>
+      getComputedStyle(canvas)
+        .getPropertyValue("--design-color-primary")
+        .trim(),
+    );
 
   expect(originalPrimary).toBe("#6D0AD6");
 
@@ -353,7 +357,9 @@ test("optional grayscale palette feeds the shader while defaults stay unchanged"
 
     return {
       primary: styles.getPropertyValue("--design-color-primary").trim(),
-      primaryHover: styles.getPropertyValue("--design-color-primary-hover").trim(),
+      primaryHover: styles
+        .getPropertyValue("--design-color-primary-hover")
+        .trim(),
       background: styles.getPropertyValue("--design-color-background").trim(),
       surface: styles.getPropertyValue("--design-color-surface").trim(),
     };

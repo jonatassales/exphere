@@ -17,9 +17,9 @@
     "**/*.css"
   ],
   "scripts": {
-    "build": "sh scripts/build.sh",
-    "typecheck": "sh scripts/typecheck.sh",
-    "test": "sh scripts/test.sh"
+    "build": "tsc --project tsconfig.json && tailwindcss -i src/react/exphere-shader/exphere-shader.css -o dist/react/exphere-shader/exphere-shader.css --minify",
+    "typecheck": "tsc --project tsconfig.json --noEmit && tsc --project tsconfig.tests.json",
+    "test": "playwright test"
   },
   "peerDependencies": {
     "react": "^19.3.0"

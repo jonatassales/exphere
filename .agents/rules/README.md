@@ -46,4 +46,4 @@ FinOps and Twelve-Factor were adopted locally on October 10, 2026; advisory SDD 
 
 ## Current user restrictions
 
-YAGNI. Automation scripts must be `.sh` files invoked by manifests. The design token compiler has the narrow TypeScript-behind-shell exception recorded in root AGENTS. Authorized hook, CLI, design-token, and website verification boundaries are recorded in root AGENTS, including the build/test push gate. Unrelated tests still require authorization. These restrictions take precedence over skill suggestions to test or expand the scope.
+YAGNI. Manifest task aliases use the owning native tool under the package scripts rule. Wrapper directories are retired outside the CLI; authorized CLI verification helpers, substantive Husky hooks, native tests and the design token compiler retain their documented owners. Authorized hook, CLI, design-token, and website verification boundaries are recorded in root AGENTS, including the build/test push gate. Unrelated tests still require authorization. These restrictions take precedence over skill suggestions to test or expand the scope.

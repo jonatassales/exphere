@@ -33,27 +33,13 @@
       "$ref": "#/$defs/id"
     },
     "category": {
-      "enum": [
-        "ai",
-        "infrastructure"
-      ]
+      "enum": ["ai", "infrastructure"]
     },
     "purpose": {
-      "enum": [
-        "ordinary",
-        "planning",
-        "verification",
-        "cleanup"
-      ]
+      "enum": ["ordinary", "planning", "verification", "cleanup"]
     },
     "eventType": {
-      "enum": [
-        "reserved",
-        "pending",
-        "metered",
-        "reconciled",
-        "released"
-      ]
+      "enum": ["reserved", "pending", "metered", "reconciled", "released"]
     },
     "amountMicros": {
       "$ref": "#/$defs/money"

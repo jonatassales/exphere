@@ -17,7 +17,7 @@ Microruntimes are the proposed unit for composing and executing consumer-owned u
 | Surface | Present responsibility | Limitation |
 | --- | --- | --- |
 | `packages/sdk/` | Private, versioned TypeScript SDK | API remains empty. |
-| `packages/cli/` | Private, versioned shell CLI, runtime descriptors, Terraform/Kubernetes adapters, and explicit consumer hooks | Infrastructure execution is not demonstrated. |
+| `packages/cli/` | Go-only scaffold with help/version and explicit unsupported init; retained schemas are source references | Former shell runtime/adapters are retired; infrastructure execution is not demonstrated. |
 | `packages/design/` | Neutral tokens and generated CSS/JSON | Public intent; no registry release. |
 | `packages/web/` | Source placeholders and SmoothUI development tooling | No usable runtime exports yet. |
 | `apps/website/` | Minimal Next.js consumer of the design package | Build evidence does not establish browser or production behavior. |
@@ -28,7 +28,7 @@ Microruntimes are the proposed unit for composing and executing consumer-owned u
 | `.exphere/agents/` | Empty placeholder | No agent runtime or integration is implemented here. |
 | `.micro-runtime/<id>/` | Consumer configuration created on demand | It is not a predefined stack, application workspace, or deployed environment. |
 
-The current tree does not contain the previously described API or protobuf workspace. Root shell adapters provide workspace builds, local checks, and authorized contract tests. Removed API and protobuf components are not restored.
+The current tree does not contain the previously described API or protobuf workspace. Native workspace tools, Husky hooks and package-owned checks provide builds, local checks and authorized contract tests. Removed API and protobuf components are not restored.
 
 ## Workflow design
 

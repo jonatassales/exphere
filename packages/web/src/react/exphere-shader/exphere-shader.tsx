@@ -39,6 +39,7 @@ export function ExphereShader(props: ExphereShaderProps) {
       }
     : undefined;
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: mountSurface reads the palette CSS variables from the DOM after React applies these styles.
   useEffect(() => {
     const canvas = canvasRef.current;
 

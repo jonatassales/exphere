@@ -33,11 +33,7 @@
       ]
     },
     "result": {
-      "enum": [
-        "passed",
-        "failed",
-        "inconclusive"
-      ]
+      "enum": ["passed", "failed", "inconclusive"]
     },
     "resourceObligations": {
       "type": "array",
@@ -51,11 +47,7 @@
             "$ref": "#/$defs/id"
           },
           "status": {
-            "enum": [
-              "ongoing",
-              "retained",
-              "cleanup-failed"
-            ]
+            "enum": ["ongoing", "retained", "cleanup-failed"]
           },
           "reason": {
             "type": "string",

@@ -38,19 +38,11 @@ Analyze GitHub Actions workflow runs for a repository - frequency, duration, suc
 
 ## Execution
 
-### Per-repo analysis (default)
+The two upstream shell helpers were removed under the owner's CLI-only script ownership rule. Use the installed GitHub CLI directly for read-only observations; no equivalent automatic aggregation is claimed.
 
-```bash
-bash "${SKILL_DIR}/scripts/workflow-runs.sh" $ARGS
-```
-
-### Org-wide analysis
-
-When the user requests org-wide analysis, use the org script:
-
-```bash
-bash "${SKILL_DIR}/scripts/workflow-runs-org.sh" $ARGS
-```
+- Repository: `gh workflow list --repo OWNER/REPO --json name,id,state`, then `gh run list --repo OWNER/REPO --limit 100 --json workflowName,status,conclusion,createdAt,startedAt,updatedAt,url`.
+- Organization: first establish the authorized repository scope, then inspect its repositories individually. Do not imply an organization-wide sample from one repository.
+- Report the queried date range, sample limit and missing timing data. Runtime duration alone is not a billing or savings measurement. Follow the repository FinOps policy before any paid action.
 
 ## Output Format
 
@@ -98,8 +90,6 @@ Deploy:
 | Recent runs (compact) | `gh run list --workflow <name> --limit 20 --json status,conclusion,createdAt` |
 | Failed runs only | `gh run list --status failure --limit 10 --json name,createdAt,url` |
 | Run timing (JSON) | `gh api "/repos/{owner}/{repo}/actions/runs?per_page=50" --jq '.workflow_runs[] | {name,created_at,updated_at,conclusion}'` |
-| Compact per-repo analysis | `bash "${SKILL_DIR}/scripts/workflow-runs.sh" $ARGS` |
-| Org-wide analysis | `bash "${SKILL_DIR}/scripts/workflow-runs-org.sh" $ARGS` |
 
 ## Post-actions
 

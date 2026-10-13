@@ -3,7 +3,9 @@
 - ID: `SPEC-NATIVE-TOOLING-NO-SCRIPTS`
 - Document number: `SPEC-0026`
 - Version: `1`
-- State: `approved for implementation; verification pending`
+- State: `draft`
+- Implementation authorization: owner's October 13, 2026 original request and PR #19 completion request; verification/review acceptance recorded separately.
+- Integrated delivery: [SPEC-PR19-COMPLETION](0028-SPEC-pr19-completion.spec.md); this remains the focused contract, with the original stable ID preserved.
 - PRD: [PRD-GO-CLI-NATIVE-TOOLING](../prd/0007-PRD-go-cli-and-native-tooling.prd.md)
 - ADR: [ADR-0003](../design/0011-DD-go-cli-native-tooling.dd.md)
 - Ticket: [TOOLS-NATIVE-01](../tickets/0048-TICKET-native-tooling-scripts-removal.ticket.md)
@@ -33,9 +35,7 @@ green `echo`/empty command.
 - Move or remove obsolete Bash-only CLI tests whose runtime was retired.
   Preserve useful fixtures/schemas as historical examples only if clearly
   labeled non-executable.
-- Retain meaningful design/web tests under legitimate test ownership when
-  practicable, but if their orchestration needs new code, declare any
-  residual coverage gap and keep PR draft until resolved.
+- Retain meaningful design/web tests under their native test owners. Existing substantive Husky hooks retain their framework paths and disposable contract checks. Native tool configuration may own required fixture setup; do not recreate deleted one-command wrapper layers. Record removed shell-runtime/provider coverage explicitly.
 - Update active README, instructions and hook/path references. Historical
   review records may retain path mentions if marked historical.
 
@@ -44,7 +44,7 @@ green `echo`/empty command.
 | ID | Criterion |
 | --- | --- |
 | NO-SCRIPTS-01 | No `scripts/` directories exist outside the Exphere CLI package. |
-| NO-SCRIPTS-02 | Every live package.json command resolves to an installed native CLI/Go task; no `scripts/` strings remain in live entrypoints. |
+| NO-SCRIPTS-02 | Every live package.json command resolves to an installed native CLI/Go task; outside-CLI entrypoints contain no retired scripts paths. CLI-owned reference-verification helpers remain allowed. |
 | NO-SCRIPTS-03 | Husky hooks and GitHub Actions reference no deleted files and enforce meaningful checks instead of silent success. |
 | NO-SCRIPTS-04 | Go scaffold/website build dependencies in Turbo remain ordered. |
 | NO-SCRIPTS-05 | Docs distinguish lost Bash test harness/agent-review provider behavior and unverified replacements. |

@@ -10,3 +10,8 @@ minimumReleaseAgeStrict: true
 
 # Hooks and scripts must not install dependencies implicitly.
 verifyDepsBeforeRun: false
+
+# Nextra 4.6.1 relies on Zod 4.1's optional custom-value parsing for layout props.
+overrides:
+  'nextra@4.6.1>zod': 4.1.12
+  'nextra-theme-docs@4.6.1>zod': 4.1.12

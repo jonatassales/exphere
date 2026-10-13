@@ -53,7 +53,7 @@ PATH="$area/forbidden-tools:$PATH"; export PATH
 reset
 check || fail 'valid reference'
 jq -e '.contract=="valid" and (.executionReady|not) and (.financialEnforcement|not)' "$area/out" >/dev/null || fail 'readiness interpretation'
-pass 'selected reference and runtime v2 validate without claiming readiness'
+pass 'selected source reference and runtime schema validate without claiming readiness'
 cp "$area/out" "$area/first"
 check || fail 'repeat validation'
 cmp -s "$area/out" "$area/first" || fail 'nondeterministic reference result'
@@ -135,55 +135,23 @@ reset; edit "$area/scenario/scenario.json" '.contextRef="../context.json"'; reje
 reset; edit "$area/scenario/events.jsonl" '.eventType="resumed"'; reject 'resume without pause' 'preceding pause' --scenario "$area/scenario"
 reset; printf '{"formatVersion":1}\n{\n' >"$area/scenario/accounting.jsonl"; reject 'malformed JSONL' 'invalid event on line' --scenario "$area/scenario"
 
-# Configuration-only public CLI regression. Existing code is invoked, never sourced data.
-cli="$package/cli/ex.sh"
-reset
-sh "$cli" --root "$consumer" runtime legacy init --legacy >"$area/out"
-sh "$cli" --root "$consumer" runtime legacy validate >"$area/out" 2>"$area/err" || fail 'v1 validate'
-[ ! -d "$consumer/.exphere/runtimes/legacy" ] || fail 'implicit migration'
-pass 'existing legacy v1 init/validate does not migrate'
-sh "$cli" --root "$consumer" runtime manual init >"$area/out"
-if sh "$cli" --root "$consumer" runtime manual validate >"$area/out" 2>"$area/err"; then fail 'manual v2 must remain incomplete'; fi
-pass 'manual v2 initializer preserves intentionally incomplete contract'
-before=$(cksum "$consumer/.exphere/runtimes/website-preview/schema.json")
-if sh "$cli" --root "$consumer" runtime website-preview init >"$area/out" 2>"$area/err"; then fail 'collision'; fi
-[ "$before" = "$(cksum "$consumer/.exphere/runtimes/website-preview/schema.json")" ] || fail 'collision altered descriptor'
-pass 'existing initialization refuses overwrite'
-cat >"$area/guided.in" <<'EOF'
-fixture-owner
-fixture-context
-fixture-namespace
-{"requests.cpu":"1","limits.cpu":"2"}
-apps/website
-fixture/website:never-pulled
-3000
-80
-1
-{"requests":{"cpu":"100m","memory":"64Mi","ephemeral-storage":"64Mi"},"limits":{"cpu":"200m","memory":"128Mi","ephemeral-storage":"128Mi"}}
-{"tcpSocket":{"port":3000}}
-
-
-EOF
-sh "$cli" --root "$consumer" runtime guided init --guided <"$area/guided.in" >"$area/out" 2>"$area/err" || fail 'guided configuration'
-sh "$cli" --root "$consumer" runtime guided validate >"$area/out" 2>"$area/err" || fail 'guided validate'
-pass 'existing guided v2 configuration validates without provider calls'
-if sh "$cli" --root "$consumer" runtime canceled init --guided </dev/null >"$area/out" 2>"$area/err"; then fail 'canceled guided accepted'; fi
-[ ! -e "$consumer/.exphere/runtimes/canceled" ] || fail 'canceled partial output'
-pass 'guided cancellation publishes no runtime'
-for mutation in '.version=3' '.budget=1' '.id="wrong"' '.units.website.component="../website"'; do
+# Source-contract regression; retired runtime commands are not executed.
+for mutation in '.version=3' '.budget=1' '.owner="bad\u0001owner"' '.id="wrong"' '.units.website.component="../website"'; do
   reset; descriptor="$consumer/.exphere/runtimes/website-preview/schema.json"; edit "$descriptor" "$mutation"
-  if sh "$cli" --root "$consumer" runtime website-preview validate >"$area/out" 2>"$area/err"; then fail 'public v2 accepted malformed descriptor'; fi
-  pass "public v2 rejects $mutation"
+  rehash .exphere/runtimes/website-preview/schema.json
+  if check; then fail "source verifier accepted malformed descriptor: $mutation"; fi
+  pass "source runtime descriptor rejects $mutation"
 done
-reset; mkdir -p "$consumer/.micro-runtime/website-preview"; printf '{"version":1,"id":"website-preview","components":{}}\n' >"$consumer/.micro-runtime/website-preview/schema.json"
-if sh "$cli" --root "$consumer" runtime website-preview validate >"$area/out" 2>"$area/err"; then fail 'ambiguous runtime'; fi
-pass 'same identity in v1 and v2 locations is rejected'
+reset; descriptor="$consumer/.exphere/runtimes/website-preview/schema.json"
+edit "$descriptor" '.terraform.directory="missing"'
+rehash .exphere/runtimes/website-preview/schema.json
+reject 'missing native runtime directory' 'Required native reference not found'
 reset; native="$consumer/.exphere/runtimes/website-preview/units/website/kubernetes/deployment.json"; before=$(cksum "$native")
-sh "$cli" --root "$consumer" runtime website-preview validate >"$area/out" || fail 'native validation'
+check || fail 'source native reference validation'
 [ "$before" = "$(cksum "$native")" ] || fail 'validation changed native values'
-pass 'public runtime validation preserves native configuration'
+pass 'source runtime checks preserve native configuration'
 
-# Git inclusion and package allowlist are different contracts.
+# Git inclusion and the private Go task bridge are different contracts.
 reset
 if command -v git >/dev/null 2>&1; then
   git -C "$consumer" -c init.defaultBranch=fixture init -q
@@ -193,8 +161,8 @@ if command -v git >/dev/null 2>&1; then
   if git -C "$consumer" check-ignore -q .exphere/runtimes/website-preview/terraform/.terraform.lock.hcl; then fail 'provider lock ignored'; fi
   pass 'Git ignores operational state but preserves provider dependency locks'
 else fail 'Git is required for the declared inclusion test'; fi
-jq -e '.files==["cli"] and .scripts.test=="sh scripts/test.sh"' "$package/package.json" >/dev/null || fail 'existing packaging/test entry changed'
-pass 'package allowlist remains cli only; source fixtures are excluded'
+jq -e '.private==true and (has("bin")|not) and .scripts.test=="go test ./..."' "$package/package.json" >/dev/null || fail 'private Go task bridge changed'
+pass 'private task bridge has no retired shell executable'
 reset; before=$(cd "$consumer" && find . -type f -exec cksum {} \; | LC_ALL=C sort)
 check || fail 'non-mutating validation'; after=$(cd "$consumer" && find . -type f -exec cksum {} \; | LC_ALL=C sort)
 [ "$before" = "$after" ] || fail 'consumer mutated'
@@ -238,4 +206,4 @@ after=$(cd "$consumer" && find . -type f -exec cksum {} \; | LC_ALL=C sort)
 pass 'coordinated TERM preserves consumer files and cleans owned output'
 [ ! -e "$EXPHERE_FORBIDDEN_LOG" ] || fail 'external command was executed'
 pass 'no Terraform, Kubernetes, network client, Docker or cluster command executed'
-printf 'Consumer harness: %s contract checks passed. Linux evidence only; no independent review or live execution is established.\n' "$count"
+printf 'Consumer harness: %s contract checks passed. Local source-contract evidence only; no live execution readiness is established.\n' "$count"

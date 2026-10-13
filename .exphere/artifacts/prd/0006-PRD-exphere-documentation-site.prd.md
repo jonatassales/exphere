@@ -2,7 +2,7 @@
 
 - ID: `PRD-EXPHERE-DOCS-WEBSITE`
 - Document number: `PRD-0006`
-- State: `approved for requested implementation; runtime verification pending`
+- State: `draft`
 - Owner: Exphere project owner
 - Authorization: October 13, 2026 request to transform the hero into the first Nextra documentation entry, preserve the black/purple motion direction, integrate orbo-voice, and update navigation/footer/copy.
 - Baseline: `d6b3c8abff240c54011f81f7088f445e3fbabef4` (`main`).
@@ -29,15 +29,15 @@ Not included: voice session/provider, microphone permission, publish/release of 
 
 | Requirement | Observable criterion | Evidence |
 | --- | --- | --- |
-| WEB-DOC-01 | Header text `Documentation`; Orbo in `listening` visual-only state left of mark with monochrome palette and aligned size. | Source/browser review. |
+| WEB-DOC-01 | Header text `Documentation`; Orbo in `listening` visual-only state left of mark with monochrome palette and aligned size. | Source and generated-output review; browser behavior not verified in this cycle. |
 | WEB-DOC-02 | Exact requested hero copy; no old CLI right card or early-stage/repository labels. | Rendered and source inspection. |
-| WEB-DOC-03 | Single accessible copy control for `npx exphere init`, success/error feedback, keyboard accessibility. | Interaction test. |
-| WEB-DOC-04 | Home intro links to first Nextra docs page; `/docs` only shows Getting Started with no invented runtime readiness. | Nextra build and navigation test. |
+| WEB-DOC-03 | Single accessible copy control for `npx exphere init`, success/error feedback, keyboard accessibility. | Source contract review; actual clipboard interaction not verified in this cycle. |
+| WEB-DOC-04 | Home intro links to first Nextra docs page; `/docs` only shows Getting Started with no invented runtime readiness. | Nextra build and generated-route/link inspection. |
 | WEB-DOC-05 | Footer attribution and valid icon-link destinations, no placeholder social URLs. | Accessible-link review. |
 | WEB-DOC-06 | Shader, black-logo assets and prelaunch SEO remain intact. | Diff/metadata inspection. |
 
 ## Metrics and decision
 
-- Success: source and built website satisfy requirements; keyboard/clipboard error states and visual motion contrast tested.
+- Success within this cycle: source and built website satisfy the authorized static/build checks. Keyboard/clipboard execution and visual motion contrast retain a separate browser-verification gap.
 - Not claimed: functional `npx exphere init`, production docs URL, SEO indexing, organizational brand approval, browser audits before execution.
 - See [SPEC-WEB-DOCS](../specs/0024-SPEC-website-nextra-getting-started.spec.md), [ADR-0004](../design/0012-DD-documentation-architecture.dd.md).

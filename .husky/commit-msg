@@ -1,1 +1,10 @@
-sh scripts/hooks/commit-msg.sh "$@"
+#!/bin/sh
+set -eu
+cd "$(git rev-parse --show-toplevel)"
+[ "$#" -eq 1 ] || { printf 'Usage: commit-msg MESSAGE_FILE\n' >&2; exit 2; }
+sh .husky/sdd.sh commit "$1" || printf 'SDD WARN: traceability checker unavailable.\n' >&2
+[ -x node_modules/.bin/commitlint ] || {
+  printf 'exphere: commitlint is missing; install development dependencies.\n' >&2
+  exit 1
+}
+exec node_modules/.bin/commitlint --edit "$1"

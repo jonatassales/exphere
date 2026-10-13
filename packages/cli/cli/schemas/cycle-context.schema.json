@@ -97,12 +97,7 @@
           "const": "unselected"
         }
       },
-      "required": [
-        "threadId",
-        "checkpointRef",
-        "storeId",
-        "driver"
-      ],
+      "required": ["threadId", "checkpointRef", "storeId", "driver"],
       "additionalProperties": false
     },
     "state": {
@@ -133,20 +128,10 @@
           ]
         },
         "runtimeState": {
-          "enum": [
-            "not-started",
-            "running",
-            "stopped",
-            "cleanup-pending"
-          ]
+          "enum": ["not-started", "running", "stopped", "cleanup-pending"]
         },
         "financialState": {
-          "enum": [
-            "none",
-            "pending",
-            "metered",
-            "reconciled"
-          ]
+          "enum": ["none", "pending", "metered", "reconciled"]
         }
       },
       "required": [

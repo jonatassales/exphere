@@ -1,27 +1,17 @@
 # Package scripts
 
-## Description
-
-Keep package commands atomic while invoking repository automation through shell files and coordinating workspace tasks with pnpm and Turborepo.
-
 ## Applies when
 
-Creating or changing package manifest scripts, the shell automation they invoke, or workspace task orchestration.
+Creating or changing package manifest task aliases, native tool entrypoints or workspace orchestration.
 
 ## Command ownership
 
-Package manifest scripts invoke `.sh` files under the [automation script contract](0000-engineering-core.rule.md#automation-scripts). A leaf operation's shell file invokes the purpose-built tool that performs that operation. Tool-specific flags belong with that invocation.
+Package manifest task aliases call the owning native CLI directly: pnpm/Turborepo for workspace orchestration; Next.js, TypeScript, Biome, Go, Husky and the existing test runners for their operations. Avoid redundant shell wrappers for a single native command.
 
-Give each leaf operation a clear responsibility. Avoid package scripts that call other package scripts or redundant shell layers that obscure the tool invocation. The required manifest-to-shell boundary remains explicit even when the operation needs only one framework command.
+Workspaces own their dependencies and actual internal dependencies use `workspace:*`. Read the installed-version Turborepo documentation described in [root AGENTS](../../AGENTS.md) before changing its configuration or commands. App-local configuration should contain meaningful overrides rather than copies of root behavior.
 
-The repository root uses the pinned pnpm version and Turborepo to coordinate workspace tasks, with manifest entry points invoking shell files. The task runner coordinates atomic leaf operations; do not introduce an unnecessary chain of package scripts and shell wrappers in front of each tool.
+The owner retired `scripts/` directories outside `packages/cli/` on October 13, 2026. Substantive Husky hooks and native test files retain their framework-defined owners; do not recreate deleted task wrappers under different names. CLI-owned verification helpers can remain `.sh` files when required by their authorized contract. Application source, the design token compiler and framework configuration retain their required languages.
 
-Workspaces own their dependencies, and actual internal dependencies use `workspace:*`. Before changing Turborepo configuration or commands, follow the installed-version documentation instructions in [root AGENTS](../../AGENTS.md). An app-local task configuration contains meaningful app-specific overrides rather than copies of root behavior.
+## Provenance and amendments
 
-Keep necessary container orchestration at the container boundary. Select commands from the current package and framework contracts; examples and imported guidance do not make absent commands available.
-
-## Provenance and adaptations
-
-Imported from [the package scripts source rule](https://github.com/jonatassales/langdrift/blob/e518dace741d8b9b44dd0a9d851fa3f42506320a/.cursor/rules/60-package-scripts.mdc) at revision `e518dace741d8b9b44dd0a9d851fa3f42506320a`.
-
-The [adaptation register](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register) replaces the source's shell-wrapper prohibition and direct manifest framework commands with Exphere's required `.sh` boundary. Atomic operations and root workspace orchestration remain intact. This documentation import does not rewrite manifests or add scripts.
+Originally imported from [the package scripts rule](https://github.com/jonatassales/langdrift/blob/e518dace741d8b9b44dd0a9d851fa3f42506320a/.cursor/rules/60-package-scripts.mdc). The October 13 owner request supersedes the earlier Exphere manifest-to-shell adaptation recorded in [SPEC-AGENT-RULE-IMPORT](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md). See [the native tooling decision](../../.exphere/artifacts/design/0011-DD-go-cli-native-tooling.dd.md).

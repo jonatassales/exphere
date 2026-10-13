@@ -64,18 +64,18 @@ The SDK remains the separate TypeScript `@exphere/sdk` package. The CLI is now a
 
 ## Agent skills
 
-Installed skills and local adaptations are described in the [skill configuration](.exphere/artifacts/design/0008-DD-agent-skills.dd.md); the former skill lock is unavailable. Keep public third-party attribution and accurately report any missing local license material.
+Installed skills and local adaptations are described in the [skill configuration](.exphere/artifacts/design/0008-DD-agent-skills.dd.md), [workflow catalog](.exphere/workflow/skills/README.md), and [Go catalog](.agents/skills/README.md); the former skill lock is unavailable. Keep public third-party attribution and accurately report any missing local license material.
 
 Load only skills relevant to the authorized phase. If the executor has no Skill tool, read the relevant `.exphere/workflow/skills/<name>/SKILL.md` for workflow guidance or `.agents/skills/<golang-name>/SKILL.md` for Go guidance; third-party FinOps/AWS skills remain under `.exphere/harness/skills/`. Automatic discovery in that directory has not been verified. Preserve invocation boundaries; a documented phase does not authorize the next one. Reference installation commands do not authorize running them.
 
-Project rules and explicit user instructions take precedence over skill defaults. A user can authorize the current phase without adopting the entire institutional proposal. Do not request an already unambiguous authorization again.
+The AIHero catalog contains 26 installed skills after excluding `writing-for-agents` as requested. Generic upstream tracker setup must reuse the existing typed artifact and domain configurations; it does not authorize a second tracker or restore `.agents/adr`. Project rules and explicit user instructions take precedence over skill defaults. A user can authorize the current phase without adopting the entire institutional proposal. Do not request an already unambiguous authorization again.
 
 ## State, evidence, and scaffold rules
 
 Distinguish drafts, authorized decisions, implementations, and observed outcomes. Skills guide behavior; authenticated approvals, enforced transitions, CI gates, and production policies are not implemented. Review the actual changed scope, including uncommitted files. Missing required evidence is not approval. Acceptance identifies the reviewed revision; material changes require reassessment.
 
 - YAGNI: add only what the request requires, without speculative abstractions, endpoints, or integrations.
-- Repository task aliases invoke the tools' own native commands through pnpm/Turbo/Next/Go/Husky; wrapper `scripts/` directories are retired outside the CLI. Application code and framework configuration are not helper scripts. SPEC-DESIGN-TOKENS has a scoped exception for its TypeScript token compiler behind shell build/watch entry points, recorded under the owner's October 11, 2026 implementation request.
+- Repository task aliases invoke the tools' own native commands through pnpm/Turbo/Next/Go/Husky; wrapper `scripts/` directories are retired outside the CLI. Application code, framework configuration, the existing TypeScript token compiler and substantive native test files keep their language and framework owners. Husky owns its lifecycle hooks; allowed CLI verification helpers remain under `packages/cli/`. Do not disguise retired wrappers under a different directory name.
 - SPEC-GIT-HOOKS-SDD authorizes build/test in pre-push and scoped hook-contract tests in disposable local Git repositories, including a local bare remote. The owner authorized implementation on October 11, 2026 after that seam was presented. Unrelated application tests, service probes, project commits, and remote publication still require corresponding authorization.
 - Use pnpm pinned in the manifest and Turborepo for workspace tasks. Workspaces own their dependencies; actual internal dependencies use `workspace:*`.
 - SPEC-SDK-CLI-SEPARATION authorizes isolated package-consumer and CLI setup fixtures under the owner's October 11, 2026 implementation request. Use disposable installation directories; real user shell/profile changes and infrastructure execution remain outside verification.

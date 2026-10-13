@@ -1,6 +1,6 @@
 # Microruntimes — requirements and hypotheses
 
-Consolidated from discussions with the user. **Evolving draft.** The SDK contains an initial implementation of the `ex` shell CLI; its TypeScript API remains empty. The current institutional proposal is documented in [the institutional workflow design](0003-DD-institutional-workflow.dd.md); agent conduct is governed by the root AGENTS file.
+Consolidated from discussions with the user. **Evolving draft.** The separate `packages/cli/` now contains only a Go `ex` scaffold; former shell runtime commands are retired. The SDK TypeScript API remains empty. Requirements below remain proposed contracts, not current Go capabilities. The current institutional proposal is documented in [the institutional workflow design](0003-DD-institutional-workflow.dd.md); agent conduct is governed by the root AGENTS file.
 
 The architecture proposal is consolidated in [the microruntime architecture decision](0005-DD-microruntime-architecture.dd.md), which retains the legacy decision ID `ADR-0001` and the `proposed` state. This document records requirements and measurement details.
 

@@ -2,7 +2,7 @@
 
 - ID: `PRD-GO-CLI-NATIVE-TOOLING`
 - Document number: `PRD-0007`
-- State: `approved for bounded scaffold and tooling simplification`
+- State: `draft`
 - Owner: Exphere project owner
 - Sources: owner's October 13, 2026 Go-only CLI and `scripts/` deletion request; current shell CLI, package scripts, Husky and GitHub CI inventory.
 - Baseline: `d6b3c8abff240c54011f81f7088f445e3fbabef4`.

@@ -69,7 +69,7 @@
       "minLength": 1,
       "allOf": [
         { "pattern": "\\S" },
-        { "not": { "pattern": "[\\u0000-\\u001f\\u007f]" } }
+        { "not": { "pattern": "[\u0000-\u001f\u007f]" } }
       ]
     },
     "identifier": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },

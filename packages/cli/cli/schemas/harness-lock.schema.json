@@ -29,10 +29,7 @@
             "$ref": "#/$defs/hash"
           },
           "owner": {
-            "enum": [
-              "consumer",
-              "distribution"
-            ]
+            "enum": ["consumer", "distribution"]
           },
           "version": {
             "$ref": "#/$defs/revision"
@@ -58,21 +55,11 @@
                 "$ref": "#/$defs/path"
               }
             },
-            "required": [
-              "source",
-              "revision",
-              "licenseDisposition"
-            ],
+            "required": ["source", "revision", "licenseDisposition"],
             "additionalProperties": false
           }
         },
-        "required": [
-          "path",
-          "sha256",
-          "owner",
-          "version",
-          "origin"
-        ],
+        "required": ["path", "sha256", "owner", "version", "origin"],
         "additionalProperties": false
       },
       "minItems": 1,

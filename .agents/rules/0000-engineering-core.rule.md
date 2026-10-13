@@ -2,7 +2,7 @@
 
 ## Description
 
-Engineering authority, implementation boundaries, and shell automation conventions for Exphere.
+Engineering authority, implementation boundaries, and native tool ownership for Exphere.
 
 ## Applies when
 
@@ -20,11 +20,9 @@ Prefer the direct dependency, framework API, [operation-boundary environment acc
 
 ## Automation scripts
 
-Write repository automation, orchestration, and verification scripts in POSIX shell with a `.sh` extension. This includes CLI helpers and their script-based checks. Package manifest scripts invoke those files under the [package scripts rule](0060-package-scripts.rule.md).
+Use native tool entrypoints under the [package scripts rule](0060-package-scripts.rule.md). The owner reserves helper scripts for `packages/cli/`; allowed CLI helpers use `.sh`. Existing Husky lifecycle hooks and substantive native test files retain their framework owners. Do not relocate obsolete wrapper automation merely to disguise a deleted `scripts/` directory.
 
-Automation in `.mjs`, `.mts`, or other non-shell scripts is prohibited. A shell wrapper around embedded JavaScript, TypeScript, or Python does not satisfy this rule; use purpose-built command-line tools for parsing and other operations.
-
-Application source and framework configuration retain their required languages and file conventions. When authorized work touches an existing automation script in another language, migrate that script to `.sh`. Unrelated legacy scripts do not authorize new exceptions or an expanded migration.
+Application code, framework configuration and the existing design-token compiler retain their appropriate language and file conventions. The Go-only CLI scaffold does not dispatch to a shell runtime. These October 13, 2026 owner instructions supersede the earlier mandatory shell wrapper boundary.
 
 ## Provenance and adaptations
 

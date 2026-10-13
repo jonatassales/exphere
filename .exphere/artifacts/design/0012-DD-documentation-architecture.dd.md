@@ -33,4 +33,18 @@ The current Next.js 16 App Router website uses Tailwind and the shared animated 
 
 ## Verification and risk
 
-Run pnpm frozen install/build, TypeScript, Nextra MDX routing, accessibility and browser checks before merge. Pin package versions and reconcile pnpm-lock; if registry access blocks lock generation, **report and keep the PR draft** rather than claiming a reproducible install. No deployment is authorized.
+Run the authorized pnpm frozen install/build, TypeScript and generated Nextra route inspection; review source accessibility. Browser interactions and visual checks remain outside this cycle and must be recorded as not verified. Pin package versions and reconcile pnpm-lock; if registry access blocks lock generation, **report and keep the PR draft** rather than claiming a reproducible install. No deployment is authorized.
+
+## TypeScript compatibility decision
+
+Nextra 4.6.1 loads twoslash, whose declared compiler support is TypeScript `^5.5.0 || ^6.0.0`. The incoming website compiler at 7.0.2 caused production compilation to fail with `sys.readFile` unavailable. Pin only the website-owned compiler to 6.0.3 and synchronize the lockfile; other workspaces retain their existing 7.0.2 baseline. This is a bounded Nextra build compatibility correction, not a repository-wide compiler downgrade. The integration ticket records the subsequent build result.
+
+## Build and identity recovery amendment
+
+Native Next.js 16.4 Turbopack owns production compilation. Configure its supported `resolveAlias` for `next-mdx-import-source-file` to the application MDX components; this avoids the observed Nextra 4.6.1 legacy Webpack metadata failure without a custom build script. `/docs` is still the only authored MDX page and consumes the root page map.
+
+Pin Zod 4.1.12 only for Nextra 4.6.1 and its Docs Theme through scoped pnpm overrides. The resolved 4.4.3 version rejects the theme's omitted `children` field during server rendering. This and the website-only TypeScript pin are bounded compatibility decisions; other workspace consumers keep their own dependency versions.
+
+Production compilation exposed six corrupt binary assets already present in the base revision. Preserve their original bytes and moved social alt sidecars under existing `public/brand/`; restore active Apple and 512px manifest icons from the verified black-brand revision `706d6dae3eb7a95f68738448ae28e36fefd291a3`. Existing SVG and PNG favicon links remain active. Remove the corrupt ICO/social convention routes while retaining noindex and empty social image metadata. Legacy ICO-only clients and social image publication remain explicit limitations. The [identity record](../../../apps/website/IDENTITY.md) owns exact byte provenance and checksums; the [focused specification](../specs/0024-SPEC-website-nextra-getting-started.spec.md#native-nextra-build-and-asset-recovery) bounds the affected paths and evidence.
+
+The website implementer reported a successful production build, type check, active-PNG decoding, archived-source byte comparisons and generated HTML/metadata inspection. Final integration review records the checked snapshot separately. No browser verification, indexing, deployment or new brand design is claimed.

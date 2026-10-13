@@ -12,7 +12,8 @@
       "!!.agents",
       "!!.exphere/artifacts",
       "!!.exphere/harness",
-      "!!.audits"
+      "!!.audits",
+      "!!.exphere/workflow/skills"
     ]
   },
   "formatter": {
@@ -45,6 +46,12 @@
         "parser": {
           "tailwindDirectives": true
         }
+      }
+    },
+    {
+      "includes": ["packages/cli/fixtures/**"],
+      "formatter": {
+        "enabled": false
       }
     }
   ]

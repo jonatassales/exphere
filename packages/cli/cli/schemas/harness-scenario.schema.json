@@ -42,29 +42,16 @@
           "$ref": "#/$defs/id"
         },
         "category": {
-          "enum": [
-            "ai",
-            "infrastructure"
-          ]
+          "enum": ["ai", "infrastructure"]
         },
         "purpose": {
-          "enum": [
-            "ordinary",
-            "planning",
-            "verification",
-            "cleanup"
-          ]
+          "enum": ["ordinary", "planning", "verification", "cleanup"]
         },
         "profileId": {
           "$ref": "#/$defs/id"
         },
         "effort": {
-          "enum": [
-            "none",
-            "low",
-            "medium",
-            "high"
-          ]
+          "enum": ["none", "low", "medium", "high"]
         },
         "bounded": {
           "type": "boolean"

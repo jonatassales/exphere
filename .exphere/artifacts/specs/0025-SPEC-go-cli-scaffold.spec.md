@@ -3,7 +3,9 @@
 - ID: `SPEC-GO-CLI-SCAFFOLD`
 - Document number: `SPEC-0025`
 - Version: `1`
-- State: `approved for implementation; previous Bash functionality intentionally deferred`
+- State: `draft`
+- Implementation authorization: owner's October 13, 2026 original request and PR #19 completion request; verification/review acceptance recorded separately.
+- Integrated delivery: [SPEC-PR19-COMPLETION](0028-SPEC-pr19-completion.spec.md); this remains the focused contract, with the original stable ID preserved.
 - PRD: [PRD-GO-CLI-NATIVE-TOOLING](../prd/0007-PRD-go-cli-and-native-tooling.prd.md)
 - ADR: [ADR-0003](../design/0011-DD-go-cli-native-tooling.dd.md)
 - Ticket: [CLI-GO-01](../tickets/0047-TICKET-go-cli-scaffold.ticket.md)

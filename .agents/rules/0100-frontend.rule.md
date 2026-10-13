@@ -42,7 +42,7 @@ Keep application TypeScript aliases exclusively in `tsconfig.paths.json`, extend
 
 An application-local Turbo configuration contains meaningful application overrides rather than copies of root behavior. Omit versions from private application manifests unless publication becomes an explicit requirement. Publishable package versioning and existing SDK/CLI contracts remain separate.
 
-Automation follows [package scripts](0060-package-scripts.rule.md): manifests invoke `.sh` automation files under Exphere's local policy. Keep necessary container-specific orchestration at the container boundary.
+Automation follows [package scripts](0060-package-scripts.rule.md): manifest task aliases invoke the owning native tool directly. CLI verification helpers and substantive Husky hooks retain their explicitly authorized owners. Keep necessary container-specific orchestration at the container boundary.
 
 An application README explains the surface's product role and behavior. Stack details support that explanation.
 
@@ -50,4 +50,4 @@ An application README explains the surface's product role and behavior. Stack de
 
 Source at `e518dace741d8b9b44dd0a9d851fa3f42506320a`: [frontend guardrail](https://github.com/jonatassales/langdrift/blob/e518dace741d8b9b44dd0a9d851fa3f42506320a/.agents/guardrails/frontend.md).
 
-Adaptation: fixed source package paths and available shared UI become conditional ownership. Exphere's `.sh` automation policy replaces the conflicting direct-manifest-command guidance. Framework choices remain application-specific, and no draft web foundation is implemented or accepted by this rule. See [DEC-RULE-01](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register).
+Adaptation: fixed source package paths and available shared UI become conditional ownership. The October 13, 2026 owner request supersedes the earlier manifest-to-shell adaptation: native task commands follow the current package scripts rule. Framework choices remain application-specific, and no draft web foundation is implemented or accepted by this rule. See [DEC-RULE-01](../../.exphere/artifacts/specs/0007-SPEC-agent-rule-import.spec.md#dec-rule-01--adaptation-register).

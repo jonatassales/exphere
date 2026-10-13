@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"errors"
 	"strings"
 	"testing"
 )
@@ -18,6 +19,8 @@ func TestCommand(t *testing.T) {
 		{name: "explicit help", args: []string{"--help"}, status: 0, stdout: "Usage: ex"},
 		{name: "version", args: []string{"version"}, status: 0, stdout: "ex 0.0.0-dev (Go scaffold)"},
 		{name: "init unsupported", args: []string{"init"}, status: 2, stderr: "init is not implemented"},
+		{name: "unexpected init flags", args: []string{"init", "--force"}, status: 2, stderr: "does not accept arguments or flags"},
+		{name: "unexpected init arguments", args: []string{"init", "project"}, status: 2, stderr: "does not accept arguments or flags"},
 		{name: "invalid command", args: []string{"runtime"}, status: 2, stderr: "unknown command"},
 		{name: "unexpected version arguments", args: []string{"version", "extra"}, status: 2, stderr: "does not accept arguments"},
 		{name: "unexpected help arguments", args: []string{"help", "extra"}, status: 2, stderr: "does not accept arguments"},
@@ -34,6 +37,26 @@ func TestCommand(t *testing.T) {
 			}
 			if tt.status != 0 && out.Len() != 0 {
 				t.Errorf("unexpected stdout: %s", out.String())
+			}
+		})
+	}
+}
+
+type failingWriter struct{}
+
+func (failingWriter) Write([]byte) (int, error) {
+	return 0, errors.New("output unavailable")
+}
+
+func TestOutputFailure(t *testing.T) {
+	for _, command := range []string{"help", "version"} {
+		t.Run(command, func(t *testing.T) {
+			var diagnostics bytes.Buffer
+			if status := run([]string{command}, failingWriter{}, &diagnostics); status != 1 {
+				t.Fatalf("failed output returned status %d, want 1", status)
+			}
+			if !strings.Contains(diagnostics.String(), "output unavailable") {
+				t.Fatalf("missing output failure diagnostic: %q", diagnostics.String())
 			}
 		})
 	}

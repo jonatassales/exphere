@@ -21,10 +21,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "sh scripts/build.sh",
-    "dev": "sh scripts/dev.sh",
-    "typecheck": "sh scripts/typecheck.sh",
-    "test": "sh scripts/test.sh"
+    "build": "node src/compiler.ts",
+    "dev": "node src/compiler.ts --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/contract.test.mjs"
   },
   "devDependencies": {
     "@types/node": "22.20.5",
