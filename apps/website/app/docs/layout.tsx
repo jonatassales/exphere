@@ -34,7 +34,7 @@ export default async function DocsLayout(props: DocsLayoutProps) {
             </span>
           }
           logoLink="/"
-          projectLink="https://github.com/jonatassales/exphere"
+          projectLink="https://github.com/jonatassales"
         />
       }
       nextThemes={{ defaultTheme: "dark", forcedTheme: "dark" }}

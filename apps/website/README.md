@@ -1,6 +1,6 @@
 # Website
 
-Exphere's homepage presents the product direction in a viewport-height, three-row layout. It retains the purple shader animation and compact copy control. On short screens, secondary description text is hidden so the title, links, copy control, and footer remain visible. The copied `npx exphere init` command is preview text, not a working installer; copying never executes it.
+Exphere's homepage presents the product direction in a viewport-height, three-row layout. It retains the purple shader animation and compact, disabled command-copy control. On short screens, secondary description text is hidden so the title, links, copy control, and footer remain visible. The visible `npx exphere init` command is preview text, not a working installer; its button is disabled and does not access the clipboard.
 
 `/docs` offers Getting Started, Concepts, Architecture, CLI, and Development. Nextra owns navigation, breadcrumbs, the article wrapper, table of contents, pagination, mobile menu, and Pagefind search. Docs use a solid dark reading background; the shader mounts only on Home. Existing diagram assets are imported from their repository owner through the `@diagrams` alias.
 
@@ -31,9 +31,9 @@ Generated `public/_pagefind/` files are ignored by Git and included in the websi
 
 ## Presentation and metadata
 
-The site is dark only. Tailwind utilities consume public design-token CSS and the website's charcoal/purple theme bridge; global CSS contains framework imports and token integration. Home alone mounts the unchanged shared shader. The decorative orb respects reduced motion and has no microphone or audio integration. Copy interaction remains local React state and announces success/failure.
+The site is dark only. Tailwind utilities consume public design-token CSS and the website's charcoal/purple theme bridge; global CSS contains framework imports and token integration. Home alone mounts the unchanged shared shader. The decorative orb respects reduced motion and has no microphone or audio integration. The command-copy control is a disabled server-rendered preview with muted colors and a not-allowed cursor; it has no clipboard API or success/error state.
 
-LinkedIn points to the owner's profile. The existing owner-requested footer attribution is preserved. No independent organizational endorsement is inferred.
+LinkedIn points to the Exphere company page. Home's GitHub icon and the Docs project link point to the owner's GitHub profile. The shared Home/Docs footer shows the existing black-hole Orbo appearance and `Neongate © 2026` as explicitly requested by the owner. No independent organizational endorsement is inferred.
 
 The root owns `lang="en-US"`, application identity, and `noindex`. Pages own titles and descriptions. `metadataBase` remains null; no canonical or sitemap is introduced. Existing valid icons and the manifest are preserved. Corrupt historical binary assets remain inactive under `public/brand/`; social-image lists remain empty. Asset provenance is retained in [SPEC-WEBSITE-DOCS-REFRESH](../../.exphere/artifacts/specs/0031-SPEC-website-docs-refresh.spec.md#retained-asset-provenance).
 

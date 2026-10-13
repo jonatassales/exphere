@@ -54,9 +54,9 @@ export default function WebsitePage() {
             <nav aria-label="Social links" className="flex items-center">
               <a
                 className="inline-flex size-11 items-center justify-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-                href="https://github.com/jonatassales/exphere"
+                href="https://github.com/jonatassales"
               >
-                <span className="sr-only">Exphere on GitHub</span>
+                <span className="sr-only">Jonatas Sales on GitHub</span>
                 <svg
                   aria-hidden="true"
                   fill="currentColor"
@@ -69,9 +69,9 @@ export default function WebsitePage() {
               </a>
               <a
                 className="inline-flex size-11 items-center justify-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-                href="https://www.linkedin.com/in/jonatassales/"
+                href="https://www.linkedin.com/company/exphere"
               >
-                <span className="sr-only">Jonatas Sales on LinkedIn</span>
+                <span className="sr-only">Exphere on LinkedIn</span>
                 <svg
                   aria-hidden="true"
                   fill="currentColor"
@@ -90,7 +90,7 @@ export default function WebsitePage() {
           className="min-w-0 w-full text-center sm:px-12 lg:px-14"
         >
           <p className="mb-5 [@media(max-height:600px)]:mb-2 font-mono text-xs font-semibold tracking-[0.17em] text-site-accent-readable">
-            DevEX / FinOps Platform
+            Agentic FinOps Platform
           </p>
           <h1
             id="hero-heading"
