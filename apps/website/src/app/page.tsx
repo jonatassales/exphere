@@ -41,14 +41,15 @@ export default function WebsitePage() {
         className="grid flex-1 items-center gap-8 py-14 lg:grid-cols-2 lg:gap-12 lg:py-24"
       >
         <div className="rounded-xl border border-site-border bg-site-soft/85 p-7 sm:p-10 lg:p-12">
-          <p className="mb-6 font-mono text-xs font-semibold uppercase tracking-[0.17em] text-site-body">
+          <p className="mb-6 font-mono text-xs font-semibold uppercase tracking-[0.17em] text-site-accent-readable">
             Developer experience / microruntimes
           </p>
           <h1
             id="hero-heading"
             className="max-w-[650px] text-[clamp(2.75rem,5vw,4.5rem)] font-bold leading-[1.06] tracking-[-0.055em]"
           >
-            From intent to runtime.
+            From intent to{" "}
+            <span className="text-site-accent-readable">runtime.</span>
           </h1>
           <p className="mt-7 max-w-[560px] text-base leading-7 text-site-body sm:text-lg sm:leading-8">
             Exphere explores developer experience, agent-assisted software
@@ -60,7 +61,7 @@ export default function WebsitePage() {
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-5">
             <a
-              className="inline-flex min-h-11 items-center justify-center gap-4 rounded-lg bg-site-ink px-6 py-3 text-sm font-semibold text-site-canvas transition-colors hover:bg-neutral-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="inline-flex min-h-11 items-center justify-center gap-4 rounded-lg bg-site-accent px-6 py-3 text-sm font-semibold text-site-ink transition-colors hover:bg-site-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               href="https://github.com/jonatassales/exphere#readme"
               rel="noopener noreferrer"
               target="_blank"
@@ -80,7 +81,7 @@ export default function WebsitePage() {
           className="overflow-hidden rounded-xl border border-site-border bg-site-card/85"
         >
           <div className="flex items-center justify-between gap-3 border-b border-site-border px-6 py-4">
-            <span className="font-mono text-xs font-semibold text-site-ink">
+            <span className="font-mono text-xs font-semibold text-site-accent-readable">
               exphere / cli
             </span>
             <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-site-muted">
@@ -94,7 +95,7 @@ export default function WebsitePage() {
               </p>
               <pre className="mt-3 overflow-x-auto rounded-lg border border-site-border bg-site-elevated px-4 py-4 font-mono text-sm leading-6 text-site-ink">
                 <code>
-                  <span aria-hidden="true" className="select-none text-site-body">
+                  <span aria-hidden="true" className="select-none text-site-accent-readable">
                     {"$ "}
                   </span>
                   pnpm ex runtime list
@@ -107,7 +108,7 @@ export default function WebsitePage() {
               </p>
               <pre className="mt-3 overflow-x-auto rounded-lg border border-site-border bg-site-elevated px-4 py-4 font-mono text-sm leading-6 text-site-ink">
                 <code>
-                  <span aria-hidden="true" className="select-none text-site-body">
+                  <span aria-hidden="true" className="select-none text-site-accent-readable">
                     {"$ "}
                   </span>
                   pnpm ex runtime billing init
