@@ -127,3 +127,16 @@ Do not:
 - add gradients, glows, or drop shadows to create depth;
 - mutate the public `@repo/design` package solely to encode Exphere branding without a separately approved package-level scope;
 - infer production SEO facts from visual design.
+
+## 10. Existing motion background exception
+
+The owner explicitly requires preserving the existing `ExphereShader` motion
+background on the homepage (October 13, 2026). Its currently implemented
+animation and shader colors are a narrowly scoped exception to the general
+no-gradients/flat-new-UI guidance above. This does **not** authorize additional
+animated layers, shaders, chromatic Exphere brand marks, or a new accent palette.
+
+New homepage content must retain the existing root-layout shader mount and
+avoid opaque full-screen overlays that hide the motion. Use simple translucent
+white/neutral content surfaces when required for readable black text. The
+shared `@repo/web` and `@repo/design` packages are unchanged by this exception.
