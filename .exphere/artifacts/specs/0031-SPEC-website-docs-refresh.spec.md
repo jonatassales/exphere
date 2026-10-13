@@ -147,3 +147,19 @@ The completion cycle inspected PNG structure, compared recovered bytes with
 Git history, compiled the production application and inspected generated
 metadata. These checks do not establish browser rendering, deployment,
 indexing, Core Web Vitals, or production acceptance. The site remains noindex.
+
+
+## Deployment correction: REFRESH-09
+
+The owner reported failed production deployment `dpl_4mAxSSndNr5WURnwUTm7hLxzzZQt` after merging PR #25. Vercel built `b8400e2eeac2c89abb6919b0d9dfced51edaee6f` and removed 315 files through the root deployment ignore rules, including both diagram imports. Compilation then failed resolving `@diagrams/backstage-context-team-budget.png` and `@diagrams/runtimes-factory.png`. The successful local/CI builds did not apply that packaging filter.
+
+REFRESH-09 (ticket REFRESH-03): retain exactly those two existing diagram assets in the Vercel build input, leaving other agent guidance, artifacts, environment files and generated output excluded. Do not move or duplicate the images, change application behavior, alter deployment protection, or change production settings. The failure report authorizes this delivery correction, normal branch publication and a follow-up PR; PR #25 is already merged. Build the filtered candidate in a disposable local fixture and recheck the source snapshot through independent Standards and Spec reviews. Actual production recovery remains unverified until a corrected revision is deployed.
+
+Verification of this correction:
+
+- Git ignore-pattern evaluation over tracked source: 288 files excluded by the baseline rules and 286 by the correction. The only newly included files are the two named PNGs; no other `.agents/` files are included. Vercel's observed 315 removed files includes its deployment inventory, so that count is not equated with the local tracked-source inventory.
+- A disposable source fixture applied the original deployment exclusions, installed pinned cached dependencies, and forced `turbo run build --filter=website`. It failed with the same two missing-module errors observed in Vercel.
+- Restoring only the two allowed PNGs and forcing the same fixture build passed (three tasks, zero cache hits); Next compiled all Docs routes and Pagefind indexed five pages. Both emitted diagram assets match their source bytes exactly.
+- This is a local deployment-input reproduction, not a Vercel redeployment. No project setting, protection, deployment target, or production alias changed. No application source or new test infrastructure changed.
+- Baseline/corrected build logs and filter inventory are retained locally under `.audits/evidence/runs/deployment-assets/` (ignored). Disposable source fixtures and verification helpers remain outside the repository.
+- Independent Standards and Spec reviews both passed with zero remaining findings against manifest `caab755d49c6eba4d5bd7cc685802be7498fcf7c63e56a7cf3d9bb244aa6ca84`, based on `b8400e2eeac2c89abb6919b0d9dfced51edaee6f`. The initial Standards evidence-retention finding is resolved. Only these review-closure records were updated afterward; deployment configuration is unchanged.
