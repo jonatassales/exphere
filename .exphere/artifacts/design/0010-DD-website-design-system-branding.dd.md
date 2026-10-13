@@ -38,3 +38,24 @@ Adopt the third option.
 - The current commented-home-logo decision remains intact; restoring visibility is a separate owner action.
 - Reversal is source-level: restore the previous assets and remove/replace the website design adaptation in a separately reviewed change.
 - Review when the owner changes the design reference, allows non-black brand accents, or authorizes a shared-token migration.
+
+## Scoped amendment: dark-only website theme (October 13, 2026)
+
+The project owner superseded the **light-first website UI surface** decision
+(point 3 above) with the ClickHouse dark-only appearance. The active website
+palette now uses near-black `#0a0a0a`, dark surfaces `#121212`,
+`#1a1a1a`, `#242424`, border `#2a2a2a`, white headings and neutral body
+text. The documentation action is white/black rather than ClickHouse yellow;
+**no white cards** are permitted.
+
+The previous decision that all Exphere logo and identity artwork remains
+pure black is **unchanged**. White interface text is a contrast role, not
+a new logo colorway. Keep the existing motion effect but feed its WebGL
+renderer and fallback a website-selected neutral dark palette through one
+optional shared shader input; other consumers retain the previous default.
+The noindex/origin-neutral SEO boundary and brand-neutral public design package
+are unchanged.
+
+This recorded owner decision is implemented under
+[PRD-WEBSITE-DARK-THEME](../prd/0004-PRD-website-dark-theme.prd.md) and
+[SPEC-WEBSITE-DARK-THEME](../specs/0022-SPEC-website-dark-theme.spec.md).

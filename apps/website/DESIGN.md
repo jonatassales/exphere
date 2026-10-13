@@ -2,44 +2,58 @@
 
 Source reference: https://getdesign.md/clickhouse/design-md
 
-This document is the website-specific visual source for Exphere. It adapts the structural language of the ClickHouse design-system analysis—technical density, bold sans display type, mono technical labels, disciplined spacing, small radii, hairline borders, and flat/no-shadow depth. It is not affiliated with ClickHouse and does not reuse ClickHouse logos or the yellow brand accent.
+This is the website-specific visual contract. Exphere adapts the **dark-only**,
+high-contrast, technical system described in the ClickHouse DESIGN.md analysis.
+The reference is inspiration, not affiliation. Neither ClickHouse artwork,
+product copy nor its electric-yellow brand accent is copied.
 
-The owner-specific override is mandatory: **all Exphere branding is black**.
+The Exphere logo/favicons remain pure black. White UI text and black-on-white
+actions are contrast treatments, not new colorways for those brand assets.
 
-## 1. Visual theme and atmosphere
+## 1. Dark-only visual direction
 
-Exphere should read as precise infrastructure software: technical, high-contrast, sparse, and deliberate. Prefer documentation/console clarity over decorative marketing effects. UI should feel engineered rather than ornamental.
+The website has **no light mode**. Use a near-black canvas, white display
+typography, neutral gray body text and subdued charcoal surfaces. Cards and
+panels are only slightly lighter than the background; use hairline separators
+and a flat/no-shadow appearance rather than floating decorative cards.
 
-- Light-first white canvas.
-- Black Exphere identity and primary emphasis.
-- Flat surfaces; no gradients, glow, glass effects, or drop shadows.
-- Hairline boundaries and compact radii create hierarchy.
-- Technical/code moments may use mono typography and data-like labels.
-- Do not introduce a chromatic brand accent without a new owner decision.
+The existing ExphereShader motion background **must remain active**. Its colors
+are adapted to dark grayscale via the reusable shader's optional palette input.
+Do not remove the animation, install an opaque overlay, or change its motion
+algorithm, reduced-motion support, or fallbacks.
 
 ## 2. Color roles
 
-| Role | Value | Use |
+| Website role | Hex | Use |
 | --- | --- | --- |
-| `brand-primary` | `#000000` | Exphere mark, wordmark, primary brand emphasis, primary actions when a black action is appropriate. |
-| `canvas` | `#FFFFFF` | Default website and SEO-artwork background. |
-| `surface-soft` | `#F7F7F7` | Section separation and low-emphasis technical panels. |
-| `surface-card` | `#FFFFFF` | Cards/code frames on the light canvas. |
-| `surface-elevated` | `#F2F2F2` | Nested neutral surface; not a brand color. |
-| `hairline` | `#D9D9D9` | 1px separators/borders. |
-| `ink` | `#000000` | Headlines and primary text. |
-| `body` | `#333333` | Running text. |
-| `muted` | `#666666` | Captions/secondary text. |
-| `muted-soft` | `#8A8A8A` | Tertiary metadata. |
-| `on-primary` | `#FFFFFF` | Text/icons on a black interactive surface only. |
+| `brand-asset` | `#000000` | Original Exphere logo/icon artwork; never silently recolor. |
+| `site-canvas` | `#0a0a0a` | Global background and browser chrome. |
+| `site-soft` | `#121212` | Hero reading surface / subtle bands. |
+| `site-card` | `#1a1a1a` | Cards and CLI window. |
+| `site-elevated` | `#242424` | Inset terminal/code blocks. |
+| `site-border` | `#2a2a2a` | Hairline borders and dividers. |
+| `site-ink` | `#ffffff` | Headline, primary text and white CTA surface. |
+| `site-body` | `#cccccc` | Body copy, details and important labels. |
+| `site-muted` | `#888888` | Secondary metadata where contrast permits. |
+| `site-on-light` | `#0a0a0a` | Text on white CTA (same as canvas). |
 
-Brand assets themselves must not use gray as a substitute for black. Neutral grays belong to interface hierarchy, not the Exphere identity.
+There are **no white cards, white page regions, or light hero panels**.
+White is allowed only for text, high-contrast focus treatment and interactive
+action surfaces. Exphere artwork itself stays black, with existing opaque white
+asset support backgrounds (favicons/social images) left unchanged.
+
+Expose these website-specific semantic roles using the existing Tailwind
+bootstrap. The public `@repo/design` tokens remain generic and unchanged.
 
 ## 3. Typography
 
-Reference intent: Inter-like sans hierarchy, bold display, restrained tracking, mono technical content. Do not add a remote font or runtime dependency merely to satisfy this document; use the current typography contract until font loading is separately implemented.
+The ClickHouse reference uses Inter for display/body and JetBrains Mono for
+technical code. Favor a confident bold sans hierarchy, tight negative tracking
+on display headlines and legible monospace code. Do not introduce remote fonts
+or dependencies merely to satisfy this design guideline; keep the existing
+website font tokens until font integration is separately approved.
 
-| Role | Size | Weight | Line height | Tracking |
+| Role | Size | Weight | Line-height | Tracking |
 | --- | ---: | ---: | ---: | ---: |
 | display-xl | 72px | 700 | 1.05 | -2.5px |
 | display-lg | 56px | 700 | 1.10 | -2px |
@@ -55,88 +69,91 @@ Reference intent: Inter-like sans hierarchy, bold display, restrained tracking, 
 | code | 14px | 400 | 1.55 | 0 |
 | button | 14px | 600 | 1.00 | 0 |
 
-Technical/code content should prefer a JetBrains-Mono-compatible monospace stack when that font contract is implemented.
-
 ## 4. Spacing and layout
 
-Spacing scale: `4, 8, 12, 16, 24, 32, 48, 96px`.
+Spacing: 4, 8, 12, 16, 24, 32, 48 and 96px. Use approximately 96px
+between major desktop sections and tighter proportional spacing on mobile.
+Cap wide editorial content at approximately 1280px. The hero uses an editorial
+plus technical 2-column grid on desktop and one column on narrow screens.
 
-- Section rhythm uses 96px on wide screens and compresses deliberately on smaller screens.
-- Prefer readable technical grids and aligned edges to floating decorative compositions.
-- Wide content should cap near 1280px unless the content itself needs a full-bleed technical surface.
-- Code/data surfaces may scroll horizontally rather than shrinking code to unreadable sizes.
+Code panels should scroll horizontally rather than clipping commands. Preserve
+comfortable touch targets and visible keyboard focus at all widths.
 
-## 5. Radius and depth
+## 5. Radius, separation and depth
 
-Radius scale: `4, 6, 8, 12px`, with pill/full only for semantics that require it.
-
-- No drop shadows.
-- Use 1px hairlines and surface contrast for separation.
-- Do not use glow, blur, glassmorphism, bevels, or decorative elevation.
+Radii: 4px, 6px, 8px and 12px; full pills only for actual tags/statuses.
+Use flat dark panels with 1px `site-border` hairlines. No drop shadows,
+glassmorphism, glowing strokes or newly authored gradients. Existing shader
+motion is the intentional exception **behind** these surfaces, not card styling.
 
 ## 6. Components
 
-### Primary actions
+### Primary documentation action
 
-- Black fill, white label, 8px radius by default.
-- Minimum 40×40px interactive target.
-- Hover/active changes remain neutral; do not introduce colored accents.
+A white (`site-ink`) filled button with near-black (`site-canvas`) label,
+8px radius and at least a 40px interactive height. Use a neutral hover state
+and an obvious focus-visible outline. Do not import ClickHouse yellow.
 
-### Secondary actions
+### Secondary action
 
-- White/neutral surface, black label, 1px hairline border.
+Dark card surface, white text, neutral 1px border.
 
-### Cards and code panels
+### Hero cards, feature cards, terminal windows
 
-- Flat white/soft-neutral surfaces with 1px boundaries.
-- Code panels use mono typography and preserve horizontal scroll on narrow screens.
-- Avoid floating cards whose only separation is shadow.
+Use `site-soft` or `site-card` for panels with `site-border` hairlines,
+and `site-elevated` for code. Dark semi-opaque panels may reveal restrained
+motion while preserving text readability. **Never use a white/cream panel.**
 
-### Badges and technical labels
+### Technical captions
 
-- Prefer uppercase caption treatment, black text, neutral border/surface.
-- Use concise operational vocabulary rather than decorative pills.
+Use small mono uppercase labels in `site-body`, reserving `site-muted`
+for sufficiently contrasting surfaces. Do not decorate labels with badges
+solely for visual effect.
 
-## 7. Responsive behavior
+## 7. Responsive boundaries
 
-- Mobile: `< 768px` — single-column composition, display type reduced, code panels scroll.
-- Tablet: `768–1024px` — two-column structures when content supports it.
-- Desktop: `1024–1440px` — full technical navigation/composition.
-- Wide: `> 1440px` — retain a ~1280px content cap with more surrounding space.
+- Mobile: <768px; one column, responsive title sizes and code scroll.
+- Tablet: 768–1024px; two columns where appropriate.
+- Desktop: 1024–1440px; full editorial + technical hero.
+- Wide: >1440px; maintain the centered ~1280px content width.
 
-## 8. SEO and brand artwork
+## 8. Existing motion background in dark shades
 
-- Use a white canvas and pure-black Exphere mark/wordmark.
-- Social cards stay flat and technical: black line work, outlined geometry, no gradients/shadows/chromatic accents.
-- Favicons/application icons use a black mark on white so the brand itself remains black and legible.
-- Preserve source geometry; recolor rather than redrawing the Exphere mark.
-- Antialiasing may create neutral gray edge pixels in raster exports. Chromatic pixels are not allowed.
+The site continues to use `ExphereShader`, retaining its WebGL2 animation,
+visibility pause, reduced-motion handling, resource cleanup and static CSS
+fallback. The dark website opts into these four grayscale inputs:
 
-## 9. Guardrails
+| Shader color role | Value |
+| --- | --- |
+| `primary` | `#303030` |
+| `primaryHover` | `#484848` |
+| `background` | `#0a0a0a` |
+| `surface` | `#121212` |
 
-Do:
-- keep the brand black;
-- use strong type hierarchy and technical alignment;
-- use flat surfaces and hairlines;
-- use design roles/tokens rather than one-off values in components;
-- update this document first when the website design direction changes.
+The optional `palette` input affects both WebGL and the CSS fallback; it does
+not create a new effect or change the default palette for other consumers.
+Do not replace the shader with an opaque background, tint it purple or add
+an unrelated animation.
 
-Do not:
-- reintroduce purple or adopt ClickHouse yellow as an Exphere accent;
-- copy ClickHouse marks, copy, or product-specific compositions;
-- add gradients, glows, or drop shadows to create depth;
-- mutate the public `@repo/design` package solely to encode Exphere branding without a separately approved package-level scope;
-- infer production SEO facts from visual design.
+## 9. Identity, SEO and compatibility
 
-## 10. Existing motion background exception
+Preserve the existing **black** SVG mark/wordmark, favicon and social assets.
+Existing asset support backgrounds may be white; those are not website cards.
+The earlier home logo asset remains source-commented. Masthead text uses
+legible white UI typography instead of attempting a black-on-black logo.
 
-The owner explicitly requires preserving the existing `ExphereShader` motion
-background on the homepage (October 13, 2026). Its currently implemented
-animation and shader colors are a narrowly scoped exception to the general
-no-gradients/flat-new-UI guidance above. This does **not** authorize additional
-animated layers, shaders, chromatic Exphere brand marks, or a new accent palette.
+The website remains pre-launch/`noindex`: keep `metadataBase: null`, no
+canonical/sitemap/entity claims, crawlable robots and inactive social URL
+metadata gates. Keep the existing factual copy, README documentation URL
+and documented CLI commands. No new public documentation domain is implied.
 
-New homepage content must retain the existing root-layout shader mount and
-avoid opaque full-screen overlays that hide the motion. Use simple translucent
-white/neutral content surfaces when required for readable black text. The
-shared `@repo/web` and `@repo/design` packages are unchanged by this exception.
+## 10. Decisions and source boundaries
+
+- Website-only neutral colors are exposed through a minimal Tailwind theme bridge.
+- The public `@repo/design` package stays generic.
+- The shared shader gains one backwards-compatible optional palette input.
+- Do not copy ClickHouse branding, yellow CTAs, product claims, or assets.
+- [ADR-0002](../../.exphere/artifacts/design/0010-DD-website-design-system-branding.dd.md)
+  retains its black-brand identity decision but the earlier light-first **website
+  UI surface** is superseded by the owner's October 13, 2026 dark-only change
+  in [SPEC-WEBSITE-DARK-THEME](../../.exphere/artifacts/specs/0022-SPEC-website-dark-theme.spec.md).

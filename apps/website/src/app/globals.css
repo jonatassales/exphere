@@ -6,4 +6,14 @@
   --color-foreground: var(--design-color-foreground);
   --font-body: var(--design-typography-font-body);
   --spacing-content: var(--design-dimensions-space-4);
+
+  /* Website-only dark palette; shared design tokens remain generic. */
+  --color-site-canvas: #0a0a0a;
+  --color-site-soft: #121212;
+  --color-site-card: #1a1a1a;
+  --color-site-elevated: #242424;
+  --color-site-border: #2a2a2a;
+  --color-site-ink: #ffffff;
+  --color-site-body: #cccccc;
+  --color-site-muted: #888888;
 }

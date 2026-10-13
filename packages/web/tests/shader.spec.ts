@@ -332,3 +332,65 @@ test("surface changes continuously and yields desktop and mobile review frames",
 
   await page.screenshot({ path: testInfo.outputPath("mobile.png") });
 });
+
+test("optional grayscale palette feeds the shader while defaults stay unchanged", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const originalPrimary = await page.locator("canvas").evaluate((canvas) =>
+    getComputedStyle(canvas).getPropertyValue("--design-color-primary").trim(),
+  );
+
+  expect(originalPrimary).toBe("#6D0AD6");
+
+  await page.goto("/?dark=1");
+
+  await expect(page.locator("canvas")).toBeVisible();
+
+  const colors = await page.locator("canvas").evaluate((canvas) => {
+    const styles = getComputedStyle(canvas);
+
+    return {
+      primary: styles.getPropertyValue("--design-color-primary").trim(),
+      primaryHover: styles.getPropertyValue("--design-color-primary-hover").trim(),
+      background: styles.getPropertyValue("--design-color-background").trim(),
+      surface: styles.getPropertyValue("--design-color-surface").trim(),
+    };
+  });
+
+  expect(colors).toEqual({
+    primary: "#303030",
+    primaryHover: "#484848",
+    background: "#0a0a0a",
+    surface: "#121212",
+  });
+});
+
+test("dark palette keeps a grayscale gradient fallback without WebGL", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    HTMLCanvasElement.prototype.getContext = () => null;
+  });
+
+  await page.goto("/?dark=1");
+
+  await expect(page.getByRole("heading")).toBeVisible();
+
+  const fallback = await page
+    .locator("[aria-hidden=true]")
+    .evaluate((element) => {
+      const styles = getComputedStyle(element);
+
+      return {
+        gradient: styles.backgroundImage,
+        primary: styles.getPropertyValue("--design-color-primary").trim(),
+        background: styles.getPropertyValue("--design-color-background").trim(),
+      };
+    });
+
+  expect(fallback.gradient).toContain("gradient");
+  expect(fallback.primary).toBe("#303030");
+  expect(fallback.background).toBe("#0a0a0a");
+});

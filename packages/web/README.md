@@ -1,6 +1,6 @@
 # Web package
 
-`@repo/web` provides `ExphereShader`, a React wrapper that renders a pastel purple motion background behind its children. Its procedural folds and moving light follow the Codex background reference, using Exphere design tokens. The implementation does not use the reference video, external media, or SmoothUI component source.
+`@repo/web` provides `ExphereShader`, a React wrapper that renders a token-driven motion background behind its children. By default it retains the original pastel-purple Exphere palette and motion composition from the Codex background reference. Consumers can opt into a different six-digit hexadecimal palette while retaining the same fold/animation engine. The implementation does not use the reference video, external media, or SmoothUI component source.
 
 ```tsx
 import { ExphereShader } from "@repo/web/react/exphere-shader";
@@ -14,11 +14,28 @@ export default function Page() {
 }
 ```
 
-The only prop is `children`. The component is a client entry that accepts server-rendered children from a Next.js App Router page or layout. Importing it includes the public design-token CSS and its generated, prefixed Tailwind utilities. No extra stylesheet import, Tailwind scan configuration, animation provider, or page-level client directive is required. React is a peer dependency; Next.js is only a development dependency for the disposable consumer verification.
+The component requires `children`. Its only additional public prop is an
+optional `palette` object with `primary`, `primaryHover`, `background`, and
+`surface` values, each supplied as a six-digit hexadecimal string. The original
+children-only consumer continues to render as before without configuration.
+The component is a client entry that accepts server-rendered children from a
+Next.js App Router page or layout. Importing it includes the public design-token CSS and its generated, prefixed Tailwind utilities. No extra stylesheet import, Tailwind scan configuration, animation provider, or page-level client directive is required. React is a peer dependency; Next.js is only a development dependency for the disposable consumer verification.
 
 Place one wrapper at the page/layout shell, outside transformed or clipped ancestors that change viewport-fixed positioning. Its decoration is fixed to the viewport; children retain their natural height and scrolling. It does not set page height, lock document scrolling, intercept input, or fade content. Opaque child backgrounds can cover the effect. The wrapper creates an isolated stacking context, so child stacking remains local to that shell.
 
-The light surface consumes `primary`, `primaryHover`, `background`, and `surface` from `@repo/design`, without changing the source tokens or forcing children's theme. Runtime token overrides and dark-theme design are outside the current contract. Missing/invalid color inputs leave the CSS fallback; the shipped six-digit color tokens are the supported renderer input.
+Without `palette`, the light surface consumes `primary`, `primaryHover`,
+`background`, and `surface` from `@repo/design`, without changing the source
+tokens or forcing children's theme. An explicit `palette` applies those four
+six-digit colors to the decorative node's CSS custom properties, so both the
+WebGL uniforms and static CSS fallback share the chosen palette. Palette
+changes reinitialize the existing renderer through its normal cleanup path.
+The Exphere website uses this opt-in contract for grayscale motion on a dark
+canvas. Other consumers keep their original pastel result; `@repo/design`
+remains generic.
+
+Invalid six-digit color inputs leave the CSS fallback and do not initialize
+WebGL. This backwards-compatible optional palette is a separately authorized
+extension of the initial children-only shader contract.
 
 Reduced motion uses a still frame, including preference changes after mounting. Hidden documents and non-intersecting surfaces stop continuous rendering. WebGL2 unavailability or context loss leaves a static token-based background; children remain usable. Unmount cancels animation, disconnects observers/listeners, deletes the program and shaders, and shrinks the drawing buffer. The buffer is capped at 2,073,600 pixels and DPR 2. These bounds are not an FPS or energy guarantee.
 

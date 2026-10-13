@@ -7,10 +7,12 @@ linked repository is private and requires access; no separate docs site is
 claimed. The earlier home SVG logo remains commented out at the owner's request.
 
 The existing `ExphereShader` motion background remains mounted in the root
-layout and visible behind the hero. Static, translucent white content surfaces
-preserve readability without covering the animation. The hero follows the
-black-branded website [design contract](DESIGN.md); this does not alter the
-generic `@repo/design` or `@repo/web` packages. The application has no
+layout and now uses an opt-in dark grayscale palette for the WebGL animation
+and static CSS fallback. The hero uses translucent charcoal panels with white
+and neutral text—**no white cards**. This follows the ClickHouse-inspired
+[dark-only design contract](DESIGN.md). Public `@repo/design` tokens remain
+generic; the optional palette is backwards-compatible for other `@repo/web`
+consumers. The application has no
 authentication, API, external service integration, or persistent state. It is
 private and has no deployed release.
 
@@ -38,7 +40,7 @@ The package supplies the viewport decoration, generated styles, reduced-motion
 behavior, and static fallback; application content retains its normal rendering.
 
 Tailwind utilities consume generated token CSS through the public package export.
-The application selects the light theme without adding a theme switch or storing
+The application selects the dark theme without adding a theme switch or storing
 preferences. Shared token ownership remains in `@repo/design`; Exphere-specific
 website visual direction lives in [DESIGN.md](DESIGN.md). Read that document before
 adding website UI values. Do not push Exphere branding into the public design
@@ -65,7 +67,7 @@ complete heading block and `next/image` import remain as comments in
 review to avoid duplicate headings. No new image/font dependency was introduced.
 See [SPEC-WEBSITE-HOME-LOGO-VISIBILITY](../../.exphere/artifacts/specs/0018-SPEC-website-home-logo-visibility.spec.md).
 
-The root layout owns application identity, the light viewport, and `noindex`.
+The root layout owns application identity, the dark viewport, and `noindex`.
 The page owns its title, experimental-project description, and en-US social copy.
 Icons, the manifest, robots, and social assets use static files directly under
 `src/app/`; manifest resources and the home logo use `public/`. The manifest's
@@ -109,9 +111,13 @@ documentation product while repository access is restricted. The CLI panel
 contains commands already documented by the project; it displays no invented
 output or runtime status.
 
-The owner's October 13, 2026 correction explicitly retains the existing
-animated `ExphereShader` wrapper. Its source, mount, animation, and colors are
-unchanged, and the translucent hero surfaces leave it visible. No new gradient,
-animation, shadow, or colored Exphere branding is introduced. This local
-exception to the general flat-surface guidance is also recorded in
-[DESIGN.md](DESIGN.md#10-existing-motion-background-exception).
+The existing `ExphereShader` wrapper remains mounted and active. Its
+animation geometry, lifecycle, reduced-motion support and WebGL2 shader program
+are unchanged; the website supplies four dark neutral colors through the
+shared optional palette contract. The dark cards preserve some background
+motion without light/white hero surfaces. This supersedes the prior light-first
+visual choice while keeping the black brand artwork and pre-launch SEO policy.
+
+See [SPEC-WEBSITE-DARK-THEME](../../.exphere/artifacts/specs/0022-SPEC-website-dark-theme.spec.md)
+and [WEB-DARK-01](../../.exphere/artifacts/tickets/0044-TICKET-website-dark-theme.ticket.md).
+Existing build and browser-test commands remain the verification path.
