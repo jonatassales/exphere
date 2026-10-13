@@ -1,6 +1,13 @@
 .git
 .vercel
-.agents
+# Keep only the two diagrams imported by the website.
+.agents/*
+!.agents/features/
+.agents/features/*
+!.agents/features/assets/
+.agents/features/assets/*
+!.agents/features/assets/backstage-context-team-budget.png
+!.agents/features/assets/runtimes-factory.png
 .exphere/artifacts
 .exphere/harness
 .audits
