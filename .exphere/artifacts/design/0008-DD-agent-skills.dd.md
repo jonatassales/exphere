@@ -26,7 +26,7 @@ The [candidate research](../research/0002-RSC-finops-twelve-factor-skills.rsc.md
 - Pinned revision: [`49dd158d1076134a641b33efb035946536778336`](https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336).
 - Public [MIT license at that revision](https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/LICENSE).
 - The Pocock license location recorded in the former lock is absent from the current tree. Do not claim local license completeness; retain attribution and record the limitation without recreating removed directories automatically.
-- Workflow and FinOps skills live under `.exphere/harness/skills/`; `writing-for-agents` remains under `.agents/skills/`. Invocation policies, dependencies, and local adaptations are documented in their retained files; the former lock is unavailable.
+- AIHero workflow skills now live under `.exphere/workflow/skills/` and vendored Samber Go skills under `.agents/skills/`; other FinOps/AWS skills remain under `.exphere/harness/skills/`. The former `writing-for-agents` skill was removed by owner instruction. Invocation policies, dependencies, and local adaptations are documented in their retained files; the former lock is unavailable.
 
 There are no automatic updates or global installations. A future update must inspect the selected public revision, preserve necessary local behavior, and update version and license records as applicable. A hash establishes content identity, not functional quality or approval.
 
@@ -44,8 +44,7 @@ There are no automatic updates or global installations. A future update must ins
 | `tdd` | Agreed behavior and verification seam | `codebase-design` as needed; subject to scoped authorization in root AGENTS; hook-contract testing is authorized, unrelated testing remains restricted. |
 | `codebase-design` | Module or interface design question | None. |
 | `code-review` | Scoped changes and comparison | Separate standards and spec review. |
-| `retro` | Session to evaluate | `writing-for-agents`. |
-| `writing-for-agents` | Agent-facing documentation | Includes skill mechanics. |
+| `retro` | Session to evaluate | Repository writing conventions and templates. |
 
 `grill-with-docs`, `to-spec`, `to-tickets`, `implement`, and `retro` retain explicit invocation. Preserve `disable-model-invocation` and the corresponding metadata. Invoking one phase does not invoke the next. Without a Skill tool, read the relevant local `SKILL.md`; that fallback does not prove automatic discovery in every client.
 
@@ -58,3 +57,7 @@ The skill instructions define procedural boundaries: tracker-aware drafting, exp
 Earlier structural inspection recorded 12 Pocock skills and 31 files, metadata syntax, invocation policies, references, and hashes. Those records describe that inspection, not a current runtime result or a guarantee after later changes. The prior validator could not start because its Python YAML dependency was unavailable; no global package was installed to bypass that limitation.
 
 No skill discovery test, behavioral evaluation, workflow execution, or governance engine validation has been performed by this documentation change. Governance remains procedural and documentary.
+
+## Ownership amendment — October 13, 2026
+
+The project owner relocated the eleven installed AIHero/Dev workflow skills to `.exphere/workflow/skills/`, installed twenty unique Samber Go skills in `.agents/skills/`, and deleted `writing-for-agents` and `.agents/adr/`. Original historical reviews retain their baseline paths; current guidance uses the new locations. See [DD-0013](0013-DD-skill-ownership.dd.md).

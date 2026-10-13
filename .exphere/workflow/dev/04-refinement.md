@@ -1,12 +1,11 @@
 # Refinement
 
-**Input:** the scoped change, its decisions, review, and observed outcomes. An explicit retrospective request is required to invoke [retro](../../harness/skills/retro/SKILL.md). Follow the [cycle contract](CYCLE.md); completion of implementation does not invoke this phase automatically.
+**Input:** the scoped change, its decisions, review, and observed outcomes. An explicit retrospective request is required to invoke [retro](../skills/retro/SKILL.md). Follow the [cycle contract](CYCLE.md); completion of implementation does not invoke this phase automatically.
 
 ## Work
 
 1. Read the actual session and artifact evidence. Separate facts, hypotheses, and missing observations. Use the [retrospective format](../../../.agents/templates/retrospective.md) inside the relevant typed artifact when a record is needed.
 2. Identify friction in navigation, instructions, interfaces, ownership, or verification. Evaluate whether the current approach reduced effort while preserving quality; do not treat token volume, code quantity, or document count as proof of value.
-3. Use [writing-for-agents](../../../.agents/skills/writing-for-agents/SKILL.md) when proposing changes to agent guidance. Check existing rules before proposing another document or automation layer.
 4. Present bounded improvements with evidence, expected benefit, trade-offs, and unresolved decisions. Preserve consumer ownership of stack and composition. Organizational adoption and profile selection remain separate human decisions.
 5. Apply only changes authorized within this phase. A suggestion to add tests, CI, infrastructure, skills, or paid services does not authorize it; the current project restrictions still apply.
 
