@@ -70,3 +70,50 @@ corrective amendment. No missing, incorrect or out-of-scope change identified.
 
 Review summary: Standards 0; Spec 0. These reviews do not establish production
 release acceptance or measured animation timing.
+
+### Header orb alignment follow-up
+
+While inspecting the corrected browser view, the owner requested a slightly
+smaller orb beside Exphere. The header/docs default is reduced from 32px to 24px;
+the footer remains 24px. Production compilation and the scoped formatter passed.
+Chromium measured both header orbs at 24 by 24px with a vertical center difference
+below 1px on `/` and `/docs`. This targeted inspection does not repeat or replace
+the preceding clipboard/responsive evidence.
+
+The owner then requested lower optical alignment. The logo orb remains 24px,
+with a 2px downward Tailwind translation on the home/docs logo containers only;
+the footer is unchanged. The preceding centered measurement describes the
+intermediate revision. The updated browser inspection measured the requested
+2px offset after production compilation.
+
+Alignment review: both independent axes refreshed the six-file delta against
+`4320235b51c1156808ab6629d4a7b3d1bd2b850d` at tree
+`30cdfbdee243d751a919e8e56909c2bef128ca67`. Standards: 0 findings. Spec: 0 findings.
+Both confirm 24px header/docs orbs shifted down 2px, unchanged footer and retained
+listening/grayscale/reduced-motion configuration. This outcome append follows the
+review and is evidence-only.
+
+### Desktop density and clipboard padding follow-up
+
+The owner's subsequent browser feedback requested a half-sized desktop card and
+text, roughly half the header-to-card gap, a 30% shorter desktop header and less
+clipboard padding. The hero uses uniform 50% scaling from 1024px with a top origin;
+desktop header control/padding are compacted. Mobile keeps its previous card
+scale and header touch target. Clipboard padding is 12px horizontal/6px vertical
+before desktop scaling.
+
+Production compilation and scoped Biome passed. Chromium on the production build
+measured a 450px desktop card (previously 900px), a 45px header (previously 65px),
+and a 141px gap (previously 261px at 1440 by 1000). Mobile retained scale 1 and
+a 65px header; no horizontal overflow occurred. The clipboard's actual readback
+remained exactly `npx exphere init` in both desktop/mobile views, with no uncaught
+page errors. Screenshots and measurements are retained beside the earlier local
+evidence. These observations describe the requested visual scale, not a change
+to the unscaled CSS font declarations.
+
+Desktop refinement review: both independent axes inspected the five-file delta
+against `cd65c61e31672f9182489f98e87b227958540446` at tree
+`b2fcfb7367e04cc6d4e734b1f489808f14391b19`. Standards: 0 findings. Spec: 0 findings.
+The requested desktop proportions and clipboard padding are implemented; mobile
+scale/touch sizing and copy semantics are preserved. This evidence-only outcome
+append follows the review.

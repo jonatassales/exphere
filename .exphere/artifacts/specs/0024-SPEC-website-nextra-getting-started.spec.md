@@ -105,3 +105,21 @@ production build at desktop and mobile widths, clipboard success/failure, intern
 navigation, decorative Orbo registration/state and reduced motion. This does not
 authorize new application test infrastructure. Record the actual evidence in
 WEB-DOCS-01.
+
+The owner subsequently requested a slightly smaller header orb while inspecting
+the corrected browser view. Header/docs logo orbs use 1.5rem (24px), centered
+with the existing Exphere text, shifted down 2px for the owner's subsequent
+optical-alignment request; the footer remains 1.5rem.
+
+During browser inspection, the owner requested that the desktop hero card and
+its text be half their prior size. Apply a uniform 50% visual scale at the
+desktop breakpoint (1024px), retaining centered placement and the current
+mobile/tablet scale. Header/footer and docs content are unchanged.
+
+The owner subsequently requested roughly half the header-to-card space and a
+30% shorter header in the desktop view. Use top-origin scaling for the compact
+card and reduce desktop header padding/control height. Retain mobile touch sizes.
+
+The owner also requested less clipboard-box padding. Use 12px horizontal and
+6px vertical padding before desktop card scaling, preserving copy-button
+keyboard semantics and mobile touch sizing.

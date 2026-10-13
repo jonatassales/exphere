@@ -32,13 +32,13 @@ export const metadata: Metadata = {
 export default function WebsitePage() {
   return (
     <main className="relative mx-auto flex min-h-screen w-full max-w-[1280px] flex-col px-6 py-7 text-site-ink sm:px-10 lg:px-14">
-      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-site-border pb-5">
-        <span className="inline-flex items-center gap-2 text-xl font-bold tracking-[-0.065em]">
+      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-site-border pb-5 lg:pb-3">
+        <span className="inline-flex items-center gap-2 text-xl font-bold tracking-[-0.065em] [&>span]:translate-y-0.5">
           <OrboPreview />
           exphere
         </span>
         <Link
-          className="inline-flex min-h-11 items-center rounded-md font-mono text-[11px] uppercase tracking-[0.14em] text-site-body hover:text-site-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          className="inline-flex min-h-11 items-center rounded-md font-mono text-[11px] uppercase tracking-[0.14em] text-site-body hover:text-site-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white lg:min-h-8"
           href="/docs"
         >
           Documentation
@@ -49,7 +49,7 @@ export default function WebsitePage() {
         aria-labelledby="hero-heading"
         className="flex flex-1 items-center justify-center py-14 lg:py-24"
       >
-        <div className="w-full max-w-[900px] rounded-xl border border-site-border bg-site-soft/85 px-6 py-10 text-center sm:p-12 lg:px-16 lg:py-16">
+        <div className="w-full max-w-[900px] rounded-xl border border-site-border bg-site-soft/85 px-6 py-10 text-center sm:p-12 lg:origin-top lg:scale-50 lg:px-16 lg:py-16">
           <p className="mb-6 font-mono text-xs font-semibold uppercase tracking-[0.17em] text-site-accent-readable">
             DevEX / FinOps Platform
           </p>

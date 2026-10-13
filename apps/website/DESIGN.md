@@ -82,7 +82,12 @@ website font tokens until font integration is separately approved.
 Spacing: 4, 8, 12, 16, 24, 32, 48 and 96px. Use approximately 96px
 between major desktop sections and tighter proportional spacing on mobile.
 Cap wide editorial content at approximately 1280px. The hero is one centered panel, capped at approximately 900px within the page,
-with centered copy and one dark command box. There is no right-hand CLI card.
+with centered copy and one dark command box. At desktop widths (1024px and above),
+the owner requested a uniform 50% visual scale for the hero card and its contents.
+The desktop card uses its top edge as the scale origin to bring it closer to the
+header. Desktop header spacing and Documentation control height are reduced,
+compacting the header by approximately 30%. Mobile and tablet retain their
+existing scale and touch-target sizing. There is no right-hand CLI card.
 
 Code panels should scroll horizontally rather than clipping commands. Preserve
 comfortable touch targets and visible keyboard focus at all widths.
@@ -195,7 +200,7 @@ examples. The hero preserves the dark/purple palette and shader with the exact
 owner title and description. Its only action is the dark copy control; the
 header's Documentation link reaches the initial Nextra Getting Started page.
 
-Native Orbo elements sit to the left of the header mark (2rem) and footer credit
+Native Orbo elements sit to the left of the header mark (1.5rem, shifted down 2px for optical alignment) and footer credit
 (1.5rem), in black/gray shades through #666666. They use listening as a decorative
 visual state with system reduced motion, without audio or microphone behavior.
 The footer credit is `exphere by Grupo OLX © 2026`, with compact accessible
