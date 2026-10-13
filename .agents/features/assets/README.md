@@ -20,3 +20,15 @@ Make a targeted correction to the arrows of this diagram. Preserve ALL labels, t
 ## Earlier illustration
 
 [runtimes-factory.png](runtimes-factory.png) is the pre-existing broad factory illustration. This change preserves it without claiming new provenance for its contents. The updated team-budget proposal is documented in the [feature register](../README.md).
+
+## Exphere README banner
+
+- Asset: [exphere-readme-banner.png](exphere-readme-banner.png).
+- Created: October 13, 2026 with the built-in image-generation tool, at the owner's explicit request.
+- Identity reference: the existing [Exphere logo](../../../apps/website/public/brand/exphere-logo.svg), previewed as a PNG for generation. The source SVG remains unchanged.
+- Style reference: the owner-provided screenshot of the headline “Full blast / agentic FinOps runtimes.”
+- Composition: white Exphere identity above the centered two-line headline, near-black background, and violet gradient. This banner is product presentation, not execution evidence.
+
+### Banner generation brief
+
+Create a wide, minimal README banner using the supplied headline screenshot as the style reference and the existing Exphere logo as the identity reference. Center the white logo/wordmark above two bold lines: “Full blast” and “agentic FinOps runtimes.” Keep “Full blast” and “agentic” white; apply a smooth lavender-to-violet gradient to “FinOps runtimes,” with a restrained deep-purple glow along the lower edge of a near-black background. Preserve the logo's recognizable geometry and proportions. Use generous margins. Include no additional slogan, diagram, badge, frame, or decorative object.
