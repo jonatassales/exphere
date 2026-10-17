@@ -2,7 +2,7 @@
 
 - ID: `SPEC-EX-FLAT-LAYOUT`
 - Version: `1`
-- State: `draft`
+- State: `implemented`
 - Owner: project owner for scope; implementation agents for local delivery.
 - Authorization: on October 17, 2026, the owner requested that `packages/ex`
   keep its layers directly under `src/` without the `cmd` and `internal`
@@ -64,3 +64,29 @@ FIN-02/03: no paid resource or AI consumption is introduced.
 Tracked by [EX-LAYOUT-01](../tickets/0081-TICKET-ex-flat-layout.ticket.md).
 Publish on a feature branch from `main` using normal pushes, the configured
 commit identity, one ticket trailer per commit, and this spec ID in the PR body.
+
+## Verification record
+
+Recorded October 17, 2026 against `83378a9280ae388a9f2c1d540ca9003f0262b7ba` (diff from `main` SHA-256
+`5c76106c99793b4b7a72c2314de758b10a6cf515a409862e0c78b9c12456bd05`).
+
+- Every commit passed `gofmt -l src` (no files), `go vet ./...`, and
+  `go test -count=1 ./...`; 902 test and subtest results pass, the same count
+  as before the move.
+- `sh packages/ex/build.sh` from the workspace root and `sh build.sh` from the
+  package built `dist/ex`, which printed its version and help.
+- The SDK `ex` bridge, invoked through a symlink with `@exphere/ex` linked
+  beside it, ran the built CLI's `version`, and without `dist/ex` exited 1 with
+  the build instruction. Both scripts pass `sh -n`.
+- No stale reference to a removed path, task, or bin remains outside the
+  historical artifacts. No dependency or lockfile changed.
+
+Not verified: `pnpm install`, `pnpm check`, `pnpm build`, `pnpm test` through
+Turbo, and the Husky hook contract tests, because the npm registry was
+unreachable from the preparation environment; CI runs them. Bin linking by
+pnpm after the removal was not observed.
+
+Review: the lead reviewed the snapshot against this spec and the repository
+standards and found no actionable defect. No independent Standards or Spec
+reviewer ran, so no independent review is claimed; both axes remain required
+against the PR head before merge.
