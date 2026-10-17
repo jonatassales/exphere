@@ -107,10 +107,26 @@ Hooks execute trusted consumer shell code; they are not sandboxed and are
 never invoked implicitly. Agent generation does not install dependencies,
 build images, run agents, or call model providers.
 
-## Verification limits
+## Tests and verification limits
 
-The existing command tests are retained and adapted to the composition root.
-No new test suites or scenarios are added in this cycle. Compilation, static
-checks, command checks, and source reviews do not establish successful live
+`go test ./...` runs the suites kept beside the code they cover: the domain
+rules; every use case through in-memory fakes of its ports, including a
+Kubernetes fake that imitates the controllers a runtime relies on; the file,
+storage, configuration, and scaffold adapters in disposable directories; the
+kubectl, kind, Terraform, toolchain, and hook adapters against recorded
+command invocations; and the composed CLI. The process runner starts only
+local `sh` processes. No test runs Docker, kind, kubectl, Terraform, or an
+agent application.
+
+Measure coverage across package boundaries, and use the race detector where a
+C toolchain is available:
+
+```sh
+GOTOOLCHAIN=local go test -coverpkg=./... -coverprofile=coverage.out ./...
+GOTOOLCHAIN=local go tool cover -func=coverage.out
+GOTOOLCHAIN=local go test -race ./...
+```
+
+Tests, static checks, and source reviews do not establish successful live
 cluster startup, readiness, cleanup, or production integration. Those outcomes
 require separately authorized execution and recorded observations.
