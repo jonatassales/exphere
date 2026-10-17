@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "go build -o dist/ex ./src/cmd/ex",
+    "build": "go build -o dist/ex ./src",
     "test": "go test ./...",
     "test:contracts": "sh scripts/test-consumer-harness.sh",
     "typecheck": "go vet ./...",

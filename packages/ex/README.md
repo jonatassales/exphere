@@ -10,7 +10,7 @@ package or a claim of production readiness.
 Use an existing Go 1.23 or newer toolchain on macOS or Linux:
 
 ```sh
-GOTOOLCHAIN=local go build -o dist/ex ./src/cmd/ex
+GOTOOLCHAIN=local go build -o dist/ex ./src
 ./dist/ex --help
 GOTOOLCHAIN=local go test ./...
 GOTOOLCHAIN=local go vet ./...
@@ -73,16 +73,18 @@ and 130 for interruption. Results use stdout; diagnostics use stderr.
 ## Source boundaries
 
 ```text
-src/cmd/ex/                         Process entry and concrete dependency wiring
-src/internal/presentation/cli/     Commands, flags, prompts, output, exit codes
-src/internal/application/          Use cases and the interfaces they consume
-src/internal/domain/               Identity, configuration, ownership, lifecycle rules
-src/internal/infrastructure/       Files, storage, native tools, embedded scaffolds
+src/main.go, src/wiring.go   Process entry and concrete dependency wiring
+src/presentation/cli/        Commands, flags, prompts, output, exit codes
+src/application/             Use cases and the interfaces they consume
+src/domain/                  Identity, configuration, ownership, lifecycle rules
+src/infrastructure/          Files, storage, native tools, embedded scaffolds
 ```
 
 The domain does not import the CLI, filesystem, or native process adapters.
 Application use cases own orchestration; the entry point wires concrete
-adapters. Go's `internal` boundary keeps implementation packages private.
+adapters. These boundaries are a convention: without an `internal` directory,
+the Go compiler does not stop other modules from importing the packages. The
+module is private and unpublished, so only this repository builds it.
 
 ## Configuration and recovery
 

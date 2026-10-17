@@ -161,7 +161,7 @@ if command -v git >/dev/null 2>&1; then
   if git -C "$consumer" check-ignore -q .exphere/runtimes/website-preview/terraform/.terraform.lock.hcl; then fail 'provider lock ignored'; fi
   pass 'Git ignores operational state but preserves provider dependency locks'
 else fail 'Git is required for the declared inclusion test'; fi
-jq -e '.private==true and .bin.ex=="./bin/ex.sh" and .bin["ex-shell-setup"]=="./scripts/setup-shell.sh" and .scripts.build=="go build -o dist/ex ./src/cmd/ex" and .scripts.test=="go test ./..."' "$package/package.json" >/dev/null || fail 'private Go executable package changed'
+jq -e '.private==true and .bin.ex=="./bin/ex.sh" and .bin["ex-shell-setup"]=="./scripts/setup-shell.sh" and .scripts.build=="go build -o dist/ex ./src" and .scripts.test=="go test ./..."' "$package/package.json" >/dev/null || fail 'private Go executable package changed'
 pass 'private package exposes the Go CLI and explicit project-aware shell setup'
 reset; before=$(cd "$consumer" && find . -type f -exec cksum {} \; | LC_ALL=C sort)
 check || fail 'non-mutating validation'; after=$(cd "$consumer" && find . -type f -exec cksum {} \; | LC_ALL=C sort)

@@ -29,6 +29,6 @@ trap 'exit 143' TERM HUP
 _ex_os=$(GOTOOLCHAIN=local go env GOHOSTOS)
 _ex_arch=$(GOTOOLCHAIN=local go env GOHOSTARCH)
 case $_ex_os in darwin|linux) ;; *) printf '%s\n' 'Exphere currently supports macOS and Linux.' >&2; exit 1 ;; esac
-GOTOOLCHAIN=local GOOS="$_ex_os" GOARCH="$_ex_arch" go -C "$_ex_package" build -o "$_ex_output" ./src/cmd/ex
+GOTOOLCHAIN=local GOOS="$_ex_os" GOARCH="$_ex_arch" go -C "$_ex_package" build -o "$_ex_output" ./src
 chmod 755 "$_ex_output"
 mv -f "$_ex_output" "$_ex_package/dist/ex"
