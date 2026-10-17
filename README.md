@@ -37,13 +37,11 @@ Start with the [documentation](https://exphere.vercel.app/docs) for the current 
 
 ```sh
 pnpm install --frozen-lockfile
-./node_modules/.bin/ex-shell-setup --shell zsh
-source "$HOME/.zshrc"
-ex --help
+packages/ex/dist/ex --help
 pnpm dev --filter=website
 ```
 
-Installation builds the local Go CLI and activates repository-local Husky hooks; it does not start infrastructure or change your shell profile. The explicit shell-setup command is a one-time opt-in that makes `ex` resolve each project's local executable. Use `--shell bash` and its configured profile for Bash. The website's `npx exphere init` is preview distribution text, not a published installer.
+Installation builds the local Go CLI and activates repository-local Husky hooks; it does not start infrastructure or change your shell profile. Run the built CLI as `packages/ex/dist/ex`. The website's `npx exphere init` is preview distribution text, not a published installer.
 
 ## Developer checks
 

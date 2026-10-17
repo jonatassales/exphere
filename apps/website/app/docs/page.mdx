@@ -27,19 +27,17 @@ The private `@exphere/ex` package owns the CLI. The separate private `@exphere/s
 
 ## Run the project locally
 
-You need repository access, Git, Node.js **22.22.1 or newer**, **pnpm 12.4.2**, and **Go 1.23+** for the CLI. The retained contract checks also use a POSIX shell and `jq`.
+You need repository access, Git, Node.js **22.22.1 or newer**, **pnpm 12.4.2**, and **Go 1.23+** for the CLI.
 
 ```sh
 git clone https://github.com/jonatassales/exphere.git
 cd exphere
 pnpm install --frozen-lockfile
-./node_modules/.bin/ex-shell-setup --shell zsh
-source "$HOME/.zshrc"
-ex --help
-ex version
+packages/ex/dist/ex --help
+packages/ex/dist/ex version
 ```
 
-The explicit setup command adds a project-aware function to your Zsh profile; Bash and a selected profile are also supported. Without profile setup, invoke `./node_modules/.bin/ex` directly. Help and version do not create a runtime or change consumer files.
+Installation builds the CLI at `packages/ex/dist/ex`. Projects that depend on `@exphere/sdk` run it as `./node_modules/.bin/ex`. Help and version do not create a runtime or change consumer files.
 
 Installation activates repository-local Husky hooks. It does not install `ex` globally or modify shell profiles. See [Development](/docs/development#hooks-and-review) for the checks those hooks perform.
 

@@ -24,18 +24,17 @@ editor also named `ex`.
 
 ## Workspace package
 
-From the Exphere workspace root, `pnpm --filter @exphere/ex build` builds the
-executable. The existing package bridge exposes it as `pnpm exec ex`; the SDK
-forwards to its explicit `@exphere/ex` dependency. Source installation builds
-with an existing Go toolchain and never changes shell profiles.
+The package holds only the Go module, its source, and `build.sh`. Installing
+the workspace runs `build.sh`, which builds `dist/ex` with an existing Go
+toolchain, never installs Go or tools, and never changes shell profiles. Set
+`EXPHERE_SKIP_CLI_BUILD=1` to skip it. From the workspace root,
+`pnpm --filter @exphere/ex build` rebuilds the executable.
 
-For direct project-local `ex` usage, explicitly invoke `pnpm exec ex-shell-setup`
-once and reload the selected Bash or Zsh profile. This opt-in helper resolves
-the nearest project executable and refuses a system-editor fallback.
-
-The existing `scripts/`, `cli/schemas/`, and `fixtures/` retain the package build,
-explicit shell setup, and source-contract checks. The historical schemas are
-not an additional executable implementation.
+This package declares no npm bin. The separate `@exphere/sdk` package exposes
+`ex` through its bridge, which runs this package's built `dist/ex`. Inside this
+repository, run `packages/ex/dist/ex` directly. The former shell-setup command,
+package bridge, historical schemas, and consumer-harness fixtures were removed
+on October 17, 2026; Git history retains them.
 
 ## Commands
 

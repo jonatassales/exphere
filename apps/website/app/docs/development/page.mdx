@@ -9,7 +9,7 @@ The workspace uses pnpm and Turborepo to invoke each tool's native commands. Kee
 
 ## Prerequisites and installation
 
-Use Git, Node.js **22.22.1+**, the manifest-pinned **pnpm 12.4.2**, and **Go 1.23+**. CLI source-contract checks also require a POSIX shell and `jq`.
+Use Git, Node.js **22.22.1+**, the manifest-pinned **pnpm 12.4.2**, and **Go 1.23+**.
 
 ```sh
 git clone https://github.com/jonatassales/exphere.git
@@ -41,7 +41,7 @@ Next.js prints the local address. Stop the foreground process when finished. Whi
 | Command | Purpose |
 | --- | --- |
 | `pnpm build` | Build declared Go and JavaScript/TypeScript workspaces. |
-| `pnpm test` | Run declared package tests, retained CLI source-contract checks, and disposable hook contracts. |
+| `pnpm test` | Run declared package tests, including the Go CLI suites, and disposable hook contracts. |
 | `pnpm typecheck` | Run workspace type checks, including Go vet. |
 | `pnpm check` / `pnpm lint` | Run the existing Biome checks. |
 | `pnpm format` | Apply Biome formatting explicitly. |
