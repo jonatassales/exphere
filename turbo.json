@@ -32,9 +32,6 @@
     },
     "@exphere/ex#typecheck": {
       "cache": false
-    },
-    "test:contracts": {
-      "cache": false
     }
   }
 }

@@ -5,21 +5,14 @@
   "scripts": {
     "build": "go build -o dist/ex ./src",
     "test": "go test ./...",
-    "test:contracts": "sh scripts/test-consumer-harness.sh",
     "typecheck": "go vet ./...",
-    "postinstall": "sh scripts/build.sh"
-  },
-  "bin": {
-    "ex": "./bin/ex.sh",
-    "ex-shell-setup": "./scripts/setup-shell.sh"
+    "postinstall": "sh build.sh"
   },
   "files": [
-    "bin",
     "src",
     "go.mod",
     "go.sum",
-    "scripts/build.sh",
-    "scripts/setup-shell.sh",
+    "build.sh",
     "README.md"
   ],
   "os": [
