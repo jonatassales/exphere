@@ -123,6 +123,30 @@ func TestRecord_AuthorizeDeletion(t *testing.T) {
 			wantErr: true,
 		},
 		{
+			name: "foreign namespace without a UID",
+			edit: func(_ *cluster.Record, namespaces map[string]string, _ *cluster.Inventory) {
+				namespaces["consumer"] = ""
+			},
+			wantErr: true,
+		},
+		{
+			name: "baseline namespace recorded without a UID",
+			edit: func(record *cluster.Record, _ map[string]string, _ *cluster.Inventory) {
+				record.Baseline.Namespaces["consumer"] = ""
+			},
+			wantErr: true,
+		},
+		{
+			name: "objects without UIDs vouching for each other",
+			edit: func(record *cluster.Record, _ map[string]string, observed *cluster.Inventory) {
+				record.Baseline.Inventory.Objects["true/configmaps/default/unidentified"] = cluster.ObjectIdentity{}
+				observed.Objects["true/configmaps/default/unidentified"] = cluster.ObjectIdentity{}
+				observed.Objects["true/configmaps/default/consumer"] = cluster.ObjectIdentity{}
+				observed.Objects["true/pods/default/consumer"] = cluster.ObjectIdentity{UID: "uid-foreign-pod", Controllers: []string{""}}
+			},
+			wantErr: true,
+		},
+		{
 			name: "replaced namespace",
 			edit: func(_ *cluster.Record, namespaces map[string]string, _ *cluster.Inventory) {
 				namespaces["default"] = "uid-replacement"
