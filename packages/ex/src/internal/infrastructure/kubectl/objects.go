@@ -129,11 +129,13 @@ func (client Client) deleteExactly(ctx context.Context, target application.Targe
 	return err
 }
 
-// NamespaceInventory lists every listable object in the target namespace,
-// except events. A partial inventory is an error.
+// NamespaceInventory lists every object of every listable and deletable
+// resource type in the target namespace, except events. Views that cannot be
+// deleted, such as pod metrics, hold no state and carry no UID, so they are
+// excluded as in the cluster inventory. A partial inventory is an error.
 func (client Client) NamespaceInventory(ctx context.Context, target application.Target) ([]microruntime.Object, error) {
 	result, err := client.run(ctx, target.ClusterAccess, target.Namespace, nil,
-		"api-resources", "--verbs=list", "--namespaced=true", "-o", "name")
+		"api-resources", "--verbs=list,delete", "--namespaced=true", "-o", "name")
 	if err != nil {
 		return nil, err
 	}

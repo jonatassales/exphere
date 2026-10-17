@@ -224,6 +224,13 @@ func TestClient_NamespaceInventory(t *testing.T) {
 		t.Errorf("made %d calls, want discovery and one list per non-event resource", len(runner.calls))
 	}
 
+	// List-only views such as pods.metrics.k8s.io hold no state and carry no
+	// UID; discovering them would make cleanup refuse a healthy namespace.
+	wantDiscovery := append(targetFlags("demo-local"), "api-resources", "--verbs=list,delete", "--namespaced=true", "-o", "name")
+	if !slices.Equal(runner.calls[0].args, wantDiscovery) {
+		t.Errorf("discovery = %v, want %v", runner.calls[0].args, wantDiscovery)
+	}
+
 	failing := &recorder{respond: func(arguments []string) (process.Result, error) {
 		if arguments[0] == "api-resources" {
 			return process.Result{Stdout: "pods\nwidgets.example.com\n"}, nil
