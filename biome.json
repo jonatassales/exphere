@@ -47,12 +47,6 @@
           "tailwindDirectives": true
         }
       }
-    },
-    {
-      "includes": ["packages/ex/fixtures/**"],
-      "formatter": {
-        "enabled": false
-      }
     }
   ]
 }

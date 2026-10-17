@@ -60,7 +60,7 @@ The [workflow profiles](.exphere/artifacts/design/0004-DD-workflow-profiles.dd.m
 
 `.agents/` contains local guidance, engineering rules, frontend guardrails, templates, and locally installed Go skills. AIHero workflow skills live in `.exphere/workflow/skills/`; shared numbered SDD, FinOps, and Twelve-Factor policies remain in `.exphere/harness/`. Local Go skills live in `.agents/skills/`. Workflow documents live in `.exphere/workflow/`; typed artifacts, including agent configuration DDs in `design/`, live in `.exphere/artifacts/`. The harness also includes project artifacts, evidence, the SDK and CLI, and consumer configuration created on demand. `.agents/` is not the entire harness. The [project context](.agents/CONTEXT.md) records the intended CLI installation and development workflow; project initialization creates identity/private-state metadata; it does not install dependencies or a complete harness automatically.
 
-The SDK remains the separate TypeScript `@exphere/sdk` package; its npm bin bridges delegate to its explicit `@exphere/ex` dependency. The CLI is Go-only in `packages/ex/`, with Cobra, explicit composition, and `src/cmd/ex` plus `src/internal`. Current commands use verbs before runtime IDs. Previous shell CLI adapters/setup and legacy v1 generation/execution are historical and unavailable; the current Go v2 implementation is documented separately. For current behavior see [Go CLI README](packages/ex/README.md). The website's `npx exphere init` copy command is product-facing preview text and does not prove npm publication.
+The SDK remains the separate TypeScript `@exphere/sdk` package; its `ex` bin bridge runs the built executable of its explicit `@exphere/ex` dependency. The CLI is Go-only in `packages/ex/`, with Cobra, explicit composition, the entry point in `src`, and `presentation`, `application`, `domain`, and `infrastructure` directly under `src`. Current commands use verbs before runtime IDs. Previous shell CLI adapters/setup and legacy v1 generation/execution are historical and unavailable; the current Go v2 implementation is documented separately. For current behavior see [Go CLI README](packages/ex/README.md). The website's `npx exphere init` copy command is product-facing preview text and does not prove npm publication.
 
 ## Current Go delivery authorization
 
@@ -71,6 +71,10 @@ The CLI detects tools rather than installing them; loads consumer-built images r
 ### Direct project-local command — subsequent owner decision
 
 The owner subsequently selected one-time shell setup so ordinary usage is `ex --help`, without a `pnpm` prefix. The package CLI exposes `ex` and explicit `ex-shell-setup` bins; SDK bridges forward to the CLI dependency. Source installation currently builds the Go executable with an already installed toolchain. Postinstall never changes profiles or PATH. Only the explicitly invoked setup bin writes a marked project-aware function to the selected Bash/Zsh profile; it resolves the nearest local executable and refuses system-editor fallback. Do not execute personal profile changes during verification. The small `.sh` package bridges and CLI setup/build helpers are authorized by this decision; the CLI implementation remains Go.
+
+### Flat package layout — October 17, 2026 owner request
+
+[SPEC-EX-FLAT-LAYOUT](.exphere/artifacts/specs/0038-SPEC-ex-flat-layout.spec.md) supersedes the bridge and setup parts of the decision above. `packages/ex` keeps only the Go module, `src`, `build.sh`, and its README; `bin/`, `cli/`, `fixtures/`, and `scripts/` are removed, along with the `ex-shell-setup` command and the consumer-harness contract checks. `@exphere/ex` declares no bin; the SDK bridge runs `dist/ex`. Without `internal`, layer boundaries are a convention the compiler does not enforce.
 
 ### Regression coverage — October 17, 2026 owner request
 

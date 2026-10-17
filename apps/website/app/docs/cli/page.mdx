@@ -9,17 +9,17 @@ The `ex` CLI is implemented in Go with Cobra and distributed by the private `@ex
 
 ## Supported commands
 
-After source installation and the explicit one-time Bash/Zsh setup, use the project-local command directly:
+After source installation, a project that depends on `@exphere/sdk` runs the project-local command through its bin:
 
 ```sh
-ex --help
-ex version
+./node_modules/.bin/ex --help
+./node_modules/.bin/ex version
 ```
 
-Help lists the command surface; version prints the current CLI version. For contributors, the direct Go entrypoint is also available:
+Help lists the command surface; version prints the current CLI version. In this repository, run the built `packages/ex/dist/ex` or the Go entry point directly:
 
 ```sh
-go -C packages/ex run ./src/cmd/ex --help
+go -C packages/ex run ./src --help
 ```
 
 ## Configuration and local lifecycle
@@ -28,12 +28,12 @@ The CLI implements project initialization, prerequisite diagnostics, manual/guid
 
 It detects missing tools instead of installing them and loads consumer-built images instead of building them. Application and agent source stays outside runtime units. **Live cluster, Terraform, Kubernetes, and LangGraph Job execution remain operationally unverified.** There is no implemented financial ledger, RAG, or MCP integration.
 
-Source installation requires an existing Go toolchain. It never changes shell profiles automatically. Follow the package reference below for the explicit one-time shell setup; without setup, use `./node_modules/.bin/ex`.
+Source installation requires an existing Go toolchain and never changes shell profiles.
 
 The homepage displays `npx exphere init` as product-facing preview text. It does not establish npm publication or a working initializer.
 
 ## Historical contracts
 
-The former shell implementation and runtime hooks are retired. Surviving schemas, source-contract fixtures, and design documents record earlier work; they do not prove feature parity or a deployed integration.
+The former shell implementation and runtime hooks are retired. The historical schemas and source-contract fixtures were removed on October 17, 2026. Git history and the design documents record that earlier work, which does not prove feature parity or a deployed integration.
 
 Read the [package-owned CLI reference](https://github.com/jonatassales/exphere/blob/main/packages/ex/README.md) for build commands and exact behavior. Use [Concepts](/docs/concepts#microruntimes-compose-around-existing-applications) to understand the intended microruntime boundary.

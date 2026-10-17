@@ -11,7 +11,7 @@
     "lint": "biome lint .",
     "format": "biome format --write .",
     "harness:score": "harness-score",
-    "test": "turbo run test test:hooks test:contracts",
+    "test": "turbo run test test:hooks",
     "test:hooks": "sh .husky/tests.sh",
     "typecheck": "turbo run typecheck"
   },
