@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"context"
 	"errors"
-	"github.com/jonatassales/exphere/packages/ex/src/internal/adapters/process"
-	"github.com/jonatassales/exphere/packages/ex/src/internal/commands"
+	"github.com/exphere/ex/src/internal/presentation/cli"
+	"github.com/exphere/ex/src/internal/presentation/cli/support"
 	"strings"
 	"testing"
 )
@@ -31,7 +31,7 @@ func TestCommand(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			var out, err bytes.Buffer
-			status := commands.Execute(context.Background(), tt.args, commands.Options{Version: version, Runner: process.Runner{}, Directory: t.TempDir(), Output: &out, Diagnostics: &err})
+			status := cli.Execute(context.Background(), tt.args, support.Options{Version: version, Directory: t.TempDir(), Output: &out, Diagnostics: &err}, useCases())
 			if status != tt.status || !strings.Contains(out.String(), tt.stdout) || !strings.Contains(err.String(), tt.stderr) {
 				t.Fatalf("run(%q) = (%d, %q, %q), want status %d and substrings %q, %q", tt.args, status, out.String(), err.String(), tt.status, tt.stdout, tt.stderr)
 			}
@@ -55,7 +55,7 @@ func TestOutputFailure(t *testing.T) {
 	for _, command := range []string{"help", "version"} {
 		t.Run(command, func(t *testing.T) {
 			var diagnostics bytes.Buffer
-			if status := run([]string{command}, failingWriter{}, &diagnostics); status != 1 {
+			if status := cli.Execute(context.Background(), []string{command}, support.Options{Version: version, Output: failingWriter{}, Diagnostics: &diagnostics}, useCases()); status != 1 {
 				t.Fatalf("failed output returned status %d, want 1", status)
 			}
 			if !strings.Contains(diagnostics.String(), "output unavailable") {
