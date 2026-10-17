@@ -72,6 +72,10 @@ The CLI detects tools rather than installing them; loads consumer-built images r
 
 The owner subsequently selected one-time shell setup so ordinary usage is `ex --help`, without a `pnpm` prefix. The package CLI exposes `ex` and explicit `ex-shell-setup` bins; SDK bridges forward to the CLI dependency. Source installation currently builds the Go executable with an already installed toolchain. Postinstall never changes profiles or PATH. Only the explicitly invoked setup bin writes a marked project-aware function to the selected Bash/Zsh profile; it resolves the nearest local executable and refuses system-editor fallback. Do not execute personal profile changes during verification. The small `.sh` package bridges and CLI setup/build helpers are authorized by this decision; the CLI implementation remains Go.
 
+### Regression coverage — October 17, 2026 owner request
+
+[SPEC-EX-REGRESSION-COVERAGE](.exphere/artifacts/specs/0037-SPEC-ex-regression-coverage.spec.md) authorizes new Go unit and component tests beside the packages they exercise in `packages/ex/src`, and corrections for the defects they expose. Tests use in-memory fakes, disposable temporary directories, recorded native-tool invocations, and local `sh` processes only. Docker, kind, Terraform, kubectl, and application scenarios remain outside verification, so live behavior remains unverified. The October 13 delivery's restriction to adapting existing tests does not extend to this scope.
+
 ## Agent skills
 
 Installed skills and local adaptations are described in the [skill configuration](.exphere/artifacts/design/0008-DD-agent-skills.dd.md), [workflow catalog](.exphere/workflow/skills/README.md), and [Go catalog](.agents/skills/README.md); the former skill lock is unavailable. Keep public third-party attribution and accurately report any missing local license material.
